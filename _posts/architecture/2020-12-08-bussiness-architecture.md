@@ -45,8 +45,8 @@ updated_at: 2021/02/25
 **原因：**开发新项目的成本是很高的，做一个优秀的产品更加复杂和昂贵。所以在做MVP的时候，尝试着让产品易用和易改。 <br>
 **言下之意：**一些性能之类的问题可以后面再考虑。<br>
 
-#### use open data, open stardards, open source and open innovation使用公开数据，公开标准，公开源代码，公开创意
- **原则：**use open data, open stardards, open source and open innovation. <br>
+#### use open data, open standards, open source and open innovation使用公开数据，公开标准，公开源代码，公开创意
+ **原则：**use open data, open standards, open source and open innovation. <br>
  **原因：**这个原则提供了一个框架使用公开的方式去技术赋能开发。<br>
  **言下之意：** <br>
 - 采用并扩展存在的公开标准
