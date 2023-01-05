@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="pandas, spark">
+    <meta name="description" content="如何把pandas移植到spark">
+    <meta name="author" content="Kopei">
+    
+    <title>
+        
+            从Pandas到Spark |
+        
+        Kopei&#39;s Home
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+    <link rel="shortcut icon" href="../../../../images/redefine-logo.svg">
+    
+<link rel="stylesheet" href="css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="css/brands.min.css">
+
+    
+<link rel="stylesheet" href="css/solid.min.css">
+
+    
+<link rel="stylesheet" href="css/regular.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="css/css2.css">
+
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"一元复始 万物升辉"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Kopei&#39;s Home
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../index.html" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../index.html" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">从Pandas到Spark</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="../../../../images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Kopei</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2020-07-24 00:00:00</span>
+        <span class="mobile">2020-07-24 00:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/big-data/">big data</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/big-data/">big data</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文主要讨论如何把pandas移植到spark, 他们的dataframe共有一些特性如操作方法和模式。pandas的灵活性比spark强， 但是经过一些改动spark基本上能完成相同的工作。<br>同时又兼具了扩展性的优势，当然他们的语法和用法稍稍有些不同。</p>
+<h2 id="主要不同处："><a href="#主要不同处：" class="headerlink" title="主要不同处："></a>主要不同处：</h2><h3 id="分布式处理"><a href="#分布式处理" class="headerlink" title="分布式处理"></a>分布式处理</h3><p>pandas只能单机处理， 把dataframe放进内存计算。spark是集群分布式地，可以处理的数据可以大大超出集群的内存数。</p>
+<h3 id="懒执行"><a href="#懒执行" class="headerlink" title="懒执行"></a>懒执行</h3><p>spark不执行任何<code>transformation</code>直到需要运行<code>action</code>方法，<code>action</code>一般是存储或者展示数据的操作。这种将<code>transformation</code>延后的做法可以让spark调度知道所有的执行情况，用于优化执行顺序和读取需要的数据。<br>懒执行也是scala的特性之一。通常，在pandas我们总是和数据打交道， 而在spark,我们总是在改变产生数据的执行计划。</p>
+<h3 id="数据不可变"><a href="#数据不可变" class="headerlink" title="数据不可变"></a>数据不可变</h3><p>scala的函数式编程通常倾向使用不可变对象， 每一个spark transformation会返回一个新的dataframe(除了一些meta info会改变）</p>
+<h3 id="没有索引"><a href="#没有索引" class="headerlink" title="没有索引"></a>没有索引</h3><p>spark是没有索引概念的.</p>
+<h3 id="单条数据索引不方便"><a href="#单条数据索引不方便" class="headerlink" title="单条数据索引不方便"></a>单条数据索引不方便</h3><p>pandas可以快速使用索引找到数据，spark没有这个功能，因为在spark主要操作的是执行计划来展示数据， 而不是数据本身。</p>
+<h3 id="spark-sql"><a href="#spark-sql" class="headerlink" title="spark sql"></a>spark sql</h3><p>因为有了SQL功能的支持， spark更接近关系型数据库。</p>
+<h2 id="两者的一些操作例子"><a href="#两者的一些操作例子" class="headerlink" title="两者的一些操作例子"></a>两者的一些操作例子</h2><h3 id="projections"><a href="#projections" class="headerlink" title="projections"></a>projections</h3><p>pandas的投影可以直接通过<code>[]</code>操作</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; person_pd[[&#x27;age&#x27;,&#x27;name&#x27;]]</span><br><span class="line">   age     name</span><br><span class="line">0   23    Alice</span><br><span class="line">1   21      Bob</span><br><span class="line">2   27  Charlie</span><br><span class="line">3   24      Eve</span><br><span class="line">4   19  Frances</span><br><span class="line">5   31   George</span><br></pre></td></tr></table></figure></div>
+
+
+<p>pyspark也可以直接<code>[]</code>来选取投影， 但是这是一个语法糖， 实际是用了<code>select</code>方法</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; res[[&#x27;Quarter&#x27;]].show()</span><br><span class="line">+-------+</span><br><span class="line">|Quarter|</span><br><span class="line">+-------+</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">+-------+</span><br><span class="line">only showing top 20 rows</span><br><span class="line">&gt;&gt;&gt; res.select(&#x27;Quarter&#x27;).show()</span><br><span class="line">+-------+</span><br><span class="line">|Quarter|</span><br><span class="line">+-------+</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">+-------+</span><br><span class="line">only showing top 20 rows</span><br></pre></td></tr></table></figure></div>
+<h3 id="simple-transformations"><a href="#simple-transformations" class="headerlink" title="simple transformations"></a>simple transformations</h3><p><code>select</code>实际上接受任何<code>column</code>对象， 一个<code>column</code>对象概念上是dataframe的一列。一列可以是dataframe的一列输入，也可以是一个计算结果或者多个列的<code>transformation</code>结果。<br>以改变一列为大写为例：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; ret = pd.DataFrame(person_pd[&#x27;name&#x27;].apply(lambda x: x.upper()))</span><br><span class="line">&gt;&gt;&gt; ret</span><br><span class="line">      name</span><br><span class="line">0    ALICE</span><br><span class="line">1      BOB</span><br><span class="line">2  CHARLIE</span><br><span class="line">3      EVE</span><br><span class="line">4  FRANCES</span><br><span class="line">5   GEORGE</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import pyspark.sql.functions as sf</span><br><span class="line"></span><br><span class="line">result = persons.select(</span><br><span class="line">  sf.upper(persons.name)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<h3 id="增加一列"><a href="#增加一列" class="headerlink" title="增加一列"></a>增加一列</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">def create_salutation(row):</span><br><span class="line">  sex = row[0]</span><br><span class="line">  name = row[1]</span><br><span class="line">  if sex == &#x27;male&#x27;:</span><br><span class="line">    return &#x27;Mr &#x27;+name</span><br><span class="line">  else:</span><br><span class="line">    return &quot;Mrs &quot;+name</span><br><span class="line">   </span><br><span class="line">result = persons_pd.copy()</span><br><span class="line">result[&#x27;salutation&#x27;] = result[[&#x27;sex&#x27;,&#x27;name&#x27;]].apply(create_salutation, axis=1, result_type=&#x27;expand&#x27;)</span><br><span class="line">result</span><br><span class="line">age	height	name	sex	salutation</span><br><span class="line">0	23	156	Alice	female	Mrs Alice</span><br><span class="line">1	21	181	Bob	male	Mr Bob</span><br><span class="line">2	27	176	Charlie	male	Mr Charlie</span><br><span class="line">3	24	167	Eve	female	Mrs Eve</span><br><span class="line">4	19	172	Frances	female	Mrs Frances</span><br><span class="line">5	31	191	George	female	Mrs George</span><br></pre></td></tr></table></figure></div>
+<p>spark sql有个控制流方法<code>when</code>可以使代码更简洁， 配合<code>withColumn</code>增加一列</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">result = persons.withColumn(</span><br><span class="line">    &quot;salutation&quot;,</span><br><span class="line">    sf.concat(sf.when(persons.sex == &#x27;male&#x27;, &quot;Mr &quot;).otherwise(&quot;Mrs &quot;), persons.name).alias(&quot;salutation&quot;)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：从Pandas到Spark</li>
+        <li>Post author：Kopei</li>
+        <li>Create time：2020-07-24 00:00:00</li>
+        <li>
+            Post link：https://kopei.github.io/2020/07/24/bigdata-2020-07-24-from-pandas-to-spark/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="../../../../tags/big-data/">#big data</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="../../../08/20/bigdata-2020-08-20-arrow-and-pyarrow/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Arrow and Pyarrow</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="../../23/bigdata-2020-07-23-pyspark-for-pandas/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Pandas UDF and Function Api in Spark</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E4%B8%8D%E5%90%8C%E5%A4%84%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">主要不同处：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%A4%84%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">分布式处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%87%92%E6%89%A7%E8%A1%8C"><span class="nav-number">2.2.</span> <span class="nav-text">懒执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%B8%8D%E5%8F%AF%E5%8F%98"><span class="nav-number">2.3.</span> <span class="nav-text">数据不可变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B2%A1%E6%9C%89%E7%B4%A2%E5%BC%95"><span class="nav-number">2.4.</span> <span class="nav-text">没有索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E6%9D%A1%E6%95%B0%E6%8D%AE%E7%B4%A2%E5%BC%95%E4%B8%8D%E6%96%B9%E4%BE%BF"><span class="nav-number">2.5.</span> <span class="nav-text">单条数据索引不方便</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spark-sql"><span class="nav-number">2.6.</span> <span class="nav-text">spark sql</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E8%80%85%E7%9A%84%E4%B8%80%E4%BA%9B%E6%93%8D%E4%BD%9C%E4%BE%8B%E5%AD%90"><span class="nav-number">3.</span> <span class="nav-text">两者的一些操作例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#projections"><span class="nav-number">3.1.</span> <span class="nav-text">projections</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#simple-transformations"><span class="nav-number">3.2.</span> <span class="nav-text">simple transformations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0%E4%B8%80%E5%88%97"><span class="nav-number">3.3.</span> <span class="nav-text">增加一列</span></a></li></ol></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">Kopei. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2023/01/01 00:00:00
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fa-solid fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="js/utils.js"></script>
+
+<script src="js/main.js"></script>
+
+<script src="js/header-shrink.js"></script>
+
+<script src="js/back2top.js"></script>
+
+<script src="js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="js/local-search.js"></script>
+
+
+
+
+    
+<script src="js/code-copy.js"></script>
+
+
+
+
+    
+<script src="js/lazyload.js"></script>
+
+
+
+
+    
+<script src="js/runtime.js"></script>
+
+    
+<script src="js/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="css/odometer-theme-minimal.css">
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="js/toc-toggle.js"></script>
+
+<script src="js/libs/anime.min.js"></script>
+
+<script src="js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

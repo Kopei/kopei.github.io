@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="ophathalmology, HL7, FHIR">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Kopei">
+    
+    <title>
+        
+            Eyes on FHIR |
+        
+        Kopei&#39;s Home
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+    <link rel="shortcut icon" href="../../../../images/redefine-logo.svg">
+    
+<link rel="stylesheet" href="css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="css/brands.min.css">
+
+    
+<link rel="stylesheet" href="css/solid.min.css">
+
+    
+<link rel="stylesheet" href="css/regular.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="css/css2.css">
+
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"一元复始 万物升辉"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Kopei&#39;s Home
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../index.html" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../index.html" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">Eyes on FHIR</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="../../../../images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Kopei</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2022-11-20 00:00:00</span>
+        <span class="mobile">2022-11-20 00:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/standard/">standard</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/FHIR-Standard/">FHIR, Standard</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="什么是-Eyes-on-FHIR-？"><a href="#什么是-Eyes-on-FHIR-？" class="headerlink" title="什么是 Eyes on FHIR ？"></a>什么是 Eyes on FHIR ？</h1><blockquote>
+<p>从事医疗信息化的朋友可能听说过FHIR(Fast Healthcare Interoperability Resouce), 但是在具体实现和应用上可能没有相关经验。下面这篇文章里，我们一起来看看美国的一个Patient Care project在眼科是怎么落地FHIR的。</p>
+</blockquote>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>2020年美国《21世纪医疗法》最终法规要求健康技术供应商必须支持2个公开的API能够使患者访问自己的健康数据。这两个API需要遵循HL7 FHIR标准。随着社区力量的驱动，FHIR的流行度和成熟度在美国逐渐成型，使得健康信息数据互操作性得到了很大的提升。</p>
+<h2 id="Eyes-on-FHIR的目的"><a href="#Eyes-on-FHIR的目的" class="headerlink" title="Eyes on FHIR的目的"></a>Eyes on FHIR的目的</h2><p>虽然在美国FHIR的发展有很大进展，但是真实世界项目的落地尤其是临床专科的应用仍十分有限，主要原因是没有统一的实施指引（Implementation Guidance)。所以这个项目的目标就是开发必要的国际标准使FHIR能够真正地给某个专科带来价值。此项目的实施方式主要通过把眼科尽量全面的临床词典映射到FHIR格式，最后形成实施标准来帮助实现系统间的互联互通。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://confluence.hl7.org/download/attachments/82914199/image2021-8-7_14-15-43.png?version=1&modificationDate=1628309743891&api=v2"
+                     
+                ></p>
+<p>具体流程如下：</p>
+<ol>
+<li><p>列出一系列眼科真实世界的用例，尤其是有互操作性痛点的案例。用例的形式需要考虑如下情形：</p>
+<ul>
+<li>涉及的元素<ul>
+<li>Actors 操作人</li>
+<li>Pre-condition 先决条件</li>
+<li>Workflow 工作流</li>
+<li>Post-condition 后置条件</li>
+<li>Exceptions 例外</li>
+<li>Data elements 数据元素</li>
+<li>Necessary commentary 必要的备注</li>
+</ul>
+</li>
+<li>专用词汇的定义<ul>
+<li>FHIR 资源</li>
+<li>临床专业术语， 如SNOMED-CT, LOINC, DICOM</li>
+</ul>
+</li>
+<li>局限和差距的发现<ul>
+<li>临床上，在某些地方的设备代码并不全面</li>
+<li>如何做FHIR profile</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>收集和整理如上信息，包括编码系统等。</p>
+</li>
+<li><p>把上述信息转化为FHIR Profiles, 配置是否是必须项。</p>
+</li>
+<li><p>开发实施指引IG, 甄别如何使用FHIR资源解决某个特定的互操作性问题。</p>
+</li>
+<li><p>发布实施指引</p>
+</li>
+<li><p>参加三年一次的技术连接会，演示用例和测试互操作性。</p>
+</li>
+<li><p>参加三年一次的HL7-FHIR投票，获准正式发布实施指引。</p>
+</li>
+<li><p>转化IG, 让更多真实世界的案例可以使用此指引。</p>
+</li>
+</ol>
+<h2 id="项目预期结果"><a href="#项目预期结果" class="headerlink" title="项目预期结果"></a>项目预期结果</h2><ul>
+<li>建立治理、质控和伦理的原则；促成眼科相关各界人事代表组成委员会共同发展未来路线图。</li>
+<li>临床和研究影响力。作为第一个临床专科实施项目，藉此机会展示FHIR的临床好处；记录可以重复利用的技术、协议、流程等材料。</li>
+</ul>
+<h2 id="此项目使用的场景"><a href="#此项目使用的场景" class="headerlink" title="此项目使用的场景"></a>此项目使用的场景</h2><ol>
+<li>日常临床关护沟通相关；病人旅程相关，比如：纵向病患旅程；异步通信；远程医疗设备等</li>
+<li>医师临床工具， 如SMART app&#x2F;CDS hooks&#x2F;integrating remote monitoring</li>
+<li>患者注册数据收集， 如批量数据导出</li>
+<li>临床工作流优化，如自动支付、审计、优先授权、行政管理。</li>
+<li>辅助生命科学和研发，如辅助临床招募，数据统一。</li>
+<li>AI图像诊断工作流，如下图：</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://confluence.hl7.org/download/attachments/82914199/image2021-8-8_10-3-20.png?version=1&modificationDate=1628381000230&api=v2"
+                     
+                ></p>
+<h2 id="具体细节功能"><a href="#具体细节功能" class="headerlink" title="具体细节功能"></a>具体细节功能</h2><ol>
+<li>Providing guidance for the FHIR representation of a comprehensive set of codified <strong>clinical findings</strong> to facilitate interoperable exchange of these data elements between systems.</li>
+<li>Providing guidance for the FHIR representation of a comprehensive set of codified <strong>diagnoses</strong> to facilitate interoperable exchange of these data elements between systems.</li>
+<li>Providing guidance for the FHIR representation of a comprehensive set of codified <strong>retinal therapeutics</strong> to facilitate interoperable exchange of these data elements between systems.</li>
+<li>Exchanging information between and EHR (&#x2F;PMS) and a diagnostic device where:<br>EHR Supports DICOM Modality Worklist, Storage and Display (With <strong>no PACS</strong>)<br>Based on IHE’s Unified Eyecare Workflow ‘real world model’ (RWM) II</li>
+<li>Exchanging information between and EHR (&#x2F;PMS) and a diagnostic device where:<br>EHR Supports DICOM Modality Worklist and Integrates with a <strong>PACS</strong><br>Based on IHE’s Unified Eyecare Workflow ‘real world model’ (RWM) I</li>
+<li>Exchanging information between and EHR (&#x2F;PMS) and a diagnostic device where:<br>EHR Implements HL7 Only (<strong>no DICOM</strong> support) and Integrates with a PACS)<br>Based on IHE’s Unified Eyecare Workflow ‘real world model’ (RWM) III</li>
+<li>Sending a referral containing clinical information from and&#x2F;or to any combination of the following practitioners: ophthalmologist, optometrist, general practitioner, specialist</li>
+<li>Sending a referral from a clinician to a healthcare service (eg - an ambulatory service centre when booking for cataract surgery.</li>
+<li>Exchanging information between and EHR and a clinical registry (eg - FRB!) - where:<br>The registry is highly structured；Not all registry required data points are routinely captured in a structured format in the EHR；Patient details must be de-identified.</li>
+<li>Sending in bulk either all or part of an entire clinical record to a clinical registry.</li>
+<li>Sending select data elements from select patients (de-identified) in bulk to a research institute &#x2F; life science body.</li>
+<li>The <strong>referral</strong> of a patient to a clinical trial.</li>
+<li>Automating prior authorization for anti-VEGF injections.</li>
+<li>Real time clinical trial recruitment using <strong>CDS</strong> hooks (eg for treatment-naive wet-AMD)</li>
+<li>SMART on FHIR app to compile and display relevant information into a single screen &#x2F; application</li>
+</ol>
+<h4 id="外部链接"><a href="#外部链接" class="headerlink" title="外部链接"></a>外部链接</h4><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://confluence.hl7.org/pages/viewpage.action?pageId=82914199" >Eyes on FHIR<i class="fa-solid fa-up-right-from-square"></i></a></li>
+</ul>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：Eyes on FHIR</li>
+        <li>Post author：Kopei</li>
+        <li>Create time：2022-11-20 00:00:00</li>
+        <li>
+            Post link：https://kopei.github.io/2022/11/20/Standard-2022-11-20-Eyes-on-FHIR/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="../../../../tags/FHIR-Standard/">#FHIR, Standard</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="../../../12/05/Healthcare-2022-12-05-what-is-biomarker/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">什么是生物标志物Biomarker?</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="../../07/AI-2022-11-07-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">集成学习</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Eyes-on-FHIR-%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是 Eyes on FHIR ？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Eyes-on-FHIR%E7%9A%84%E7%9B%AE%E7%9A%84"><span class="nav-number">1.2.</span> <span class="nav-text">Eyes on FHIR的目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E9%A2%84%E6%9C%9F%E7%BB%93%E6%9E%9C"><span class="nav-number">1.3.</span> <span class="nav-text">项目预期结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A4%E9%A1%B9%E7%9B%AE%E4%BD%BF%E7%94%A8%E7%9A%84%E5%9C%BA%E6%99%AF"><span class="nav-number">1.4.</span> <span class="nav-text">此项目使用的场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E7%BB%86%E8%8A%82%E5%8A%9F%E8%83%BD"><span class="nav-number">1.5.</span> <span class="nav-text">具体细节功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E9%93%BE%E6%8E%A5"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">外部链接</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">Kopei. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2023/01/01 00:00:00
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fa-solid fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="js/utils.js"></script>
+
+<script src="js/main.js"></script>
+
+<script src="js/header-shrink.js"></script>
+
+<script src="js/back2top.js"></script>
+
+<script src="js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="js/local-search.js"></script>
+
+
+
+
+    
+<script src="js/code-copy.js"></script>
+
+
+
+
+    
+<script src="js/lazyload.js"></script>
+
+
+
+
+    
+<script src="js/runtime.js"></script>
+
+    
+<script src="js/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="css/odometer-theme-minimal.css">
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="js/toc-toggle.js"></script>
+
+<script src="js/libs/anime.min.js"></script>
+
+<script src="js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

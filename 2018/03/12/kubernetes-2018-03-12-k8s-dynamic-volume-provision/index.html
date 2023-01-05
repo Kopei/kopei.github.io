@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="kubernetes">
+    <meta name="description" content="记录在阿里云使用动态pv">
+    <meta name="author" content="Kopei">
+    
+    <title>
+        
+            在云上使用k8s动态PV |
+        
+        Kopei&#39;s Home
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+    <link rel="shortcut icon" href="../../../../images/redefine-logo.svg">
+    
+<link rel="stylesheet" href="css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="css/brands.min.css">
+
+    
+<link rel="stylesheet" href="css/solid.min.css">
+
+    
+<link rel="stylesheet" href="css/regular.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="css/css2.css">
+
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"一元复始 万物升辉"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Kopei&#39;s Home
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../index.html" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../index.html" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">在云上使用k8s动态PV</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="../../../../images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Kopei</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2018-03-12 00:00:00</span>
+        <span class="mobile">2018-03-12 00:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/kubernetes/">kubernetes</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/kubernetes/">kubernetes</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <blockquote>
+<p><a class="link"   target="_blank" rel="noopener" href="https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/" >https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/<i class="fa-solid fa-up-right-from-square"></i></a></p>
+</blockquote>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>动态卷配置允许按需创建存储卷。如果没有动态配置，管理员必须手动配置创建新的存储， 然后创建PV对象。动态卷配置的功能能让管理员不必预先配置存储。<br>而是当用户需要的时候自动配置存储。它可以按用户需要的用量配置存储空间，不像静态那样可能出现超额分配用量。</p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>动态配置数据卷的实现是基于<code>StorageClass</code>API对象。管理员可以配置很多<code>StorageClass</code>对象，每一个都可以指定一个存储供应商。管理员可以给一个<br>集群定义和暴露多个存储，每一个都有不同的参数配置。这样能减轻配置存储的复杂度，使用户简单选择存储服务。</p>
+<h3 id="开启动态配置数据卷"><a href="#开启动态配置数据卷" class="headerlink" title="开启动态配置数据卷"></a>开启动态配置数据卷</h3><ul>
+<li>首先需要创建StorageClass对象, 可以指定使用哪个供应商和那些参数，如下例：<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">slow</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/gce-pd</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">pd-standard</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">fast</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/gce-pd</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">pd-ssd</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<p>如果使用aliyun的NAS作为provisioner, 需要先安装aliyun nas的插件</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-nas</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">alicloud/nas</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1beta1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">run-alicloud-nas-controller</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">    <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-disk-controller-runner</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">strategy:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">Recreate</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">tolerations:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">effect:</span> <span class="string">NoSchedule</span></span><br><span class="line">        <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">node-role.kubernetes.io/master</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">effect:</span> <span class="string">NoSchedule</span></span><br><span class="line">        <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">node.cloudprovider.kubernetes.io/uninitialized</span></span><br><span class="line">      <span class="attr">nodeSelector:</span></span><br><span class="line">         <span class="attr">node-role.kubernetes.io/master:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">      <span class="attr">serviceAccount:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">registry.cn-hangzhou.aliyuncs.com/acs/alicloud-nas-controller:v1.8.4</span></span><br><span class="line">          <span class="attr">volumeMounts:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nfs-client-root</span></span><br><span class="line">              <span class="attr">mountPath:</span> <span class="string">/persistentvolumes</span></span><br><span class="line">          <span class="attr">env:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">PROVISIONER_NAME</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">alicloud/nas</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">NFS_SERVER</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">0cd8b4a576-mmi32.cn-hangzhou.nas.aliyuncs.com</span>  <span class="comment"># 指定创建的NAS挂载点</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">NFS_PATH</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">/</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nfs-client-root</span></span><br><span class="line">          <span class="attr">nfs:</span></span><br><span class="line">            <span class="attr">server:</span> <span class="string">0cd8b4a576-mmi32.cn-hangzhou.nas.aliyuncs.com</span>   <span class="comment"># 指定创建的NAS挂载点</span></span><br><span class="line">            <span class="attr">path:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="使用动态配置数据卷"><a href="#使用动态配置数据卷" class="headerlink" title="使用动态配置数据卷"></a>使用动态配置数据卷</h3><p>用户需要在PVC指定<code>StorageClassName</code>, 如下</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">claim1</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">fast</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">30Gi</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="设置默认动态配置"><a href="#设置默认动态配置" class="headerlink" title="设置默认动态配置"></a>设置默认动态配置</h3><p>如果有个用户在<code>PersistentVolumeClaim</code>没有指定<code>storageClassName</code>， 那么可以配置默认的<code>storageClassName</code>使用。具体是在创建的<code>storageClassName</code>中annotation<br><code>storageclass.kubernetes.io/is-default-class</code></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：在云上使用k8s动态PV</li>
+        <li>Post author：Kopei</li>
+        <li>Create time：2018-03-12 00:00:00</li>
+        <li>
+            Post link：https://kopei.github.io/2018/03/12/kubernetes-2018-03-12-k8s-dynamic-volume-provision/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="../../../../tags/kubernetes/">#kubernetes</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="../../13/kubernetes-2018-03-13-k8s-manage-resource/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">K8S管理容器的计算资源</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="../kubernetes-2018-03-12-k8s-pull-private-image/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">K8S使用私有镜像</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="nav-number">3.</span> <span class="nav-text">开启动态配置数据卷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="nav-number">4.</span> <span class="nav-text">使用动态配置数据卷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">设置默认动态配置</span></a></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">Kopei. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2023/01/01 00:00:00
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fa-solid fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="js/utils.js"></script>
+
+<script src="js/main.js"></script>
+
+<script src="js/header-shrink.js"></script>
+
+<script src="js/back2top.js"></script>
+
+<script src="js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="js/local-search.js"></script>
+
+
+
+
+    
+<script src="js/code-copy.js"></script>
+
+
+
+
+    
+<script src="js/lazyload.js"></script>
+
+
+
+
+    
+<script src="js/runtime.js"></script>
+
+    
+<script src="js/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="css/odometer-theme-minimal.css">
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="js/toc-toggle.js"></script>
+
+<script src="js/libs/anime.min.js"></script>
+
+<script src="js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

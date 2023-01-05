@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="mysql">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Kopei">
+    
+    <title>
+        
+            MySQL 5.7 性能调优 |
+        
+        Kopei&#39;s Home
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+    <link rel="shortcut icon" href="../../../../images/redefine-logo.svg">
+    
+<link rel="stylesheet" href="css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="css/brands.min.css">
+
+    
+<link rel="stylesheet" href="css/solid.min.css">
+
+    
+<link rel="stylesheet" href="css/regular.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="css/css2.css">
+
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"一元复始 万物升辉"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Kopei&#39;s Home
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../index.html" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../index.html" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">MySQL 5.7 性能调优</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="../../../../images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Kopei</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2018-06-27 00:00:00</span>
+        <span class="mobile">2018-06-27 00:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/database/">database</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/mysql/">mysql</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在使用<code>new relic</code>监控发现有个sql update花了30s, 于是开启了数据库优化的路径…</p>
+<h3 id="优化原则"><a href="#优化原则" class="headerlink" title="优化原则"></a>优化原则</h3><p>数据库性能优化有两个层面: 数据库本身层面和硬件层面. 两个层面的优化原则各不相同</p>
+<ol>
+<li>数据库本身优化原则:</li>
+</ol>
+<ul>
+<li>表结构是否合理? 更新较多的应用表设计时需要设置多表但是较少的列. 查询较多的应用应该设置较少的表但是列较多.</li>
+<li>索引是否设置合理?</li>
+<li>存储引擎是否选择合理</li>
+<li>列的类型是否选择合理, 较少的磁盘需求意味着较少的I&#x2F;O.</li>
+<li>并发控制的锁策略是否合理?</li>
+<li>用于缓存的内存是否设置合理?</li>
+</ul>
+<ol start="2">
+<li>硬件优化原则:</li>
+</ol>
+<h3 id="SQL语句优化"><a href="#SQL语句优化" class="headerlink" title="SQL语句优化"></a>SQL语句优化</h3><p>优化SQL时主要需要考虑的问题有:</p>
+<ul>
+<li>是否在where语句后面的列是否加了索引, mysql5.7是会给外键自动加索引的,但是在使用join或外键查询时还是最好explain一下,看看执行计划.</li>
+<li>分步调试查询的每一部分.</li>
+<li>对于大表, 尽量减少全表查询</li>
+<li><code>ANALYZE TABLE</code>, 尽量保持<code>statistics table</code>统计表更新, 让优化器使用这些统计信息去构建更高效的执行计划.</li>
+<li>需要学习调优技巧, 如索引技巧, 各种存储引擎的参数配置.</li>
+</ul>
+<h3 id="开启慢sql查询日志"><a href="#开启慢sql查询日志" class="headerlink" title="开启慢sql查询日志"></a>开启慢sql查询日志</h3><p>mysql可以开启慢sql查询的log, 只要sql执行超过<code>long_query_time</code>时间, 同时影响超过<code>min_examined_row_limit</code>行数, 这个慢sql就会被记录. </p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">MySQL [(<span class="keyword">none</span>)]<span class="operator">&gt;</span> <span class="keyword">show</span> variables <span class="keyword">like</span> <span class="string">&#x27;long_query_time&#x27;</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">-----------------+-----------+</span></span><br><span class="line"><span class="operator">|</span> Variable_name   <span class="operator">|</span> <span class="keyword">Value</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-----------------+-----------+</span></span><br><span class="line"><span class="operator">|</span> long_query_time <span class="operator">|</span> <span class="number">10.000000</span> <span class="operator">|</span>  <span class="operator">/</span><span class="operator">/</span>对于文件精细度是毫秒, 对于表精细度是秒</span><br><span class="line"><span class="operator">+</span><span class="comment">-----------------+-----------+</span></span><br><span class="line">MySQL [(<span class="keyword">none</span>)]<span class="operator">&gt;</span> <span class="keyword">show</span> variables <span class="keyword">like</span> <span class="string">&#x27;min_examined_row_limit&#x27;</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> Variable_name          <span class="operator">|</span> <span class="keyword">Value</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> min_examined_row_limit <span class="operator">|</span> <span class="number">0</span>     <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------------------+-------+</span></span><br></pre></td></tr></table></figure></div>
+<p>默认情况下, admin的管理查询语句是不会被记录在log, 但是可以被<code>log_slow_admin_statements</code>和<code>log_queries_not_using_indexes</code>修改配置.<br>慢log记录的执行时间是从获取锁的时间开始了, 直到运行完语句然后释放所有锁.所以获取锁的执行时间是不会被记录.<br>默认情况下, 慢查询log会记录所有使用非索引查询的慢语句, 这可能会导致log变得很大, 所以可以设置<code>log_queries_not_using_indexes</code>忽略这些使用非索引查询的语句. 或者使用<code>log_throttle_queries_not_using_indexes</code>来限制每分钟记录多少条非索引慢查询记录. mysql server使用如下控制参数顺序来控制一个查询语句是否写入慢查询log:</p>
+<ul>
+<li>是否是管理sql语句, 或者开启了<code>log_slow_admin_statements</code></li>
+<li><code>long_query_time</code>必须被满足,或者<code>log_queries_not_using_indexes</code>被使能, 非索引查询语句也会被写入log</li>
+<li>满足<code>min_examined_row_limit</code>行数</li>
+<li>那些满足<code>log_throttle_queries_not_using_indexes</code>的查询<br><code>log_timestamps</code>控制了写入慢查询log<strong>文件</strong>的时区, 但是不会影响通用查询log和写入数据库的log.<br>在cache中满足慢语句的sql是不会写入log, 默认情况下复制的从机也不会记录log.<br>收集完log后, 可以使用<a class="link"   target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/mysqldumpslow.html" >mysqldumpslow<i class="fa-solid fa-up-right-from-square"></i></a>来查看.<br>所以为了开启慢查询log, 在my.cnf设置如下代码:<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">mysqld</span>]</span><br><span class="line"><span class="string">slow_query_log</span>                  <span class="string">=</span> <span class="number">1</span></span><br><span class="line"><span class="string">slow_query_log_file</span>             <span class="string">=</span> <span class="string">/var/log/mysql/slow.log</span></span><br><span class="line"><span class="string">long_query_time</span>                 <span class="string">=</span> <span class="number">5</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h3 id="增加最大客户端连接数"><a href="#增加最大客户端连接数" class="headerlink" title="增加最大客户端连接数"></a>增加最大客户端连接数</h3><p><code>max_connections</code>指定允许的同时连接客户端, 默认是151(实际最大连接数会+1, 多出来的是给admin使用). 改变这个值会影响mysqld的文件描述符的需求. 如果所需的fd不能满足,server会自动减少这个值.所以一味增大连接数但是不改变<code>table_open_cache</code>可能不能提升性能, 同时还需要确保<code>table_open_cache</code>的值能被操作系统满足.<br><strong>关于mysql如何打开和关闭表</strong> 为了提升性能, 每一个client session会单独打开一个table. <code>table_open_cache</code>和<code>max_connections</code>系统变量决定了最大数量文件可以被打开. 比如如果有200个并发连接, 每个连接最大的表join是N, 那么起码应该设置<code>table_open_cache</code>为200*N + 额外的一定数量. 那么什么时候mysql会关闭不使用的表呢? 会有如下情况表会被关闭:</p>
+<ul>
+<li>cache满了, 新的线程想要打开新的table但是不在cache中</li>
+<li>当前cache中条目超过了<code>table_open_cache</code>设置, 不再被线程使用table将会被关闭.</li>
+<li>使用flush的命名. 可以是<code>flush table</code>&#x2F;<code>mysqladmin flushtables</code>&#x2F;<code>mysqladmin refresh</code>.<br>如果cache满了, mysql怎么分配的table cache呢? 这时候会分配临时cache, 具体是怎么做的还未知.<br>查询当前表打开的状态, <code>open_tables</code>和<code>opened_tables</code>, 如果<code>opened_tables &gt; table_open_cache</code>应该考虑增大<code>table_open_cache</code>.<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">MySQL [(<span class="keyword">none</span>)]<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">global</span> status <span class="keyword">like</span> <span class="string">&#x27;open%tables%&#x27;</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">---------------+-------+</span></span><br><span class="line"><span class="operator">|</span> Variable_name <span class="operator">|</span> <span class="keyword">Value</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------+-------+</span></span><br><span class="line"><span class="operator">|</span> Open_tables   <span class="operator">|</span> <span class="number">1352</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> Opened_tables <span class="operator">|</span> <span class="number">1457</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------+-------+</span></span><br><span class="line">MySQL [(<span class="keyword">none</span>)]<span class="operator">&gt;</span> <span class="keyword">show</span> variables <span class="keyword">like</span> <span class="string">&#x27;table_open_cache&#x27;</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> Variable_name    <span class="operator">|</span> <span class="keyword">Value</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------------+-------+</span></span><br><span class="line"><span class="operator">|</span> table_open_cache <span class="operator">|</span> <span class="number">2000</span>  <span class="operator">|</span>  </span><br><span class="line"><span class="operator">+</span><span class="comment">------------------+-------+</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h3 id="增加线程缓存"><a href="#增加线程缓存" class="headerlink" title="增加线程缓存"></a>增加线程缓存</h3><p>mysql可以缓存线程, 用于下次用户连接. <code>thread_cache_size</code>默认是-1, 通过<code>8 + (max_connections / 100)</code>计算出. 如果<code>threads_created</code>&#x2F;<code>connections</code>过大, 可以考虑增大<code>thread_cache_size</code>.</p>
+<h3 id="通用和结构化系统变量"><a href="#通用和结构化系统变量" class="headerlink" title="通用和结构化系统变量"></a>通用和结构化系统变量</h3><p>mysql支持一种结构化的变量类型, 用于控制key cache的参数. 结构化的系统变量有两个特点:</p>
+<ul>
+<li>它的值由一些系统的参数组成</li>
+<li>每一个结构化变量类型都可能有多个实例, 每个实例有不同的名称和不同的资源.<br>一个结构化的key cache变量有如下组件组成, 这些参数可能和MyISAM密切相关:</li>
+<li>key_buffer_size</li>
+<li>key_cache_block_size</li>
+<li>key_cache_division_limit</li>
+<li>key_cache_age_threshold</li>
+</ul>
+<h3 id="配置Innodb-buffer-pool-size"><a href="#配置Innodb-buffer-pool-size" class="headerlink" title="配置Innodb_buffer_pool_size"></a>配置Innodb_buffer_pool_size</h3>
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：MySQL 5.7 性能调优</li>
+        <li>Post author：Kopei</li>
+        <li>Create time：2018-06-27 00:00:00</li>
+        <li>
+            Post link：https://kopei.github.io/2018/06/27/database-mysql-2018-06-27-mysql5-7性能调优/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="../../../../tags/mysql/">#mysql</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="../../../07/20/python-2018-07-20-luiqi-base/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Luigi基础概念</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="../../../05/14/cloud-2018-05-14-aliyun-sge/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">使用阿里云的批量计算做SGE</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%8E%9F%E5%88%99"><span class="nav-number">1.1.</span> <span class="nav-text">优化原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E8%AF%AD%E5%8F%A5%E4%BC%98%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">SQL语句优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E6%85%A2sql%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number">1.3.</span> <span class="nav-text">开启慢sql查询日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0%E6%9C%80%E5%A4%A7%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">增加最大客户端连接数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0%E7%BA%BF%E7%A8%8B%E7%BC%93%E5%AD%98"><span class="nav-number">1.5.</span> <span class="nav-text">增加线程缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E5%92%8C%E7%BB%93%E6%9E%84%E5%8C%96%E7%B3%BB%E7%BB%9F%E5%8F%98%E9%87%8F"><span class="nav-number">1.6.</span> <span class="nav-text">通用和结构化系统变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEInnodb-buffer-pool-size"><span class="nav-number">1.7.</span> <span class="nav-text">配置Innodb_buffer_pool_size</span></a></li></ol></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">Kopei. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2023/01/01 00:00:00
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fa-solid fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="js/utils.js"></script>
+
+<script src="js/main.js"></script>
+
+<script src="js/header-shrink.js"></script>
+
+<script src="js/back2top.js"></script>
+
+<script src="js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="js/local-search.js"></script>
+
+
+
+
+    
+<script src="js/code-copy.js"></script>
+
+
+
+
+    
+<script src="js/lazyload.js"></script>
+
+
+
+
+    
+<script src="js/runtime.js"></script>
+
+    
+<script src="js/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="css/odometer-theme-minimal.css">
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="js/toc-toggle.js"></script>
+
+<script src="js/libs/anime.min.js"></script>
+
+<script src="js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

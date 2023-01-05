@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="mysql">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Kopei">
+    
+    <title>
+        
+            Mysql 索引总结 |
+        
+        Kopei&#39;s Home
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+    <link rel="shortcut icon" href="../../../../images/redefine-logo.svg">
+    
+<link rel="stylesheet" href="css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="css/brands.min.css">
+
+    
+<link rel="stylesheet" href="css/solid.min.css">
+
+    
+<link rel="stylesheet" href="css/regular.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="css/css2.css">
+
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"一元复始 万物升辉"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Kopei&#39;s Home
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../index.html" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../index.html" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">Mysql 索引总结</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="../../../../images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Kopei</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2019-06-29 08:30:00</span>
+        <span class="mobile">2019-06-29 08:30</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/database/">database</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/mysql/">mysql</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="mysql索引的作用和意义"><a href="#mysql索引的作用和意义" class="headerlink" title="mysql索引的作用和意义"></a>mysql索引的作用和意义</h2><p>当我们使用sql语句查询时往往要加where, 使用索引我们可以快速查找到满足where条件的行. </p>
+<h3 id="mysql如何使用索引"><a href="#mysql如何使用索引" class="headerlink" title="mysql如何使用索引"></a>mysql如何使用索引</h3><p>mysql大部分索引使用B-tree, 例如(PRIMARY KEY, UNIQUE, INDEX, FULLTEXT); 空间数据类型使用R-tree; 内存表还支持hash索引, InnoDB使用反向列表(inverted list)作为FULLTEXT的索引.</p>
+<p>mysql会在做如下操作时用到索引:</p>
+<ul>
+<li>使用索引快速找到满足where条件语句的行.</li>
+<li>如果在查找时有多个索引选择, mysql使用那个能找到最少数据行的索引.</li>
+<li>如果使用多列索引, 最左边的列将被用于优化.</li>
+<li>在执行join其它表的时候</li>
+<li>计算有索引的列min(),max()时</li>
+<li>当使用最左边的索引排序和分组表时</li>
+</ul>
+<h3 id="如何使用主键索引"><a href="#如何使用主键索引" class="headerlink" title="如何使用主键索引"></a>如何使用主键索引</h3><p>作为查询条件使用最多的列可以设置为主键(Primary key). 主键有附属索引, 用于提升查询性能.主键是不能为空的,所以性能也比较好. 如果表比较大, 同时又不知道选哪个列作为索引时, 可以创建一个自增的列作为索引. 用这个列作为其他表的外键方便join.</p>
+<h3 id="如何使用外键优化表查询"><a href="#如何使用外键优化表查询" class="headerlink" title="如何使用外键优化表查询"></a>如何使用外键优化表查询</h3><p>有时候如果有一个张大表, 可以把这张大表分成若干小表, 把不太常用的字段放在一起, 通过外键和主表关联, 这样子表既有主键用于快速查询又可以做join操作. 查询也可能使用更少的内存和IO, 因为相应的数据列都已经物理上在一起了.</p>
+<h3 id="普通列索引"><a href="#普通列索引" class="headerlink" title="普通列索引"></a>普通列索引</h3><p>最常见的索引是单列索引, mysql把列的值复制一份在数据结构, 用于快速查询.大部分数据结构采用B-tree, 可以快速定位到单个值, 一组值或值的范围. 在sql where语句对应<code>=, &gt;, &lt;=, BETWEEN, IN</code>等等.</p>
+<p>每个存储引擎的定义了每张表的索引最大值和最大长度. 基本上, 所有存储引擎至少支持16个索引和单个索引256字节以上.</p>
+<h4 id="TEXT-x2F-BLOB的索引"><a href="#TEXT-x2F-BLOB的索引" class="headerlink" title="TEXT&#x2F;BLOB的索引"></a>TEXT&#x2F;BLOB的索引</h4><p><code>Index Prefixes</code>指在文本类型上创建索引时, 可以指定这个字段的开头一部分N个字节作为索引, 这样索引的长度将被限制, 特别适用于TEXT&#x2F;BLOB这样没有长度的字段上.</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test (blob_col <span class="type">BLOB</span>, index(blob_col(<span class="number">10</span>)))</span><br></pre></td></tr></table></figure></div>
+<p>如果一个查询超出<code>index prefixes</code>的长度, 超出的部分将会被排除.</p>
+<h3 id="多列索引"><a href="#多列索引" class="headerlink" title="多列索引"></a>多列索引</h3><p>mysql可以在多个列上创建索引. 一个索引最多可以有16个列组成. 使用多列索引的好处是你只需要创建一个索引,就可以享受到多个查询条件快速命中的优点.<br>使用多列作为索引查询时, mysql可以检查索引中的所有列, 也可以只检查第一个列, 头二个列, 或头三个列.所以正确的定义复合索引的顺序可以加速好几种情况的查询.<br>一个多列索引可以被当成是一个排序的数组, 索引的值是多个列的值<code>CONCAT</code>后的hash, 等同于没有多列索引时, 自己创建一个hash几个列值的字段, 这样就可以快速查询:</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> hash_col<span class="operator">=</span>MD5(CONCAT(val1, val2))</span><br><span class="line"><span class="keyword">and</span> col1<span class="operator">=</span>val1 <span class="keyword">and</span> col2<span class="operator">=</span>val2;</span><br></pre></td></tr></table></figure></div>
+
+<p>假设有如下表:</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test (</span><br><span class="line">  id <span class="type">int</span> <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">  last_name <span class="type">char</span>(<span class="number">30</span>) <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">  first_name <span class="type">char</span>(<span class="number">30</span>) <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">  <span class="keyword">primary</span> key(id),</span><br><span class="line">  index name (last_name, first_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></div>
+<p><code>name</code>索引是<code>last_name</code>和<code>first_name</code>的组合索引. 所以各种<code>last_name</code>和<code>first_name</code>的组合查询都可以使用到索引. 但是只有<code>last_name</code>可以作为单独查询条件, 因为只有最左边的索引值才能被优化器(<code>optimizer</code>)使用. 索引如下都是会使用到索引:</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">and</span> first_name<span class="operator">=</span><span class="string">&#x27;Micheal&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">and</span> first_name <span class="operator">&gt;=</span> <span class="string">&#x27;M&#x27;</span> <span class="keyword">and</span> first_name <span class="operator">&lt;</span> <span class="string">&#x27;N&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">and</span> (first_name <span class="operator">=</span> <span class="string">&#x27;Micheal&#x27;</span> <span class="keyword">or</span> first_name<span class="operator">=</span><span class="string">&#x27;Monty&#x27;</span>);</span><br></pre></td></tr></table></figure></div>
+<p>但是如下查询是不会使用到<code>name</code>索引的:</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> first_name<span class="operator">=</span><span class="string">&#x27;Micheal&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name<span class="operator">=</span><span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">or</span> first_name <span class="operator">=</span> <span class="string">&#x27;Micheal&#x27;</span>;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="单列索引和多列索引的区别"><a href="#单列索引和多列索引的区别" class="headerlink" title="单列索引和多列索引的区别"></a>单列索引和多列索引的区别</h4><p>假设有如下查询:</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table_name <span class="keyword">where</span> col1<span class="operator">=</span>val1 <span class="keyword">and</span> col2<span class="operator">=</span>val2;</span><br></pre></td></tr></table></figure></div>
+<p>如果有一个由col1和col2组成的多列索引, 那么满足条件的行会快速被找到. 那么如果col1和col2分别采用单列索引那么优化器将会尝试合并索引,或者使用单个索引, 具体使用哪个索引取决于哪个索引能够排除更多的行.</p>
+<h4 id="多列索引最左列优化"><a href="#多列索引最左列优化" class="headerlink" title="多列索引最左列优化"></a>多列索引最左列优化</h4><p>多列索引中最左列会被优化器用于快速查找行, 假设有一个三列索引(col1, col2, col3), 那么(col1), (col1, col2)和(col1, col2, col3)这样的查询组合将会使用到索引.</p>
+<h3 id="检查索引的使用正确性"><a href="#检查索引的使用正确性" class="headerlink" title="检查索引的使用正确性"></a>检查索引的使用正确性</h3><p>使用<code>explain</code>查看sql语句的执行计划, 可以了解索引是否被正确使用. 如果怀疑优化器没有按最佳的执行计划执行语句, 可以<code>ANALYZE TABLE</code>更新表的统计.</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：Mysql 索引总结</li>
+        <li>Post author：Kopei</li>
+        <li>Create time：2019-06-29 08:30:00</li>
+        <li>
+            Post link：https://kopei.github.io/2019/06/29/database-mysql-2019-06-29-mysql-index/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="../../../../tags/mysql/">#mysql</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="../../../../2020/06/30/AI-2020-06-30-Rough-sets/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Classic Rough sets translation</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="../../../04/19/frontend-2019-04-19-D3-selection/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">D3-selection总结</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E6%84%8F%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">mysql索引的作用和意义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.</span> <span class="nav-text">mysql如何使用索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E4%B8%BB%E9%94%AE%E7%B4%A2%E5%BC%95"><span class="nav-number">1.2.</span> <span class="nav-text">如何使用主键索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%A4%96%E9%94%AE%E4%BC%98%E5%8C%96%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.3.</span> <span class="nav-text">如何使用外键优化表查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E5%88%97%E7%B4%A2%E5%BC%95"><span class="nav-number">1.4.</span> <span class="nav-text">普通列索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TEXT-x2F-BLOB%E7%9A%84%E7%B4%A2%E5%BC%95"><span class="nav-number">1.4.1.</span> <span class="nav-text">TEXT&#x2F;BLOB的索引</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%88%97%E7%B4%A2%E5%BC%95"><span class="nav-number">1.5.</span> <span class="nav-text">多列索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E5%88%97%E7%B4%A2%E5%BC%95%E5%92%8C%E5%A4%9A%E5%88%97%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.5.1.</span> <span class="nav-text">单列索引和多列索引的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E5%88%97%E7%B4%A2%E5%BC%95%E6%9C%80%E5%B7%A6%E5%88%97%E4%BC%98%E5%8C%96"><span class="nav-number">1.5.2.</span> <span class="nav-text">多列索引最左列优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BD%BF%E7%94%A8%E6%AD%A3%E7%A1%AE%E6%80%A7"><span class="nav-number">1.6.</span> <span class="nav-text">检查索引的使用正确性</span></a></li></ol></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">Kopei. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2023/01/01 00:00:00
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fa-solid fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="js/utils.js"></script>
+
+<script src="js/main.js"></script>
+
+<script src="js/header-shrink.js"></script>
+
+<script src="js/back2top.js"></script>
+
+<script src="js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="js/local-search.js"></script>
+
+
+
+
+    
+<script src="js/code-copy.js"></script>
+
+
+
+
+    
+<script src="js/lazyload.js"></script>
+
+
+
+
+    
+<script src="js/runtime.js"></script>
+
+    
+<script src="js/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="css/odometer-theme-minimal.css">
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="js/toc-toggle.js"></script>
+
+<script src="js/libs/anime.min.js"></script>
+
+<script src="js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

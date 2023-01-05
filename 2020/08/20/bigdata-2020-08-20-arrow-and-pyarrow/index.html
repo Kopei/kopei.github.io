@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Arrow, Plasma">
+    <meta name="description" content="版本1.0.0实践细节">
+    <meta name="author" content="Kopei">
+    
+    <title>
+        
+            Arrow and Pyarrow |
+        
+        Kopei&#39;s Home
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+    <link rel="shortcut icon" href="../../../../images/redefine-logo.svg">
+    
+<link rel="stylesheet" href="css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="css/brands.min.css">
+
+    
+<link rel="stylesheet" href="css/solid.min.css">
+
+    
+<link rel="stylesheet" href="css/regular.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="css/css2.css">
+
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"一元复始 万物升辉"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Kopei&#39;s Home
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../index.html" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../index.html" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">Arrow and Pyarrow</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="../../../../images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Kopei</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2020-08-20 00:00:00</span>
+        <span class="mobile">2020-08-20 00:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/big-data/">big data</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/big-data/">big data</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Apache Arrow是一个用于内存分析的跨语言开发平台。它定义了一种标准的、语言无关的列式内存数据格式。<br>这种格式支持平整的和嵌套的数据结构。它还提供了一些计算库，零拷贝流式消息和内部进程通信。<br>Arrow的主要用处可以是大数据的快速移动和处理。由于是开发平台，Arrow包含了许多组件：</p>
+<ul>
+<li>Arrow列式内存格式：一个标准和高效的内存表示。可用于平的和嵌套的数据结构，做到了语言无关。</li>
+<li>Arrow IPC格式：一种高效的序列化格式，并且带有元信息，可用于进程和异构环境间的通信</li>
+<li>Arrow Flight RPC协议：基于Arrow IPC格式，用于远程服务交换arrow数据与应用定义的语义数据</li>
+<li>C++, C, C#, Go, Python, Matlib, Java等等库</li>
+<li>Grandiva: 一个LLVM编译器</li>
+<li>Plasma对象存储：一个共享内存blob存储</li>
+</ul>
+<p>本文主要展示一些python的实践案例和源码解读， 希望能够总结以期有进一步了解Arrow.</p>
+<h2 id="Dive-into"><a href="#Dive-into" class="headerlink" title="Dive into"></a>Dive into</h2><p>下面让我们去看一看pyarrow的源代码（1.0.0)</p>
+<h3 id="pyarrow项目目录"><a href="#pyarrow项目目录" class="headerlink" title="pyarrow项目目录"></a>pyarrow项目目录</h3><p>![](&#x2F;images&#x2F;screenshots&#x2F;Screen Shot 2020-08-28 at 3.53.07 PM.png”&gt;</p>
+<p>pip安装的pyarrow少了一些cython编写的pyx代码，这些文件被编译成pxd或so后可以被py代码import, 比如<code>from pyarrow.lib import (ChunkedArray, RecordBatch, Table)</code><br>是从lib.so中导入的。</p>
+<h3 id="pyarrow-init-py源码解读"><a href="#pyarrow-init-py源码解读" class="headerlink" title="pyarrow._init_.py源码解读"></a>pyarrow._<em>init_</em>.py源码解读</h3><p>首先导入版本号，如果不是通过包安装，那么版本通过解析<code>git describe</code>确定版本。<br>接着导入cython的pyarrow.lib库，由于Cython有个bug(<a class="link"   target="_blank" rel="noopener" href="https://github.com/cython/cython/issues/3603" >https://github.com/cython/cython/issues/3603<i class="fa-solid fa-up-right-from-square"></i></a>), 这里暂时关掉gc。<br>然后有一个<code>show_versions</code>的函数可以查看c++版本信息：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; pa.show_versions()</span><br><span class="line">pyarrow version info</span><br><span class="line">--------------------</span><br><span class="line">Package kind: manylinux2010</span><br><span class="line">Arrow C++ library version: 1.0.0</span><br><span class="line">Arrow C++ compiler: GNU 8.3.1</span><br><span class="line">Arrow C++ compiler flags:  -fdiagnostics-color=always -O3 -DNDEBUG</span><br><span class="line">Arrow C++ git revision: b0d623957db820de4f1ff0a5ebd3e888194a48f0</span><br><span class="line">Arrow C++ git description: apache-arrow-0.16.0-1340-gb0d623957</span><br></pre></td></tr></table></figure></div>
+<p>然后导入Cython定义的各种类型，<br>导入buffer和IO相关。关于Pyarrow的memory和IO, 下面会介绍。<br>导入异常，<br>导入序列化相关，到这lib模块导入完毕。<br>然后从hdfs.py，ipc.py, filesystem.py, serialization.py,types.py导入相关模块，<br>定义启动plasma server入口函数和一些其他的包工具函数。</p>
+<h3 id="pyarrow的内存和IO管理"><a href="#pyarrow的内存和IO管理" class="headerlink" title="pyarrow的内存和IO管理"></a>pyarrow的内存和IO管理</h3><p>本节主要总结pyarrow的内存管理和IO管理，涉及buffer, memory pool和file-like&#x2F;stream-like对象</p>
+<h4 id="访问和分配内存"><a href="#访问和分配内存" class="headerlink" title="访问和分配内存"></a>访问和分配内存</h4><p>在<code>pyarrow.__init__.py</code>可以看到代码的引入:</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Buffers, allocation</span></span><br><span class="line"><span class="keyword">from</span> pyarrow.lib <span class="keyword">import</span> (Buffer, ResizableBuffer, foreign_buffer, py_buffer,</span><br><span class="line">                         Codec, compress, decompress, allocate_buffer)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pyarrow.lib <span class="keyword">import</span> (MemoryPool, LoggingMemoryPool, ProxyMemoryPool,</span><br><span class="line">                         total_allocated_bytes, set_memory_pool,</span><br><span class="line">                         default_memory_pool, logging_memory_pool,</span><br><span class="line">                         proxy_memory_pool, log_memory_allocations,</span><br><span class="line">                         jemalloc_set_decay_ms)</span><br></pre></td></tr></table></figure></div>
+<p><strong>pyarrow.Buffer</strong><br><code>Buffer</code>对象是C++代码<code>arrow::Buffer</code>的封装，作为基础工具管理C++中的arrow内存。一个buffer代表一段连续的内存空间。<br>大部分buffer拥有他们各自的内存，但是也有例外。Buffer对象可以允许高级array类安全地和属于或不属于他们的内存交互。<code>arrow::Buffer</code><br>允许一个buffer访问另一个buffer通过zero-copy, 同时保持内存的生命周期和清晰的父子关系。<br><code>arrow::Buffer</code>有很多种实现，但是对外接口是一致的：一个数据指针和长度。有点类似python自带的buffer和<code>memoryview</code>对象</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://github.com/apache/arrow/blob/67983cf56f/python/pyarrow/io.pxi</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pyarrow <span class="keyword">as</span> pa</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data=<span class="string">b&#x27;aaaaaaaaaaaaaaaaaaaaaa&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf = pa.py_buffer(data)  <span class="comment"># buf是zero-copy的data对象memory view, buf不会分配内存.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf</span><br><span class="line">&lt;pyarrow.lib.Buffer <span class="built_in">object</span> at <span class="number">0x7fabc0e05d30</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf.size</span><br><span class="line"><span class="number">22</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf.to_pybytes()  <span class="comment"># 这个转化是会复制数据。</span></span><br><span class="line"><span class="string">b&#x27;aaaaaaaaaaaaaaaaaaaaaa&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>外部的内存，只要有指针和size，保持接口一致，也可以通过<code>foreign_buffer()</code>来访问。<br>在创建buffer之后，可以通过memoryview或python buffer装换，这种转化是zero-copy.</p>
+<p><strong>Memory Pools</strong><br>所有内存分配和释放(malloc&#x2F;free)都可通过<code>arrow::MemoryPool</code>来追踪。代码在<a class="link"   target="_blank" rel="noopener" href="https://github.com/apache/arrow/blob/67983cf56f/python/pyarrow/memory.pxi" >memory.pxi<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pyarrow <span class="keyword">as</span> pa</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pa.total_allocated_bytes()</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf = pa.allocate_buffer(<span class="number">1024</span>,resizable=<span class="literal">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pa.total_allocated_bytes()</span><br><span class="line"><span class="number">1024</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf.resize(<span class="number">2048</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pa.total_allocated_bytes()</span><br><span class="line"><span class="number">2048</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf=<span class="literal">None</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pa.total_allocated_bytes()</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h4><p>Arrow C++库有几个抽象接口用于不同IO类型：</p>
+<ul>
+<li>只读流</li>
+<li>随机可访问只读文件</li>
+<li>只写流</li>
+<li>随机可访问只写文件</li>
+<li>可读可写可随机访问文件</li>
+</ul>
+<p>在<code>pyarrow.__init__.py</code>可以看到代码的引入:</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># I/O</span></span><br><span class="line"><span class="keyword">from</span> pyarrow.lib <span class="keyword">import</span> (HdfsFile, NativeFile, PythonFile,</span><br><span class="line">                         BufferedInputStream, BufferedOutputStream,</span><br><span class="line">                         CompressedInputStream, CompressedOutputStream,</span><br><span class="line">                         TransformInputStream, transcoding_input_stream,</span><br><span class="line">                         FixedSizeBufferWriter,</span><br><span class="line">                         BufferReader, BufferOutputStream,</span><br><span class="line">                         OSFile, MemoryMappedFile, memory_map,</span><br><span class="line">                         create_memory_map, have_libhdfs,</span><br><span class="line">                         MockOutputStream, input_stream, output_stream)</span><br><span class="line"><span class="keyword">from</span> pyarrow.lib <span class="keyword">import</span> (ChunkedArray, RecordBatch, Table, table,</span><br><span class="line">                         concat_arrays, concat_tables)</span><br></pre></td></tr></table></figure></div>
+
+<p>为了能够和python自带<code>file</code>对象行为一致，arrow定义了<code>NativeFile</code>(其实是个stream).代码在<a class="link"   target="_blank" rel="noopener" href="https://github.com/apache/arrow/blob/67983cf56f/python/pyarrow/io.pxi" >io.pxi<i class="fa-solid fa-up-right-from-square"></i></a><br><code>NativeFile</code>是所有arrow流的基类，arrow流可以是可读，可写，也可以支持<code>seek</code>.<code>NativeFile</code>暴露的方法用于读写python的数据对象，然后把他们变成stream传递给其他arrow工具，比如Arrow IPC.<br>cython代码中定义了好几种NativeFile子类:</p>
+<ul>
+<li>OSFile, 使用操作系统的描述符</li>
+<li>MemoryMappedFile, 使用memory maps做zero-copy读和写。</li>
+<li>BufferReader, 把对象转成arrow buffer使用Zero-copy reader</li>
+<li>BufferOutputStream, 内存中写数据，最后生成buffer</li>
+<li>FixedSizeBufferWriter, 再一句生成的buffer中写数据</li>
+<li>HdfsFile, hadoop生态读写数据</li>
+<li>PythonFile, 在C++中交互python文件对象,可以对python文件对象使用c++的方法，但是可能有GIL的限制。</li>
+<li>CompressedInputStream and CompressedOutputStream, 从流中压缩和解压数据。</li>
+</ul>
+<p><strong>高级API</strong><br><strong>input streams</strong><br><code>input_streams()</code>函数可以从各种输入创建可读<code>NativeFile</code></p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf = <span class="built_in">memoryview</span>(<span class="string">b&#x27;some data&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>stream = pa.input_stream(buf)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>stream.read(<span class="number">4</span>)</span><br><span class="line"><span class="string">b&#x27;some&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>stream.read()</span><br><span class="line"><span class="string">b&#x27; data&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>stream.read()</span><br><span class="line"><span class="string">b&#x27;&#x27;</span></span><br></pre></td></tr></table></figure></div>
+
+<p><strong>output streams</strong><br>同理，<code>output_stream</code>把stream写成文件。</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">with</span> pa.output_stream(<span class="string">&#x27;example1.dat&#x27;</span>) <span class="keyword">as</span> stream:</span><br><span class="line"><span class="meta">... </span>    stream.write(<span class="string">b&#x27;some data&#x27;</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="number">9</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&#x27;example1.dat&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br><span class="line"><span class="string">b&#x27;some data&#x27;</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="OSFile和Memory-Mapped-Files"><a href="#OSFile和Memory-Mapped-Files" class="headerlink" title="OSFile和Memory Mapped Files"></a>OSFile和Memory Mapped Files</h4><p>对于在磁盘上的文件读写，pyarrow提供标准系统级别的文件api和memory-mapped文件。memory-mapped是在用户态创建虚拟空间来映射磁盘上的内容。<br>通过对這段虚拟内存的讀取和修改, 实现对文件的讀取和修改。使用虚拟内存映射进行文件读写有几个好处：</p>
+<ul>
+<li>可以不用读取整个文件进入物理内存，文件已经在虚拟内存中</li>
+<li>可以用对内存的操作命令来操作文件，更加高效</li>
+<li>由于实际上这个mapped文件还是文件，与进程无关，所以这段虚拟内存可以共享给多个进程。</li>
+</ul>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>mmap = pa.memory_map(<span class="string">&#x27;example1.dat&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mmap.read()</span><br><span class="line"><span class="string">b&#x27;some data&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mmap.seek(<span class="number">5</span>)</span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf=mmap.read_buffer(<span class="number">4</span>)  <span class="comment"># read into arrow buffer</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf.to_pybytes()</span><br><span class="line"><span class="string">b&#x27;data&#x27;</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="内存中buffer读写"><a href="#内存中buffer读写" class="headerlink" title="内存中buffer读写"></a>内存中buffer读写</h4><div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>writer = pa.BufferOutputStream()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>writer.write(<span class="string">b&#x27;hello, friends&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf = writer.getvalue()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>reader = pa.BufferReader(buf)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>reader.seek(<span class="number">7</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>reader.read(<span class="number">7</span>)</span><br><span class="line"><span class="string">b&#x27;friends&#x27;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="plasma"><a href="#plasma" class="headerlink" title="plasma"></a>plasma</h3><p>plasma是arrow的一个共享对象存储，plasma只能用在单机上，客户端和服务端使用unix domain socket通信。plasma中的对象是不可变的。</p>
+<h4 id="pyarrow-plasma源码"><a href="#pyarrow-plasma源码" class="headerlink" title="pyarrow.plasma源码"></a>pyarrow.plasma源码</h4><p>这个文件一上来要导入TensorFlow相关库，暂时跳过。<br>主要功能函数式，用来启动plasma server.</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def start_plasma_store(plasma_store_memory,</span><br><span class="line">                       use_valgrind=False, use_profiler=False,</span><br><span class="line">                       plasma_directory=None, use_hugepages=False,</span><br><span class="line">                       external_store=None):</span><br><span class="line"># plasma_store_memory定义存储大小</span><br><span class="line"># use_valgrind定义是否使用valgrind和use_profiler互斥</span><br><span class="line"># use_profiler定义是否测试性能</span><br><span class="line"># plasma_directory定义mmap文件位置</span><br><span class="line"># use_hugepages是否使用大文件存储，需要划分文件格式</span><br><span class="line"># external_store溢出的对象存储到外部位置，由于plasma超过预设空间时候会溢出对象。 </span><br></pre></td></tr></table></figure></div>
+<p>这个函数会默认创建<code>/tmp/test_plasma-plasma.sock</code>用于客户端sock连接, 然后就是普通的shell命令行选取参数启动server.</p>
+<h4 id="使用plasma共享pandas-dataframe"><a href="#使用plasma共享pandas-dataframe" class="headerlink" title="使用plasma共享pandas dataframe"></a>使用plasma共享pandas dataframe</h4><p>由于arrow支持平整或嵌套的数据结构，尤其适合pandas dataframe或者numpy(使用tensor), 然后我们可以把arrow格式的数据持久化到plasma用于共享对象，实现数据的高效读取。<br>核心代码就三步，1.创建plasma对象，2.存入转为recordbatch的dataframe, 3.读取plasma的dataframe对象。</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># basic plasma client</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PlasmaClient</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, location=<span class="string">&quot;plasma&quot;</span>, *args, **kwargs</span>):</span><br><span class="line">        self.client = plasma.connect(location)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_object_id</span>(<span class="params">self, name</span>):</span><br><span class="line">        name = self.pad_str_with_20char(name)</span><br><span class="line">        <span class="built_in">id</span> = plasma.ObjectID(name)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">id</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">pad_str_with_20char</span>(<span class="params">self, name</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(name) &lt; <span class="number">20</span>:</span><br><span class="line">            name = <span class="string">f&quot;<span class="subst">&#123;name:&lt;<span class="number">20</span>&#125;</span>&quot;</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            name = name[:<span class="number">20</span>]</span><br><span class="line">        <span class="keyword">return</span> name.encode()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">decode_hex_bytes</span>(<span class="params">self, <span class="built_in">hex</span></span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">bytes</span>.fromhex(<span class="built_in">hex</span>).decode()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_object</span>(<span class="params">self, object_id</span>):</span><br><span class="line">        obj = self.client.get(object_id)</span><br><span class="line">        <span class="keyword">return</span> obj</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">set_object</span>(<span class="params">self, obj</span>):</span><br><span class="line">        self.client.put(obj)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">create_buffer</span>(<span class="params">self, obj, object_id</span>):</span><br><span class="line">        object_size = <span class="built_in">len</span>(obj)</span><br><span class="line">        buf = <span class="built_in">memoryview</span>(self.client.create(object_id, object_size))</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(object_size):</span><br><span class="line">            buf[i] = i % <span class="number">128</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">seal_buffer</span>(<span class="params">self, object_id</span>):</span><br><span class="line">        self.client.seal(object_id)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_buffer</span>(<span class="params">self, object_id</span>):</span><br><span class="line">        [buffer] = self.client.get_buffers([object_id])</span><br><span class="line">        <span class="keyword">return</span> buffer</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">list_objects</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.client.<span class="built_in">list</span>()</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>然后写一个子类能够使用plasma存储对象来读取dataframe:</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PlasmaPandas</span>(<span class="title class_ inherited__">PlasmaClient</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, location=<span class="string">&quot;plasma&quot;</span></span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__(location)</span><br><span class="line">        self.object_id = self.get_object_id(name)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">dataFrame2recordBatch</span>(<span class="params">self, df</span>):</span><br><span class="line">        <span class="keyword">return</span> pa.RecordBatch.from_pandas(df)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">create_plasma_obj_from_record_batch</span>(<span class="params">self, record_batch</span>):</span><br><span class="line">        <span class="comment"># get the size of record batch and schema</span></span><br><span class="line">        mock_sink = pa.MockOutputStream()</span><br><span class="line">        stream_writer = pa.RecordBatchStreamWriter(mock_sink, record_batch.schema)</span><br><span class="line">        stream_writer.write_batch(record_batch)</span><br><span class="line">        stream_writer.close()</span><br><span class="line">        data_size = mock_sink.size()</span><br><span class="line"></span><br><span class="line">        buf = self.client.create(self.object_id, data_size)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># write dataframe into store</span></span><br><span class="line">        stream = pa.FixedSizeBufferWriter(buf)</span><br><span class="line">        stream_writer = pa.RecordBatchStreamWriter(stream, record_batch.schema)</span><br><span class="line">        stream_writer.write_batch(record_batch)</span><br><span class="line">        stream_writer.close()</span><br><span class="line">        self.seal_buffer(self.object_id)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_df_by_name</span>(<span class="params">self</span>): </span><br><span class="line">        [data] = self.client.get_buffers([self.object_id])</span><br><span class="line">        arrow_buffer = pa.BufferReader(data)</span><br><span class="line">        <span class="comment"># Convert object back into an Arrow RecordBatch</span></span><br><span class="line">        reader = pa.RecordBatchStreamReader(arrow_buffer)</span><br><span class="line">        record_batch = reader.read_next_batch()</span><br><span class="line">        result = record_batch.to_pandas()</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_df_column</span>(<span class="params">self, column</span>): <span class="comment">#可以直接在arrow中取column, 性能比pandas快5-10倍 </span></span><br><span class="line">        [data] = self.client.get_buffers([self.object_id])</span><br><span class="line">        arrow_buffer = pa.BufferReader(data)</span><br><span class="line">        <span class="comment"># Convert object back into an Arrow RecordBatch</span></span><br><span class="line">        reader = pa.RecordBatchStreamReader(arrow_buffer)</span><br><span class="line">        table = reader.read_all()</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            result = table.select([<span class="string">&quot;index&quot;</span>, column]).to_pandas()</span><br><span class="line">        <span class="keyword">except</span> KeyError:</span><br><span class="line">            <span class="keyword">return</span> pd.DataFrame()</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">store_df_in_store</span>(<span class="params">self, df</span>): </span><br><span class="line">        rb = self.dataFrame2recordBatch(df)</span><br><span class="line">        self.create_plasma_obj_from_record_batch(rb)</span><br></pre></td></tr></table></figure></div>
+<p>在应用中使用：</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pp = PlasmaPandas(<span class="string">&#x27;obj_key&#x27;</span>)</span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;example.csv&#x27;</span>)</span><br><span class="line">pp.store_df_in_store(df)</span><br><span class="line">df = pp.get_df_column(<span class="string">&#x27;col_name&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：Arrow and Pyarrow</li>
+        <li>Post author：Kopei</li>
+        <li>Create time：2020-08-20 00:00:00</li>
+        <li>
+            Post link：https://kopei.github.io/2020/08/20/bigdata-2020-08-20-arrow-and-pyarrow/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="../../../../tags/big-data/">#big data</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="../../../11/15/architecture-2020-11-15-%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E4%B8%8E%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E5%B8%88/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">企业架构师 vs 解决方案架构师 vs 技术架构师</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="../../../07/24/bigdata-2020-07-24-from-pandas-to-spark/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">从Pandas到Spark</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dive-into"><span class="nav-number">2.</span> <span class="nav-text">Dive into</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pyarrow%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95"><span class="nav-number">2.1.</span> <span class="nav-text">pyarrow项目目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pyarrow-init-py%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB"><span class="nav-number">2.2.</span> <span class="nav-text">pyarrow._init_.py源码解读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pyarrow%E7%9A%84%E5%86%85%E5%AD%98%E5%92%8CIO%E7%AE%A1%E7%90%86"><span class="nav-number">2.3.</span> <span class="nav-text">pyarrow的内存和IO管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E5%92%8C%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98"><span class="nav-number">2.3.1.</span> <span class="nav-text">访问和分配内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="nav-number">2.3.2.</span> <span class="nav-text">输入输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OSFile%E5%92%8CMemory-Mapped-Files"><span class="nav-number">2.3.3.</span> <span class="nav-text">OSFile和Memory Mapped Files</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E4%B8%ADbuffer%E8%AF%BB%E5%86%99"><span class="nav-number">2.3.4.</span> <span class="nav-text">内存中buffer读写</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#plasma"><span class="nav-number">2.4.</span> <span class="nav-text">plasma</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pyarrow-plasma%E6%BA%90%E7%A0%81"><span class="nav-number">2.4.1.</span> <span class="nav-text">pyarrow.plasma源码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8plasma%E5%85%B1%E4%BA%ABpandas-dataframe"><span class="nav-number">2.4.2.</span> <span class="nav-text">使用plasma共享pandas dataframe</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">Kopei. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2023/01/01 00:00:00
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fa-solid fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="js/utils.js"></script>
+
+<script src="js/main.js"></script>
+
+<script src="js/header-shrink.js"></script>
+
+<script src="js/back2top.js"></script>
+
+<script src="js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="js/local-search.js"></script>
+
+
+
+
+    
+<script src="js/code-copy.js"></script>
+
+
+
+
+    
+<script src="js/lazyload.js"></script>
+
+
+
+
+    
+<script src="js/runtime.js"></script>
+
+    
+<script src="js/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="css/odometer-theme-minimal.css">
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="js/toc-toggle.js"></script>
+
+<script src="js/libs/anime.min.js"></script>
+
+<script src="js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
