@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="python, pandas">
+    <meta name="description" content="包括Dataframe, Series">
+    <meta name="author" content="Kopei">
+    
+    <title>
+        
+            Pandas的数据结构 |
+        
+        Kopei&#39;s Home
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+    <link rel="shortcut icon" href="../../../../images/redefine-logo.svg">
+    
+<link rel="stylesheet" href="css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="css/brands.min.css">
+
+    
+<link rel="stylesheet" href="css/solid.min.css">
+
+    
+<link rel="stylesheet" href="css/regular.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="css/css2.css">
+
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"一元复始 万物升辉"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Kopei&#39;s Home
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../index.html" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../index.html" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">Pandas的数据结构</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="../../../../images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Kopei</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2018-09-16 00:00:00</span>
+        <span class="mobile">2018-09-16 00:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/python/">python</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/python-pandas/">python, pandas</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>基本上, <code>Pandas</code>的<code>Series</code>沿袭了<code>Numpy</code>的设计, 是一维数组和数组的索引, 和<code>Numpy</code>不同的一点是这个一维数组可以是异构的,比如数字int和字符串混在一起, 这个时候数组的类型是<code>object</code>. 而<code>DataFrame</code>是为了处理表格和异构多维的数据.</p>
+<h3 id="Series"><a href="#Series" class="headerlink" title="Series"></a>Series</h3><p>可以用python的<code>list</code>初始化一个<code>Series</code>, 也可以用python的<code>Dict</code>初始化一个<code>Series</code>. 如果使用<code>Dict</code>那么序列的索引就是<code>Dict</code>的<code>Key</code>.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = &#123;<span class="string">&#x27;d&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;e&#x27;</span>:<span class="number">2</span>, <span class="string">&#x27;a&#x27;</span>:<span class="number">0</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pd.Series(d)</span><br><span class="line">a    <span class="number">0</span></span><br><span class="line">d    <span class="number">1</span></span><br><span class="line">e    <span class="number">2</span></span><br></pre></td></tr></table></figure></div>
+<p>想要得到自己想要的顺序可以使用参数<code>index</code>排序<code>Series</code>, 下图的例子可以看到索引<code>b</code>, 但是它没有值会用<code>NaN</code>表示(可以使用<code>isnull</code>, <code>notnull</code>检测是否为空), 没有索引的值会被省略.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pd.Series(d, index=[<span class="string">&#x27;e&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;d&#x27;</span>])</span><br><span class="line">e    <span class="number">2.0</span></span><br><span class="line">b    NaN</span><br><span class="line">d    <span class="number">1.0</span></span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure></div>
+<p><code>Pandas</code>筛选比较强大的一点是直接可以在[]输入条件, 这点可能和python本身的语法有一点不同.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj2= pd.Series(d)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj2</span><br><span class="line">a    <span class="number">0</span></span><br><span class="line">d    <span class="number">1</span></span><br><span class="line">e    <span class="number">2</span></span><br><span class="line">dtype: int64</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj2 [ obj2 &gt; <span class="number">1</span>]</span><br><span class="line">e    <span class="number">2</span></span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure></div>
+<p>两个<code>Series</code>是可以直接通过索引直接做计算的, 类似数据库的<code>join</code>. 计算子必须都需要有相同的索引才会有计算结果, 否则会出现<code>NaN</code>.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">35</span>]: obj3</span><br><span class="line">Out[<span class="number">35</span>]:</span><br><span class="line">Ohio      <span class="number">35000</span></span><br><span class="line">Oregon    <span class="number">16000</span></span><br><span class="line">Texas     <span class="number">71000</span></span><br><span class="line">Utah       <span class="number">5000</span></span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [<span class="number">36</span>]: obj4</span><br><span class="line">Out[<span class="number">36</span>]:</span><br><span class="line">California   NaN</span><br><span class="line">Ohio         <span class="number">35000</span></span><br><span class="line">Oregon       <span class="number">16000</span></span><br><span class="line">Texas        <span class="number">71000</span></span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">37</span>]: obj3 + obj4</span><br><span class="line">Out[<span class="number">37</span>]:</span><br><span class="line">California    NaN</span><br><span class="line">Ohio          <span class="number">70000.0</span></span><br><span class="line">Oregon        <span class="number">32000.0</span></span><br><span class="line">Texas         <span class="number">142000.0</span></span><br><span class="line">Utah          NaN</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure></div>
+<p>可以给<code>Series</code>起一个名字, 使用<code>Series.name</code>属性, 取个名字的好处是如果把<code>Series</code>放入<code>Dataframe</code>, 那么这个<code>name</code>就是<code>Dataframe</code>的列名.(<code>DataFrame</code>也会有<code>index</code>名称和<code>column</code>名称)</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: s = pd.Series([<span class="string">&quot;A&quot;</span>,<span class="string">&quot;B&quot;</span>,<span class="string">&quot;C&quot;</span>], name=<span class="string">&quot;foo&quot;</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: s</span><br><span class="line">Out[<span class="number">2</span>]: </span><br><span class="line"><span class="number">0</span>    A</span><br><span class="line"><span class="number">1</span>    B</span><br><span class="line"><span class="number">2</span>    C</span><br><span class="line">Name: foo, dtype: <span class="built_in">object</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: pd.DataFrame(s)</span><br><span class="line">Out[<span class="number">4</span>]: </span><br><span class="line">  foo</span><br><span class="line"><span class="number">0</span>   A</span><br><span class="line"><span class="number">1</span>   B</span><br><span class="line"><span class="number">2</span>   C</span><br></pre></td></tr></table></figure></div>
+
+
+<h3 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h3><p><code>Pandas</code>的<code>DataFrame</code>代表了一组表格(一般是二维, 可以使用<code>hierarchical indexing</code>来表示更高的维度数组), 数据的底层存储如下图所示, 数据会按类型分成不同的块存储实际的数据. 可以看到数据被没有指向具体的列, 而是通过<code>BlockManager</code>这个类是来管理实际数据到列名的映射.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-16%20%E4%B8%8B%E5%8D%883.29.53.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-16%20%E4%B8%8B%E5%8D%883.29.53.png"><br>有很多种方式构建<code>DataFrame</code>, 常见的一种是通过<code>Dict</code>; 如果想在创建的时候指定索引, 可以使用嵌入式<code>dict</code>.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">44</span>]: data = &#123;<span class="string">&#x27;state&#x27;</span>: [<span class="string">&#x27;Ohio&#x27;</span>, <span class="string">&#x27;Ohio&#x27;</span>, <span class="string">&#x27;Ohio&#x27;</span>, <span class="string">&#x27;Nevada&#x27;</span>, <span class="string">&#x27;Nevada&#x27;</span>, <span class="string">&#x27;Nevada&#x27;</span>],</span><br><span class="line">            <span class="string">&#x27;year&#x27;</span>: [<span class="number">2000</span>, <span class="number">2001</span>, <span class="number">2002</span>, <span class="number">2001</span>, <span class="number">2002</span>, <span class="number">2003</span>],</span><br><span class="line">            <span class="string">&#x27;pop&#x27;</span>: [<span class="number">1.5</span>, <span class="number">1.7</span>, <span class="number">3.6</span>, <span class="number">2.4</span>, <span class="number">2.9</span>, <span class="number">3.2</span>]&#125;</span><br><span class="line">In [<span class="number">45</span>]: frame = pd.DataFrame(data)</span><br><span class="line">In [<span class="number">46</span>]: frame</span><br><span class="line">Out[<span class="number">46</span>]:</span><br><span class="line">   pop   state  year</span><br><span class="line"><span class="number">0</span>  <span class="number">1.5</span>    Ohio  <span class="number">2000</span></span><br><span class="line"><span class="number">1</span>  <span class="number">1.7</span>    Ohio  <span class="number">2001</span></span><br><span class="line"><span class="number">2</span>  <span class="number">3.6</span>    Ohio  <span class="number">2002</span></span><br><span class="line"><span class="number">3</span>  <span class="number">2.4</span>  Nevada  <span class="number">2001</span></span><br><span class="line"><span class="number">4</span>  <span class="number">2.9</span>  Nevada  <span class="number">2002</span></span><br><span class="line"><span class="number">5</span>  <span class="number">3.2</span>  Nevada  <span class="number">2003</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pop = &#123;<span class="string">&#x27;Nevada&#x27;</span>: &#123;<span class="number">2001</span>: <span class="number">2.4</span>, <span class="number">2002</span>: <span class="number">2.9</span>&#125;,<span class="string">&#x27;Ohio&#x27;</span>: &#123;<span class="number">2000</span>: <span class="number">1.5</span>, <span class="number">2001</span>: <span class="number">1.7</span>, <span class="number">2002</span>: <span class="number">3.6</span>&#125;&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame3 = pd.DataFrame(pop)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame3</span><br><span class="line">      Nevada  Ohio</span><br><span class="line"><span class="number">2000</span>     NaN   <span class="number">1.5</span></span><br><span class="line"><span class="number">2001</span>     <span class="number">2.4</span>   <span class="number">1.7</span></span><br><span class="line"><span class="number">2002</span>     <span class="number">2.9</span>   <span class="number">3.6</span></span><br></pre></td></tr></table></figure></div>
+<p>下图是所有的输入数据类型可以构建<code>DataFrame</code>:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-17%20%E4%B8%8B%E5%8D%882.19.37.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-17%20%E4%B8%8B%E5%8D%882.19.37.png"></p>
+<p><code>DataFrame</code>可以指定<code>column</code>参数选择只要某几列, 也可以在<code>column</code>任意添加列名, 如何<code>column</code>这个字段赋予了不存在的列, 那么新加的这个列会显示<code>NaN</code>. 两者的区别在于使用属性访问时, 这个python的<code>attribute</code>必须符合python的规则.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pd.DataFrame(data, columns=[<span class="string">&#x27;pop&#x27;</span>,<span class="string">&#x27;jik&#x27;</span>])</span><br><span class="line">   pop  jik</span><br><span class="line"><span class="number">0</span>  <span class="number">1.5</span>  NaN</span><br><span class="line"><span class="number">1</span>  <span class="number">1.7</span>  NaN</span><br><span class="line"><span class="number">2</span>  <span class="number">3.6</span>  NaN</span><br><span class="line"><span class="number">3</span>  <span class="number">2.4</span>  NaN</span><br><span class="line"><span class="number">4</span>  <span class="number">2.9</span>  NaN</span><br><span class="line"><span class="number">5</span>  <span class="number">3.2</span>  NaN</span><br></pre></td></tr></table></figure></div>
+<p>想要取得<code>DataFrame</code>的某个列, 可以采用<code>.columnName</code>或切片的方式:</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">51</span>]: frame2[<span class="string">&#x27;state&#x27;</span>]</span><br><span class="line">Out[<span class="number">51</span>]:</span><br><span class="line">one        Ohio</span><br><span class="line">two        Ohio</span><br><span class="line">three      Ohio</span><br><span class="line">four     Nevada</span><br><span class="line">five     Nevada</span><br><span class="line">six      Nevada</span><br><span class="line">Name: state, dtype: <span class="built_in">object</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">52</span>]: frame2.year</span><br><span class="line">Out[<span class="number">52</span>]:</span><br><span class="line">one      <span class="number">2000</span></span><br><span class="line">two      <span class="number">2001</span></span><br><span class="line">three    <span class="number">2002</span></span><br><span class="line">four     <span class="number">2001</span></span><br><span class="line">five     <span class="number">2002</span></span><br><span class="line">six      <span class="number">2003</span></span><br><span class="line">Name: year, dtype: int64</span><br></pre></td></tr></table></figure></div>
+<p>通过<code>DataFrame.loc[]</code>可以选取某几行, 这个<code>loc</code>用的是[] ,而不是(), 和python的语法又有些区别. 一般使用<code>loc[]</code>定位字符串(label)索引, <code>iloc[]</code>定位数字(number)索引.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame.iloc[<span class="number">3</span>]</span><br><span class="line">pop         <span class="number">2.4</span></span><br><span class="line">state    Nevada</span><br><span class="line">year       <span class="number">2001</span></span><br><span class="line">Name: <span class="number">3</span>, dtype: <span class="built_in">object</span></span><br></pre></td></tr></table></figure></div>
+<p>可以使用<code>Series</code>给<code>DataFrame</code>赋值, <code>Series</code>将成为<code>DataFrame</code>的一个列, 列值必须和<code>DataFrame</code>的长度一致, 缺失的值将会<code>NaN</code>.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>val = pd.Series([-<span class="number">1.2</span>, -<span class="number">1.5</span>, -<span class="number">1.9</span>], index=[<span class="string">&#x27;two&#x27;</span>,<span class="string">&#x27;four&#x27;</span>,<span class="string">&#x27;five&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame2[<span class="string">&#x27;debt&#x27;</span>] = val</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame2</span><br><span class="line">       year   state  pop  debt</span><br><span class="line">one    <span class="number">2000</span>    Ohio  <span class="number">1.5</span>   NaN</span><br><span class="line">two    <span class="number">2001</span>    Ohio  <span class="number">1.7</span>  -<span class="number">1.2</span></span><br><span class="line">three  <span class="number">2002</span>    Ohio  <span class="number">3.6</span>   NaN</span><br><span class="line">four   <span class="number">2001</span>  Nevada  <span class="number">2.4</span>  -<span class="number">1.5</span></span><br><span class="line">five   <span class="number">2002</span>  Nevada  <span class="number">2.9</span>  -<span class="number">1.9</span></span><br><span class="line">six    <span class="number">2003</span>  Nevada  <span class="number">3.2</span>   NaN</span><br></pre></td></tr></table></figure></div>
+<p><code>DateFrame</code>列赋值还有一个快捷判断的语法, 可以一行代码先判断再赋值</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame2[<span class="string">&#x27;new_col&#x27;</span>] = frame2.state == <span class="string">&#x27;Ohio&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame2</span><br><span class="line">       year   state  pop  debt  new_col</span><br><span class="line">one    <span class="number">2000</span>    Ohio  <span class="number">1.5</span>   NaN     <span class="literal">True</span></span><br><span class="line">two    <span class="number">2001</span>    Ohio  <span class="number">1.7</span>  -<span class="number">1.2</span>     <span class="literal">True</span></span><br><span class="line">three  <span class="number">2002</span>    Ohio  <span class="number">3.6</span>   NaN     <span class="literal">True</span></span><br><span class="line">four   <span class="number">2001</span>  Nevada  <span class="number">2.4</span>  -<span class="number">1.5</span>    <span class="literal">False</span></span><br><span class="line">five   <span class="number">2002</span>  Nevada  <span class="number">2.9</span>  -<span class="number">1.9</span>    <span class="literal">False</span></span><br><span class="line">six    <span class="number">2003</span>  Nevada  <span class="number">3.2</span>   NaN    <span class="literal">False</span></span><br></pre></td></tr></table></figure></div>
+<p>列的删除: 使用<code>del df[clo]</code><br><code>DataFrame</code>的<code>values</code>属性会返回一个二维<code>ndarray</code>的数组. </p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame3.values</span><br><span class="line">array([[nan, <span class="number">1.5</span>],</span><br><span class="line">       [<span class="number">2.4</span>, <span class="number">1.7</span>],</span><br><span class="line">       [<span class="number">2.9</span>, <span class="number">3.6</span>]])</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Index对象"><a href="#Index对象" class="headerlink" title="Index对象"></a>Index对象</h3><p><code>Index</code>对象负责存储轴标签<code>axis label</code>和其它元信息如索引名称, 任何数组或其它序列的标签在转化成<code>Series</code>或<code>DataFrame</code>的时候会被转成<code>Index</code>.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>lables = pd.Index(np.arange(<span class="number">3</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>lables</span><br><span class="line">Int64Index([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>], dtype=<span class="string">&#x27;int64&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj4 = pd.Series([<span class="number">1.4</span>,<span class="number">3</span>,<span class="number">1</span>], index=lables)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj4</span><br><span class="line"><span class="number">0</span>    <span class="number">1.4</span></span><br><span class="line"><span class="number">1</span>    <span class="number">3.0</span></span><br><span class="line"><span class="number">2</span>    <span class="number">1.0</span></span><br><span class="line">dtype: float64</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj4.index <span class="keyword">is</span> lables</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure></div>
+<p><code>pandas</code>的索引对象是不可变的, 既可以把<code>index</code>当成数组, 可以当成集合, <strong>注意</strong>这个集合不同于python的<code>set</code>, 集合是可以重复的.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>dup_index = pd.Index([<span class="string">&#x27;foo&#x27;</span>,<span class="string">&#x27;foo&#x27;</span>,<span class="string">&#x27;bar&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dup_index</span><br><span class="line">Index([<span class="string">u&#x27;foo&#x27;</span>, <span class="string">u&#x27;foo&#x27;</span>, <span class="string">u&#x27;bar&#x27;</span>], dtype=<span class="string">&#x27;object&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+<p><code>Index</code>对象的一些常用方法:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-17%20%E4%B8%8B%E5%8D%882.40.46.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-17%20%E4%B8%8B%E5%8D%882.40.46.png"></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：Pandas的数据结构</li>
+        <li>Post author：Kopei</li>
+        <li>Create time：2018-09-16 00:00:00</li>
+        <li>
+            Post link：https://kopei.github.io/2018/09/15/python-2018-09-16-pandas的数据结构/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="../../../../tags/python-pandas/">#python, pandas</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="../../16/python-2018-09-17-pandas-common-methods/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Pandas的常用函数</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="../../../08/30/python-2018-08-31-pandas/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Pandas的Groupby</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Series"><span class="nav-number">1.1.</span> <span class="nav-text">Series</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataFrame"><span class="nav-number">1.2.</span> <span class="nav-text">DataFrame</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Index%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.</span> <span class="nav-text">Index对象</span></a></li></ol></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">Kopei. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2023/01/01 00:00:00
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fa-solid fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="js/utils.js"></script>
+
+<script src="js/main.js"></script>
+
+<script src="js/header-shrink.js"></script>
+
+<script src="js/back2top.js"></script>
+
+<script src="js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="js/local-search.js"></script>
+
+
+
+
+    
+<script src="js/code-copy.js"></script>
+
+
+
+
+    
+<script src="js/lazyload.js"></script>
+
+
+
+
+    
+<script src="js/runtime.js"></script>
+
+    
+<script src="js/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="css/odometer-theme-minimal.css">
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="js/toc-toggle.js"></script>
+
+<script src="js/libs/anime.min.js"></script>
+
+<script src="js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

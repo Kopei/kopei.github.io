@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="java, tomcat">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Kopei">
+    
+    <title>
+        
+            Tomcat 8.5.35 简介 |
+        
+        Kopei&#39;s Home
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+    <link rel="shortcut icon" href="../../../../images/redefine-logo.svg">
+    
+<link rel="stylesheet" href="css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="css/brands.min.css">
+
+    
+<link rel="stylesheet" href="css/solid.min.css">
+
+    
+<link rel="stylesheet" href="css/regular.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="css/css2.css">
+
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"一元复始 万物升辉"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Kopei&#39;s Home
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../index.html" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../index.html" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">Tomcat 8.5.35 简介</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="../../../../images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Kopei</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2017-11-29 00:00:00</span>
+        <span class="mobile">2017-11-29 00:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/java/">java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/java-tomcat/">java, tomcat</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>今天看了一下官网的<code>Tomcat</code>介绍, 特地记录一下相关信息. <code>Tomcat</code>是一个开源的<code>Java Servlet Container</code>, 这个容器提供了一个Java运行的HTTP web的环境.</p>
+<h3 id="一个术语"><a href="#一个术语" class="headerlink" title="一个术语"></a>一个术语</h3><p><strong><code>Context</code></strong>: 一个<code>Context</code>就是一个web应用.</p>
+<h3 id="Tomcat解压后包含的相关目录和文件"><a href="#Tomcat解压后包含的相关目录和文件" class="headerlink" title="Tomcat解压后包含的相关目录和文件"></a>Tomcat解压后包含的相关目录和文件</h3><ul>
+<li><code>/bin</code> 里面的脚本用于启动, 停止, 和其他如设置环境变量的功能. <code>*.sh</code>是<code>Unix</code>系统, <code>*.bat</code>是<code>Windows</code>系统.</li>
+<li><code>/conf</code> 里面有一些配置文件和<code>DTD</code>(<code>Document Type Definition</code>). 最重要的是<code>Server.xml</code>, 是容器的主要配置文件.</li>
+<li><code>/logs</code> log文件</li>
+<li><code>/webapps</code> 应用所在处</li>
+</ul>
+<h3 id="CATALINA-HOME-和-CATALINA-BASE"><a href="#CATALINA-HOME-和-CATALINA-BASE" class="headerlink" title="CATALINA_HOME 和 CATALINA_BASE"></a>CATALINA_HOME 和 CATALINA_BASE</h3><p><code>CATALINA_HOME</code>是<code>tomcat</code>安装的根目录, <code>CATALINA_BASE</code>代表了一个<code>tomcat</code>实例运行的配置根目录. 如果一台服务器有多个<code>tomcat</code>实例在跑, 可以使用这个参数分别启动不同实例. 总的来说, <code>CATALINA_HOME</code>的位置包含了静态文件如<code>.jar</code>和二进制文件, <code>CATALINA_BASE</code>位置包含了配置文件, 日志, 部署的应用和其他运行所需的依赖.<br>使用同一个<code>CATALINA_HOME</code>和多个<code>CATALINA_BASE</code>的好处是:</p>
+<ul>
+<li>容易更新tomcat, 由于共享<code>CATALINA_HOME</code>中<code>.jar</code>文件和二进制文件, 我们可以只用更新一个tomcat, 但是运行多个tomcat实例.</li>
+<li>防止重复<code>*.jar</code>文件.</li>
+<li>共享一些脚本, 如<code>setenv</code>脚本</li>
+</ul>
+<h3 id="RUNNING-txt"><a href="#RUNNING-txt" class="headerlink" title="RUNNING.txt"></a>RUNNING.txt</h3><p><code>RUNNING.txt</code>这个文件包含所有用于在各个平台运行tomcat的信息, 需要仔细看一下.<br>在Unix安装tomcat的时候, 需要把<code>JAVA_HOME</code>环境变量设置于<code>JDK</code>的基目录.</p>
+<h3 id="使用tomcat开发"><a href="#使用tomcat开发" class="headerlink" title="使用tomcat开发"></a>使用tomcat开发</h3><p>在<code>Servlet API Specification 2.2</code>以后, 公认使用<code>Web Application Archive</code>（WAR)作为网页应用的标准格式. 所以一个打包的web应用是有标准的层级布局的。比如把HTML和JSP页面放在一起作为用户交互， 然后部署的时候管理员给你的应用设置一个<code>context path</code>， 比如<code>catalog/</code>, 那么一个请求到<code>catalog/index.html</code>就会取你项目根目录的<code>index.html</code>文件.</p>
+<h4 id="标准的WAR目录结构"><a href="#标准的WAR目录结构" class="headerlink" title="标准的WAR目录结构"></a>标准的WAR目录结构</h4><p>打包一个标准的WAR， 一般会在项目中有如下目录结构：</p>
+<ul>
+<li><code>html, jsp, etc</code>这些文件是用户可以在客户端访问的文件， 可以在一个文件夹或分成多个目录。</li>
+<li><code>/WEB-INF/web.xml</code>这个文件是<code>Web Application Deployment Descriptor</code>, 代表应用部署的描述文件.这个xml文件描述了应用所组成的部分:包括servlet和其他组件; 还有初始化参数和容器级别的安全限制.</li>
+<li><code>/WEB-INF/classes/</code>包含了java类文件, 包含所有没有打成jar文件的java文件.如果你的java类以package的形式组织, 那么可以在<code>/WEB-INF/classes/com/...class</code>找到.</li>
+<li><code>/WEB-INF/lib/</code>这个目录包含了jar包<br>在<code>/WEB-INF/lib/</code>和<code>/WEB-INF/classes/</code>中的所有java类是对整个应用可见的.</li>
+</ul>
+<h4 id="共享Library文件"><a href="#共享Library文件" class="headerlink" title="共享Library文件"></a>共享Library文件</h4><p>大部分servlet容器如tomcat支持预安装jar文件, 然后使它们可以被web应用可见(不需要被应用引入). <code> $CATALINA_HOME/lib</code>是tomcat安装共享代码的地方. Tomcat使用<code>class loader</code>来定位和共享这些类. 首先, Tomcat会安装<code>java.lang.ClassLoader</code>实现的<code>class loader</code>, 让web应用和容器的组成部分能够访问不同的类和资源. 这个机制实现了<code>Servlet Specification</code>V2.4的9.4和9.6章节提出的技术要求.</p>
+<h3 id="class-loader的大致情况"><a href="#class-loader的大致情况" class="headerlink" title="class loader的大致情况"></a>class loader的大致情况</h3><p>java环境中, <code>class loader</code>是父子树结构. 通常情况下, 当一个<code>class loader</code>需要加载某个类或者资源时, 它会首先去请求它的父<code>class loader</code>, 如果父<code>class loader</code>不能加载某个类或者资源才会从它自己的仓库查找. 注意, web应用的<code>class loader</code>可能有一点不一样, 但是总体原则类似.</p>
+<h4 id="class-loader定义"><a href="#class-loader定义" class="headerlink" title="class loader定义"></a>class loader定义</h4><p>tomcat初始化时会创建如下<code>class loader</code>:</p>
+<ul>
+<li>Bootstrap. 这个<code>class loader</code>包含了JVM的基本运行类和<code>$JAVA_HOME/jre/lib/ext</code>中的系统扩展jar包.</li>
+<li>System. 这个<code>class loader</code>初始化所有在<code>CLASSPATH</code>定义的内容. 这个路径中所有的类可以被tomcat内部类和应用看见, 除了tomcat的catalina启动脚本(<code>$CATALINA_HOME/bin/catalina.sh</code>).这个启动脚本会忽略<code>CLASSPATH</code>环境变量, 而从这个脚本启动的<code>system class loader</code>将会从如下仓库构建:<ul>
+<li><code>$CATALINA_HOME/bin/bootstrap.jar</code>, main()函数用于初始化tomcat server和class loader实现类.</li>
+<li><code>$CATALINA_BASE/bin/tomcat-juli.jar</code>或者<code>CATALINA_BASE/bin/tomcat-juli.jar</code>. 日志实现类.</li>
+<li><code>$CATALINA_HOME/bin/commons-daemon.jar</code> <a class="link"   target="_blank" rel="noopener" href="https://commons.apache.org/proper/commons-daemon/" >Apache Commons Daemon<i class="fa-solid fa-up-right-from-square"></i></a> 项目中的类.</li>
+</ul>
+</li>
+<li>Common. 这个<code>class loader</code>包含了所有能让Tomcat内部类和所有应用可见的类. 这个<code>class loader</code>的搜索路径在<code>$CATALINA_BASE/conf/catalina.propeties</code>文件的<code>common.loader</code>属性定义.<br><code>common.loader=&quot;$&#123;catalina.base&#125;/lib&quot;,&quot;$&#123;catalina.base&#125;/lib/*.jar&quot;,&quot;$&#123;catalina.home&#125;/lib&quot;,&quot;$&#123;catalina.home&#125;/lib/*.jar&quot;</code></li>
+</ul>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：Tomcat 8.5.35 简介</li>
+        <li>Post author：Kopei</li>
+        <li>Create time：2017-11-29 00:00:00</li>
+        <li>
+            Post link：https://kopei.github.io/2017/11/28/java-2017-11-29-tomcat-8-5-35-intro/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="../../../../tags/java-tomcat/">#java, tomcat</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="../../../12/05/database-mysql-2017-12-06-InnoDB/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">InnoDB for Mysql 5.6</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="../../14/aliyun-oss/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Aliyun OSS 小结</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E6%9C%AF%E8%AF%AD"><span class="nav-number">1.</span> <span class="nav-text">一个术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat%E8%A7%A3%E5%8E%8B%E5%90%8E%E5%8C%85%E5%90%AB%E7%9A%84%E7%9B%B8%E5%85%B3%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">Tomcat解压后包含的相关目录和文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CATALINA-HOME-%E5%92%8C-CATALINA-BASE"><span class="nav-number">3.</span> <span class="nav-text">CATALINA_HOME 和 CATALINA_BASE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RUNNING-txt"><span class="nav-number">4.</span> <span class="nav-text">RUNNING.txt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8tomcat%E5%BC%80%E5%8F%91"><span class="nav-number">5.</span> <span class="nav-text">使用tomcat开发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E7%9A%84WAR%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">5.1.</span> <span class="nav-text">标准的WAR目录结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B1%E4%BA%ABLibrary%E6%96%87%E4%BB%B6"><span class="nav-number">5.2.</span> <span class="nav-text">共享Library文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class-loader%E7%9A%84%E5%A4%A7%E8%87%B4%E6%83%85%E5%86%B5"><span class="nav-number">6.</span> <span class="nav-text">class loader的大致情况</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#class-loader%E5%AE%9A%E4%B9%89"><span class="nav-number">6.1.</span> <span class="nav-text">class loader定义</span></a></li></ol></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">Kopei. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2023/01/01 00:00:00
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fa-solid fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="js/utils.js"></script>
+
+<script src="js/main.js"></script>
+
+<script src="js/header-shrink.js"></script>
+
+<script src="js/back2top.js"></script>
+
+<script src="js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="js/local-search.js"></script>
+
+
+
+
+    
+<script src="js/code-copy.js"></script>
+
+
+
+
+    
+<script src="js/lazyload.js"></script>
+
+
+
+
+    
+<script src="js/runtime.js"></script>
+
+    
+<script src="js/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="css/odometer-theme-minimal.css">
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="js/toc-toggle.js"></script>
+
+<script src="js/libs/anime.min.js"></script>
+
+<script src="js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

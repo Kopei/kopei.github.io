@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="mongo, database">
+    <meta name="description" content="主要区别于RDBMS">
+    <meta name="author" content="Kopei">
+    
+    <title>
+        
+            MongoDB的架构 |
+        
+        Kopei&#39;s Home
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+<link rel="stylesheet" href="../../../../css/style.css">
+
+    <link rel="shortcut icon" href="../../../../images/redefine-logo.svg">
+    
+<link rel="stylesheet" href="css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="css/brands.min.css">
+
+    
+<link rel="stylesheet" href="css/solid.min.css">
+
+    
+<link rel="stylesheet" href="css/regular.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="css/css2.css">
+
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"210px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"一元复始 万物升辉"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"0.4.6","friend_links":{"columns":2}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+    
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Kopei&#39;s Home
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../index.html" >
+                                
+                                    
+                                        <i class="fa-regular fa-house"></i>
+                                    
+                                    HOME
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                        <li class="menu-item">
+                            <!-- Menu -->
+                            <a class="" 
+                                href="../../../../archives" >
+                                
+                                    
+                                        <i class="fa-regular fa-archive"></i>
+                                    
+                                    ARCHIVES
+                                
+                            </a>
+                            <!-- Submenu -->
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../index.html" >
+                         
+                            
+                                <i class="fa-regular fa-house"></i>
+                            
+                            HOME
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class="" 
+                       href="../../../../archives" >
+                         
+                            
+                                <i class="fa-regular fa-archive"></i>
+                            
+                            ARCHIVES
+                        
+                    </a>
+                </li>
+                <!-- Submenu -->
+                
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+            <div class="article-title">
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">MongoDB的架构</h1></span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="../../../../images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Kopei</span>
+                            
+                                <span class="author-label">lol</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2018-09-24 00:00:00</span>
+        <span class="mobile">2018-09-24 00:00</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/database/">database</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/mongo/">mongo</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近尝试用MongoDB替换Mysql， 由于Mysql的写能力限制， 32C128G的实例同时写入1M的数据CPU飙升， 更不用说如果是并发的情况。MongoDB通过<code>sharding</code>能够很好地解决写能力扩展的问题, 故作一篇网上大神博客的小结. MongoDB的架构大致如下图所示(v3.2):<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8A%E5%8D%8811.19.05.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8A%E5%8D%8811.19.05.png"></p>
+<h3 id="与RBDMS的主要区别"><a href="#与RBDMS的主要区别" class="headerlink" title="与RBDMS的主要区别"></a>与RBDMS的主要区别</h3><p>MongoDB和RDBMS的主要区别在于：</p>
+<ul>
+<li>RBDMS的数据记录是<code>平</code>的， 而MongoDB的数据单元<code>Document</code>是可以嵌入的，比如一个CSV文件，一个字段一个值; 但是mongo可以一个字段可以存储多个值如:<code>&#123;&#39;key&#39;: [v1,v2]&#125;</code>, 通过不同组合还可以生成更复杂的数据结构。</li>
+<li>RBDMS所有的数据结构<code>schema</code>必须预定义， MongoDB不需要预定义, <code>Document</code>可以存储任何结构的数据。</li>
+<li>MongoDB是没有<code>join</code>查询操作的。 RBDMS数据库设计的核心讲究<code>Normalization</code>, 数据越结构化，冗余越少越好。 而MongoDB鼓励<code>denormalized</code>, 通过数据冗余做到<code>join</code>查询。</li>
+<li>MongoDB的数据一致性需要客户端来维护， mongo没有<code>ACID</code>的<code>Isolation</code>概念， 一个并发客户端可能读到另一个并发用户修改的数据。</li>
+<li>同样地, <code>transaction</code>事务也是不存在，（<strong>注意， 4.0这个版本支持ACID的事务</strong>）。MongoDB原子性操作只能做到document级别。<br>而正是移除关系型数据库部分特性， mongo才能做到更好的扩展性和轻量级， 这两条正适合用于处理大数据。</li>
+</ul>
+<h3 id="查询处理"><a href="#查询处理" class="headerlink" title="查询处理"></a>查询处理</h3><p>Mongo的<code>Collection</code>可以认为是关系型数据库的<code>table</code>， <code>Document</code>可以认为是关系型数据库的<code>records</code>. 并且不需要预创建数据库和<code>collection</code>, 如下是一些基本操作, </p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> pymongo</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: p = &#123;<span class="string">&#x27;first&#x27;</span>:<span class="string">&quot;Dave&quot;</span>, <span class="string">&#x27;lastname&#x27;</span>: <span class="string">&quot;He&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: client = pymongo.MongoClient()</span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: db = client.test_database</span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: db.person.insert_one(&#123;<span class="string">&#x27;first&#x27;</span>:<span class="string">&#x27;NN&#x27;</span>, <span class="string">&#x27;lastname&#x27;</span>:<span class="string">&#x27;HE&#x27;</span>&#125;)</span><br><span class="line">Out[<span class="number">6</span>]: &lt;pymongo.results.InsertOneResult at <span class="number">0x21f9710</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">7</span>]: db.person.find_one()</span><br><span class="line">Out[<span class="number">7</span>]: </span><br><span class="line">&#123;<span class="string">u&#x27;_id&#x27;</span>: ObjectId(<span class="string">&#x27;5ba858bc91046605e83667dd&#x27;</span>),</span><br><span class="line"> <span class="string">u&#x27;first&#x27;</span>: <span class="string">u&#x27;Dave&#x27;</span>,</span><br><span class="line"> <span class="string">u&#x27;lastname&#x27;</span>: <span class="string">u&#x27;He&#x27;</span>&#125;</span><br></pre></td></tr></table></figure></div>
+<p>可以创建索引加速查询, MongoDB的索引以<code>Btree</code>的数据结构存储, 所以支持范围查询. 由于<code>document</code>本身就是一棵树, 索引可以嵌套到<code>document</code>下层里的某个值. 也可以创建符合索引, 如<code>db.person.ensureIndex(&#123;lastname:1, firstname:1&#125;)</code>. 索引也可以是单键多值array.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">5</span>]: db.person.index_information()</span><br><span class="line">Out[<span class="number">5</span>]: &#123;<span class="string">u&#x27;_id_&#x27;</span>: &#123;<span class="string">u&#x27;key&#x27;</span>: [(<span class="string">u&#x27;_id&#x27;</span>, <span class="number">1</span>)], <span class="string">u&#x27;ns&#x27;</span>: <span class="string">u&#x27;test_database.person&#x27;</span>, <span class="string">u&#x27;v&#x27;</span>: <span class="number">2</span>&#125;&#125;</span><br></pre></td></tr></table></figure></div>
+<p>mongo默认给<code>_id</code>创建索引, 也可以给一个字段建新的索引, 创建索引可以是前台线下模式或者后台在线模式, 如果是线下模式, 如果是多副本集,需要考虑这些副本索引做到滚动更新.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">6</span>]: r = db.person.create_index([(<span class="string">&#x27;lastname&#x27;</span>, pymongo.ASCENDING)], unique=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: db.person.index_information()</span><br><span class="line">Out[<span class="number">8</span>]: </span><br><span class="line">&#123;<span class="string">u&#x27;_id_&#x27;</span>: &#123;<span class="string">u&#x27;key&#x27;</span>: [(<span class="string">u&#x27;_id&#x27;</span>, <span class="number">1</span>)], <span class="string">u&#x27;ns&#x27;</span>: <span class="string">u&#x27;test_database.person&#x27;</span>, <span class="string">u&#x27;v&#x27;</span>: <span class="number">2</span>&#125;,</span><br><span class="line"> <span class="string">u&#x27;lastname_1&#x27;</span>: &#123;<span class="string">u&#x27;key&#x27;</span>: [(<span class="string">u&#x27;lastname&#x27;</span>, <span class="number">1</span>)],</span><br><span class="line">  <span class="string">u&#x27;ns&#x27;</span>: <span class="string">u&#x27;test_database.person&#x27;</span>,</span><br><span class="line">  <span class="string">u&#x27;unique&#x27;</span>: <span class="literal">True</span>,</span><br><span class="line">  <span class="string">u&#x27;v&#x27;</span>: <span class="number">2</span>&#125;&#125;</span><br></pre></td></tr></table></figure></div>
+<p>但开始查询时如果有多个查询条件, <code>mongo</code>总是先尝试使用单个最佳索引找到符合的数据集, 然后根据后续的其它条件迭代查询.<br>那么如果一个<code>collection</code>的多索引是如何配合来加速查询的呢?<br>当一个查询执行时, mongo会给每个索引创建一个执行计划, 每个索引轮流执行查询, 直到所有索引执行完查询, mongo记录下最快执行查询的索引,后续就会使用这个索引查询, 直到后续一定量的数据更新, 才会重新执行上述流程.<br>针对执行计划每次查询只用一个索引的特点, 查询时注意查询条件, 并且创建主键以外的复合索引来加速查询至关重要! 同时也要注意索引的开小, 删除不必要的索引.</p>
+<h3 id="存储模型"><a href="#存储模型" class="headerlink" title="存储模型"></a>存储模型</h3><p>MongoDB通过内存mapping文件把存储在磁盘上数据文件直接映射到内存<code>byte array</code>, 数据的访问逻辑是通过<code>指针算法</code>实现的. 每个<code>collection</code>存在单独的一个<code>namespace</code>文件(记录元信息)和多个可扩展(<code>extent</code>)数据文件.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%883.58.50.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%883.58.50.png"><br>每个<code>collection</code>的数据被组织在<code>extent</code>文件中, 每个<code>extent</code>是一段连续的磁盘空间,使用双向链表连接<code>extent</code>. <code>extent</code>包含了多个<code>document</code>, 每一个<code>document</code>也会和其相邻的<code>document</code>相连, 实际数据就以Bson的格式存储在上图中的<code>DocRecord</code>. 一个<code>extent</code>会指向所包含的<code>document</code>链表的头和尾(当然extent和extent之间也是连起来的). </p>
+<p>任何修改数据会直接在原地进行. 为了预防数据修改后大小超过了原来记录的分配的空间, 整条记录会被移动到一个更大的区域(附带一些填充占位的字节, 这些填充的字节当作缓存空间用于将来可以用于放置更大的空间, 那么具体填充多少字节, 这就需要每个collection有一个统计值, 专门记录修改的统计数据), 原来空出来的空间将会被释放, 有一张表会记录<code>free list</code>的大小.<br>基于上述移动空间的设计, 我们可以预见数据会变得片段化, 所以mongo需要周期性地运行<code>compact</code>命令, 会把数据移动到连续的空间内, 以提高IO性能.这个操作通常需要在线下进行, 副本集则需要滚动更新.</p>
+<p>索引是通过Btree实现的, 每个Btree的节点含有一个key数字和指向左边子节点的指针.</p>
+<h3 id="数据的更新和事务"><a href="#数据的更新和事务" class="headerlink" title="数据的更新和事务"></a>数据的更新和事务</h3><p>更新一条记录是在原数据上直接做修改:</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">6</span>]: db.person.update_one(&#123;<span class="string">&#x27;first&#x27;</span>:<span class="string">&#x27;Dave&#x27;</span>&#125;, &#123;<span class="string">&quot;$set&quot;</span>:&#123;<span class="string">&quot;first&quot;</span>:<span class="string">&#x27;David&#x27;</span>&#125;&#125;)</span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: db.person.find_one()</span><br><span class="line">Out[<span class="number">8</span>]: </span><br><span class="line">&#123;<span class="string">u&#x27;_id&#x27;</span>: ObjectId(<span class="string">&#x27;5ba858bc91046605e83667dd&#x27;</span>),</span><br><span class="line"> <span class="string">u&#x27;first&#x27;</span>: <span class="string">u&#x27;David&#x27;</span>,</span><br><span class="line"> <span class="string">u&#x27;lastname&#x27;</span>: <span class="string">u&#x27;He&#x27;</span>&#125;</span><br></pre></td></tr></table></figure></div>
+<p>mongo写的时候可以指定多种方式(policy), 以表示写是否成功了, 如数据已经在磁盘持久化了; 或者数据已经在多个副本集传递(可以通过<code>getLastError</code>拿到执行返回值). 另外, mongo是可以给副本集打<code>tag</code>, 所以可以基于<code>tag</code>制定写策略.</p>
+<p>由于所有从mongo读到的数据都是过去的快照, 读到的数据可能已经被其它客户修改, 所以如果有一致性要求, 每次修改数据前可以先读一次验证数据, 然后再做修改.<br>mongo可以在修改前验证条件, 使用<code>findAndModify</code>api更新数据. 如果是<code>pymongo</code>那么<code>update</code>会帮做验证条件, 不需要额外做这一步.</p>
+<p>mongo没有事务的概念(4.0以前), 对每个<code>document</code>的操作都是原子性的, 但是如果多个<code>document</code>被修改, 原子性是不能保证的.所以客户端需要自行实现多文件更新原子性.一个常见的技术是: 首先创建一个独立的文档(叫做transaction), 把所有需要更新的文档连接起来; 然后把所有需要更新的文档反链到transaction; 接着如下图做二段式提交完成事务.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%885.31.48.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%885.31.48.png"></p>
+<h3 id="复制模型"><a href="#复制模型" class="headerlink" title="复制模型"></a>复制模型</h3><p>Mongdb通过副本集(replica set)做到高可用和读查询的负载均衡(没有做到写负载均衡), 通过把数据复制到多个服务器做到冗余. 具体包括一个主要DB和多个二级DB. 为了数据一致性, 所有修改都会在主DB操作然后异步复制到副本. 副本集之间的节点通过心跳同步状态, 如果有一个节点失去心跳(挂了), 那么就会失去<code>membership</code>. 如果后面恢复了那么这个节点会重新加入集群, 通过和主DB通信,获取<code>changelog</code>恢复到最新的数据. 如果主DB的<code>changelog</code>没有覆盖这个节点挂掉到恢复的全部日志, 那么需要重新导入主DB的所有数据.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%885.39.34.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%885.39.34.png"><br>如果主DB挂掉了, 那么集群将进行选举, 通过节点优先级,运行时间等条件从二级DB中选出新的主DB, 由于二级DB采用异步复制的形式, 这个新选出来的主DB可能不是最新的数据版本.</p>
+<p>客户端驱动库需要实现找到主DB的功能, 在开始连接数据库后, 客户端需要发出<code>isMaster</code>的指令从当前集群中找到主DB和所有副本, 然后客户端会把大部分请求发给主DB, 部分读请求发给二级DB; 这个<code>isMaster</code>的指令会周期性的发送, 以便同步当前集群信息. 所有挂掉的节点, 客户端会强制中断连接.</p>
+<p>MongoDB有一个特殊的二级DB叫<code>Delayed Slave</code>, 它是延迟一段时间同步主数据库. 主要用来恢复短期误删的的数据.<br>在读取查询时, 可以指定从二级DB读取数据, 这样读到的数据可能不是最新的, 但是可以使用这个特性做到查询的负载均衡. 客户端可以ping二级DB, 挑选最快的节点查询数据.</p>
+<h3 id="分片模型"><a href="#分片模型" class="headerlink" title="分片模型"></a>分片模型</h3><p>想要做到写负载均衡, 需要使用MongoDB的<code>sharding</code>. 在<code>sharding</code>配置中, 一个<code>collection</code>可以通过<code>partition key</code>被分割到多个<code>chunks</code>内(一组key的范围), 多个<code>chunks</code>被分配到不同的<code>shards</code>, 每个<code>shards</code>都是副本集(<code>replica set</code>). 通过<code>sharding</code>, mongo可以存储无限量的数据, 这点在大数据应用场景十分重要.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%888.03.33.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%888.03.33.png"><br>在<code>sharding</code>模式下, 客户端需要连接到<code>MongoS</code>, 它是一个路由服务器把客户端的请求发送到合适的分片. 对于<code>insert/delete/update</code>修改操作请求, 如果包含<code>partition key</code>, 那么基于<code>chunk/shard</code>映射表信息(从<code>config server</code>得到,并且本地缓存), 路由服务器可以找到对应chunk的节点服务器. 如果是读查询, 路由服务器会检测<code>partition key</code>是否包含在查询的部分条件中, 如果是那么就可以找到对应的主或二级<code>shard</code>; 但是也有可能查询条件不含有<code>partition key</code>, 那么路由会把请求发给每个<code>shard</code>.如果查询需要排序, 同时<code>partition key</code>在排序的条件中, 那么路由会一次按<code>partition key</code>排序<code>shards</code>; 如果不包含<code>partition key</code>, 路由服务器会把请发给每个<code>shard</code>, 然后做<code>merge-sort</code>.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-01-10%20at%2014.32.27.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-01-10%20at%2014.32.27.png"><br>另一方面, 路由服务器需要保障每个<code>shards</code>中的数据<code>chunks</code>大致一样多. 当不平衡的条件被检测到, 路由器会通知chunk较多的<code>shard</code>触发迁移工作. 这个迁移工作是线上进行的, 数据迁移时进行多次delta检查, 直到最后数据迁移完毕, 目标服务器会通知<code>config server</code>新的<code>shard</code>信息, 通知源服务发送<code>StaleConfigException</code>给路由服务器, 让路由器重新读取配置信息. 后面的某个时间点, 源服务器旧的<code>shard</code>数据将会被删除. 如果在迁移的过程中发生高频率的更新操作, 那么迁移会停止,路由服务器会选择新的<code>chunk</code>去迁移数据.</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：MongoDB的架构</li>
+        <li>Post author：Kopei</li>
+        <li>Create time：2018-09-24 00:00:00</li>
+        <li>
+            Post link：https://kopei.github.io/2018/09/23/database-mongodb-2018-09-24-mongo-架构/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="../../../../tags/mongo/">#mongo</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="../../../10/02/database-2018-10-03-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%A9%E5%B1%95%E6%80%A7%E4%BA%8B%E9%A1%B9/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">扩展数据库注意事项</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="../../16/python-2018-09-17-pandas-common-methods/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Pandas的常用函数</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8ERBDMS%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB"><span class="nav-number">1.1.</span> <span class="nav-text">与RBDMS的主要区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">查询处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">存储模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9B%B4%E6%96%B0%E5%92%8C%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.4.</span> <span class="nav-text">数据的更新和事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.5.</span> <span class="nav-text">复制模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%89%87%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.6.</span> <span class="nav-text">分片模型</span></a></li></ol></li></ol>
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2023</span>
+              -
+            
+            2023&nbsp;<i class="fa-solid fa-heart icon-animate"></i>&nbsp;<a href="/">Kopei. All Rights Reserved.</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalviews&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v0.4.6</a>
+        </div>
+        
+        
+        <script async data-pjax defer>
+            function odometer_init(){
+                    let el = document.getElementsByClassName('odometer');
+                    for (i = 0; i < el.length; i++) {
+                        od = new Odometer({
+                            el: el[i],
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    }
+            }
+            odometer_init();
+        </script>
+        <div id="start_time_div" style="display:none">
+            2023/01/01 00:00:00
+        </div>
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fa-solid fa-left-right"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fa-solid fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fa-solid fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fa-solid fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fa-solid fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="js/utils.js"></script>
+
+<script src="js/main.js"></script>
+
+<script src="js/header-shrink.js"></script>
+
+<script src="js/back2top.js"></script>
+
+<script src="js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="js/local-search.js"></script>
+
+
+
+
+    
+<script src="js/code-copy.js"></script>
+
+
+
+
+    
+<script src="js/lazyload.js"></script>
+
+
+
+
+    
+<script src="js/runtime.js"></script>
+
+    
+<script src="js/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="css/odometer-theme-minimal.css">
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="js/toc-toggle.js"></script>
+
+<script src="js/libs/anime.min.js"></script>
+
+<script src="js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
