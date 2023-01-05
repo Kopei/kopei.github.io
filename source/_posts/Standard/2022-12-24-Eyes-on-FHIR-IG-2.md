@@ -8,6 +8,7 @@ catalog: true
 multilingual: false
 tags: FHIR, Standard,IG
 date: 2022-12-24
+comment: true
 ---
 
 # FHIR眼科实施指南IG（2）
