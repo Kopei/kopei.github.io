@@ -25,7 +25,7 @@ style:
   article_img_align: center # value: left | center
 
   # Right side width
-  right_side_width: 210px #sidebar width, for toc
+  right_side_width: 200px #sidebar width, for toc
 
   # Content area max width
   content_max_width: 1000px #content max width, for article
@@ -147,10 +147,10 @@ toc:
   enable: true
 
   # Automatically add list number to toc.
-  number: true
+  number: false
 
   # If true, all level of TOC in a post will be displayed, rather than the activated part of it.
-  expand_all: false
+  expand_all: true
 
   # If true, open TOC every time when you enter the article page
   init_open: true
@@ -178,10 +178,17 @@ website_count:
 # Dependencies: hexo-generator-searchdb
 # See: https://github.com/theme-next/hexo-generator-searchdb
 # ---------------------------------------------------------------------------------------
+search:
+  path: search.json
+  field: post
+  content: true
+  format: striptags
+
 local_search:
   enable: true
   preload: true # Preload the search data when the page loads
 
+  
 # ---------------------------------------------------------------------------------------
 # Comment plugin
 # ---------------------------------------------------------------------------------------
