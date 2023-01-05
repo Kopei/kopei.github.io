@@ -33,4 +33,4 @@ date: 2021-06-19
 - 修正.
 
 如下图所示是一般的DQ流程.
-<img src="./images/screenshots/screen_dq_process.png">
+![](/images/screenshots/screen_dq_process.png">

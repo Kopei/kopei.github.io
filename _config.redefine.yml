@@ -2,9 +2,9 @@
 #  Your basic info
 # ---------------------------------------------------------------------------------------
 base_info:
-  title: Theme Redefine # Site title
-  author: The Redefine Team # Author name
-  url: https://redefine.evanluo.top # Site url
+  title: Kopei's Home # Site title
+  author: Kopei # Author name
+  url: https://kopei.github.io # Site url
   # Logo image (You can use local image, image external link or don’t fill)
   logo_img: # logo image on the left of the navigation bar
 
@@ -50,7 +50,7 @@ style:
     title_color:
       light: "#fff" # first screen title color (light mode)
       dark: "#d1d1b6" # first screen title color (dark mode)
-    description: Theme Redefine # the title in the middle of the first screen. HTML supported (e.g. svg html code of your logo)
+    description: 一元复始 万物升辉 # the title in the middle of the first screen. HTML supported (e.g. svg html code of your logo)
 
   # Scroll style settings
   scroll:

@@ -50,4 +50,4 @@ DDL Trigger触发对应的事件可以是当前数据库或者当前服务器，
 - `CLR Trigger`
 
 AFTER触发器和INSTEAD OF触发器的区别:
-<img src="./images/2021-02/comparison of after&instead of trigger.png"/>
+![](/images/2021-02/comparison of after&instead of trigger.png)

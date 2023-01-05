@@ -16,7 +16,7 @@ date: 2017-11-13
 - rds账户分为经典模式和高权限模式，5.7只有高权限模式。
 - 它们之间的区别是能不能直接通过sql创建账户，见下图.
 
-  <img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/26186/cn_zh/1510133360436/%E5%9C%A8%E4%B8%8D%E5%90%8C%E8%B4%A6%E5%8F%B7%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8%E5%AF%B9%E6%AF%94.png" alt="Drawing" width="400"/>
+  <img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/26186/cn_zh/1510133360436/%E5%9C%A8%E4%B8%8D%E5%90%8C%E8%B4%A6%E5%8F%B7%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8%E5%AF%B9%E6%AF%94.png" alt="Drawing" width="400)
 - **注意！！** 升级了高权限就不能回滚经典模式了！
 
 ### Rds的一些使用限制
@@ -125,7 +125,7 @@ sysbench --num-threads=32 --max-time=3600 --max-requests=999999999 --test= oltp.
 - 读写分离和主实例、读实例的区别，后者单独有连接地址，业务逻辑选择进行连接。读写分离是一个统一的地址，程序自动进行读写分流。
 - 用户只需要购买读实例，可以免费试用读写分离
 
-  <img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/51073/cn_zh/1505467133787/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E5%9C%B0%E5%9D%80.png" alt="Drawing" width="400"/>
+  <img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/51073/cn_zh/1505467133787/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E5%9C%B0%E5%9D%80.png" alt="Drawing" width="400)
 
 ### 数据备份和恢复
 - 数据备份oss+日志oss总量>实例空间50%时，将收费。

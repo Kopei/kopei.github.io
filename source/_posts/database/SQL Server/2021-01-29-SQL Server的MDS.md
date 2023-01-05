@@ -45,7 +45,7 @@ MDM 一般的做法流程是：
 - `Data Quality`.
 
 基于上述特点，典型的 MDM 架构应该是：
-<img src="./images/2021-02/MDM_architecture.png" />
+![](/images/2021-02/MDM_architecture.png)
 
 ## Master Data Services 简介
 
@@ -54,7 +54,7 @@ MDM 一般的做法流程是：
 在 MDS 中，Model 是主数据结构的最高级别容器。你可以创建 model 来管理相似数据组，比如管理所有线上产品。一个 Model 可以是**一个 Entity 或者多个 Entities**. 比如一个产品 model 包含产品，颜色和风格， 颜色 entity 包含所有的颜色。Entity 可以有两种属性：*free-form*和*domain-based*属性，*free-form*可以直接用于描述 entity，*domain-based*需要通过一个 domain 的 entity 来表现(就是 entity 的一个属性是另一个 entity)。
 
 MDS 是一个典型的三级架构：数据库层、服务层、WEB/Add-in 层。
-<img src="./images/2021-02/mds-architecture.png" />
+![](/images/2021-02/mds-architecture.png)
 MDS 一般要和 DQS 和 SSIS 结合使用，用于数据的集成和ETL。
 
 ### MDS 的组件

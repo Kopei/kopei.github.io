@@ -26,7 +26,7 @@ Arrow的主要用处可以是大数据的快速移动和处理。由于是开发
 ## Dive into
 下面让我们去看一看pyarrow的源代码（1.0.0)
 ### pyarrow项目目录
-<img src="./images/screenshots/Screen Shot 2020-08-28 at 3.53.07 PM.png">
+![](/images/screenshots/Screen Shot 2020-08-28 at 3.53.07 PM.png">
 
 pip安装的pyarrow少了一些cython编写的pyx代码，这些文件被编译成pxd或so后可以被py代码import, 比如`from pyarrow.lib import (ChunkedArray, RecordBatch, Table)`
 是从lib.so中导入的。

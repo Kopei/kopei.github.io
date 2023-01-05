@@ -27,7 +27,7 @@ PowerBI支持从130+不同数据源直接导入数据，主要导入数据的方
 - Live Connection只支持类SSAS的远程数据库，所有的能力和限制取决于远端SSAS的能力。
 
 如下表可以用来决策什么时候用什么方式的数据连接，有时候我们可能需要一个综合的解决方案。
-<img src="./images/screenshots/screen_shot_data_import.png" />
+![](/images/screenshots/screen_shot_data_import.png)
 
 
 ### 数据转化策略

@@ -146,7 +146,7 @@ repeatable read是mysql默认隔离等级，保证同一个事务多次读取同
 - 索引的类型：
   - B-Tree索引， MyISAM使用压缩的索引指向数据的物理位置；innodb使用索引指向数据的主键。
 - 一个典型的B+树索引
-<img src="../images/B+tree.png" width="450" height="450">
+![](./images/B+tree.png" width="450" height="450">
 - 对于下面这个多列索引：索引根据建表时指定key的值，按大小排序
 ```sql
     create table people (
@@ -157,7 +157,7 @@ repeatable read是mysql默认隔离等级，保证同一个事务多次读取同
     key(last_name, first_name, dob)
     );
 ```
-<img src="../images/multi-col-index.png" width="450" height="450">
+![](./images/multi-col-index.png" width="450" height="450">
 - 对于多列索引，B+tree适合的查询方式有：
   - 完全匹配
   - 最左列完全匹配，仅适用于第一个column,即last_name
