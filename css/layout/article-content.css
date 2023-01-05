@@ -174,7 +174,7 @@ redefine-tablet()
   top: $header-height$component-spacing-value;
   border-radius: 0;
   display: none;
-  width: 210px;
+  width: 200px;
   height: auto;
   max-height: calc(100vh - 210px);
   overflow-y: auto;
