@@ -19,26 +19,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Aliyun OSS 小结</title>
-    <url>/2017/11/14/aliyun-oss/</url>
-    <content><![CDATA[<h2 id="OSS的原理"><a href="#OSS的原理" class="headerlink" title="OSS的原理"></a>OSS的原理</h2><p>对象存储将数据当成对象, 可以通过对对象的HTTP verb进行增删改查操作. oss的bucket是一个平铺的大文件夹(看起来你可以像传统文件系统那样有目录层级,但是实际上是平的),里面存储的文件名可以当成key, 文件为value, 这样仿佛oss又是一个键值对存储,但是有微小的差别: oos还可以有元属性, 存储大数据有优化但不保证数据强一致性.  </p>
-<h3 id="块存储和对象存储的比较"><a href="#块存储和对象存储的比较" class="headerlink" title="块存储和对象存储的比较"></a>块存储和对象存储的比较</h3><p>块存储是把数据存在存储介质上, 存储介质以 <strong>块</strong> 的形式(比如一块是512B)将数据分割存储. 而对象存储是将数据当成一个对象. 它们的区别可以在更新文件时清楚看到, 当更新一个文件的一行数据时, 块存储只会更新那一行数据存在的某一块, 而对象存储是更新整个文件; 同时块存储是服务器,操作系统紧紧耦合关系, 而对象存储是一个单独的可以通过API控制的服务.</p>
-<h3 id="对象存储和文件存储的比较"><a href="#对象存储和文件存储的比较" class="headerlink" title="对象存储和文件存储的比较"></a>对象存储和文件存储的比较</h3><p>对象存储和文件系统在接口上的本质区别是对象存储不支持和fread和fwrite类似的随机位置读写操作，即一个文件PUT到对象存储里以后，如果要读取，只能GET整个文件，如果要修改一个对象，只能重新PUT一个新的到对象存储里，覆盖之前的对象或者形成一个新的版本。</p>
-<h3 id="使用限制"><a href="#使用限制" class="headerlink" title="使用限制"></a>使用限制</h3><ul>
-<li>冷备份恢复读取需要1分钟</li>
-<li>上传5G的数据需要采用断点续传，但不能大于48.8TB</li>
-<li><strong>上传同名文件会覆盖原有文件</strong></li>
-<li>删除文件无法恢复</li>
-</ul>
-]]></content>
-      <categories>
-        <category>storage</category>
-      </categories>
-      <tags>
-        <tag>oss, aliyun</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Customer Experience</title>
     <url>/2017/12/06/customer-experience/</url>
     <content><![CDATA[<h3 id="What-is-customer-experience"><a href="#What-is-customer-experience" class="headerlink" title="What is customer experience?"></a>What is customer experience?</h3><ul>
@@ -84,6 +64,26 @@
       </categories>
       <tags>
         <tag>misc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Aliyun OSS 小结</title>
+    <url>/2017/11/14/aliyun-oss/</url>
+    <content><![CDATA[<h2 id="OSS的原理"><a href="#OSS的原理" class="headerlink" title="OSS的原理"></a>OSS的原理</h2><p>对象存储将数据当成对象, 可以通过对对象的HTTP verb进行增删改查操作. oss的bucket是一个平铺的大文件夹(看起来你可以像传统文件系统那样有目录层级,但是实际上是平的),里面存储的文件名可以当成key, 文件为value, 这样仿佛oss又是一个键值对存储,但是有微小的差别: oos还可以有元属性, 存储大数据有优化但不保证数据强一致性.  </p>
+<h3 id="块存储和对象存储的比较"><a href="#块存储和对象存储的比较" class="headerlink" title="块存储和对象存储的比较"></a>块存储和对象存储的比较</h3><p>块存储是把数据存在存储介质上, 存储介质以 <strong>块</strong> 的形式(比如一块是512B)将数据分割存储. 而对象存储是将数据当成一个对象. 它们的区别可以在更新文件时清楚看到, 当更新一个文件的一行数据时, 块存储只会更新那一行数据存在的某一块, 而对象存储是更新整个文件; 同时块存储是服务器,操作系统紧紧耦合关系, 而对象存储是一个单独的可以通过API控制的服务.</p>
+<h3 id="对象存储和文件存储的比较"><a href="#对象存储和文件存储的比较" class="headerlink" title="对象存储和文件存储的比较"></a>对象存储和文件存储的比较</h3><p>对象存储和文件系统在接口上的本质区别是对象存储不支持和fread和fwrite类似的随机位置读写操作，即一个文件PUT到对象存储里以后，如果要读取，只能GET整个文件，如果要修改一个对象，只能重新PUT一个新的到对象存储里，覆盖之前的对象或者形成一个新的版本。</p>
+<h3 id="使用限制"><a href="#使用限制" class="headerlink" title="使用限制"></a>使用限制</h3><ul>
+<li>冷备份恢复读取需要1分钟</li>
+<li>上传5G的数据需要采用断点续传，但不能大于48.8TB</li>
+<li><strong>上传同名文件会覆盖原有文件</strong></li>
+<li>删除文件无法恢复</li>
+</ul>
+]]></content>
+      <categories>
+        <category>storage</category>
+      </categories>
+      <tags>
+        <tag>oss, aliyun</tag>
       </tags>
   </entry>
   <entry>
@@ -460,6 +460,41 @@
       </tags>
   </entry>
   <entry>
+    <title>PowerBI Quickstart</title>
+    <url>/2022/10/01/BI-2022-10-04-PowerBI-Quickstart/</url>
+    <content><![CDATA[<h2 id="PowerBI-Quickstart-Guide"><a href="#PowerBI-Quickstart-Guide" class="headerlink" title="PowerBI Quickstart Guide"></a>PowerBI Quickstart Guide</h2><p>截止2022年末市面上主流的BI产品有PowerBI, Tableau和国产帆软的FineBI. 由于Tableau逐渐退出中国，本文主要介绍一下PowerBI的基础功能。</p>
+<h3 id="数据导入方式"><a href="#数据导入方式" class="headerlink" title="数据导入方式"></a>数据导入方式</h3><p>PowerBI支持从130+不同数据源直接导入数据，主要导入数据的方式分为:</p>
+<ul>
+<li>Direct import 直接导入</li>
+<li>DirectQuery 直接查询</li>
+<li>Live Connection 在线连接</li>
+</ul>
+<p>这三种数据连接方式主要区别于:</p>
+<ul>
+<li>direct import 是将数据直接导进PowerBI desktop端的SSAS(SQL Server Analysis Services)的向量内存中，既然要存入内存那么对客户端的内存有一些要求，当然SSAS提供了一些内存存储压缩的算法来减少内存占用量。缺点是数据不是实时更新的。</li>
+<li>DirectQuery 顾名思义是直接在另一端的数据库上做查询, 这样性能的压力来到了数据库端。PowerBI目前支持主流的数据库，做查询前PowerBI desktop会将查询解释成对应的数据库语言到目标数据库执行，所以这里的语言转化或者叫做翻译是限制DirectQuery能力的瓶颈点。</li>
+<li>Live Connection只支持类SSAS的远程数据库，所有的能力和限制取决于远端SSAS的能力。</li>
+</ul>
+<p>如下表可以用来决策什么时候用什么方式的数据连接，有时候我们可能需要一个综合的解决方案。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/screenshots/screen_shot_data_import.png"
+                     
+                ></p>
+<h3 id="数据转化策略"><a href="#数据转化策略" class="headerlink" title="数据转化策略"></a>数据转化策略</h3><p>PowerBI使用Power Query Editor来处理数据清洗和转换，底层使用的是<code>M</code>语言。在真正运行处理逻辑时，PowerQuery有个<code>Applied Steps</code>功能可以用来调整处理逻辑的顺序或者反悔某些操作如删除。</p>
+<p>Power Query Editor在增加列的时候有一个自动根据所填例子形成新增列的功能，就是在新增一列时填入这列一行想转化成的数据，powerBI会自动完成剩余列的数据填充。</p>
+<h4 id="条件列，向下填充，逆透视，合并查询和追加查询"><a href="#条件列，向下填充，逆透视，合并查询和追加查询" class="headerlink" title="条件列，向下填充，逆透视，合并查询和追加查询"></a>条件列，向下填充，逆透视，合并查询和追加查询</h4><p><code>conditional column</code>就是在某列上经过if条件过滤后的生成一个新的列，比如某些列为空则生成新的列。<br><code>fill down</code>向下填充就是把为空的值按最上面的非空值填充。<br><code>split column</code>把一个列按一定规则拆成两个列。<br><code>unpivot</code>逆透视是把原列头作为新的表的行值，而原来列的值将会被相应转成对应的行。<br><code>merge queries</code>类似SQL的join, 分为内联，左联，右联，外联等。</p>
+<h3 id="数据建模"><a href="#数据建模" class="headerlink" title="数据建模"></a>数据建模</h3><p>PowerBI有强大的数据建模能力，可以自动识别表的关系，处理多对多管理和角色扮演维表<code>role-play table</code>.</p>
+<h4 id="Role-play-table"><a href="#Role-play-table" class="headerlink" title="Role-play table"></a>Role-play table</h4><p>角色扮演维表是一张维表（比如时间维度表）对事实表有多个作用，同时一张表就可以扮演多个角色从而减少数据冗余。举个例子，一张销售事实表可有多个时间维度，如订单时间，交付时间，维护时间等。PowerBI需要使用非激活的关系和DAX度量来处理<code>Role-play</code>, 具体需要用到<code>USERELATIONSHIP</code>函数。</p>
+]]></content>
+      <categories>
+        <category>Business Intelligence</category>
+      </categories>
+      <tags>
+        <tag>BI,powerbi</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>OCT Basic</title>
     <url>/2022/08/04/Devices-2022-08-05-OCT-basic/</url>
     <content><![CDATA[<h3 id="OCT技术原理"><a href="#OCT技术原理" class="headerlink" title="OCT技术原理"></a>OCT技术原理</h3><p>OCT(光学相干断层扫描)的基本原理是把光束(近红外光800-1500nm)投射到被成像的组织或标本上，光束被不同距离上的显微组织反射，通过测量反射光的延迟时间以及反射光的强度，将不同的位置上测量相干光所获得的反射信息转化为数字信号，经过计算机处理得出二维或三维的图像。<br><img  
@@ -503,41 +538,6 @@
       </categories>
       <tags>
         <tag>devices, OCT</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PowerBI Quickstart</title>
-    <url>/2022/10/01/BI-2022-10-04-PowerBI-Quickstart/</url>
-    <content><![CDATA[<h2 id="PowerBI-Quickstart-Guide"><a href="#PowerBI-Quickstart-Guide" class="headerlink" title="PowerBI Quickstart Guide"></a>PowerBI Quickstart Guide</h2><p>截止2022年末市面上主流的BI产品有PowerBI, Tableau和国产帆软的FineBI. 由于Tableau逐渐退出中国，本文主要介绍一下PowerBI的基础功能。</p>
-<h3 id="数据导入方式"><a href="#数据导入方式" class="headerlink" title="数据导入方式"></a>数据导入方式</h3><p>PowerBI支持从130+不同数据源直接导入数据，主要导入数据的方式分为:</p>
-<ul>
-<li>Direct import 直接导入</li>
-<li>DirectQuery 直接查询</li>
-<li>Live Connection 在线连接</li>
-</ul>
-<p>这三种数据连接方式主要区别于:</p>
-<ul>
-<li>direct import 是将数据直接导进PowerBI desktop端的SSAS(SQL Server Analysis Services)的向量内存中，既然要存入内存那么对客户端的内存有一些要求，当然SSAS提供了一些内存存储压缩的算法来减少内存占用量。缺点是数据不是实时更新的。</li>
-<li>DirectQuery 顾名思义是直接在另一端的数据库上做查询, 这样性能的压力来到了数据库端。PowerBI目前支持主流的数据库，做查询前PowerBI desktop会将查询解释成对应的数据库语言到目标数据库执行，所以这里的语言转化或者叫做翻译是限制DirectQuery能力的瓶颈点。</li>
-<li>Live Connection只支持类SSAS的远程数据库，所有的能力和限制取决于远端SSAS的能力。</li>
-</ul>
-<p>如下表可以用来决策什么时候用什么方式的数据连接，有时候我们可能需要一个综合的解决方案。<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/screenshots/screen_shot_data_import.png"
-                     
-                ></p>
-<h3 id="数据转化策略"><a href="#数据转化策略" class="headerlink" title="数据转化策略"></a>数据转化策略</h3><p>PowerBI使用Power Query Editor来处理数据清洗和转换，底层使用的是<code>M</code>语言。在真正运行处理逻辑时，PowerQuery有个<code>Applied Steps</code>功能可以用来调整处理逻辑的顺序或者反悔某些操作如删除。</p>
-<p>Power Query Editor在增加列的时候有一个自动根据所填例子形成新增列的功能，就是在新增一列时填入这列一行想转化成的数据，powerBI会自动完成剩余列的数据填充。</p>
-<h4 id="条件列，向下填充，逆透视，合并查询和追加查询"><a href="#条件列，向下填充，逆透视，合并查询和追加查询" class="headerlink" title="条件列，向下填充，逆透视，合并查询和追加查询"></a>条件列，向下填充，逆透视，合并查询和追加查询</h4><p><code>conditional column</code>就是在某列上经过if条件过滤后的生成一个新的列，比如某些列为空则生成新的列。<br><code>fill down</code>向下填充就是把为空的值按最上面的非空值填充。<br><code>split column</code>把一个列按一定规则拆成两个列。<br><code>unpivot</code>逆透视是把原列头作为新的表的行值，而原来列的值将会被相应转成对应的行。<br><code>merge queries</code>类似SQL的join, 分为内联，左联，右联，外联等。</p>
-<h3 id="数据建模"><a href="#数据建模" class="headerlink" title="数据建模"></a>数据建模</h3><p>PowerBI有强大的数据建模能力，可以自动识别表的关系，处理多对多管理和角色扮演维表<code>role-play table</code>.</p>
-<h4 id="Role-play-table"><a href="#Role-play-table" class="headerlink" title="Role-play table"></a>Role-play table</h4><p>角色扮演维表是一张维表（比如时间维度表）对事实表有多个作用，同时一张表就可以扮演多个角色从而减少数据冗余。举个例子，一张销售事实表可有多个时间维度，如订单时间，交付时间，维护时间等。PowerBI需要使用非激活的关系和DAX度量来处理<code>Role-play</code>, 具体需要用到<code>USERELATIONSHIP</code>函数。</p>
-]]></content>
-      <categories>
-        <category>Business Intelligence</category>
-      </categories>
-      <tags>
-        <tag>BI,powerbi</tag>
       </tags>
   </entry>
   <entry>
