@@ -199,7 +199,7 @@ comment:
   # Waline
   # See: https://waline.js.org/guide/get-started.html
   waline:
-    serverUrl:  # Waline server url(vercel) example: https://example.example.com
+    serverUrl:  https://kopie-comments-9snhujxxf-kopei.vercel.app
     lang: zh-CN # Waline language, default: zh-CN. See: https://waline.js.org/guide/client/i18n.html
   
   # Gitalk
