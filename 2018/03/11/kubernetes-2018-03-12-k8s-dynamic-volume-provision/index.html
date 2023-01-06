@@ -84,35 +84,37 @@
             <div class="pc">
                 <ul class="menu-list">
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../index.html" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html" >
                                     
-                                        <i class="fa-regular fa-house"></i>
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
                                     
-                                    HOME
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../archives" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives" >
                                     
-                                        <i class="fa-regular fa-archive"></i>
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
                                     
-                                    ARCHIVES
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
                     
                         <li class="menu-item search search-popup-trigger">
@@ -137,34 +139,37 @@
     <div class="header-drawer">
         <ul class="drawer-menu-list">
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../index.html" >
-                         
-                            
-                                <i class="fa-regular fa-house"></i>
-                            
-                            HOME
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html" >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../archives" >
-                         
-                            
-                                <i class="fa-regular fa-archive"></i>
-                            
-                            ARCHIVES
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives" >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
+
         </ul>
     </div>
 
@@ -248,7 +253,7 @@
 
             <div class="article-content markdown-body">
                 <blockquote>
-<p><a class="link"   target="_blank" rel="noopener" href="https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/" >https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/" >https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 </blockquote>
 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>动态卷配置允许按需创建存储卷。如果没有动态配置，管理员必须手动配置创建新的存储， 然后创建PV对象。动态卷配置的功能能让管理员不必预先配置存储。<br>而是当用户需要的时候自动配置存储。它可以按用户需要的用量配置存储空间，不像静态那样可能出现超额分配用量。</p>
 <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>动态配置数据卷的实现是基于<code>StorageClass</code>API对象。管理员可以配置很多<code>StorageClass</code>对象，每一个都可以指定一个存储供应商。管理员可以给一个<br>集群定义和暴露多个存储，每一个都有不同的参数配置。这样能减轻配置存储的复杂度，使用户简单选择存储服务。</p>

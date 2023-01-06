@@ -583,9 +583,9 @@
 <h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>生物标志物的例子包括从脉搏和血压这些基本的化学指标到更复杂的血液和其他组织的实验室检测。医学标志在临床实践中有着悠久的使用历史–与医学实践本身一样古老，而生物标志只是现代实验室科学允许我们可重复测量的最客观、可量化的医学标志。在临床研究中使用生物标志物，特别是实验室测量的生物标志物，是比较新颖的，这种做法的最佳方法仍在发展和完善之中。</p>
 <h2 id="临床应用风险"><a href="#临床应用风险" class="headerlink" title="临床应用风险"></a>临床应用风险</h2><p>生物标志物在改善药物开发过程以及更大的生物医学研究事业中发挥着关键作用。了解可测量的生物过程和临床结果之间的关系，对于扩大我们治疗所有疾病的武器库，以及加深我们对正常、健康生理学的理解至关重要。至少从20世纪80年代开始，在癌症和心脏病等重大疾病的大型试验中，使用生物标志物作为替代结果的必要性已被广泛讨论。美国食品和药物管理局继续促进生物标志物在基础和临床研究中的使用，以及对潜在的新生物标志物的研究，以便在未来的试验中作为替代物使用。然而，尽管生物标志物具有良好的潜力来加速药物开发，减少对无效实验治疗的接触等等，但当试验设计者将其与临床终点相混淆时，生物标志物会带来巨大风险。<br>只有当我们完全了解生物过程的正常生理学、疾病状态下该过程的病理生理学以及干预措施–药物、设备或其他–对这些过程的影响时，生物标志物才能真正替代临床相关终点。由于我们很少有机会了解这些过程的全貌，因为总是有更多的细节我们不知道或不了解，所以作为替代终点的生物标志物需要不断地重新评估。使用生物标志物的研究应该始终以临床结果为最终衡量标准，至少要对生物标志物相关的成功进行回顾性分析。如果不对代用终点和真正的临床终点之间的关系进行持续的重新评估，我们就有可能再次批准整类药物，这些药物要么没有额外的好处，要么更糟糕的是会伤害病人。</p>
 <h4 id="外部链接"><a href="#外部链接" class="headerlink" title="外部链接"></a>外部链接</h4><ul>
-<li><a class="link"   href="https://www.ncbi.nlm.nih.gov/books/NBK326791/" >BEST (Biomarkers, EndpointS, and other Tools) Resource<i class="fa-solid fa-up-right-from-square"></i></a></li>
-<li><a class="link"   href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3078627/" >What are biomarkers?<i class="fa-solid fa-up-right-from-square"></i></a></li>
-<li><a class="link"   href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9568382/" >肿瘤早期预警生物标志物的研究与思考<i class="fa-solid fa-up-right-from-square"></i></a></li>
+<li><a class="link"   href="https://www.ncbi.nlm.nih.gov/books/NBK326791/" >BEST (Biomarkers, EndpointS, and other Tools) Resource <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3078627/" >What are biomarkers? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9568382/" >肿瘤早期预警生物标志物的研究与思考 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 ]]></content>
       <categories>
@@ -686,7 +686,7 @@
 <li>SMART on FHIR app to compile and display relevant information into a single screen &#x2F; application</li>
 </ol>
 <h4 id="外部链接"><a href="#外部链接" class="headerlink" title="外部链接"></a>外部链接</h4><ul>
-<li><a class="link"   href="https://confluence.hl7.org/pages/viewpage.action?pageId=82914199" >Eyes on FHIR<i class="fa-solid fa-up-right-from-square"></i></a></li>
+<li><a class="link"   href="https://confluence.hl7.org/pages/viewpage.action?pageId=82914199" >Eyes on FHIR <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 ]]></content>
       <categories>
@@ -765,7 +765,7 @@
 </li>
 </ul>
 <h4 id="外部链接"><a href="#外部链接" class="headerlink" title="外部链接"></a>外部链接</h4><ul>
-<li><a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/patient_journey.html" >Patient Journey Use Case<i class="fa-solid fa-up-right-from-square"></i></a></li>
+<li><a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/patient_journey.html" >Patient Journey Use Case <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 ]]></content>
       <categories>
@@ -836,37 +836,37 @@
 <tbody><tr>
 <td>status</td>
 <td>1..1</td>
-<td><a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/ValueSet-observation-final-status.html" >code<i class="fa-solid fa-up-right-from-square"></i></a></td>
+<td><a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/ValueSet-observation-final-status.html" >code <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
 </tr>
 <tr>
 <td>category</td>
 <td>0..*</td>
-<td><a class="link"   href="http://hl7.org/fhir/R4/codesystem-observation-category.html#4.3.14.232.2" >CodeableConcept<i class="fa-solid fa-up-right-from-square"></i></a></td>
+<td><a class="link"   href="http://hl7.org/fhir/R4/codesystem-observation-category.html#4.3.14.232.2" >CodeableConcept <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
 </tr>
 <tr>
 <td>code</td>
 <td>1..1</td>
-<td><a class="link"   href="http://hl7.org/fhir/R4/valueset-observation-codes.html" >CodeableConcept<i class="fa-solid fa-up-right-from-square"></i></a></td>
+<td><a class="link"   href="http://hl7.org/fhir/R4/valueset-observation-codes.html" >CodeableConcept <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
 </tr>
 <tr>
 <td>subject</td>
 <td>1..1</td>
-<td><a class="link"   href="http://hl7.org/fhir/R4/patient.html" >Reference(Patient)<i class="fa-solid fa-up-right-from-square"></i></a></td>
+<td><a class="link"   href="http://hl7.org/fhir/R4/patient.html" >Reference(Patient) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
 </tr>
 <tr>
 <td>bodySite</td>
 <td>0..1</td>
-<td><a class="link"   href="http://hl7.org/fhir/R4/valueset-body-site.html#expansion" >CodeableConcept<i class="fa-solid fa-up-right-from-square"></i></a></td>
+<td><a class="link"   href="http://hl7.org/fhir/R4/valueset-body-site.html#expansion" >CodeableConcept <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
 </tr>
 <tr>
 <td>bodySite.extension</td>
 <td>0..*</td>
-<td><a class="link"   href="http://hl7.org/fhir/R4/bodystructure.html" >Reference(BodyStructure)<i class="fa-solid fa-up-right-from-square"></i></a></td>
+<td><a class="link"   href="http://hl7.org/fhir/R4/bodystructure.html" >Reference(BodyStructure) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
 </tr>
 <tr>
 <td>bodySite.extension.value</td>
 <td>1..1</td>
-<td>Reference(BodyStructure|<a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/StructureDefinition-body-structure-eye.html" >Ocular anatomical location<i class="fa-solid fa-up-right-from-square"></i></a>)</td>
+<td>Reference(BodyStructure|<a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/StructureDefinition-body-structure-eye.html" >Ocular anatomical location <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)</td>
 </tr>
 </tbody></table>
 <center>表一. 基础眼科观察profile必须实现的字段</center>
@@ -885,12 +885,12 @@
 <tbody><tr>
 <td>location</td>
 <td>0..1</td>
-<td><a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/ValueSet-body-site-eye.html#root" >CodeableConcept<i class="fa-solid fa-up-right-from-square"></i></a></td>
+<td><a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/ValueSet-body-site-eye.html#root" >CodeableConcept <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
 </tr>
 <tr>
 <td>locationQualifier</td>
 <td>0..*</td>
-<td><a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/ValueSet-qualifiers.html" >CodeableConcept<i class="fa-solid fa-up-right-from-square"></i></a></td>
+<td><a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/ValueSet-qualifiers.html" >CodeableConcept <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
 </tr>
 </tbody></table>
 <center>表二. 眼部解剖位置概貌profile必须实现的字段</center>
@@ -964,12 +964,12 @@
 <tr>
 <td>method</td>
 <td>0..1</td>
-<td><a class="link"   href="http://hl7.org/fhir/R4/valueset-observation-methods.html" >codeableConcept<i class="fa-solid fa-up-right-from-square"></i></a></td>
+<td><a class="link"   href="http://hl7.org/fhir/R4/valueset-observation-methods.html" >codeableConcept <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
 </tr>
 <tr>
 <td>method.coding</td>
 <td>1..*</td>
-<td><a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/ValueSet-iop-methods.html" >Coding<i class="fa-solid fa-up-right-from-square"></i></a></td>
+<td><a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/ValueSet-iop-methods.html" >Coding <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
 </tr>
 </tbody></table>
 <center>表三.眼压测量概貌profile</center>
@@ -1024,7 +1024,7 @@
 <tr>
 <td>method</td>
 <td>1..1</td>
-<td><a class="link"   href="http://hl7.org/fhir/R4/valueset-observation-methods.html" >codeableConcept<i class="fa-solid fa-up-right-from-square"></i></a></td>
+<td><a class="link"   href="http://hl7.org/fhir/R4/valueset-observation-methods.html" >codeableConcept <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></td>
 </tr>
 </tbody></table>
 <center>表四.视力测量概貌</center>
@@ -1084,7 +1084,7 @@
 <tbody><tr>
 <td>Procedure.code</td>
 <td>1..1</td>
-<td>CodeableConcept(<a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/ValueSet-procedures.html" >OphthalmologyProceduresValueSet<i class="fa-solid fa-up-right-from-square"></i></a>)</td>
+<td>CodeableConcept(<a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/ValueSet-procedures.html" >OphthalmologyProceduresValueSet <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)</td>
 </tr>
 <tr>
 <td>Procedure.bodySite</td>
@@ -1126,7 +1126,7 @@
 <tr>
 <td>DiagnosticReport.category.coding.system</td>
 <td>1..1</td>
-<td>uri(固定值：<a class="link"   href="http://snomed.info/sct" >http://snomed.info/sct<i class="fa-solid fa-up-right-from-square"></i></a>)</td>
+<td>uri(固定值：<a class="link"   href="http://snomed.info/sct" >http://snomed.info/sct <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)</td>
 </tr>
 <tr>
 <td>DiagnosticReport.category.coding.code</td>
@@ -1205,7 +1205,7 @@
 <tr>
 <td>DiagnosticReport.code.coding.system</td>
 <td>1..1</td>
-<td>uri(固定值：<a class="link"   href="http://snomed.info/sct" >http://snomed.info/sct<i class="fa-solid fa-up-right-from-square"></i></a>)</td>
+<td>uri(固定值：<a class="link"   href="http://snomed.info/sct" >http://snomed.info/sct <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)</td>
 </tr>
 <tr>
 <td>DiagnosticReport.code.coding.code</td>
@@ -1289,7 +1289,7 @@
 <tr>
 <td>DiagnosticReport.code.coding.system</td>
 <td>1..1</td>
-<td>uri(固定值：<a class="link"   href="http://loinc.org/" >http://loinc.org<i class="fa-solid fa-up-right-from-square"></i></a>)</td>
+<td>uri(固定值：<a class="link"   href="http://loinc.org/" >http://loinc.org <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)</td>
 </tr>
 <tr>
 <td>DiagnosticReport.code.coding.code</td>
@@ -1373,7 +1373,7 @@
 <tr>
 <td>DiagnosticReport.code.coding.system</td>
 <td>1..1</td>
-<td>uri(固定值：<a class="link"   href="http://loinc.org/" >http://loinc.org<i class="fa-solid fa-up-right-from-square"></i></a>)</td>
+<td>uri(固定值：<a class="link"   href="http://loinc.org/" >http://loinc.org <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>)</td>
 </tr>
 <tr>
 <td>DiagnosticReport.code.coding.code</td>
@@ -1389,7 +1389,7 @@
 <center>表十三.OCT RNFL诊断报告概貌</center>
 
 <h4 id="外部链接"><a href="#外部链接" class="headerlink" title="外部链接"></a>外部链接</h4><ul>
-<li><a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/profiles.html" >Eyes on FHIR Profiles<i class="fa-solid fa-up-right-from-square"></i></a></li>
+<li><a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/profiles.html" >Eyes on FHIR Profiles <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 ]]></content>
       <categories>
@@ -1500,12 +1500,12 @@
     <url>/2020/12/27/architecture-2020-12-08-bussiness-architecture/</url>
     <content><![CDATA[<h2 id="企业业务架构"><a href="#企业业务架构" class="headerlink" title="企业业务架构"></a>企业业务架构</h2><p>企业的业务架构定义了企业的结构，这个结构包含了企业的治理结构，业务流程，服务和产品，业务信息和利益相关者。业务架构为实现企业战略目标勾画出一个可行的、方向性的系统。所以简单地可以认为企业业务架构是一个组织工作的蓝图。通过使用组织架构，企业可以以较小的代价和时间来面对挑战和处理问题，这是因为我们已经知道业务中所有重要的依赖，关系和信息流。企业不管大小都应该有业务架构。 业务架构不一定需要全放面描述或者按照一定的标准创建。设计和描述组织的工作是复杂和困难的， 所以我们需要一些工具来帮助加速这一过程。</p>
 <h3 id="开源工具"><a href="#开源工具" class="headerlink" title="开源工具"></a>开源工具</h3><ul>
-<li><strong>Collection</strong> 常见设计原则 <a class="link"   href="https://principles.design/" >https://principles.design/<i class="fa-solid fa-up-right-from-square"></i></a></li>
-<li><strong>Archi</strong> 架构图工具 <a class="link"   href="https://www.archimatetool.com/" >https://www.archimatetool.com/<i class="fa-solid fa-up-right-from-square"></i></a></li>
-<li><strong>Causal Loop Diagram</strong> 流程图工具。 <a class="link"   href="https://nocomplexity.com/causalloopdiagram/" >https://nocomplexity.com/causalloopdiagram/<i class="fa-solid fa-up-right-from-square"></i></a></li>
-<li><strong>Camunda Modeler</strong> 用于编辑BPMN(Business Process Model and Notation)的桌面工具。<a class="link"   href="https://camunda.com/download/modeler/" >https://camunda.com/download/modeler/<i class="fa-solid fa-up-right-from-square"></i></a></li>
-<li><strong>Protege</strong> 用于规划拓扑图 <a class="link"   href="https://protege.stanford.edu/" >https://protege.stanford.edu/<i class="fa-solid fa-up-right-from-square"></i></a></li>
-<li><strong>DrawIO</strong> 是一个线上项目用于创建流程图。类似国内的有processon. <a class="link"   href="https://app.diagrams.net/" >https://app.diagrams.net/<i class="fa-solid fa-up-right-from-square"></i></a></li>
+<li><strong>Collection</strong> 常见设计原则 <a class="link"   href="https://principles.design/" >https://principles.design/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><strong>Archi</strong> 架构图工具 <a class="link"   href="https://www.archimatetool.com/" >https://www.archimatetool.com/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><strong>Causal Loop Diagram</strong> 流程图工具。 <a class="link"   href="https://nocomplexity.com/causalloopdiagram/" >https://nocomplexity.com/causalloopdiagram/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><strong>Camunda Modeler</strong> 用于编辑BPMN(Business Process Model and Notation)的桌面工具。<a class="link"   href="https://camunda.com/download/modeler/" >https://camunda.com/download/modeler/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><strong>Protege</strong> 用于规划拓扑图 <a class="link"   href="https://protege.stanford.edu/" >https://protege.stanford.edu/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><strong>DrawIO</strong> 是一个线上项目用于创建流程图。类似国内的有processon. <a class="link"   href="https://app.diagrams.net/" >https://app.diagrams.net/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 <h2 id="业务架构设计原则"><a href="#业务架构设计原则" class="headerlink" title="业务架构设计原则"></a>业务架构设计原则</h2><p>有一个清晰的业务原则对于成功的企业至关重要。有原则也是在限定的时间和资源下构建好的架构的基础，这些原则需要所有的利益相关者都参与和同意。</p>
 <h3 id="一些常见的原则"><a href="#一些常见的原则" class="headerlink" title="一些常见的原则"></a>一些常见的原则</h3><h4 id="solution-space解决的空间"><a href="#solution-space解决的空间" class="headerlink" title="solution space解决的空间"></a>solution space解决的空间</h4><p><strong>原则：</strong>永不尝试使用技术的手段解决非技术的问题。<br><br><strong>原因：</strong>技术当然可以帮助解决一些问题， 但是技术永远不可能是完备的手段。任何非技术的活动，过程，行为改变等等都可能是解决问题的手段。<br><br><strong>言下之意：</strong>解决问题的时候不要仅仅盯着技术。</p>
@@ -1595,7 +1595,7 @@
   <entry>
     <title>微软的软件架构设计原则</title>
     <url>/2021/03/19/architecture-2021-03-20-%E5%BE%AE%E8%BD%AF%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</url>
-    <content><![CDATA[<h2 id="构架原则"><a href="#构架原则" class="headerlink" title="构架原则"></a>构架原则</h2><p>微软官网有一个篇短文专门讲解Web架构设计原则<a class="link"   href="https://docs.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/architectural-principles#dependency-inversion" >site<i class="fa-solid fa-up-right-from-square"></i></a>. 且把它翻译一下, 品位下.</p>
+    <content><![CDATA[<h2 id="构架原则"><a href="#构架原则" class="headerlink" title="构架原则"></a>构架原则</h2><p>微软官网有一个篇短文专门讲解Web架构设计原则<a class="link"   href="https://docs.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/architectural-principles#dependency-inversion" >site <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. 且把它翻译一下, 品位下.</p>
 <h2 id="常见的设计原则"><a href="#常见的设计原则" class="headerlink" title="常见的设计原则"></a>常见的设计原则</h2><h3 id="Separation-of-Concerns"><a href="#Separation-of-Concerns" class="headerlink" title="Separation of Concerns"></a>Separation of Concerns</h3><p><code>Separation of Concerns</code>字面翻译是关注点的分离, 其实很多情况下, 我们的架构设计都遵循这个原则. 这个原则指出软件应该根据工作类型的不同被分离. 这个原则是<code>Edsger W. Dijkstra</code>在论文<code>On the role of scientific thought</code>提出的. 原则上将一个计算机程序分割成不同模块的程序, 分割一个程序的不同关注点,一个模块只关心一个点. 同时业务行为设计也要和基础架构, UI展示层分离. 这样业务逻辑的分离可以保证业务可以被单独测试和进化, 而不是和其他实现紧密耦合. </p>
 <h3 id="Encapsulation-封装"><a href="#Encapsulation-封装" class="headerlink" title="Encapsulation 封装"></a>Encapsulation 封装</h3><p>应用的不同部分需要使用封装来隔离, 而通过外部接口保持直接的协作不受内部实现的改变的影响.</p>
 <h3 id="Dependency-inversion-依赖反转"><a href="#Dependency-inversion-依赖反转" class="headerlink" title="Dependency inversion 依赖反转"></a>Dependency inversion 依赖反转</h3><ul>
@@ -1627,7 +1627,7 @@
     <title>Hadoop MapReduce 实现</title>
     <url>/2018/10/12/bigdata-2018-10-13-hadoop-mapreduce-%E5%AE%9E%E7%8E%B0-md/</url>
     <content><![CDATA[<p>虽然Hadoop现在有一点过时, 但是一般的金融公司还是会用它出隔日的报表(离线计算), 本文主要关注其<code>Map Reduce</code>的实现.</p>
-<h3 id="函数编程"><a href="#函数编程" class="headerlink" title="函数编程"></a>函数编程</h3><p><code>Map/Reduce</code>的思想借鉴于函数式编程. <code>Map</code>是进行过滤和排序, 比如把一组学生按名字排序到队列, 一个名字一个队列, 然后<code>Reduce</code>方法进行总结, 比如对队列里的名字做统计, 得出名字出现频率. 这种思想是<code>split-apply-combine</code>的一种特例(见<a class="link"   href="https://www.kopei.top/2018/08/31/pandas/" >pandas groupby<i class="fa-solid fa-up-right-from-square"></i></a>).</p>
+<h3 id="函数编程"><a href="#函数编程" class="headerlink" title="函数编程"></a>函数编程</h3><p><code>Map/Reduce</code>的思想借鉴于函数式编程. <code>Map</code>是进行过滤和排序, 比如把一组学生按名字排序到队列, 一个名字一个队列, 然后<code>Reduce</code>方法进行总结, 比如对队列里的名字做统计, 得出名字出现频率. 这种思想是<code>split-apply-combine</code>的一种特例(见<a class="link"   href="https://www.kopei.top/2018/08/31/pandas/" >pandas groupby <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>).</p>
 <p>我们知道多线程编程的局限在于访问共享资源的竞争问题, 一般需要锁, 信号量(semaphore)等技术去协调, 不然死锁等问题将会出现.</p>
 <p>但是我们可以完全换个思路, 比如消除需要访问共享资源的限制, 这样我们就不需要锁之类的技术了.这也是函数计算的一个基本概念. <strong>数据通过函数的参数传递</strong>, 同一时间只有一个激活的函数运行,这样就避免了冲突.</p>
 <p>可以把函数连接作有向无环图<code>Direct Acylic Graph</code>, 由于函数没有隐藏的依赖, 这样多个DAG就可以并行运行.</p>
@@ -1775,7 +1775,7 @@
 <h2 id="Dive-into"><a href="#Dive-into" class="headerlink" title="Dive into"></a>Dive into</h2><p>下面让我们去看一看pyarrow的源代码（1.0.0)</p>
 <h3 id="pyarrow项目目录"><a href="#pyarrow项目目录" class="headerlink" title="pyarrow项目目录"></a>pyarrow项目目录</h3><p>![](&#x2F;images&#x2F;screenshots&#x2F;Screen Shot 2020-08-28 at 3.53.07 PM.png)</p>
 <p>pip安装的pyarrow少了一些cython编写的pyx代码，这些文件被编译成pxd或so后可以被py代码import, 比如<code>from pyarrow.lib import (ChunkedArray, RecordBatch, Table)</code><br>是从lib.so中导入的。</p>
-<h3 id="pyarrow-init-py源码解读"><a href="#pyarrow-init-py源码解读" class="headerlink" title="pyarrow._init_.py源码解读"></a>pyarrow._<em>init_</em>.py源码解读</h3><p>首先导入版本号，如果不是通过包安装，那么版本通过解析<code>git describe</code>确定版本。<br>接着导入cython的pyarrow.lib库，由于Cython有个bug(<a class="link"   href="https://github.com/cython/cython/issues/3603" >https://github.com/cython/cython/issues/3603<i class="fa-solid fa-up-right-from-square"></i></a>), 这里暂时关掉gc。<br>然后有一个<code>show_versions</code>的函数可以查看c++版本信息：</p>
+<h3 id="pyarrow-init-py源码解读"><a href="#pyarrow-init-py源码解读" class="headerlink" title="pyarrow._init_.py源码解读"></a>pyarrow._<em>init_</em>.py源码解读</h3><p>首先导入版本号，如果不是通过包安装，那么版本通过解析<code>git describe</code>确定版本。<br>接着导入cython的pyarrow.lib库，由于Cython有个bug(<a class="link"   href="https://github.com/cython/cython/issues/3603" >https://github.com/cython/cython/issues/3603 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>), 这里暂时关掉gc。<br>然后有一个<code>show_versions</code>的函数可以查看c++版本信息：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; pa.show_versions()</span><br><span class="line">pyarrow version info</span><br><span class="line">--------------------</span><br><span class="line">Package kind: manylinux2010</span><br><span class="line">Arrow C++ library version: 1.0.0</span><br><span class="line">Arrow C++ compiler: GNU 8.3.1</span><br><span class="line">Arrow C++ compiler flags:  -fdiagnostics-color=always -O3 -DNDEBUG</span><br><span class="line">Arrow C++ git revision: b0d623957db820de4f1ff0a5ebd3e888194a48f0</span><br><span class="line">Arrow C++ git description: apache-arrow-0.16.0-1340-gb0d623957</span><br></pre></td></tr></table></figure></div>
 <p>然后导入Cython定义的各种类型，<br>导入buffer和IO相关。关于Pyarrow的memory和IO, 下面会介绍。<br>导入异常，<br>导入序列化相关，到这lib模块导入完毕。<br>然后从hdfs.py，ipc.py, filesystem.py, serialization.py,types.py导入相关模块，<br>定义启动plasma server入口函数和一些其他的包工具函数。</p>
 <h3 id="pyarrow的内存和IO管理"><a href="#pyarrow的内存和IO管理" class="headerlink" title="pyarrow的内存和IO管理"></a>pyarrow的内存和IO管理</h3><p>本节主要总结pyarrow的内存管理和IO管理，涉及buffer, memory pool和file-like&#x2F;stream-like对象</p>
@@ -1784,7 +1784,7 @@
 <p><strong>pyarrow.Buffer</strong><br><code>Buffer</code>对象是C++代码<code>arrow::Buffer</code>的封装，作为基础工具管理C++中的arrow内存。一个buffer代表一段连续的内存空间。<br>大部分buffer拥有他们各自的内存，但是也有例外。Buffer对象可以允许高级array类安全地和属于或不属于他们的内存交互。<code>arrow::Buffer</code><br>允许一个buffer访问另一个buffer通过zero-copy, 同时保持内存的生命周期和清晰的父子关系。<br><code>arrow::Buffer</code>有很多种实现，但是对外接口是一致的：一个数据指针和长度。有点类似python自带的buffer和<code>memoryview</code>对象</p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># https://github.com/apache/arrow/blob/67983cf56f/python/pyarrow/io.pxi</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pyarrow <span class="keyword">as</span> pa</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data=<span class="string">b&#x27;aaaaaaaaaaaaaaaaaaaaaa&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf = pa.py_buffer(data)  <span class="comment"># buf是zero-copy的data对象memory view, buf不会分配内存.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf</span><br><span class="line">&lt;pyarrow.lib.Buffer <span class="built_in">object</span> at <span class="number">0x7fabc0e05d30</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf.size</span><br><span class="line"><span class="number">22</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf.to_pybytes()  <span class="comment"># 这个转化是会复制数据。</span></span><br><span class="line"><span class="string">b&#x27;aaaaaaaaaaaaaaaaaaaaaa&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 <p>外部的内存，只要有指针和size，保持接口一致，也可以通过<code>foreign_buffer()</code>来访问。<br>在创建buffer之后，可以通过memoryview或python buffer装换，这种转化是zero-copy.</p>
-<p><strong>Memory Pools</strong><br>所有内存分配和释放(malloc&#x2F;free)都可通过<code>arrow::MemoryPool</code>来追踪。代码在<a class="link"   href="https://github.com/apache/arrow/blob/67983cf56f/python/pyarrow/memory.pxi" >memory.pxi<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p><strong>Memory Pools</strong><br>所有内存分配和释放(malloc&#x2F;free)都可通过<code>arrow::MemoryPool</code>来追踪。代码在<a class="link"   href="https://github.com/apache/arrow/blob/67983cf56f/python/pyarrow/memory.pxi" >memory.pxi <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pyarrow <span class="keyword">as</span> pa</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pa.total_allocated_bytes()</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf = pa.allocate_buffer(<span class="number">1024</span>,resizable=<span class="literal">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pa.total_allocated_bytes()</span><br><span class="line"><span class="number">1024</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf.resize(<span class="number">2048</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pa.total_allocated_bytes()</span><br><span class="line"><span class="number">2048</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf=<span class="literal">None</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pa.total_allocated_bytes()</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure></div>
 
 <h4 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h4><p>Arrow C++库有几个抽象接口用于不同IO类型：</p>
@@ -1798,7 +1798,7 @@
 <p>在<code>pyarrow.__init__.py</code>可以看到代码的引入:</p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># I/O</span></span><br><span class="line"><span class="keyword">from</span> pyarrow.lib <span class="keyword">import</span> (HdfsFile, NativeFile, PythonFile,</span><br><span class="line">                         BufferedInputStream, BufferedOutputStream,</span><br><span class="line">                         CompressedInputStream, CompressedOutputStream,</span><br><span class="line">                         TransformInputStream, transcoding_input_stream,</span><br><span class="line">                         FixedSizeBufferWriter,</span><br><span class="line">                         BufferReader, BufferOutputStream,</span><br><span class="line">                         OSFile, MemoryMappedFile, memory_map,</span><br><span class="line">                         create_memory_map, have_libhdfs,</span><br><span class="line">                         MockOutputStream, input_stream, output_stream)</span><br><span class="line"><span class="keyword">from</span> pyarrow.lib <span class="keyword">import</span> (ChunkedArray, RecordBatch, Table, table,</span><br><span class="line">                         concat_arrays, concat_tables)</span><br></pre></td></tr></table></figure></div>
 
-<p>为了能够和python自带<code>file</code>对象行为一致，arrow定义了<code>NativeFile</code>(其实是个stream).代码在<a class="link"   href="https://github.com/apache/arrow/blob/67983cf56f/python/pyarrow/io.pxi" >io.pxi<i class="fa-solid fa-up-right-from-square"></i></a><br><code>NativeFile</code>是所有arrow流的基类，arrow流可以是可读，可写，也可以支持<code>seek</code>.<code>NativeFile</code>暴露的方法用于读写python的数据对象，然后把他们变成stream传递给其他arrow工具，比如Arrow IPC.<br>cython代码中定义了好几种NativeFile子类:</p>
+<p>为了能够和python自带<code>file</code>对象行为一致，arrow定义了<code>NativeFile</code>(其实是个stream).代码在<a class="link"   href="https://github.com/apache/arrow/blob/67983cf56f/python/pyarrow/io.pxi" >io.pxi <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><code>NativeFile</code>是所有arrow流的基类，arrow流可以是可读，可写，也可以支持<code>seek</code>.<code>NativeFile</code>暴露的方法用于读写python的数据对象，然后把他们变成stream传递给其他arrow工具，比如Arrow IPC.<br>cython代码中定义了好几种NativeFile子类:</p>
 <ul>
 <li>OSFile, 使用操作系统的描述符</li>
 <li>MemoryMappedFile, 使用memory maps做zero-copy读和写。</li>
@@ -1939,7 +1939,7 @@
 <li>需要连接的IP地址， 支持IPv6.</li>
 <li>只支持BGP路由协议</li>
 </ul>
-<h3 id="aws-LoadBalancer有三种类型：-Classic-Network-Application-LoadBalancer-见下图："><a href="#aws-LoadBalancer有三种类型：-Classic-Network-Application-LoadBalancer-见下图：" class="headerlink" title="aws LoadBalancer有三种类型： Classic, Network, Application LoadBalancer. 见下图："></a>aws LoadBalancer有三种类型： Classic, Network, Application LoadBalancer. 见下图：</h3><p><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.21.58.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.21.58.png"><br>![<a class="link"   href="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.37.46.png]" >https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.37.46.png]<i class="fa-solid fa-up-right-from-square"></i></a>(<a class="link"   href="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95" >https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95<i class="fa-solid fa-up-right-from-square"></i></a><br>%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.37.46.png)</p>
+<h3 id="aws-LoadBalancer有三种类型：-Classic-Network-Application-LoadBalancer-见下图："><a href="#aws-LoadBalancer有三种类型：-Classic-Network-Application-LoadBalancer-见下图：" class="headerlink" title="aws LoadBalancer有三种类型： Classic, Network, Application LoadBalancer. 见下图："></a>aws LoadBalancer有三种类型： Classic, Network, Application LoadBalancer. 见下图：</h3><p><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.21.58.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.21.58.png"><br>![<a class="link"   href="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.37.46.png]" >https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.37.46.png] <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>(<a class="link"   href="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95" >https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.37.46.png)</p>
 <h3 id="aws-CloudFront-是一个能加速你的静态和动态内容的web服务-除了能分发静态内容-还能分发动态内容和流内容"><a href="#aws-CloudFront-是一个能加速你的静态和动态内容的web服务-除了能分发静态内容-还能分发动态内容和流内容" class="headerlink" title="aws CloudFront 是一个能加速你的静态和动态内容的web服务.除了能分发静态内容,还能分发动态内容和流内容."></a>aws CloudFront 是一个能加速你的静态和动态内容的web服务.除了能分发静态内容,还能分发动态内容和流内容.</h3><h3 id="aws-Route-53的5中路由方式"><a href="#aws-Route-53的5中路由方式" class="headerlink" title="aws Route 53的5中路由方式:"></a>aws Route 53的5中路由方式:</h3><ul>
 <li>sample routing. 简单匹配dns数据库中的记录, 比如一个域名对应一个IP</li>
 <li>weighted routing. 加权路由是按比例分发流量</li>
@@ -2491,13 +2491,13 @@
   <entry>
     <title>Three type of data model</title>
     <url>/2021/08/08/data-warehouse-2021-08-09-data-modeling-type/</url>
-    <content><![CDATA[<h2 id="Three-Types-of-Data-Models"><a href="#Three-Types-of-Data-Models" class="headerlink" title="Three Types of Data Models"></a>Three Types of Data Models</h2><p>一般主要有三种数据模型<a class="link"   href="https://dl.acm.org/doi/book/10.5555/1594814" >数据模型定义<i class="fa-solid fa-up-right-from-square"></i></a>:</p>
+    <content><![CDATA[<h2 id="Three-Types-of-Data-Models"><a href="#Three-Types-of-Data-Models" class="headerlink" title="Three Types of Data Models"></a>Three Types of Data Models</h2><p>一般主要有三种数据模型<a class="link"   href="https://dl.acm.org/doi/book/10.5555/1594814" >数据模型定义 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>:</p>
 <ul>
 <li>概念模型</li>
 <li>逻辑模型 </li>
 <li>物理模型</li>
 </ul>
-<p>这三种模型可以使用工具来建模<a class="link"   href="https://en.wikipedia.org/wiki/Comparison_of_data_modeling_tools" >工具列表<i class="fa-solid fa-up-right-from-square"></i></a>. 我们通常先创建概念数据模型，然后再做逻辑数据模型。</p>
+<p>这三种模型可以使用工具来建模<a class="link"   href="https://en.wikipedia.org/wiki/Comparison_of_data_modeling_tools" >工具列表 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. 我们通常先创建概念数据模型，然后再做逻辑数据模型。</p>
 <h3 id="概念数据模型"><a href="#概念数据模型" class="headerlink" title="概念数据模型"></a>概念数据模型</h3><p>概念数据模型用于定义高层业务抽象和概念。通常是业务所有者绘制，建模时不用考虑具体系统的约束。使用SQL Server的SSMS可以很好地建模，一般使用SSMS创建概念模型的流程是：</p>
 <ol>
 <li>创建数据库关系图</li>
@@ -2799,8 +2799,8 @@
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>环境：</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/centos-release</span><br><span class="line">CentOS Linux release 7.1.1503 (Core) </span><br><span class="line">ansible --version</span><br><span class="line">ansible 2.3.1.0</span><br><span class="line">  config file = /etc/ansible/ansible.cfg</span><br><span class="line">  configured module search path = Default w/o overrides</span><br><span class="line">  python version = 2.7.5 (default, Aug  4 2017, 00:39:18) [GCC 4.8.5 20150623 (Red Hat 4.8.5-16)]</span><br></pre></td></tr></table></figure></div>
 
-<h3 id="问题出现"><a href="#问题出现" class="headerlink" title="问题出现"></a>问题出现</h3><p>用ansible安装部署docker时发现有容器一直起不来。安装的docker daemon是按docker官网<a class="link"   href="https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-docker-ce" >https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-docker-ce<i class="fa-solid fa-up-right-from-square"></i></a>安装的，然后log发现报错<code>Error response from daemon: OCI runtime create failed: unable to retrieve OCI runtime error</code>。</p>
-<h3 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h3><p>搜索查看<a class="link"   href="https://github.com/moby/moby/issues/35972" >issue<i class="fa-solid fa-up-right-from-square"></i></a>,发现是安装的docker-ce版本太新!而centos太旧，Centos7.1选择docker-ce-17.06.3.ce这个版本可用，17.12还是太新！</p>
+<h3 id="问题出现"><a href="#问题出现" class="headerlink" title="问题出现"></a>问题出现</h3><p>用ansible安装部署docker时发现有容器一直起不来。安装的docker daemon是按docker官网<a class="link"   href="https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-docker-ce" >https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-docker-ce <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>安装的，然后log发现报错<code>Error response from daemon: OCI runtime create failed: unable to retrieve OCI runtime error</code>。</p>
+<h3 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h3><p>搜索查看<a class="link"   href="https://github.com/moby/moby/issues/35972" >issue <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>,发现是安装的docker-ce版本太新!而centos太旧，Centos7.1选择docker-ce-17.06.3.ce这个版本可用，17.12还是太新！</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">docker info</span><br><span class="line">Server Version: 18.01.0-ce</span><br><span class="line">Storage Driver: devicemapper</span><br></pre></td></tr></table></figure></div>
 
 <h3 id="措施，其他问题再现"><a href="#措施，其他问题再现" class="headerlink" title="措施，其他问题再现"></a>措施，其他问题再现</h3><p>卸载docker-ce, 重新安装。然后发现容器还是起不来！<br>尝试删除&#x2F;var&#x2F;lib&#x2F;docker, 报错</p>
@@ -2944,7 +2944,7 @@
   <entry>
     <title>React函数式组件的状态</title>
     <url>/2019/04/17/frontend-2019-04-18-React-function-component-state/</url>
-    <content><![CDATA[<h2 id="React无状态组件"><a href="#React无状态组件" class="headerlink" title="React无状态组件"></a>React无状态组件</h2><p>React的<code>Component</code>分为有状态的<code>class component</code>和无状态的<code>function component</code>, <code>class component</code>的好处是可以完全控制组件的生命周期, 坏处是写起来麻烦. <code>function component</code>的好处是可以使用高阶函数式的编程方式编写代码, 缺点是没有状态可以控制.所以一般需要状态初始化或者其他一些状态操控时, 以前可以用<a class="link"   href="https://github.com/acdlite/recompose" >recompose<i class="fa-solid fa-up-right-from-square"></i></a>, 使用HOC让组件带有状态, 但是后来这个库的作者加入了React团队, v16.8版本后, 我们应该使用<a class="link"   href="https://reactjs.org/docs/hooks-overview.html" >Hooks<i class="fa-solid fa-up-right-from-square"></i></a>来管理组件状态和生命周期.</p>
+    <content><![CDATA[<h2 id="React无状态组件"><a href="#React无状态组件" class="headerlink" title="React无状态组件"></a>React无状态组件</h2><p>React的<code>Component</code>分为有状态的<code>class component</code>和无状态的<code>function component</code>, <code>class component</code>的好处是可以完全控制组件的生命周期, 坏处是写起来麻烦. <code>function component</code>的好处是可以使用高阶函数式的编程方式编写代码, 缺点是没有状态可以控制.所以一般需要状态初始化或者其他一些状态操控时, 以前可以用<a class="link"   href="https://github.com/acdlite/recompose" >recompose <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, 使用HOC让组件带有状态, 但是后来这个库的作者加入了React团队, v16.8版本后, 我们应该使用<a class="link"   href="https://reactjs.org/docs/hooks-overview.html" >Hooks <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>来管理组件状态和生命周期.</p>
 <h3 id="recompose和hooks写法对比"><a href="#recompose和hooks写法对比" class="headerlink" title="recompose和hooks写法对比"></a>recompose和hooks写法对比</h3><p>使用recompose给组件设置状态及其他类似<code>componentDidMount</code>的功能时, 需要先定义好相应的状态和生命周期函数, 然后compose进组件:</p>
 <div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; <span class="title class_">Component</span> &#125; = <span class="title class_">React</span>;</span><br><span class="line"><span class="keyword">const</span> &#123; compose, lifecycle, branch, renderComponent &#125; = <span class="title class_">Recompose</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> withUserData = <span class="title function_">lifecycle</span>(&#123;</span><br><span class="line">  <span class="attr">state</span>: &#123; <span class="attr">loading</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">  <span class="title function_">componentDidMount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title function_">fetchData</span>().<span class="title function_">then</span>(<span class="function">(<span class="params">data</span>) =&gt;</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123; <span class="attr">loading</span>: <span class="literal">false</span>, ...data &#125;));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> enhance = <span class="title function_">compose</span>(</span><br><span class="line">  withUserData</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">User</span> = <span class="title function_">enhance</span>(<span class="function">(<span class="params">&#123; name, status &#125;</span>) =&gt;</span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;User&quot;</span>&gt;</span>&#123; name &#125;—&#123; status &#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">App</span> = (<span class="params"></span>) =&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">User</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br></pre></td></tr></table></figure></div>
 <p>而如果使用<code>Hooks</code>那么改写起来方便一点.</p>
@@ -3049,7 +3049,7 @@
 <li>System. 这个<code>class loader</code>初始化所有在<code>CLASSPATH</code>定义的内容. 这个路径中所有的类可以被tomcat内部类和应用看见, 除了tomcat的catalina启动脚本(<code>$CATALINA_HOME/bin/catalina.sh</code>).这个启动脚本会忽略<code>CLASSPATH</code>环境变量, 而从这个脚本启动的<code>system class loader</code>将会从如下仓库构建:<ul>
 <li><code>$CATALINA_HOME/bin/bootstrap.jar</code>, main()函数用于初始化tomcat server和class loader实现类.</li>
 <li><code>$CATALINA_BASE/bin/tomcat-juli.jar</code>或者<code>CATALINA_BASE/bin/tomcat-juli.jar</code>. 日志实现类.</li>
-<li><code>$CATALINA_HOME/bin/commons-daemon.jar</code> <a class="link"   href="https://commons.apache.org/proper/commons-daemon/" >Apache Commons Daemon<i class="fa-solid fa-up-right-from-square"></i></a> 项目中的类.</li>
+<li><code>$CATALINA_HOME/bin/commons-daemon.jar</code> <a class="link"   href="https://commons.apache.org/proper/commons-daemon/" >Apache Commons Daemon <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 项目中的类.</li>
 </ul>
 </li>
 <li>Common. 这个<code>class loader</code>包含了所有能让Tomcat内部类和所有应用可见的类. 这个<code>class loader</code>的搜索路径在<code>$CATALINA_BASE/conf/catalina.propeties</code>文件的<code>common.loader</code>属性定义.<br><code>common.loader=&quot;$&#123;catalina.base&#125;/lib&quot;,&quot;$&#123;catalina.base&#125;/lib/*.jar&quot;,&quot;$&#123;catalina.home&#125;/lib&quot;,&quot;$&#123;catalina.home&#125;/lib/*.jar&quot;</code></li>
@@ -3066,7 +3066,7 @@
     <title>Kubernetes Pod含义</title>
     <url>/2018/01/03/kubernetes-2018-01-04-Kubernetes-pod/</url>
     <content><![CDATA[<blockquote>
-<p>官网文档 <a class="link"   href="https://kubernetes.io/docs/concepts/workloads/pods/pod/" >https://kubernetes.io/docs/concepts/workloads/pods/pod/<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p>官网文档 <a class="link"   href="https://kubernetes.io/docs/concepts/workloads/pods/pod/" >https://kubernetes.io/docs/concepts/workloads/pods/pod/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 </blockquote>
 <h3 id="什么是Pod？"><a href="#什么是Pod？" class="headerlink" title="什么是Pod？"></a>什么是Pod？</h3><p>Pod的本身含义是<strong>一群鲸鱼</strong>的意思, 而Docker的Logo刚好是🐳。所以简单说pod就是一组容器。（不一定是docker container) pod里的容器共享存储，网络和运行的容器环境。共享的东西包括cgroup, 命名空间, Ip, 端口和其他隔离方面的东西</p>
 <h3 id="pod内部通讯"><a href="#pod内部通讯" class="headerlink" title="pod内部通讯"></a>pod内部通讯</h3><p>由于pod里面的容器共享ip, 容器间的通讯可以通过内部进程通信（SystemV semaphores， POSIX shared memory）或localhost.</p>
@@ -3082,7 +3082,7 @@
     <title>Kubernetes的service</title>
     <url>/2018/02/21/kubernetes-2018-02-22-k8s-service/</url>
     <content><![CDATA[<blockquote>
-<p><a class="link"   href="https://kubernetes.io/docs/concepts/services-networking/service/" >https://kubernetes.io/docs/concepts/services-networking/service/<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p><a class="link"   href="https://kubernetes.io/docs/concepts/services-networking/service/" >https://kubernetes.io/docs/concepts/services-networking/service/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 </blockquote>
 <h3 id="Service定义"><a href="#Service定义" class="headerlink" title="Service定义"></a>Service定义</h3><p>简单来说，<code>service</code>是一组pods和访问这些pods<strong>规则</strong>的逻辑抽象， 它的作用就是代理pods和端口映射（具体的实现似乎是通过复杂的iptable路由NAT）。Service是一个REST对象，这个对象将所有通过某个node端口进来TCP或者UDP包转发给下游pod， 默认上游的端口直接映射到下游pod，比如80—&gt;80，<br>但是也可以指定下游端口为字符串（将pod端口取个名称）， 这样下游不同的pod端口可以对应同一个端口名，大大提供了便利性。<code>service</code>定义代码如下，通过对apiserver post这组定义，可以产生一个新的service。（对于原生k8s服务，还会生成一个同名的<code>Endpoints</code>用来更新pod的地址）。每个node里有一个进程<code>kube-proxy</code>会分配的虚拟IP（cluster ip）。<code>kube-proxy</code>是一个守护进程, 管理着每个节点的service的虚拟IP. service既可以管理kubernetes原生的服务（通过更新<code>Endpoints</code>API)，也可以抽象非k8s服务.(通过提供VIP)<br>k8s的Serivce支持TCP和UDP两种协议，默认是TCP.下面这个例子执行<code>kubectl create -f my-service.yml</code>后，将会生产一个叫my-service <code>Service</code>对象和一个<br>叫my-service的<code>Endpoints</code>对象（其实就是一组pods的ip)，<code>Service</code>负责将流量导入到某组pods，<code>Endpoints</code>负责具体分配给某个pod。</p>
 <div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">my-service</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">MyApp</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">80</span>  <span class="comment">#service port</span></span><br><span class="line">    <span class="attr">targetPort:</span> <span class="number">9376</span>  <span class="comment"># pod port</span></span><br></pre></td></tr></table></figure></div>
@@ -3096,7 +3096,7 @@
 <h3 id="虚拟IP和service代理"><a href="#虚拟IP和service代理" class="headerlink" title="虚拟IP和service代理"></a>虚拟IP和service代理</h3><p>每一个k8s节点都有一个kube-proxy服务来管理service的虚拟IP. 有三种实现service代理模式： userspace, iptables, ipvs. 在v1.0版本，<code>service</code>是一个4层通信协议，直到TCP层，所以代理只在用户空间进行。v1.1加入了<code>ingress</code>和<code>iptables proxy</code>, 实现了7层<code>service</code>.</p>
 <ul>
 <li><code>userspace</code>, 这个模式下当用户访问service时，iptables中有规则会把流量从service对应的port转发到kube-proxy在node创建的随机端口，随机端口再代理到下游pods。这个模式下kube-proxy会监控kubernetes master的对Service和endpoints的增删，<br>并会给每一个service随机创建一个本地node端口，任何到这个端口的连接将会被代理到service后面pods.（具体是哪一个pod取决于service的<code>SessionAffinity</code>)， 默认采用轮询的方式转发流量.</li>
-<li><code>iptables</code>, 默认kube-proxy采用的方式。这个模式下kube-proxy也会监控kubernetes master的对Service和endpoints的增删，每一个service都有一套iptable规则，根据service的ip:port重定向流量到某个Service后端endpoints, endpoints也会安装iptables来选择pod。特点是iptable不需要在用户态和内核态转换， 缺点是如果原来选择的pod无效，<br>那么不会重试另一个pod,需要readiness探针来实现重试。具体实现原理可以看<a class="link"   href="https://github.com/jasonGeng88/blog/blob/master/201707/k8s-service.md#q3kube-proxy-%E6%98%AF%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-iptables-%E5%81%9A%E5%88%B0%E6%9C%8D%E5%8A%A1%E4%BB%A3%E7%90%86%E7%9A%84%E5%AF%B9%E4%BA%8E-iptables-%E4%B8%8D%E4%BA%86%E8%A7%A3%E7%9A%84%E5%90%8C%E5%AD%A6%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E8%B7%B3%E8%BF%87" >地址<i class="fa-solid fa-up-right-from-square"></i></a></li>
+<li><code>iptables</code>, 默认kube-proxy采用的方式。这个模式下kube-proxy也会监控kubernetes master的对Service和endpoints的增删，每一个service都有一套iptable规则，根据service的ip:port重定向流量到某个Service后端endpoints, endpoints也会安装iptables来选择pod。特点是iptable不需要在用户态和内核态转换， 缺点是如果原来选择的pod无效，<br>那么不会重试另一个pod,需要readiness探针来实现重试。具体实现原理可以看<a class="link"   href="https://github.com/jasonGeng88/blog/blob/master/201707/k8s-service.md#q3kube-proxy-%E6%98%AF%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-iptables-%E5%81%9A%E5%88%B0%E6%9C%8D%E5%8A%A1%E4%BB%A3%E7%90%86%E7%9A%84%E5%AF%B9%E4%BA%8E-iptables-%E4%B8%8D%E4%BA%86%E8%A7%A3%E7%9A%84%E5%90%8C%E5%AD%A6%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E8%B7%B3%E8%BF%87" >地址 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 <li><code>ipvs</code>, 这模式是v1.9beta版。 此模式调用netlink接口创建ipvs规则，然后从service和endpoint同步ipvs规则， 当一个service被访问时，流量会被重定向到后端pods。 ipvs使用的是hash表，有着更好的性能和多种负载均衡方案：<ul>
 <li>round robin</li>
 <li>least connection</li>
@@ -3236,7 +3236,7 @@
     <title>在云上使用k8s动态PV</title>
     <url>/2018/03/11/kubernetes-2018-03-12-k8s-dynamic-volume-provision/</url>
     <content><![CDATA[<blockquote>
-<p><a class="link"   href="https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/" >https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p><a class="link"   href="https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/" >https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 </blockquote>
 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>动态卷配置允许按需创建存储卷。如果没有动态配置，管理员必须手动配置创建新的存储， 然后创建PV对象。动态卷配置的功能能让管理员不必预先配置存储。<br>而是当用户需要的时候自动配置存储。它可以按用户需要的用量配置存储空间，不像静态那样可能出现超额分配用量。</p>
 <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>动态配置数据卷的实现是基于<code>StorageClass</code>API对象。管理员可以配置很多<code>StorageClass</code>对象，每一个都可以指定一个存储供应商。管理员可以给一个<br>集群定义和暴露多个存储，每一个都有不同的参数配置。这样能减轻配置存储的复杂度，使用户简单选择存储服务。</p>
@@ -3262,7 +3262,7 @@
     <title>K8S使用私有镜像</title>
     <url>/2018/03/11/kubernetes-2018-03-12-k8s-pull-private-image/</url>
     <content><![CDATA[<blockquote>
-<p><a class="link"   href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account" >https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p><a class="link"   href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account" >https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 </blockquote>
 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如果想要k8s能够拉取使用私有镜像需要创建secret, 然后有两种方法指定secret, 拉取image。 一是在pod的编排模板指定<code>imagePullSecret</code>, 二是修改<code>service account</code>的配置，本文讲述第二种方法。</p>
 <h3 id="第一步-创建imagePullSecret"><a href="#第一步-创建imagePullSecret" class="headerlink" title="第一步 创建imagePullSecret"></a>第一步 创建imagePullSecret</h3><div class="highlight-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">$</span> <span class="string">kubectl</span> <span class="string">create</span> <span class="string">secret</span> <span class="string">docker-registry</span> <span class="string">myregistrykey</span> <span class="string">--docker-server=DOCKER_REGISTRY_SERVER</span> <span class="string">--docker-username=DOCKER_USER</span> <span class="string">--docker-password=DOCKER_PASSWORD</span> <span class="string">--docker-email=DOCKER_EMAIL</span></span><br><span class="line"><span class="string">secret</span> <span class="string">&quot;myregistrykey&quot;</span> <span class="string">created.</span></span><br><span class="line"></span><br><span class="line"><span class="string">$</span> <span class="string">kubectl</span> <span class="string">get</span> <span class="string">secrets</span> <span class="string">myregistrykey</span></span><br><span class="line"><span class="string">NAME</span>             <span class="string">TYPE</span>                              <span class="string">DATA</span>    <span class="string">AGE</span></span><br><span class="line"><span class="string">myregistrykey</span>    <span class="string">kubernetes.io/.dockerconfigjson</span>   <span class="number">1</span>       <span class="string">1d</span></span><br></pre></td></tr></table></figure></div>
@@ -3281,9 +3281,9 @@
     <title>K8S管理容器的计算资源</title>
     <url>/2018/03/12/kubernetes-2018-03-13-k8s-manage-resource/</url>
     <content><![CDATA[<blockquote>
-<p><a class="link"   href="https://v1-8.docs.kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/" >https://v1-8.docs.kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p><a class="link"   href="https://v1-8.docs.kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/" >https://v1-8.docs.kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 </blockquote>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>k8s可以给pod设置计算资源用量， 当遇到违反某些不满足性能的条件时，k8s会有一套机制来处理。限制资源在编排模拟中使用<code>limits</code>或<code>requests</code>.<br><code>requests</code>指定资源的最小要求，<code>limits</code>指定最大用量。详细关系是 <code>0 &lt;= request &lt;=Node Allocatable</code>和<code>request &lt;= limit &lt;= Infinity</code>。<br>具体查看<a class="link"   href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/resource-qos.md" >resource-qos<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>k8s可以给pod设置计算资源用量， 当遇到违反某些不满足性能的条件时，k8s会有一套机制来处理。限制资源在编排模拟中使用<code>limits</code>或<code>requests</code>.<br><code>requests</code>指定资源的最小要求，<code>limits</code>指定最大用量。详细关系是 <code>0 &lt;= request &lt;=Node Allocatable</code>和<code>request &lt;= limit &lt;= Infinity</code>。<br>具体查看<a class="link"   href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/resource-qos.md" >resource-qos <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <h3 id=""><a href="#" class="headerlink" title=""></a></h3>]]></content>
       <categories>
         <category>kubernetes</category>
@@ -3298,7 +3298,7 @@
     <content><![CDATA[<h3 id="k8s的部署Deployment"><a href="#k8s的部署Deployment" class="headerlink" title="k8s的部署Deployment"></a>k8s的部署Deployment</h3><p>k8s的<code>Deployment</code>提供了<code>pods</code>和<code>ReplicaSets</code>的更新.<br>只需在Deployment对象声明你想要的部署状态, <code>Deployment</code>控制器就会更新到需要的状态.所以这种方式是声明式的.<br>除非第一次部署,k8s采用的部署方式是rolling update(滚动更新). 大致意思是保证服务可用的情况下, 创建一定量的新pods,然后删除一定量的pods,循环这些步骤直到部署完成.</p>
 <h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apiVersion: apps/v1beta2 # for versions before 1.8.0 use apps/v1beta1</span><br><span class="line">kind: Deployment   # apiVersion, kind, metadata, spec这四个字段必须要</span><br><span class="line">metadata:</span><br><span class="line">  name: appweb</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:  # 多个label做and处理. 部署时会自动加一个hash label, 用于区分部署版本</span><br><span class="line">      app: appweb</span><br><span class="line">      tier: backend</span><br><span class="line">      version: 1.0</span><br><span class="line">  replicas: 2</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: appweb</span><br><span class="line">        tier: backend</span><br><span class="line">        version: 1.0</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: app</span><br><span class="line">        image:  registry-vpc.cn-shanghai.aliyuncs.com/web1.0</span><br><span class="line">        env:</span><br><span class="line">          - name: app_WEB_DATABASE_URL</span><br><span class="line">            valueFrom:</span><br><span class="line">              secretKeyRef:</span><br><span class="line">                name: appsecrets</span><br><span class="line">                key: app_WEB_DATABASE_URL</span><br><span class="line">          - name: WORKER_PROCESSES</span><br><span class="line">            value: &quot;2&quot;</span><br><span class="line">          - name: JOB_WORKER_URL</span><br><span class="line">            value: &quot;redis://redis-master:6379/0&quot;</span><br><span class="line">          - name: RAILS_ENV</span><br><span class="line">            value: &quot;production&quot;</span><br><span class="line">          - name: REDIS_CACHE_URL</span><br><span class="line">            value: &quot;redis://redis-master:6379/1&quot;</span><br><span class="line">        ports:</span><br><span class="line">          - containerPort: 7007</span><br><span class="line">        volumeMounts:</span><br><span class="line">          - name: app-pvc</span><br><span class="line">            mountPath: &quot;/app/public/&quot;</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /login</span><br><span class="line">            port: 7007</span><br><span class="line">          initialDelaySeconds: 30</span><br><span class="line">          periodSeconds: 10</span><br><span class="line">          timeoutSeconds: 3</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /login</span><br><span class="line">            port: 7007</span><br><span class="line">          initialDelaySeconds: 30</span><br><span class="line">          periodSeconds: 10</span><br><span class="line">          timeoutSeconds: 3</span><br><span class="line">      volumes:</span><br><span class="line">        - name: app-pvc</span><br><span class="line">          persistentVolumeClaim:</span><br><span class="line">            claimName: app-pvc</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 <h3 id="部署时需要注意的地方"><a href="#部署时需要注意的地方" class="headerlink" title="部署时需要注意的地方:"></a>部署时需要注意的地方:</h3><ul>
-<li>Deployment的模板使用label来找到对应的容器, 所以不建议修改label.如果必须修改请看<a class="link"   href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#label-selector-updates" >label selector update<i class="fa-solid fa-up-right-from-square"></i></a></li>
+<li>Deployment的模板使用label来找到对应的容器, 所以不建议修改label.如果必须修改请看<a class="link"   href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#label-selector-updates" >label selector update <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 <li>在一个deploy过程中如果再进行另一个deploy,那么之前那个deploy的pod会立刻删除.</li>
 <li>每次部署都会创建一个部署版本, 如果部署完后又进行扩展(scale), 那么此时进行rollback将不会回滚扩展的部分.因为rollback只会根据(.spec.template)指定来回滚. 可用在每次更新部署的时候,指定<code>--record</code>把部署命令记录到部署更新版本记录里.</li>
 <li>查看部署历史<code>kubectl rollout history deployment/appweb</code>, 可以指定具体版本号<code>kubectl rollout history deployment/appweb --revision=2</code></li>
@@ -3335,7 +3335,7 @@
 <h2 id="迁移后的系统"><a href="#迁移后的系统" class="headerlink" title="迁移后的系统"></a>迁移后的系统</h2><p>迁移k8s后系统, 系统变得更加模块化(当然没有微服务化). 结构如下图:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-04-11%20%E4%B8%8B%E5%8D%883.45.43.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-04-11%20%E4%B8%8B%E5%8D%883.45.43.png"></p>
 <h2 id="一些细节和原来本地的问题"><a href="#一些细节和原来本地的问题" class="headerlink" title="一些细节和原来本地的问题"></a>一些细节和原来本地的问题</h2><p>新的部署主要把原来多个进程从一个容器分离了出来, 用docker提倡的一个进程一个container; 把<code>rake db:migrate</code>等操作做成k8s的job; 把定时任务作为单独的cronJob, 避免重复运行(幂等性);并且把底层的存储用了云上的OSS和NAS. 由于是实验性的部署, 并没有使用managed service, 如rds和redis, 这部分还是自己搭建的, 以后会切换为云上的服务. 大致细节图:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-04-16%20%E4%B8%8B%E5%8D%882.28.53.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-04-16%20%E4%B8%8B%E5%8D%882.28.53.png"></p>
 <ul>
-<li>如上图, sidekiq和rails在同一个pod(还在考虑要不要分出来), 连接的redis使用的是helm部署(没有使用pv), mysql采用的<a class="link"   href="https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/" >官网<i class="fa-solid fa-up-right-from-square"></i></a>StatefulSet例子 , 并且在集群前面搭建一个mycat,做读写分离, mysql底层的存储使用k8s的动态pv. mysql集群的问题是mycat不是HA, 动态scale slave需要配置mycat, 所以需要继续改进, 还可以是考虑<code>vitess</code>或<code>galera</code>做更好的mysql HA方案.</li>
+<li>如上图, sidekiq和rails在同一个pod(还在考虑要不要分出来), 连接的redis使用的是helm部署(没有使用pv), mysql采用的<a class="link"   href="https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/" >官网 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>StatefulSet例子 , 并且在集群前面搭建一个mycat,做读写分离, mysql底层的存储使用k8s的动态pv. mysql集群的问题是mycat不是HA, 动态scale slave需要配置mycat, 所以需要继续改进, 还可以是考虑<code>vitess</code>或<code>galera</code>做更好的mysql HA方案.</li>
 <li><strong>本地问题</strong> assets需要用nginx来处理. 务必做到开发,测试, 生产各个环境一致.必须是用k8s <code>Secret</code>来处理敏感信息,但是不要commit进代码库,可以直接使用的k8s控制台创建. dockerfile里面有些包只要构建的时候需要使用(minor issue).</li>
 <li><strong>其它思考</strong>.<ul>
 <li>google墙的问题</li>
@@ -3453,7 +3453,7 @@
 <p>For <em>version v3.7</em>; <em>OS Mac</em>; not recommend for production</p>
 </blockquote>
 <h3 id="安装Openshift-AllinOne"><a href="#安装Openshift-AllinOne" class="headerlink" title="安装Openshift AllinOne."></a>安装Openshift AllinOne.</h3><ul>
-<li>安装oc cli. 地址：<a class="link"   href="https://github.com/openshift/origin/releases" >https://github.com/openshift/origin/releases<i class="fa-solid fa-up-right-from-square"></i></a><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">wget -c https://github.com//openshift/origin/releases/download/v3.7.0/openshift-origin-client-tools-v3.7.0-7ed6862-mac.zip</span><br><span class="line">tar -xvf openshift-origin-client-tools-v3.7.0-7ed6862-mac.zip</span><br><span class="line"><span class="built_in">mv</span> openshift-origin-client-tools-v3.7.0-7ed6862-mac/oc /usr/local/bin</span><br></pre></td></tr></table></figure></div></li>
+<li>安装oc cli. 地址：<a class="link"   href="https://github.com/openshift/origin/releases" >https://github.com/openshift/origin/releases <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">wget -c https://github.com//openshift/origin/releases/download/v3.7.0/openshift-origin-client-tools-v3.7.0-7ed6862-mac.zip</span><br><span class="line">tar -xvf openshift-origin-client-tools-v3.7.0-7ed6862-mac.zip</span><br><span class="line"><span class="built_in">mv</span> openshift-origin-client-tools-v3.7.0-7ed6862-mac/oc /usr/local/bin</span><br></pre></td></tr></table></figure></div></li>
 <li>启动Openshift, 使用预置配置, 挂出数据<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">oc cluster up --host-data-dir=<span class="string">&#x27;$REPLACE/oc/profiles/Devops/data&#x27;</span> --host-config-dir=<span class="string">&#x27;$REPLACE/oc/profiles/Devops/config&#x27;</span> --use-existing-config</span><br></pre></td></tr></table></figure></div></li>
 <li>访问<code>https://127.0.0.1:8443/login</code></li>
 <li>生产环境需要在linux下安装，并且需要考虑HA, openshift的安装脚本不支持single master升级到multiple master.</li>
@@ -3527,7 +3527,7 @@
   <entry>
     <title>OpenStack ImageStream</title>
     <url>/2018/01/07/openshift-2018-01-08-openstack-imagestream/</url>
-    <content><![CDATA[<h3 id="OpenShift的Image-Stream"><a href="#OpenShift的Image-Stream" class="headerlink" title="OpenShift的Image Stream"></a>OpenShift的Image Stream</h3><p>按照官方的解释<a class="link"   href="https://docs.openshift.com/enterprise/3.1/architecture/core_concepts/builds_and_image_streams.html#image-streams" >mage stream<i class="fa-solid fa-up-right-from-square"></i></a>一个镜像流是一组tag的镜像. 这些镜像可以是来自：</p>
+    <content><![CDATA[<h3 id="OpenShift的Image-Stream"><a href="#OpenShift的Image-Stream" class="headerlink" title="OpenShift的Image Stream"></a>OpenShift的Image Stream</h3><p>按照官方的解释<a class="link"   href="https://docs.openshift.com/enterprise/3.1/architecture/core_concepts/builds_and_image_streams.html#image-streams" >mage stream <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>一个镜像流是一组tag的镜像. 这些镜像可以是来自：</p>
 <ul>
 <li>openshift的私有镜像</li>
 <li>其它镜像流</li>
@@ -3588,7 +3588,7 @@
     <title>Openshift Origin cluster部署配置要求和主机准备</title>
     <url>/2018/02/04/openshift-2018-02-05-prerequirement-deploy-a-cluster/</url>
     <content><![CDATA[<blockquote>
-<p><a class="link"   href="https://github.com/openshift/openshift-ansible" >https://github.com/openshift/openshift-ansible<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p><a class="link"   href="https://github.com/openshift/openshift-ansible" >https://github.com/openshift/openshift-ansible <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 </blockquote>
 <h3 id="杂言"><a href="#杂言" class="headerlink" title="杂言"></a>杂言</h3><p>官方提供的github ansible部署代码还是有一些坑的，首先不能用master分支的代码，master分支是他们的开发分支。所以需要选择某个release， 以下选择release-3.8作为说明。origin使用的kubernetes是1.7和docker1.12. 先说说配置要求和操作系统、网络等环境等要求, 这些要求覆盖所有节点。</p>
 <h3 id="系统配置需求"><a href="#系统配置需求" class="headerlink" title="系统配置需求"></a>系统配置需求</h3><ul>
@@ -3604,7 +3604,7 @@
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">SELINUX=enforcing</span><br><span class="line">SELINUXTYPE=targeted</span><br></pre></td></tr></table></figure></div>
 
 <h3 id="使用OverlayFS文件系统"><a href="#使用OverlayFS文件系统" class="headerlink" title="使用OverlayFS文件系统"></a>使用OverlayFS文件系统</h3><h3 id="节点和master必须同步时间"><a href="#节点和master必须同步时间" class="headerlink" title="节点和master必须同步时间"></a>节点和master必须同步时间</h3><p>ansible的环境变量设置为<code>openshift_clock_enabled=true</code></p>
-<h3 id="有些容器是previlige-可以访问docker守护进程。"><a href="#有些容器是previlige-可以访问docker守护进程。" class="headerlink" title="有些容器是previlige, 可以访问docker守护进程。"></a>有些容器是previlige, 可以访问docker守护进程。</h3><p>这就等于这个容器对所有容器和镜像有root权限，openshift使用<a class="link"   href="https://docs.openshift.org/latest/architecture/additional_concepts/authorization.html#security-context-constraints" >security context constraints<i class="fa-solid fa-up-right-from-square"></i></a> 来控制容器的权限。</p>
+<h3 id="有些容器是previlige-可以访问docker守护进程。"><a href="#有些容器是previlige-可以访问docker守护进程。" class="headerlink" title="有些容器是previlige, 可以访问docker守护进程。"></a>有些容器是previlige, 可以访问docker守护进程。</h3><p>这就等于这个容器对所有容器和镜像有root权限，openshift使用<a class="link"   href="https://docs.openshift.org/latest/architecture/additional_concepts/authorization.html#security-context-constraints" >security context constraints <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 来控制容器的权限。</p>
 <h3 id="容器的DNS"><a href="#容器的DNS" class="headerlink" title="容器的DNS"></a>容器的DNS</h3><p>由于docker容器不会认宿主机的&#x2F;etc&#x2F;hosts, 所以所有节点都要安装dnsmasq, 容器访问宿主机的dns，宿主机再查询dns nameserver. ansible剧本需要</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">NM_CONTROLLED=<span class="built_in">yes</span>  <span class="comment">##使用network manager</span></span><br><span class="line">openshift_use_dnsmasq=<span class="literal">true</span></span><br></pre></td></tr></table></figure></div>
 <ul>
@@ -3625,10 +3625,10 @@
                       alt="port"
                 >)</li>
 </ul>
-<h3 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h3><p>Openshift使用Kubernetes的持久卷<a class="link"   href="https://docs.openshift.org/latest/architecture/additional_concepts/storage.html#architecture-additional-concepts-storage" >Persistent Volume<i class="fa-solid fa-up-right-from-square"></i></a>提供持久化存储。在安装Openshift完成后，可以根据具体需求，要求更多的存储资源。安装脚本里有提供相应的代码，支持的存储方式包括：<code>NFS, GlusterFS, Ceph RBD, OpenStack Cinder, AWS Elastic Block Store (EBS), GCE Persistent Disks, and iSCSI</code>.</p>
+<h3 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h3><p>Openshift使用Kubernetes的持久卷<a class="link"   href="https://docs.openshift.org/latest/architecture/additional_concepts/storage.html#architecture-additional-concepts-storage" >Persistent Volume <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>提供持久化存储。在安装Openshift完成后，可以根据具体需求，要求更多的存储资源。安装脚本里有提供相应的代码，支持的存储方式包括：<code>NFS, GlusterFS, Ceph RBD, OpenStack Cinder, AWS Elastic Block Store (EBS), GCE Persistent Disks, and iSCSI</code>.</p>
 <h3 id="在云上安装openshift-origin需要考虑："><a href="#在云上安装openshift-origin需要考虑：" class="headerlink" title="在云上安装openshift origin需要考虑："></a>在云上安装openshift origin需要考虑：</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. 配置安全组，开通部分端口</span><br><span class="line">2. 需要覆盖一些参数。通过下面指令得到正确的值。</span><br><span class="line">ansible-playbook  [-i /path/to/inventory] \</span><br><span class="line">    ~/openshift-ansible/roles/openshift_facts/library/openshift_facts.py</span><br></pre></td></tr></table></figure></div>
 <p><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-01%20%E4%B8%8A%E5%8D%8810.54.45.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-01%20%E4%B8%8A%E5%8D%8810.54.45.png"></p>
-<h3 id="如果安装容器化的GlusterFS-需要考虑额外的一些配置"><a href="#如果安装容器化的GlusterFS-需要考虑额外的一些配置" class="headerlink" title="如果安装容器化的GlusterFS,需要考虑额外的一些配置"></a>如果安装容器化的GlusterFS,需要考虑额外的一些配置</h3><p><a class="link"   href="https://docs.openshift.org/latest/install_config/install/prerequisites.html#prereq-containerized-glusterfs-considerations" >https://docs.openshift.org/latest/install_config&#x2F;install&#x2F;prerequisites.html#prereq-containerized-glusterfs-considerations<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<h3 id="如果安装容器化的GlusterFS-需要考虑额外的一些配置"><a href="#如果安装容器化的GlusterFS-需要考虑额外的一些配置" class="headerlink" title="如果安装容器化的GlusterFS,需要考虑额外的一些配置"></a>如果安装容器化的GlusterFS,需要考虑额外的一些配置</h3><p><a class="link"   href="https://docs.openshift.org/latest/install_config/install/prerequisites.html#prereq-containerized-glusterfs-considerations" >https://docs.openshift.org/latest/install_config&#x2F;install&#x2F;prerequisites.html#prereq-containerized-glusterfs-considerations <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <h3 id="主机需要安装的包"><a href="#主机需要安装的包" class="headerlink" title="主机需要安装的包"></a>主机需要安装的包</h3><p>可能需要epel仓库， 自行解决</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">yum install -y wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct ansible pyOpenSSL docker-1.12.6</span><br><span class="line">yum update</span><br></pre></td></tr></table></figure></div>
 
@@ -3659,9 +3659,9 @@
     <title>Openshift的网路</title>
     <url>/2018/02/21/openshift-2018-02-22-openshift-network/</url>
     <content><![CDATA[<blockquote>
-<p><a class="link"   href="https://docs.openshift.org/latest/architecture/networking/networking.html" >https://docs.openshift.org/latest/architecture/networking/networking.html<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p><a class="link"   href="https://docs.openshift.org/latest/architecture/networking/networking.html" >https://docs.openshift.org/latest/architecture/networking/networking.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 </blockquote>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>openshift的网路架构是建立在kubernetes的service上的。K8S的<a class="link"   href="https://kubernetes.io/docs/concepts/services-networking/service/" >Service<i class="fa-solid fa-up-right-from-square"></i></a>是一组pods和访问这些pods的逻辑抽象，service解耦了下游pods的网路变化。但是由于Service也会变化，所以openshift在master运行<a class="link"   href="https://github.com/skynetservices/skydns" >skyDNS<i class="fa-solid fa-up-right-from-square"></i></a>来解决service网路的变化。</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>openshift的网路架构是建立在kubernetes的service上的。K8S的<a class="link"   href="https://kubernetes.io/docs/concepts/services-networking/service/" >Service <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>是一组pods和访问这些pods的逻辑抽象，service解耦了下游pods的网路变化。但是由于Service也会变化，所以openshift在master运行<a class="link"   href="https://github.com/skynetservices/skydns" >skyDNS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>来解决service网路的变化。</p>
 <h3 id="SDN"><a href="#SDN" class="headerlink" title="SDN"></a>SDN</h3><p>Software Define Networking软件定义集群网络使openshift的pods相互能够通信，SDN使用Open vSwitch(OVS)来管理配置网路。有三种SDN插件可以配置pods网路：</p>
 <ul>
 <li>ovs-subnet, 提供所有的pods直接相互通信</li>
@@ -3695,7 +3695,7 @@
   <entry>
     <title>Openshift中Kubernetes的基础设施</title>
     <url>/2018/03/04/openshift-2018-03-05-kubernetes-infrastrcture/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>主要是从Openshift Origin的<a class="link"   href="https://docs.openshift.org/latest/architecture/infrastructure_components/kubernetes_infrastructure.html#master-components" >Doc<i class="fa-solid fa-up-right-from-square"></i></a>看到的, 对应k8s 1.7. 加上官网的Doc. </p>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>主要是从Openshift Origin的<a class="link"   href="https://docs.openshift.org/latest/architecture/infrastructure_components/kubernetes_infrastructure.html#master-components" >Doc <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>看到的, 对应k8s 1.7. 加上官网的Doc. </p>
 <h2 id="Masters"><a href="#Masters" class="headerlink" title="Masters"></a>Masters</h2><p>masters上的组件含有API server, controller manager server和etcd(可以单独host)。 master管理k8s集群中的nodes，调度节点上的pods.</p>
 <ul>
 <li>API server. 可以是一个独立的进程运行。API server验证和配置pods、services和replication controller; 分配pods到节点，根据service的配置同步pod的信息。</li>
@@ -3781,7 +3781,7 @@
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AllReports</span>(luigi.WrapperTask):</span><br><span class="line">    date = luigi.DateParameter(default=datetime.date.today())</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">requires</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">yield</span> SomeReport(self.date)</span><br><span class="line">        <span class="keyword">yield</span> SomeOtherReport(self.date)</span><br><span class="line">        <span class="keyword">yield</span> CropReport(self.date)</span><br><span class="line">        <span class="keyword">yield</span> TPSReport(self.date)</span><br><span class="line">        <span class="keyword">yield</span> FooBarBazReport(self.date)</span><br></pre></td></tr></table></figure></div>
 
 <h3 id="Luigi的执行模型"><a href="#Luigi的执行模型" class="headerlink" title="Luigi的执行模型"></a>Luigi的执行模型</h3><p>luigi的执行模型很简单, 一个worker的进程执行所有tasks, 所以如果有成千上万个tasks, 扩展性将成为问题.</p>
-<h3 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h3><p>luigi的调度由单独的<code>luigid</code>中心化管理, 多个worker执行run()时, 每次都会从依赖树从头向下遍历, 找到需要执行的task运行, 跳过已完成的task. 见<br><a class="link"   href="https://www.arashrouhani.com/luigid-basics-jun-2015/#/" >gif<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<h3 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h3><p>luigi的调度由单独的<code>luigid</code>中心化管理, 多个worker执行run()时, 每次都会从依赖树从头向下遍历, 找到需要执行的task运行, 跳过已完成的task. 见<br><a class="link"   href="https://www.arashrouhani.com/luigid-basics-jun-2015/#/" >gif <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>python</category>
@@ -3821,7 +3821,7 @@
 </ul>
 </li>
 </ul>
-<p>这里有个例子，讲述了如何使用<code>transform</code>减少处理的逻辑<a class="link"   href="http://pbpython.com/pandas_transform.html" >http://pbpython.com/pandas_transform.html<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p>这里有个例子，讲述了如何使用<code>transform</code>减少处理的逻辑<a class="link"   href="http://pbpython.com/pandas_transform.html" >http://pbpython.com/pandas_transform.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <ul>
 <li><code>filteration</code><br>使用<code>filter</code>函数可以返回原来对象的一个子集. <code>filter</code>的参数是个应用到整个组的函数， 其返回为True&#x2F;False.</li>
 </ul>
@@ -3963,7 +3963,7 @@
   <entry>
     <title>SQL Server的触发器</title>
     <url>/2021/01/31/database-SQL-Server-2021-02-01-SQL-Server-Trigger/</url>
-    <content><![CDATA[<h2 id="SQL-Server的Trigger简介"><a href="#SQL-Server的Trigger简介" class="headerlink" title="SQL Server的Trigger简介"></a>SQL Server的Trigger简介</h2><p>SQL Server主要有三种trigger: <code>DDL Trigger</code>, <code>DML Trigger</code>, <code>Logon Trigger</code>.下面将分别介绍。<br><code>SQL Server</code>的<code>Logon Trigger</code>是触发器在用户建立会话后将触发对应的存储过程。更加具体一点是在用户真正建立会话之前，认证成功之后的阶段。认证失败的时候触发器是不会触发的。<br>我们可以使用<code>logon trigger</code>来审计和控制服务端会话，比如追溯登入活动，限制特定账号的登入会话数。<br>实际上<code>logon trigger</code>对应于<code>AUDIT_LOGIN</code>事件，<code>AUDIT_LOGIN</code>可以用于<a class="link"   href="https://docs.microsoft.com/en-us/sql/relational-databases/service-broker/event-notifications?view=sql-server-2017" >Event Notifications<i class="fa-solid fa-up-right-from-square"></i></a>。<br><code>Event Notifications</code>和<code>Trigger</code>的主要区别是，触发器是同步的，<code>Event Notification</code>是异步的。</p>
+    <content><![CDATA[<h2 id="SQL-Server的Trigger简介"><a href="#SQL-Server的Trigger简介" class="headerlink" title="SQL Server的Trigger简介"></a>SQL Server的Trigger简介</h2><p>SQL Server主要有三种trigger: <code>DDL Trigger</code>, <code>DML Trigger</code>, <code>Logon Trigger</code>.下面将分别介绍。<br><code>SQL Server</code>的<code>Logon Trigger</code>是触发器在用户建立会话后将触发对应的存储过程。更加具体一点是在用户真正建立会话之前，认证成功之后的阶段。认证失败的时候触发器是不会触发的。<br>我们可以使用<code>logon trigger</code>来审计和控制服务端会话，比如追溯登入活动，限制特定账号的登入会话数。<br>实际上<code>logon trigger</code>对应于<code>AUDIT_LOGIN</code>事件，<code>AUDIT_LOGIN</code>可以用于<a class="link"   href="https://docs.microsoft.com/en-us/sql/relational-databases/service-broker/event-notifications?view=sql-server-2017" >Event Notifications <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。<br><code>Event Notifications</code>和<code>Trigger</code>的主要区别是，触发器是同步的，<code>Event Notification</code>是异步的。</p>
 <p><code>DDL Trigger</code>是在各种DDL(Data Definition Language)事件时触发的存储过程。这些事件主要包括事务语句：<code>CREATE, ALTER, DROP, GRANT, DENY, REVOKE, UPDATE STATISTICS</code>. 某些系统存储过程运行DDL类似的操作也可以触发DDL触发器。 一般我们使用<code>DDL Trigger</code>来：</p>
 <ul>
 <li>防止数据库结构改变</li>
@@ -4089,7 +4089,7 @@
 <h3 id="存储过程的类型"><a href="#存储过程的类型" class="headerlink" title="存储过程的类型"></a>存储过程的类型</h3><ul>
 <li><strong>自定义</strong> 用户自定义的存储过程可以用于所有数据库(除了 Resource 数据库).</li>
 <li><strong>临时</strong> 临时存储过程也是一种用户自定义过程，存储在<code>tempdb</code>库中，它的生命周期就是连接的时间。临时存储过程又分为<code>local</code>和<code>global</code>, 它们的区别在于名字、可见性和可用性。<code>local</code>存储过程以<code>#</code>开头命名，只对当前连接用户可见，连接关闭将删除过程。<code>global</code>存储过程以<code>##</code>命名开头，这个过程创建后对所有用户可见，当最后一个会话关闭后将删除过程。</li>
-<li><strong>系统</strong> 系统存储过程存储在<code>Resource</code>数据库，逻辑上以<code>sys</code>表出现。另外<code>msdb</code>数据库也有系统存储过程存在<code>dbo</code>表中，用于调度警告和任务。一般系统存储过程以<code>sp_</code>命名开头。用户可以扩展系统存储过程，一般以<code>xp_</code>命名开头，见官网资料 [<a class="link"   href="https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/general-extended-stored-procedures-transact-sql?view=sql-server-2017%5D" >https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/general-extended-stored-procedures-transact-sql?view=sql-server-2017]<i class="fa-solid fa-up-right-from-square"></i></a>(General Extended Stored Procedures)</li>
+<li><strong>系统</strong> 系统存储过程存储在<code>Resource</code>数据库，逻辑上以<code>sys</code>表出现。另外<code>msdb</code>数据库也有系统存储过程存在<code>dbo</code>表中，用于调度警告和任务。一般系统存储过程以<code>sp_</code>命名开头。用户可以扩展系统存储过程，一般以<code>xp_</code>命名开头，见官网资料 [<a class="link"   href="https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/general-extended-stored-procedures-transact-sql?view=sql-server-2017%5D" >https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/general-extended-stored-procedures-transact-sql?view=sql-server-2017] <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>(General Extended Stored Procedures)</li>
 <li><strong>扩展自定义</strong> 用户可以使用 C 语言来创建外部 DLL,不过为了将来的兼容性不建议使用。</li>
 </ul>
 ]]></content>
@@ -4147,7 +4147,7 @@
 <li><p>rds账户分为经典模式和高权限模式，5.7只有高权限模式。</p>
 </li>
 <li><p>它们之间的区别是能不能直接通过sql创建账户，见下图.</p>
-<p>&lt;img src&#x3D;”<a class="link"   href="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/26186/cn_zh/1510133360436/%E5%9C%A8%E4%B8%8D%E5%90%8C%E8%B4%A6%E5%8F%B7%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8%E5%AF%B9%E6%AF%94.png" >http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/26186/cn_zh/1510133360436/%E5%9C%A8%E4%B8%8D%E5%90%8C%E8%B4%A6%E5%8F%B7%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8%E5%AF%B9%E6%AF%94.png<i class="fa-solid fa-up-right-from-square"></i></a>“ alt&#x3D;”Drawing” width&#x3D;”400)</p>
+<p>&lt;img src&#x3D;”<a class="link"   href="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/26186/cn_zh/1510133360436/%E5%9C%A8%E4%B8%8D%E5%90%8C%E8%B4%A6%E5%8F%B7%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8%E5%AF%B9%E6%AF%94.png" >http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/26186/cn_zh/1510133360436/%E5%9C%A8%E4%B8%8D%E5%90%8C%E8%B4%A6%E5%8F%B7%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8%E5%AF%B9%E6%AF%94.png <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>“ alt&#x3D;”Drawing” width&#x3D;”400)</p>
 </li>
 <li><p><strong>注意！！</strong> 升级了高权限就不能回滚经典模式了！</p>
 </li>
@@ -4194,13 +4194,13 @@
 <li>云上的数据库账号需要和本地一致</li>
 <li>支持DTC, FTP, mysqldump</li>
 <li>使用DTS迁移可以实现不停应用，平滑迁移。</li>
-<li>DTS支持结构迁移、全量迁移、增量迁移。迁移过程中有数据变更可以开启增量迁移。<a class="link"   href="https://help.aliyun.com/document_detail/26132.html" >DTS迁移文档<i class="fa-solid fa-up-right-from-square"></i></a><ul>
+<li>DTS支持结构迁移、全量迁移、增量迁移。迁移过程中有数据变更可以开启增量迁移。<a class="link"   href="https://help.aliyun.com/document_detail/26132.html" >DTS迁移文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><ul>
 <li>迁移过程中不支持DDL</li>
 <li>结构迁移不支持event迁移</li>
 <li>增量迁移本地需要开启binlog，binlog_format为row。如果本地 MySQL 为5.6版本时，它的 binlog_row_image还须设置为full。</li>
 </ul>
 </li>
-<li><a class="link"   href="https://help.aliyun.com/document_detail/26133.html" >mysqldump doc<i class="fa-solid fa-up-right-from-square"></i></a></li>
+<li><a class="link"   href="https://help.aliyun.com/document_detail/26133.html" >mysqldump doc <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 <h3 id="容灾"><a href="#容灾" class="headerlink" title="容灾"></a>容灾</h3><ul>
 <li>RDS 通过数据传输服务（DTS）实现主实例和异地灾备实例之间的实时同步。<br>主实例和灾备实例均搭建主备高可用架构，当主实例所在区域发生突发性自然灾害等状况，<br>主节点（Master）和备节点（Slave）均无法连接时，可将异地灾备实例切换为主实例，<br>在应用端修改数据库链接地址后，即可快速恢复应用的业务访问。</li>
@@ -4211,7 +4211,7 @@
 <li>多类数据存储解决方案</li>
 </ul>
 <h3 id="数据库性能测试"><a href="#数据库性能测试" class="headerlink" title="数据库性能测试"></a>数据库性能测试</h3><ul>
-<li>使用测压<a class="link"   href="https://github.com/akopytov/sysbench" >SysBench0.5<i class="fa-solid fa-up-right-from-square"></i></a></li>
+<li>使用测压<a class="link"   href="https://github.com/akopytov/sysbench" >SysBench0.5 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 <li>准备数据<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sysbench --num-threads=32 --max-time=3600 --max-requests=999999999 --test= oltp.lua --oltp-table-size=10000000</span><br><span class="line">--oltp-tables-count=64 --db-driver=mysql --mysql-table-engine=innodb</span><br><span class="line">--mysql-host= XXXX --mysql-port=3306 --mysql-user= XXXX --mysql-password= XXXX prepare</span><br></pre></td></tr></table></figure></div></li>
 <li>压测性能<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sysbench --num-threads=32 --max-time=3600 --max-requests=999999999 --test= oltp.lua --oltp-table-size=10000000</span><br><span class="line">--oltp-tables-count=64 --db-driver=mysql --mysql-table-engine=innodb --mysql-host= XXXX --mysql-port=3306</span><br><span class="line">--mysql-user= XXXX --mysql-password= XXXX run</span><br></pre></td></tr></table></figure></div></li>
 <li>清理环境<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">sysbench --num-threads=32 --max-time=3600 --max-requests=999999999 --test= oltp.lua --oltp-table-size=10000000</span><br><span class="line">--oltp-tables-count=64 --db-driver=mysql --mysql-table-engine=innodb --mysql-host= XXXX --mysql-port=3306</span><br><span class="line">--mysql-user= XXXX --mysql-password= XXXX cleanup</span><br></pre></td></tr></table></figure></div></li>
@@ -4245,7 +4245,7 @@
 <li><p>读写分离和主实例、读实例的区别，后者单独有连接地址，业务逻辑选择进行连接。读写分离是一个统一的地址，程序自动进行读写分流。</p>
 </li>
 <li><p>用户只需要购买读实例，可以免费试用读写分离</p>
-<p>&lt;img src&#x3D;”<a class="link"   href="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/51073/cn_zh/1505467133787/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E5%9C%B0%E5%9D%80.png" >http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/51073/cn_zh/1505467133787/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E5%9C%B0%E5%9D%80.png<i class="fa-solid fa-up-right-from-square"></i></a>“ alt&#x3D;”Drawing” width&#x3D;”400)</p>
+<p>&lt;img src&#x3D;”<a class="link"   href="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/51073/cn_zh/1505467133787/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E5%9C%B0%E5%9D%80.png" >http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/51073/cn_zh/1505467133787/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E5%9C%B0%E5%9D%80.png <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>“ alt&#x3D;”Drawing” width&#x3D;”400)</p>
 </li>
 </ul>
 <h3 id="数据备份和恢复"><a href="#数据备份和恢复" class="headerlink" title="数据备份和恢复"></a>数据备份和恢复</h3><ul>
@@ -4254,14 +4254,14 @@
 <li>不建议使用覆盖性恢复</li>
 </ul>
 <h3 id="虚机自建mysql和RDS性能对比"><a href="#虚机自建mysql和RDS性能对比" class="headerlink" title="虚机自建mysql和RDS性能对比"></a>虚机自建mysql和RDS性能对比</h3><ul>
-<li>云数据库是可能比自建数据库慢的。见<a class="link"   href="https://help.aliyun.com/document_detail/55823.html" >对比ECS自建数据库与RDS性能时的注意事项<i class="fa-solid fa-up-right-from-square"></i></a></li>
+<li>云数据库是可能比自建数据库慢的。见<a class="link"   href="https://help.aliyun.com/document_detail/55823.html" >对比ECS自建数据库与RDS性能时的注意事项 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 <h3 id="数据加密"><a href="#数据加密" class="headerlink" title="数据加密"></a>数据加密</h3><ul>
 <li>SSL</li>
 <li>TDE 指定参与加密的数据库或者表。这些数据库或者表中的数据在写入到任何设备（磁盘、SSD、PCIE 卡）或者服务（OSS、OAS）前都会进行加密.</li>
 </ul>
 <h3 id="其它技术运维问题"><a href="#其它技术运维问题" class="headerlink" title="其它技术运维问题"></a>其它技术运维问题</h3><ul>
-<li><a class="link"   href="https://help.aliyun.com/knowledge_list_page/41698/1.html" >其他问题<i class="fa-solid fa-up-right-from-square"></i></a></li>
+<li><a class="link"   href="https://help.aliyun.com/knowledge_list_page/41698/1.html" >其他问题 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 <h3 id="影响数据库存储性能的方面"><a href="#影响数据库存储性能的方面" class="headerlink" title="影响数据库存储性能的方面"></a>影响数据库存储性能的方面</h3><ul>
 <li>计算实例的配置</li>
@@ -4655,7 +4655,7 @@
 <li>是否是管理sql语句, 或者开启了<code>log_slow_admin_statements</code></li>
 <li><code>long_query_time</code>必须被满足,或者<code>log_queries_not_using_indexes</code>被使能, 非索引查询语句也会被写入log</li>
 <li>满足<code>min_examined_row_limit</code>行数</li>
-<li>那些满足<code>log_throttle_queries_not_using_indexes</code>的查询<br><code>log_timestamps</code>控制了写入慢查询log<strong>文件</strong>的时区, 但是不会影响通用查询log和写入数据库的log.<br>在cache中满足慢语句的sql是不会写入log, 默认情况下复制的从机也不会记录log.<br>收集完log后, 可以使用<a class="link"   href="https://dev.mysql.com/doc/refman/5.7/en/mysqldumpslow.html" >mysqldumpslow<i class="fa-solid fa-up-right-from-square"></i></a>来查看.<br>所以为了开启慢查询log, 在my.cnf设置如下代码:<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line">[<span class="string">mysqld</span>]</span><br><span class="line"><span class="string">slow_query_log</span>                  <span class="string">=</span> <span class="number">1</span></span><br><span class="line"><span class="string">slow_query_log_file</span>             <span class="string">=</span> <span class="string">/var/log/mysql/slow.log</span></span><br><span class="line"><span class="string">long_query_time</span>                 <span class="string">=</span> <span class="number">5</span></span><br></pre></td></tr></table></figure></div></li>
+<li>那些满足<code>log_throttle_queries_not_using_indexes</code>的查询<br><code>log_timestamps</code>控制了写入慢查询log<strong>文件</strong>的时区, 但是不会影响通用查询log和写入数据库的log.<br>在cache中满足慢语句的sql是不会写入log, 默认情况下复制的从机也不会记录log.<br>收集完log后, 可以使用<a class="link"   href="https://dev.mysql.com/doc/refman/5.7/en/mysqldumpslow.html" >mysqldumpslow <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>来查看.<br>所以为了开启慢查询log, 在my.cnf设置如下代码:<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line">[<span class="string">mysqld</span>]</span><br><span class="line"><span class="string">slow_query_log</span>                  <span class="string">=</span> <span class="number">1</span></span><br><span class="line"><span class="string">slow_query_log_file</span>             <span class="string">=</span> <span class="string">/var/log/mysql/slow.log</span></span><br><span class="line"><span class="string">long_query_time</span>                 <span class="string">=</span> <span class="number">5</span></span><br></pre></td></tr></table></figure></div></li>
 </ul>
 <h3 id="增加最大客户端连接数"><a href="#增加最大客户端连接数" class="headerlink" title="增加最大客户端连接数"></a>增加最大客户端连接数</h3><p><code>max_connections</code>指定允许的同时连接客户端, 默认是151(实际最大连接数会+1, 多出来的是给admin使用). 改变这个值会影响mysqld的文件描述符的需求. 如果所需的fd不能满足,server会自动减少这个值.所以一味增大连接数但是不改变<code>table_open_cache</code>可能不能提升性能, 同时还需要确保<code>table_open_cache</code>的值能被操作系统满足.<br><strong>关于mysql如何打开和关闭表</strong> 为了提升性能, 每一个client session会单独打开一个table. <code>table_open_cache</code>和<code>max_connections</code>系统变量决定了最大数量文件可以被打开. 比如如果有200个并发连接, 每个连接最大的表join是N, 那么起码应该设置<code>table_open_cache</code>为200*N + 额外的一定数量. 那么什么时候mysql会关闭不使用的表呢? 会有如下情况表会被关闭:</p>
 <ul>

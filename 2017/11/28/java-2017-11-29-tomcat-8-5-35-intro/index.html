@@ -84,35 +84,37 @@
             <div class="pc">
                 <ul class="menu-list">
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../index.html" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html" >
                                     
-                                        <i class="fa-regular fa-house"></i>
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
                                     
-                                    HOME
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../archives" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives" >
                                     
-                                        <i class="fa-regular fa-archive"></i>
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
                                     
-                                    ARCHIVES
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
                     
                         <li class="menu-item search search-popup-trigger">
@@ -137,34 +139,37 @@
     <div class="header-drawer">
         <ul class="drawer-menu-list">
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../index.html" >
-                         
-                            
-                                <i class="fa-regular fa-house"></i>
-                            
-                            HOME
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html" >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../archives" >
-                         
-                            
-                                <i class="fa-regular fa-archive"></i>
-                            
-                            ARCHIVES
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives" >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
+
         </ul>
     </div>
 
@@ -278,7 +283,7 @@
 <li>System. 这个<code>class loader</code>初始化所有在<code>CLASSPATH</code>定义的内容. 这个路径中所有的类可以被tomcat内部类和应用看见, 除了tomcat的catalina启动脚本(<code>$CATALINA_HOME/bin/catalina.sh</code>).这个启动脚本会忽略<code>CLASSPATH</code>环境变量, 而从这个脚本启动的<code>system class loader</code>将会从如下仓库构建:<ul>
 <li><code>$CATALINA_HOME/bin/bootstrap.jar</code>, main()函数用于初始化tomcat server和class loader实现类.</li>
 <li><code>$CATALINA_BASE/bin/tomcat-juli.jar</code>或者<code>CATALINA_BASE/bin/tomcat-juli.jar</code>. 日志实现类.</li>
-<li><code>$CATALINA_HOME/bin/commons-daemon.jar</code> <a class="link"   target="_blank" rel="noopener" href="https://commons.apache.org/proper/commons-daemon/" >Apache Commons Daemon<i class="fa-solid fa-up-right-from-square"></i></a> 项目中的类.</li>
+<li><code>$CATALINA_HOME/bin/commons-daemon.jar</code> <a class="link"   target="_blank" rel="noopener" href="https://commons.apache.org/proper/commons-daemon/" >Apache Commons Daemon <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 项目中的类.</li>
 </ul>
 </li>
 <li>Common. 这个<code>class loader</code>包含了所有能让Tomcat内部类和所有应用可见的类. 这个<code>class loader</code>的搜索路径在<code>$CATALINA_BASE/conf/catalina.propeties</code>文件的<code>common.loader</code>属性定义.<br><code>common.loader=&quot;$&#123;catalina.base&#125;/lib&quot;,&quot;$&#123;catalina.base&#125;/lib/*.jar&quot;,&quot;$&#123;catalina.home&#125;/lib&quot;,&quot;$&#123;catalina.home&#125;/lib/*.jar&quot;</code></li>

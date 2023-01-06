@@ -84,35 +84,37 @@
             <div class="pc">
                 <ul class="menu-list">
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../index.html" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html" >
                                     
-                                        <i class="fa-regular fa-house"></i>
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
                                     
-                                    HOME
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../archives" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives" >
                                     
-                                        <i class="fa-regular fa-archive"></i>
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
                                     
-                                    ARCHIVES
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
                     
                         <li class="menu-item search search-popup-trigger">
@@ -137,34 +139,37 @@
     <div class="header-drawer">
         <ul class="drawer-menu-list">
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../index.html" >
-                         
-                            
-                                <i class="fa-regular fa-house"></i>
-                            
-                            HOME
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html" >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../archives" >
-                         
-                            
-                                <i class="fa-regular fa-archive"></i>
-                            
-                            ARCHIVES
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives" >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
+
         </ul>
     </div>
 
@@ -250,8 +255,8 @@
                 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>环境：</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/centos-release</span><br><span class="line">CentOS Linux release 7.1.1503 (Core) </span><br><span class="line">ansible --version</span><br><span class="line">ansible 2.3.1.0</span><br><span class="line">  config file = /etc/ansible/ansible.cfg</span><br><span class="line">  configured module search path = Default w/o overrides</span><br><span class="line">  python version = 2.7.5 (default, Aug  4 2017, 00:39:18) [GCC 4.8.5 20150623 (Red Hat 4.8.5-16)]</span><br></pre></td></tr></table></figure></div>
 
-<h3 id="问题出现"><a href="#问题出现" class="headerlink" title="问题出现"></a>问题出现</h3><p>用ansible安装部署docker时发现有容器一直起不来。安装的docker daemon是按docker官网<a class="link"   target="_blank" rel="noopener" href="https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-docker-ce" >https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-docker-ce<i class="fa-solid fa-up-right-from-square"></i></a>安装的，然后log发现报错<code>Error response from daemon: OCI runtime create failed: unable to retrieve OCI runtime error</code>。</p>
-<h3 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h3><p>搜索查看<a class="link"   target="_blank" rel="noopener" href="https://github.com/moby/moby/issues/35972" >issue<i class="fa-solid fa-up-right-from-square"></i></a>,发现是安装的docker-ce版本太新!而centos太旧，Centos7.1选择docker-ce-17.06.3.ce这个版本可用，17.12还是太新！</p>
+<h3 id="问题出现"><a href="#问题出现" class="headerlink" title="问题出现"></a>问题出现</h3><p>用ansible安装部署docker时发现有容器一直起不来。安装的docker daemon是按docker官网<a class="link"   target="_blank" rel="noopener" href="https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-docker-ce" >https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-docker-ce <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>安装的，然后log发现报错<code>Error response from daemon: OCI runtime create failed: unable to retrieve OCI runtime error</code>。</p>
+<h3 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h3><p>搜索查看<a class="link"   target="_blank" rel="noopener" href="https://github.com/moby/moby/issues/35972" >issue <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>,发现是安装的docker-ce版本太新!而centos太旧，Centos7.1选择docker-ce-17.06.3.ce这个版本可用，17.12还是太新！</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br><span class="line">Server Version: 18.01.0-ce</span><br><span class="line">Storage Driver: devicemapper</span><br></pre></td></tr></table></figure></div>
 
 <h3 id="措施，其他问题再现"><a href="#措施，其他问题再现" class="headerlink" title="措施，其他问题再现"></a>措施，其他问题再现</h3><p>卸载docker-ce, 重新安装。然后发现容器还是起不来！<br>尝试删除&#x2F;var&#x2F;lib&#x2F;docker, 报错</p>

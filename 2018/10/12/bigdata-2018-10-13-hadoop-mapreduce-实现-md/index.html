@@ -84,35 +84,37 @@
             <div class="pc">
                 <ul class="menu-list">
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../index.html" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html" >
                                     
-                                        <i class="fa-regular fa-house"></i>
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
                                     
-                                    HOME
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../archives" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives" >
                                     
-                                        <i class="fa-regular fa-archive"></i>
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
                                     
-                                    ARCHIVES
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
                     
                         <li class="menu-item search search-popup-trigger">
@@ -137,34 +139,37 @@
     <div class="header-drawer">
         <ul class="drawer-menu-list">
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../index.html" >
-                         
-                            
-                                <i class="fa-regular fa-house"></i>
-                            
-                            HOME
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html" >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../archives" >
-                         
-                            
-                                <i class="fa-regular fa-archive"></i>
-                            
-                            ARCHIVES
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives" >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
+
         </ul>
     </div>
 
@@ -248,7 +253,7 @@
 
             <div class="article-content markdown-body">
                 <p>虽然Hadoop现在有一点过时, 但是一般的金融公司还是会用它出隔日的报表(离线计算), 本文主要关注其<code>Map Reduce</code>的实现.</p>
-<h3 id="函数编程"><a href="#函数编程" class="headerlink" title="函数编程"></a>函数编程</h3><p><code>Map/Reduce</code>的思想借鉴于函数式编程. <code>Map</code>是进行过滤和排序, 比如把一组学生按名字排序到队列, 一个名字一个队列, 然后<code>Reduce</code>方法进行总结, 比如对队列里的名字做统计, 得出名字出现频率. 这种思想是<code>split-apply-combine</code>的一种特例(见<a class="link"   target="_blank" rel="noopener" href="https://www.kopei.top/2018/08/31/pandas/" >pandas groupby<i class="fa-solid fa-up-right-from-square"></i></a>).</p>
+<h3 id="函数编程"><a href="#函数编程" class="headerlink" title="函数编程"></a>函数编程</h3><p><code>Map/Reduce</code>的思想借鉴于函数式编程. <code>Map</code>是进行过滤和排序, 比如把一组学生按名字排序到队列, 一个名字一个队列, 然后<code>Reduce</code>方法进行总结, 比如对队列里的名字做统计, 得出名字出现频率. 这种思想是<code>split-apply-combine</code>的一种特例(见<a class="link"   target="_blank" rel="noopener" href="https://www.kopei.top/2018/08/31/pandas/" >pandas groupby <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>).</p>
 <p>我们知道多线程编程的局限在于访问共享资源的竞争问题, 一般需要锁, 信号量(semaphore)等技术去协调, 不然死锁等问题将会出现.</p>
 <p>但是我们可以完全换个思路, 比如消除需要访问共享资源的限制, 这样我们就不需要锁之类的技术了.这也是函数计算的一个基本概念. <strong>数据通过函数的参数传递</strong>, 同一时间只有一个激活的函数运行,这样就避免了冲突.</p>
 <p>可以把函数连接作有向无环图<code>Direct Acylic Graph</code>, 由于函数没有隐藏的依赖, 这样多个DAG就可以并行运行.</p>

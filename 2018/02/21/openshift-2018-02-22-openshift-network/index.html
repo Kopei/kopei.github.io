@@ -84,35 +84,37 @@
             <div class="pc">
                 <ul class="menu-list">
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../index.html" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html" >
                                     
-                                        <i class="fa-regular fa-house"></i>
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
                                     
-                                    HOME
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../archives" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives" >
                                     
-                                        <i class="fa-regular fa-archive"></i>
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
                                     
-                                    ARCHIVES
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
                     
                         <li class="menu-item search search-popup-trigger">
@@ -137,34 +139,37 @@
     <div class="header-drawer">
         <ul class="drawer-menu-list">
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../index.html" >
-                         
-                            
-                                <i class="fa-regular fa-house"></i>
-                            
-                            HOME
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html" >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../archives" >
-                         
-                            
-                                <i class="fa-regular fa-archive"></i>
-                            
-                            ARCHIVES
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives" >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
+
         </ul>
     </div>
 
@@ -252,9 +257,9 @@
 
             <div class="article-content markdown-body">
                 <blockquote>
-<p><a class="link"   target="_blank" rel="noopener" href="https://docs.openshift.org/latest/architecture/networking/networking.html" >https://docs.openshift.org/latest/architecture/networking/networking.html<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://docs.openshift.org/latest/architecture/networking/networking.html" >https://docs.openshift.org/latest/architecture/networking/networking.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 </blockquote>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>openshift的网路架构是建立在kubernetes的service上的。K8S的<a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/services-networking/service/" >Service<i class="fa-solid fa-up-right-from-square"></i></a>是一组pods和访问这些pods的逻辑抽象，service解耦了下游pods的网路变化。但是由于Service也会变化，所以openshift在master运行<a class="link"   target="_blank" rel="noopener" href="https://github.com/skynetservices/skydns" >skyDNS<i class="fa-solid fa-up-right-from-square"></i></a>来解决service网路的变化。</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>openshift的网路架构是建立在kubernetes的service上的。K8S的<a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/services-networking/service/" >Service <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>是一组pods和访问这些pods的逻辑抽象，service解耦了下游pods的网路变化。但是由于Service也会变化，所以openshift在master运行<a class="link"   target="_blank" rel="noopener" href="https://github.com/skynetservices/skydns" >skyDNS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>来解决service网路的变化。</p>
 <h3 id="SDN"><a href="#SDN" class="headerlink" title="SDN"></a>SDN</h3><p>Software Define Networking软件定义集群网络使openshift的pods相互能够通信，SDN使用Open vSwitch(OVS)来管理配置网路。有三种SDN插件可以配置pods网路：</p>
 <ul>
 <li>ovs-subnet, 提供所有的pods直接相互通信</li>

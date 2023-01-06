@@ -84,35 +84,37 @@
             <div class="pc">
                 <ul class="menu-list">
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../index.html" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html" >
                                     
-                                        <i class="fa-regular fa-house"></i>
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
                                     
-                                    HOME
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../archives" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives" >
                                     
-                                        <i class="fa-regular fa-archive"></i>
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
                                     
-                                    ARCHIVES
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
                     
                         <li class="menu-item search search-popup-trigger">
@@ -137,34 +139,37 @@
     <div class="header-drawer">
         <ul class="drawer-menu-list">
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../index.html" >
-                         
-                            
-                                <i class="fa-regular fa-house"></i>
-                            
-                            HOME
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html" >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../archives" >
-                         
-                            
-                                <i class="fa-regular fa-archive"></i>
-                            
-                            ARCHIVES
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives" >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
+
         </ul>
     </div>
 
@@ -278,7 +283,7 @@
 <li>是否是管理sql语句, 或者开启了<code>log_slow_admin_statements</code></li>
 <li><code>long_query_time</code>必须被满足,或者<code>log_queries_not_using_indexes</code>被使能, 非索引查询语句也会被写入log</li>
 <li>满足<code>min_examined_row_limit</code>行数</li>
-<li>那些满足<code>log_throttle_queries_not_using_indexes</code>的查询<br><code>log_timestamps</code>控制了写入慢查询log<strong>文件</strong>的时区, 但是不会影响通用查询log和写入数据库的log.<br>在cache中满足慢语句的sql是不会写入log, 默认情况下复制的从机也不会记录log.<br>收集完log后, 可以使用<a class="link"   target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/mysqldumpslow.html" >mysqldumpslow<i class="fa-solid fa-up-right-from-square"></i></a>来查看.<br>所以为了开启慢查询log, 在my.cnf设置如下代码:<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">mysqld</span>]</span><br><span class="line"><span class="string">slow_query_log</span>                  <span class="string">=</span> <span class="number">1</span></span><br><span class="line"><span class="string">slow_query_log_file</span>             <span class="string">=</span> <span class="string">/var/log/mysql/slow.log</span></span><br><span class="line"><span class="string">long_query_time</span>                 <span class="string">=</span> <span class="number">5</span></span><br></pre></td></tr></table></figure></div></li>
+<li>那些满足<code>log_throttle_queries_not_using_indexes</code>的查询<br><code>log_timestamps</code>控制了写入慢查询log<strong>文件</strong>的时区, 但是不会影响通用查询log和写入数据库的log.<br>在cache中满足慢语句的sql是不会写入log, 默认情况下复制的从机也不会记录log.<br>收集完log后, 可以使用<a class="link"   target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/mysqldumpslow.html" >mysqldumpslow <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>来查看.<br>所以为了开启慢查询log, 在my.cnf设置如下代码:<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">mysqld</span>]</span><br><span class="line"><span class="string">slow_query_log</span>                  <span class="string">=</span> <span class="number">1</span></span><br><span class="line"><span class="string">slow_query_log_file</span>             <span class="string">=</span> <span class="string">/var/log/mysql/slow.log</span></span><br><span class="line"><span class="string">long_query_time</span>                 <span class="string">=</span> <span class="number">5</span></span><br></pre></td></tr></table></figure></div></li>
 </ul>
 <h3 id="增加最大客户端连接数"><a href="#增加最大客户端连接数" class="headerlink" title="增加最大客户端连接数"></a>增加最大客户端连接数</h3><p><code>max_connections</code>指定允许的同时连接客户端, 默认是151(实际最大连接数会+1, 多出来的是给admin使用). 改变这个值会影响mysqld的文件描述符的需求. 如果所需的fd不能满足,server会自动减少这个值.所以一味增大连接数但是不改变<code>table_open_cache</code>可能不能提升性能, 同时还需要确保<code>table_open_cache</code>的值能被操作系统满足.<br><strong>关于mysql如何打开和关闭表</strong> 为了提升性能, 每一个client session会单独打开一个table. <code>table_open_cache</code>和<code>max_connections</code>系统变量决定了最大数量文件可以被打开. 比如如果有200个并发连接, 每个连接最大的表join是N, 那么起码应该设置<code>table_open_cache</code>为200*N + 额外的一定数量. 那么什么时候mysql会关闭不使用的表呢? 会有如下情况表会被关闭:</p>
 <ul>

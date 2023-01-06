@@ -84,35 +84,37 @@
             <div class="pc">
                 <ul class="menu-list">
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../index.html" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html" >
                                     
-                                        <i class="fa-regular fa-house"></i>
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
                                     
-                                    HOME
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../archives" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives" >
                                     
-                                        <i class="fa-regular fa-archive"></i>
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
                                     
-                                    ARCHIVES
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
                     
                         <li class="menu-item search search-popup-trigger">
@@ -137,34 +139,37 @@
     <div class="header-drawer">
         <ul class="drawer-menu-list">
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../index.html" >
-                         
-                            
-                                <i class="fa-regular fa-house"></i>
-                            
-                            HOME
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html" >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../archives" >
-                         
-                            
-                                <i class="fa-regular fa-archive"></i>
-                            
-                            ARCHIVES
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives" >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
+
         </ul>
     </div>
 
@@ -247,7 +252,7 @@
             
 
             <div class="article-content markdown-body">
-                <h2 id="SQL-Server的Trigger简介"><a href="#SQL-Server的Trigger简介" class="headerlink" title="SQL Server的Trigger简介"></a>SQL Server的Trigger简介</h2><p>SQL Server主要有三种trigger: <code>DDL Trigger</code>, <code>DML Trigger</code>, <code>Logon Trigger</code>.下面将分别介绍。<br><code>SQL Server</code>的<code>Logon Trigger</code>是触发器在用户建立会话后将触发对应的存储过程。更加具体一点是在用户真正建立会话之前，认证成功之后的阶段。认证失败的时候触发器是不会触发的。<br>我们可以使用<code>logon trigger</code>来审计和控制服务端会话，比如追溯登入活动，限制特定账号的登入会话数。<br>实际上<code>logon trigger</code>对应于<code>AUDIT_LOGIN</code>事件，<code>AUDIT_LOGIN</code>可以用于<a class="link"   target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sql/relational-databases/service-broker/event-notifications?view=sql-server-2017" >Event Notifications<i class="fa-solid fa-up-right-from-square"></i></a>。<br><code>Event Notifications</code>和<code>Trigger</code>的主要区别是，触发器是同步的，<code>Event Notification</code>是异步的。</p>
+                <h2 id="SQL-Server的Trigger简介"><a href="#SQL-Server的Trigger简介" class="headerlink" title="SQL Server的Trigger简介"></a>SQL Server的Trigger简介</h2><p>SQL Server主要有三种trigger: <code>DDL Trigger</code>, <code>DML Trigger</code>, <code>Logon Trigger</code>.下面将分别介绍。<br><code>SQL Server</code>的<code>Logon Trigger</code>是触发器在用户建立会话后将触发对应的存储过程。更加具体一点是在用户真正建立会话之前，认证成功之后的阶段。认证失败的时候触发器是不会触发的。<br>我们可以使用<code>logon trigger</code>来审计和控制服务端会话，比如追溯登入活动，限制特定账号的登入会话数。<br>实际上<code>logon trigger</code>对应于<code>AUDIT_LOGIN</code>事件，<code>AUDIT_LOGIN</code>可以用于<a class="link"   target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sql/relational-databases/service-broker/event-notifications?view=sql-server-2017" >Event Notifications <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。<br><code>Event Notifications</code>和<code>Trigger</code>的主要区别是，触发器是同步的，<code>Event Notification</code>是异步的。</p>
 <p><code>DDL Trigger</code>是在各种DDL(Data Definition Language)事件时触发的存储过程。这些事件主要包括事务语句：<code>CREATE, ALTER, DROP, GRANT, DENY, REVOKE, UPDATE STATISTICS</code>. 某些系统存储过程运行DDL类似的操作也可以触发DDL触发器。 一般我们使用<code>DDL Trigger</code>来：</p>
 <ul>
 <li>防止数据库结构改变</li>

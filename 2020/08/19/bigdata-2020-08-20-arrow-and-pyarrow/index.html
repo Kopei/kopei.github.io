@@ -84,35 +84,37 @@
             <div class="pc">
                 <ul class="menu-list">
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../index.html" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html" >
                                     
-                                        <i class="fa-regular fa-house"></i>
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
                                     
-                                    HOME
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../archives" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives" >
                                     
-                                        <i class="fa-regular fa-archive"></i>
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
                                     
-                                    ARCHIVES
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
                     
                         <li class="menu-item search search-popup-trigger">
@@ -137,34 +139,37 @@
     <div class="header-drawer">
         <ul class="drawer-menu-list">
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../index.html" >
-                         
-                            
-                                <i class="fa-regular fa-house"></i>
-                            
-                            HOME
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html" >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../archives" >
-                         
-                            
-                                <i class="fa-regular fa-archive"></i>
-                            
-                            ARCHIVES
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives" >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
+
         </ul>
     </div>
 
@@ -260,7 +265,7 @@
 <h2 id="Dive-into"><a href="#Dive-into" class="headerlink" title="Dive into"></a>Dive into</h2><p>下面让我们去看一看pyarrow的源代码（1.0.0)</p>
 <h3 id="pyarrow项目目录"><a href="#pyarrow项目目录" class="headerlink" title="pyarrow项目目录"></a>pyarrow项目目录</h3><p>![](&#x2F;images&#x2F;screenshots&#x2F;Screen Shot 2020-08-28 at 3.53.07 PM.png)</p>
 <p>pip安装的pyarrow少了一些cython编写的pyx代码，这些文件被编译成pxd或so后可以被py代码import, 比如<code>from pyarrow.lib import (ChunkedArray, RecordBatch, Table)</code><br>是从lib.so中导入的。</p>
-<h3 id="pyarrow-init-py源码解读"><a href="#pyarrow-init-py源码解读" class="headerlink" title="pyarrow._init_.py源码解读"></a>pyarrow._<em>init_</em>.py源码解读</h3><p>首先导入版本号，如果不是通过包安装，那么版本通过解析<code>git describe</code>确定版本。<br>接着导入cython的pyarrow.lib库，由于Cython有个bug(<a class="link"   target="_blank" rel="noopener" href="https://github.com/cython/cython/issues/3603" >https://github.com/cython/cython/issues/3603<i class="fa-solid fa-up-right-from-square"></i></a>), 这里暂时关掉gc。<br>然后有一个<code>show_versions</code>的函数可以查看c++版本信息：</p>
+<h3 id="pyarrow-init-py源码解读"><a href="#pyarrow-init-py源码解读" class="headerlink" title="pyarrow._init_.py源码解读"></a>pyarrow._<em>init_</em>.py源码解读</h3><p>首先导入版本号，如果不是通过包安装，那么版本通过解析<code>git describe</code>确定版本。<br>接着导入cython的pyarrow.lib库，由于Cython有个bug(<a class="link"   target="_blank" rel="noopener" href="https://github.com/cython/cython/issues/3603" >https://github.com/cython/cython/issues/3603 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>), 这里暂时关掉gc。<br>然后有一个<code>show_versions</code>的函数可以查看c++版本信息：</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; pa.show_versions()</span><br><span class="line">pyarrow version info</span><br><span class="line">--------------------</span><br><span class="line">Package kind: manylinux2010</span><br><span class="line">Arrow C++ library version: 1.0.0</span><br><span class="line">Arrow C++ compiler: GNU 8.3.1</span><br><span class="line">Arrow C++ compiler flags:  -fdiagnostics-color=always -O3 -DNDEBUG</span><br><span class="line">Arrow C++ git revision: b0d623957db820de4f1ff0a5ebd3e888194a48f0</span><br><span class="line">Arrow C++ git description: apache-arrow-0.16.0-1340-gb0d623957</span><br></pre></td></tr></table></figure></div>
 <p>然后导入Cython定义的各种类型，<br>导入buffer和IO相关。关于Pyarrow的memory和IO, 下面会介绍。<br>导入异常，<br>导入序列化相关，到这lib模块导入完毕。<br>然后从hdfs.py，ipc.py, filesystem.py, serialization.py,types.py导入相关模块，<br>定义启动plasma server入口函数和一些其他的包工具函数。</p>
 <h3 id="pyarrow的内存和IO管理"><a href="#pyarrow的内存和IO管理" class="headerlink" title="pyarrow的内存和IO管理"></a>pyarrow的内存和IO管理</h3><p>本节主要总结pyarrow的内存管理和IO管理，涉及buffer, memory pool和file-like&#x2F;stream-like对象</p>
@@ -269,7 +274,7 @@
 <p><strong>pyarrow.Buffer</strong><br><code>Buffer</code>对象是C++代码<code>arrow::Buffer</code>的封装，作为基础工具管理C++中的arrow内存。一个buffer代表一段连续的内存空间。<br>大部分buffer拥有他们各自的内存，但是也有例外。Buffer对象可以允许高级array类安全地和属于或不属于他们的内存交互。<code>arrow::Buffer</code><br>允许一个buffer访问另一个buffer通过zero-copy, 同时保持内存的生命周期和清晰的父子关系。<br><code>arrow::Buffer</code>有很多种实现，但是对外接口是一致的：一个数据指针和长度。有点类似python自带的buffer和<code>memoryview</code>对象</p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://github.com/apache/arrow/blob/67983cf56f/python/pyarrow/io.pxi</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pyarrow <span class="keyword">as</span> pa</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data=<span class="string">b&#x27;aaaaaaaaaaaaaaaaaaaaaa&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf = pa.py_buffer(data)  <span class="comment"># buf是zero-copy的data对象memory view, buf不会分配内存.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf</span><br><span class="line">&lt;pyarrow.lib.Buffer <span class="built_in">object</span> at <span class="number">0x7fabc0e05d30</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf.size</span><br><span class="line"><span class="number">22</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf.to_pybytes()  <span class="comment"># 这个转化是会复制数据。</span></span><br><span class="line"><span class="string">b&#x27;aaaaaaaaaaaaaaaaaaaaaa&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 <p>外部的内存，只要有指针和size，保持接口一致，也可以通过<code>foreign_buffer()</code>来访问。<br>在创建buffer之后，可以通过memoryview或python buffer装换，这种转化是zero-copy.</p>
-<p><strong>Memory Pools</strong><br>所有内存分配和释放(malloc&#x2F;free)都可通过<code>arrow::MemoryPool</code>来追踪。代码在<a class="link"   target="_blank" rel="noopener" href="https://github.com/apache/arrow/blob/67983cf56f/python/pyarrow/memory.pxi" >memory.pxi<i class="fa-solid fa-up-right-from-square"></i></a></p>
+<p><strong>Memory Pools</strong><br>所有内存分配和释放(malloc&#x2F;free)都可通过<code>arrow::MemoryPool</code>来追踪。代码在<a class="link"   target="_blank" rel="noopener" href="https://github.com/apache/arrow/blob/67983cf56f/python/pyarrow/memory.pxi" >memory.pxi <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pyarrow <span class="keyword">as</span> pa</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pa.total_allocated_bytes()</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf = pa.allocate_buffer(<span class="number">1024</span>,resizable=<span class="literal">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pa.total_allocated_bytes()</span><br><span class="line"><span class="number">1024</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf.resize(<span class="number">2048</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pa.total_allocated_bytes()</span><br><span class="line"><span class="number">2048</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf=<span class="literal">None</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pa.total_allocated_bytes()</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure></div>
 
 <h4 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h4><p>Arrow C++库有几个抽象接口用于不同IO类型：</p>
@@ -283,7 +288,7 @@
 <p>在<code>pyarrow.__init__.py</code>可以看到代码的引入:</p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># I/O</span></span><br><span class="line"><span class="keyword">from</span> pyarrow.lib <span class="keyword">import</span> (HdfsFile, NativeFile, PythonFile,</span><br><span class="line">                         BufferedInputStream, BufferedOutputStream,</span><br><span class="line">                         CompressedInputStream, CompressedOutputStream,</span><br><span class="line">                         TransformInputStream, transcoding_input_stream,</span><br><span class="line">                         FixedSizeBufferWriter,</span><br><span class="line">                         BufferReader, BufferOutputStream,</span><br><span class="line">                         OSFile, MemoryMappedFile, memory_map,</span><br><span class="line">                         create_memory_map, have_libhdfs,</span><br><span class="line">                         MockOutputStream, input_stream, output_stream)</span><br><span class="line"><span class="keyword">from</span> pyarrow.lib <span class="keyword">import</span> (ChunkedArray, RecordBatch, Table, table,</span><br><span class="line">                         concat_arrays, concat_tables)</span><br></pre></td></tr></table></figure></div>
 
-<p>为了能够和python自带<code>file</code>对象行为一致，arrow定义了<code>NativeFile</code>(其实是个stream).代码在<a class="link"   target="_blank" rel="noopener" href="https://github.com/apache/arrow/blob/67983cf56f/python/pyarrow/io.pxi" >io.pxi<i class="fa-solid fa-up-right-from-square"></i></a><br><code>NativeFile</code>是所有arrow流的基类，arrow流可以是可读，可写，也可以支持<code>seek</code>.<code>NativeFile</code>暴露的方法用于读写python的数据对象，然后把他们变成stream传递给其他arrow工具，比如Arrow IPC.<br>cython代码中定义了好几种NativeFile子类:</p>
+<p>为了能够和python自带<code>file</code>对象行为一致，arrow定义了<code>NativeFile</code>(其实是个stream).代码在<a class="link"   target="_blank" rel="noopener" href="https://github.com/apache/arrow/blob/67983cf56f/python/pyarrow/io.pxi" >io.pxi <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br><code>NativeFile</code>是所有arrow流的基类，arrow流可以是可读，可写，也可以支持<code>seek</code>.<code>NativeFile</code>暴露的方法用于读写python的数据对象，然后把他们变成stream传递给其他arrow工具，比如Arrow IPC.<br>cython代码中定义了好几种NativeFile子类:</p>
 <ul>
 <li>OSFile, 使用操作系统的描述符</li>
 <li>MemoryMappedFile, 使用memory maps做zero-copy读和写。</li>

@@ -1808,17 +1808,31 @@ pre .deletion {
 }
 .post-toc-wrap .post-toc .nav .nav-number,
 .post-toc-wrap .post-toc .nav .nav-text {
-  color: var(--default-text-color);
+  color: var(--third-text-color);
 }
 .post-toc-wrap .post-toc .nav .active > a .nav-number,
 .post-toc-wrap .post-toc .nav .active > a .nav-text {
   color: var(--primary-color);
   font-weight: bold;
 }
-.post-toc-wrap .post-toc .nav .active-current > a .nav-number,
-.post-toc-wrap .post-toc .nav .active-current > a .nav-text {
+.post-toc-wrap .post-toc .nav .active-current .nav-number,
+.post-toc-wrap .post-toc .nav .active-current .nav-text {
+  color: var(--primary-color) !important;
   font-weight: bold;
-  transition-duration: 0.1s;
+  display: block;
+  transition: none;
+}
+.post-toc-wrap .post-toc .nav .active-current .nav-number::before,
+.post-toc-wrap .post-toc .nav .active-current .nav-text::before {
+  content: " ";
+  width: 10px;
+  height: 1.7rem;
+  margin: auto 0;
+  transform: translate(-12px, 0);
+  border-left: 2px solid var(--primary-color);
+  position: absolute;
+  margin-right: 4px;
+  color: var(--primary-color);
 }
 :root {
   --waline-font-size: 1rem;
@@ -3927,6 +3941,30 @@ ul.wl-sort {
   .home-content-container .home-article-list .home-article-item .top-icon {
     font-size: 1.16rem;
   }
+}
+.home-content-container .home-article-list .home-article-item .home-article-thumbnail {
+  position: relative;
+  height: 150px;
+  padding-bottom: 28px;
+  overflow: hidden;
+  border-radius: 18px 18px 0 0 !important;
+  margin: -28px -28px 20px -28px;
+}
+@media (max-width: 780px) {
+  .home-content-container .home-article-list .home-article-item .home-article-thumbnail {
+    border-radius: 7px;
+  }
+}
+@media (max-width: 500px) {
+  .home-content-container .home-article-list .home-article-item .home-article-thumbnail {
+    border-radius: 5px;
+  }
+}
+.home-content-container .home-article-list .home-article-item .home-article-thumbnail img {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .home-content-container .home-article-list .home-article-item .home-article-title {
   position: relative;

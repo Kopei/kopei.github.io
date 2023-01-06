@@ -13,6 +13,22 @@
   color: var(--third-text-color);
 redefine-tablet()
 }
+.home-content-container .home-article-list .home-article-item .home-article-thumbnail {
+  position: relative;
+  height: 150px;
+  padding-bottom: 28px;
+  overflow: hidden;
+  border-radius: 18px 18px 0 0 !important;
+  margin: -28px -28px 20px -28px;
+redefine-tablet()
+redefine-mobile()
+}
+.home-content-container .home-article-list .home-article-item .home-article-thumbnail img {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
 .home-content-container .home-article-list .home-article-item .home-article-title {
   position: relative;
   font-weight: 600;

@@ -84,35 +84,37 @@
             <div class="pc">
                 <ul class="menu-list">
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../index.html" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html" >
                                     
-                                        <i class="fa-regular fa-house"></i>
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
                                     
-                                    HOME
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../archives" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives" >
                                     
-                                        <i class="fa-regular fa-archive"></i>
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
                                     
-                                    ARCHIVES
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
                     
                         <li class="menu-item search search-popup-trigger">
@@ -137,34 +139,37 @@
     <div class="header-drawer">
         <ul class="drawer-menu-list">
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../index.html" >
-                         
-                            
-                                <i class="fa-regular fa-house"></i>
-                            
-                            HOME
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html" >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../archives" >
-                         
-                            
-                                <i class="fa-regular fa-archive"></i>
-                            
-                            ARCHIVES
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives" >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
+
         </ul>
     </div>
 
@@ -247,7 +252,7 @@
             
 
             <div class="article-content markdown-body">
-                <h2 id="构架原则"><a href="#构架原则" class="headerlink" title="构架原则"></a>构架原则</h2><p>微软官网有一个篇短文专门讲解Web架构设计原则<a class="link"   target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/architectural-principles#dependency-inversion" >site<i class="fa-solid fa-up-right-from-square"></i></a>. 且把它翻译一下, 品位下.</p>
+                <h2 id="构架原则"><a href="#构架原则" class="headerlink" title="构架原则"></a>构架原则</h2><p>微软官网有一个篇短文专门讲解Web架构设计原则<a class="link"   target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/architectural-principles#dependency-inversion" >site <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>. 且把它翻译一下, 品位下.</p>
 <h2 id="常见的设计原则"><a href="#常见的设计原则" class="headerlink" title="常见的设计原则"></a>常见的设计原则</h2><h3 id="Separation-of-Concerns"><a href="#Separation-of-Concerns" class="headerlink" title="Separation of Concerns"></a>Separation of Concerns</h3><p><code>Separation of Concerns</code>字面翻译是关注点的分离, 其实很多情况下, 我们的架构设计都遵循这个原则. 这个原则指出软件应该根据工作类型的不同被分离. 这个原则是<code>Edsger W. Dijkstra</code>在论文<code>On the role of scientific thought</code>提出的. 原则上将一个计算机程序分割成不同模块的程序, 分割一个程序的不同关注点,一个模块只关心一个点. 同时业务行为设计也要和基础架构, UI展示层分离. 这样业务逻辑的分离可以保证业务可以被单独测试和进化, 而不是和其他实现紧密耦合. </p>
 <h3 id="Encapsulation-封装"><a href="#Encapsulation-封装" class="headerlink" title="Encapsulation 封装"></a>Encapsulation 封装</h3><p>应用的不同部分需要使用封装来隔离, 而通过外部接口保持直接的协作不受内部实现的改变的影响.</p>
 <h3 id="Dependency-inversion-依赖反转"><a href="#Dependency-inversion-依赖反转" class="headerlink" title="Dependency inversion 依赖反转"></a>Dependency inversion 依赖反转</h3><ul>

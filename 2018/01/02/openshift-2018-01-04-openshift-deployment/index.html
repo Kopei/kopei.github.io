@@ -84,35 +84,37 @@
             <div class="pc">
                 <ul class="menu-list">
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../index.html" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html" >
                                     
-                                        <i class="fa-regular fa-house"></i>
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
                                     
-                                    HOME
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../archives" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives" >
                                     
-                                        <i class="fa-regular fa-archive"></i>
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
                                     
-                                    ARCHIVES
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
                     
                         <li class="menu-item search search-popup-trigger">
@@ -137,34 +139,37 @@
     <div class="header-drawer">
         <ul class="drawer-menu-list">
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../index.html" >
-                         
-                            
-                                <i class="fa-regular fa-house"></i>
-                            
-                            HOME
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html" >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../archives" >
-                         
-                            
-                                <i class="fa-regular fa-archive"></i>
-                            
-                            ARCHIVES
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives" >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
+
         </ul>
     </div>
 
@@ -255,7 +260,7 @@
 <p>For <em>version v3.7</em>; <em>OS Mac</em>; not recommend for production</p>
 </blockquote>
 <h3 id="安装Openshift-AllinOne"><a href="#安装Openshift-AllinOne" class="headerlink" title="安装Openshift AllinOne."></a>安装Openshift AllinOne.</h3><ul>
-<li>安装oc cli. 地址：<a class="link"   target="_blank" rel="noopener" href="https://github.com/openshift/origin/releases" >https://github.com/openshift/origin/releases<i class="fa-solid fa-up-right-from-square"></i></a><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget -c https://github.com//openshift/origin/releases/download/v3.7.0/openshift-origin-client-tools-v3.7.0-7ed6862-mac.zip</span><br><span class="line">tar -xvf openshift-origin-client-tools-v3.7.0-7ed6862-mac.zip</span><br><span class="line"><span class="built_in">mv</span> openshift-origin-client-tools-v3.7.0-7ed6862-mac/oc /usr/local/bin</span><br></pre></td></tr></table></figure></div></li>
+<li>安装oc cli. 地址：<a class="link"   target="_blank" rel="noopener" href="https://github.com/openshift/origin/releases" >https://github.com/openshift/origin/releases <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget -c https://github.com//openshift/origin/releases/download/v3.7.0/openshift-origin-client-tools-v3.7.0-7ed6862-mac.zip</span><br><span class="line">tar -xvf openshift-origin-client-tools-v3.7.0-7ed6862-mac.zip</span><br><span class="line"><span class="built_in">mv</span> openshift-origin-client-tools-v3.7.0-7ed6862-mac/oc /usr/local/bin</span><br></pre></td></tr></table></figure></div></li>
 <li>启动Openshift, 使用预置配置, 挂出数据<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oc cluster up --host-data-dir=<span class="string">&#x27;$REPLACE/oc/profiles/Devops/data&#x27;</span> --host-config-dir=<span class="string">&#x27;$REPLACE/oc/profiles/Devops/config&#x27;</span> --use-existing-config</span><br></pre></td></tr></table></figure></div></li>
 <li>访问<code>https://127.0.0.1:8443/login</code></li>
 <li>生产环境需要在linux下安装，并且需要考虑HA, openshift的安装脚本不支持single master升级到multiple master.</li>

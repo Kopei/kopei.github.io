@@ -84,35 +84,37 @@
             <div class="pc">
                 <ul class="menu-list">
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../index.html" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html" >
                                     
-                                        <i class="fa-regular fa-house"></i>
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
                                     
-                                    HOME
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../archives" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives" >
                                     
-                                        <i class="fa-regular fa-archive"></i>
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
                                     
-                                    ARCHIVES
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
                     
                         <li class="menu-item search search-popup-trigger">
@@ -137,34 +139,37 @@
     <div class="header-drawer">
         <ul class="drawer-menu-list">
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../index.html" >
-                         
-                            
-                                <i class="fa-regular fa-house"></i>
-                            
-                            HOME
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html" >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../archives" >
-                         
-                            
-                                <i class="fa-regular fa-archive"></i>
-                            
-                            ARCHIVES
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives" >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
+
         </ul>
     </div>
 
@@ -250,7 +255,7 @@
                 <h3 id="k8s的部署Deployment"><a href="#k8s的部署Deployment" class="headerlink" title="k8s的部署Deployment"></a>k8s的部署Deployment</h3><p>k8s的<code>Deployment</code>提供了<code>pods</code>和<code>ReplicaSets</code>的更新.<br>只需在Deployment对象声明你想要的部署状态, <code>Deployment</code>控制器就会更新到需要的状态.所以这种方式是声明式的.<br>除非第一次部署,k8s采用的部署方式是rolling update(滚动更新). 大致意思是保证服务可用的情况下, 创建一定量的新pods,然后删除一定量的pods,循环这些步骤直到部署完成.</p>
 <h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps/v1beta2 # for versions before 1.8.0 use apps/v1beta1</span><br><span class="line">kind: Deployment   # apiVersion, kind, metadata, spec这四个字段必须要</span><br><span class="line">metadata:</span><br><span class="line">  name: appweb</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:  # 多个label做and处理. 部署时会自动加一个hash label, 用于区分部署版本</span><br><span class="line">      app: appweb</span><br><span class="line">      tier: backend</span><br><span class="line">      version: 1.0</span><br><span class="line">  replicas: 2</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: appweb</span><br><span class="line">        tier: backend</span><br><span class="line">        version: 1.0</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: app</span><br><span class="line">        image:  registry-vpc.cn-shanghai.aliyuncs.com/web1.0</span><br><span class="line">        env:</span><br><span class="line">          - name: app_WEB_DATABASE_URL</span><br><span class="line">            valueFrom:</span><br><span class="line">              secretKeyRef:</span><br><span class="line">                name: appsecrets</span><br><span class="line">                key: app_WEB_DATABASE_URL</span><br><span class="line">          - name: WORKER_PROCESSES</span><br><span class="line">            value: &quot;2&quot;</span><br><span class="line">          - name: JOB_WORKER_URL</span><br><span class="line">            value: &quot;redis://redis-master:6379/0&quot;</span><br><span class="line">          - name: RAILS_ENV</span><br><span class="line">            value: &quot;production&quot;</span><br><span class="line">          - name: REDIS_CACHE_URL</span><br><span class="line">            value: &quot;redis://redis-master:6379/1&quot;</span><br><span class="line">        ports:</span><br><span class="line">          - containerPort: 7007</span><br><span class="line">        volumeMounts:</span><br><span class="line">          - name: app-pvc</span><br><span class="line">            mountPath: &quot;/app/public/&quot;</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /login</span><br><span class="line">            port: 7007</span><br><span class="line">          initialDelaySeconds: 30</span><br><span class="line">          periodSeconds: 10</span><br><span class="line">          timeoutSeconds: 3</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /login</span><br><span class="line">            port: 7007</span><br><span class="line">          initialDelaySeconds: 30</span><br><span class="line">          periodSeconds: 10</span><br><span class="line">          timeoutSeconds: 3</span><br><span class="line">      volumes:</span><br><span class="line">        - name: app-pvc</span><br><span class="line">          persistentVolumeClaim:</span><br><span class="line">            claimName: app-pvc</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 <h3 id="部署时需要注意的地方"><a href="#部署时需要注意的地方" class="headerlink" title="部署时需要注意的地方:"></a>部署时需要注意的地方:</h3><ul>
-<li>Deployment的模板使用label来找到对应的容器, 所以不建议修改label.如果必须修改请看<a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#label-selector-updates" >label selector update<i class="fa-solid fa-up-right-from-square"></i></a></li>
+<li>Deployment的模板使用label来找到对应的容器, 所以不建议修改label.如果必须修改请看<a class="link"   target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#label-selector-updates" >label selector update <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 <li>在一个deploy过程中如果再进行另一个deploy,那么之前那个deploy的pod会立刻删除.</li>
 <li>每次部署都会创建一个部署版本, 如果部署完后又进行扩展(scale), 那么此时进行rollback将不会回滚扩展的部分.因为rollback只会根据(.spec.template)指定来回滚. 可用在每次更新部署的时候,指定<code>--record</code>把部署命令记录到部署更新版本记录里.</li>
 <li>查看部署历史<code>kubectl rollout history deployment/appweb</code>, 可以指定具体版本号<code>kubectl rollout history deployment/appweb --revision=2</code></li>

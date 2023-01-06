@@ -84,35 +84,37 @@
             <div class="pc">
                 <ul class="menu-list">
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../index.html" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html" >
                                     
-                                        <i class="fa-regular fa-house"></i>
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
                                     
-                                    HOME
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../archives" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives" >
                                     
-                                        <i class="fa-regular fa-archive"></i>
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
                                     
-                                    ARCHIVES
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
                     
                         <li class="menu-item search search-popup-trigger">
@@ -137,34 +139,37 @@
     <div class="header-drawer">
         <ul class="drawer-menu-list">
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../index.html" >
-                         
-                            
-                                <i class="fa-regular fa-house"></i>
-                            
-                            HOME
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html" >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../archives" >
-                         
-                            
-                                <i class="fa-regular fa-archive"></i>
-                            
-                            ARCHIVES
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives" >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
+
         </ul>
     </div>
 
@@ -263,7 +268,7 @@
 <h3 id="存储过程的类型"><a href="#存储过程的类型" class="headerlink" title="存储过程的类型"></a>存储过程的类型</h3><ul>
 <li><strong>自定义</strong> 用户自定义的存储过程可以用于所有数据库(除了 Resource 数据库).</li>
 <li><strong>临时</strong> 临时存储过程也是一种用户自定义过程，存储在<code>tempdb</code>库中，它的生命周期就是连接的时间。临时存储过程又分为<code>local</code>和<code>global</code>, 它们的区别在于名字、可见性和可用性。<code>local</code>存储过程以<code>#</code>开头命名，只对当前连接用户可见，连接关闭将删除过程。<code>global</code>存储过程以<code>##</code>命名开头，这个过程创建后对所有用户可见，当最后一个会话关闭后将删除过程。</li>
-<li><strong>系统</strong> 系统存储过程存储在<code>Resource</code>数据库，逻辑上以<code>sys</code>表出现。另外<code>msdb</code>数据库也有系统存储过程存在<code>dbo</code>表中，用于调度警告和任务。一般系统存储过程以<code>sp_</code>命名开头。用户可以扩展系统存储过程，一般以<code>xp_</code>命名开头，见官网资料 [<a class="link"   target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/general-extended-stored-procedures-transact-sql?view=sql-server-2017%5D" >https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/general-extended-stored-procedures-transact-sql?view=sql-server-2017]<i class="fa-solid fa-up-right-from-square"></i></a>(General Extended Stored Procedures)</li>
+<li><strong>系统</strong> 系统存储过程存储在<code>Resource</code>数据库，逻辑上以<code>sys</code>表出现。另外<code>msdb</code>数据库也有系统存储过程存在<code>dbo</code>表中，用于调度警告和任务。一般系统存储过程以<code>sp_</code>命名开头。用户可以扩展系统存储过程，一般以<code>xp_</code>命名开头，见官网资料 [<a class="link"   target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/general-extended-stored-procedures-transact-sql?view=sql-server-2017%5D" >https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/general-extended-stored-procedures-transact-sql?view=sql-server-2017] <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>(General Extended Stored Procedures)</li>
 <li><strong>扩展自定义</strong> 用户可以使用 C 语言来创建外部 DLL,不过为了将来的兼容性不建议使用。</li>
 </ul>
 

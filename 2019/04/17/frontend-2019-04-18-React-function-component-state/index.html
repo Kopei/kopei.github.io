@@ -84,35 +84,37 @@
             <div class="pc">
                 <ul class="menu-list">
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../index.html" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html" >
                                     
-                                        <i class="fa-regular fa-house"></i>
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
                                     
-                                    HOME
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
-                        <li class="menu-item">
-                            <!-- Menu -->
-                            <a class="" 
-                                href="../../../../archives" >
-                                
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives" >
                                     
-                                        <i class="fa-regular fa-archive"></i>
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
                                     
-                                    ARCHIVES
+                                </a>
+                                <!-- Submenu -->
                                 
-                            </a>
-                            <!-- Submenu -->
-                            
-                        </li>
+                            </li>
                     
                     
                         <li class="menu-item search search-popup-trigger">
@@ -137,34 +139,37 @@
     <div class="header-drawer">
         <ul class="drawer-menu-list">
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../index.html" >
-                         
-                            
-                                <i class="fa-regular fa-house"></i>
-                            
-                            HOME
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html" >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
-                <li class="drawer-menu-item flex-center">
-                    <a class="" 
-                       href="../../../../archives" >
-                         
-                            
-                                <i class="fa-regular fa-archive"></i>
-                            
-                            ARCHIVES
-                        
-                    </a>
-                </li>
-                <!-- Submenu -->
                 
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives" >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
             
+
         </ul>
     </div>
 
@@ -236,7 +241,7 @@
             
 
             <div class="article-content markdown-body">
-                <h2 id="React无状态组件"><a href="#React无状态组件" class="headerlink" title="React无状态组件"></a>React无状态组件</h2><p>React的<code>Component</code>分为有状态的<code>class component</code>和无状态的<code>function component</code>, <code>class component</code>的好处是可以完全控制组件的生命周期, 坏处是写起来麻烦. <code>function component</code>的好处是可以使用高阶函数式的编程方式编写代码, 缺点是没有状态可以控制.所以一般需要状态初始化或者其他一些状态操控时, 以前可以用<a class="link"   target="_blank" rel="noopener" href="https://github.com/acdlite/recompose" >recompose<i class="fa-solid fa-up-right-from-square"></i></a>, 使用HOC让组件带有状态, 但是后来这个库的作者加入了React团队, v16.8版本后, 我们应该使用<a class="link"   target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-overview.html" >Hooks<i class="fa-solid fa-up-right-from-square"></i></a>来管理组件状态和生命周期.</p>
+                <h2 id="React无状态组件"><a href="#React无状态组件" class="headerlink" title="React无状态组件"></a>React无状态组件</h2><p>React的<code>Component</code>分为有状态的<code>class component</code>和无状态的<code>function component</code>, <code>class component</code>的好处是可以完全控制组件的生命周期, 坏处是写起来麻烦. <code>function component</code>的好处是可以使用高阶函数式的编程方式编写代码, 缺点是没有状态可以控制.所以一般需要状态初始化或者其他一些状态操控时, 以前可以用<a class="link"   target="_blank" rel="noopener" href="https://github.com/acdlite/recompose" >recompose <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, 使用HOC让组件带有状态, 但是后来这个库的作者加入了React团队, v16.8版本后, 我们应该使用<a class="link"   target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-overview.html" >Hooks <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>来管理组件状态和生命周期.</p>
 <h3 id="recompose和hooks写法对比"><a href="#recompose和hooks写法对比" class="headerlink" title="recompose和hooks写法对比"></a>recompose和hooks写法对比</h3><p>使用recompose给组件设置状态及其他类似<code>componentDidMount</code>的功能时, 需要先定义好相应的状态和生命周期函数, 然后compose进组件:</p>
 <div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; <span class="title class_">Component</span> &#125; = <span class="title class_">React</span>;</span><br><span class="line"><span class="keyword">const</span> &#123; compose, lifecycle, branch, renderComponent &#125; = <span class="title class_">Recompose</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> withUserData = <span class="title function_">lifecycle</span>(&#123;</span><br><span class="line">  <span class="attr">state</span>: &#123; <span class="attr">loading</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">  <span class="title function_">componentDidMount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title function_">fetchData</span>().<span class="title function_">then</span>(<span class="function">(<span class="params">data</span>) =&gt;</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123; <span class="attr">loading</span>: <span class="literal">false</span>, ...data &#125;));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> enhance = <span class="title function_">compose</span>(</span><br><span class="line">  withUserData</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">User</span> = <span class="title function_">enhance</span>(<span class="function">(<span class="params">&#123; name, status &#125;</span>) =&gt;</span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;User&quot;</span>&gt;</span>&#123; name &#125;—&#123; status &#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">App</span> = (<span class="params"></span>) =&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">User</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br></pre></td></tr></table></figure></div>
 <p>而如果使用<code>Hooks</code>那么改写起来方便一点.</p>
