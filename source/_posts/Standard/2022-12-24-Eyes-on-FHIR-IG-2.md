@@ -10,10 +10,7 @@ tags: FHIR, Standard,IG
 date: 2022-12-24
 comment: true
 ---
-
-<!-- toc -->
 # FHIR眼科实施指南IG（2）
-
 > 2021年8月，FHIR patient care小组发布了FHIR眼科实施指南（IG）0.1.0版本，此版本只针对眼底相关疾病，并且通过了FHIR connectathon测试，可以双向与真实世界的EMR、诊断设备和PACS通信。
 
 ## IG主要内容
