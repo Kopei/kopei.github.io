@@ -62,7 +62,7 @@ ARRn+1 = ARRn - Churn + ACV(Annual contract value)
 ```
 因为订阅经济认为营销和销售的投入会提升下一年ACV,同时它们也不会作为经常性成本，而是增长成本，而增长成本对未来的经常性收入有直接的帮助。所以`ACV = sales&marketing * rate`, 对于企业而言，如何提升销售和营销的投入对未来订阅合同的转化率至关重要。
 简化的订阅利润表为：
-![](images/screenshots/ARR.png)
+![](../images/screenshots/ARR.png)
 
 ### PADRE/PPM运营模型
 以客户为中心的组织架构可以由8大子系统有机组成，由PADRE+3个基本部分PPM组成。公司的组织不一定完全按照这个模式设立，但是这8个子系统是必须有的基础，并且可以跨功能协作。
@@ -72,5 +72,5 @@ ARRn+1 = ARRn - Churn + ACV(Annual contract value)
 - Run运营。持续运营能力对于客户的体验至关重要。
 - Expand扩展。。你需要你的订阅用户能够做三件事：留下、增长、支持。
 三个基础部分包括：人、产品和钱。
-![](images/screenshots/PRADE-PPM.png)
+![](../images/screenshots/PRADE-PPM.png)
 基于PADRE模型，运营公司就知道要关注渠道覆盖、销售数据、新采用的商标、客户保留统计数据、扩展速度，并且分享给公司每个人。建立PADRE这种文化确保有利于组织发展的知识不会过于分散。
