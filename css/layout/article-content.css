@@ -43,10 +43,10 @@ redefine-mobile()
   padding: 1px;
   box-sizing: border-box;
   border: 1px solid var(--border-color);
-  border-radius: 50%;
+  border-radius: $redefine-border-radius-full;
 }
 .post-page-container .article-content-container .article-header .avatar img {
-  border-radius: 50%;
+  border-radius: $redefine-border-radius-full;
   width: 100%;
   height: 100%;
   background: var(--avatar-background-color);
@@ -75,7 +75,7 @@ redefine-mobile()
   font-size: 0.8rem;
   font-weight: 500;
   padding: 0 5px;
-  border-radius: 6px;
+  border-radius: $redefine-border-radius-small;
   color: #fff;
   background: var(--selection-color);
 }
@@ -85,11 +85,14 @@ redefine-mobile()
 redefine-tablet()
 }
 .post-page-container .article-content-container .article-content {
-  margin-top: $component-spacing-value;
+  margin-top: $spacing-unit;
   padding-bottom: 10px;
   word-wrap: break-word;
   border-bottom: 1px solid var(--border-color);
   color: var(--default-text-color);
+}
+.post-page-container .article-content-container .article-content>:first-child {
+  margin-top: 0 !important;
 }
 .post-page-container .article-content-container .post-tags-box {
   display: none;
@@ -103,19 +106,20 @@ redefine-mobile()
   margin: 0 0.25rem;
 }
 .post-page-container .article-content-container .post-copyright-info {
-  margin-top: $component-spacing-value;
+  margin-top: $spacing-unit;
   width: 100%;
 redefine-tablet()
 }
 .post-page-container .article-content-container .article-nav {
   height: 40px;
-  margin-top: $component-spacing-value;
+  margin-top: $spacing-unit;
 }
 .post-page-container .article-content-container .article-nav .article-prev,
 .post-page-container .article-content-container .article-nav .article-next {
   max-width: 220px;
   height: 100%;
   box-sizing: border-box;
+  border-radius: $redefine-border-radius-medium !important;
 }
 .post-page-container .article-content-container .article-nav .article-prev a,
 .post-page-container .article-content-container .article-nav .article-next a {
@@ -171,8 +175,8 @@ redefine-tablet()
 }
 .post-page-container .toc-content-container {
   position: sticky;
-  top: $header-height$component-spacing-value;
-  border-radius: 0;
+  top: $menu-height$spacing-unit;
+  border-radius: $redefine-border-radius-none;
   display: none;
   width: 200px;
   height: auto;

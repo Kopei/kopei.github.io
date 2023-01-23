@@ -73,9 +73,9 @@
     <div class="page-main-content">
 
         <div class="page-main-content-top">
-            <header class="header-wrapper">
+            <header class="menu-wrapper">
     
-    <div class="header-content">
+    <div class="menu-content">
         <div class="left">
             
             <a class="logo-title" href="/">
@@ -142,7 +142,7 @@
     </div>
 
     <!-- Mobile drawer -->
-    <div class="header-drawer">
+    <div class="menu-drawer">
         <ul class="drawer-menu-list">
             
                 
@@ -195,7 +195,7 @@
     <div class="post-page-container">
         <div class="article-content-container">
             <div class="article-title">
-                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">Openshift Template</h1></span>
+                <span class="title-hover-animation"><h1 style="font-size:3rem; font-weight: bold; margin: 10px 0;">Openshift Template</h1></span>
             </div>
 
             
@@ -395,8 +395,10 @@
             <div class="toc-content-container">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Openshift Template</div>
         <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Openshift%E7%9A%84%E6%A8%A1%E6%9D%BF"><span class="nav-text">Openshift的模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E4%BB%A3%E7%A0%81%E4%BE%8B%E5%AD%90"><span class="nav-text">模板代码例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E4%B8%80%E7%82%B9%E7%9A%84json%E6%A8%A1%E6%9D%BF"><span class="nav-text">复杂一点的json模板</span></a></li></ol>
+
     </div>
 </div>
             </div>
@@ -480,7 +482,7 @@
     <ul class="tools-list">
         <!-- TOC aside toggle -->
         
-            <li class="tools-item page-aside-toggle">
+            <li class="right-bottom-tools page-aside-toggle">
                 <i class="fa-regular fa-outdent"></i>
             </li>
         
@@ -499,40 +501,40 @@
 
     <div class="right-bottom-side-tools">
         <div class="side-tools-container">
-    <ul class="side-tools-list">
-        <li class="tools-item tool-font-adjust-plus flex-center">
-            <i class="fa-solid fa-magnifying-glass-plus"></i>
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
         </li>
 
-        <li class="tools-item tool-font-adjust-minus flex-center">
-            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
         </li>
 
-        <li class="tools-item tool-expand-width flex-center">
-            <i class="fa-solid fa-left-right"></i>
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
         </li>
 
-        <li class="tools-item tool-dark-light-toggle flex-center">
-            <i class="fa-solid fa-moon"></i>
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
         </li>
 
         <!-- rss -->
         
 
         
-            <li class="tools-item tool-scroll-to-top flex-center">
-                <i class="fa-solid fa-arrow-up"></i>
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
             </li>
         
 
-        <li class="tools-item tool-scroll-to-bottom flex-center">
-            <i class="fa-solid fa-arrow-down"></i>
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
         </li>
     </ul>
 
-    <ul class="exposed-tools-list">
-        <li class="tools-item tool-toggle-show flex-center">
-            <i class="fa-solid fa-cog fa-spin"></i>
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
         </li>
         
     </ul>
@@ -576,6 +578,7 @@
 
     
 
+
 </main>
 
 
@@ -585,37 +588,37 @@
 
 <script src="js/main.js"></script>
 
-<script src="js/header-shrink.js"></script>
+<script src="js/layouts/menu-shrink.js"></script>
 
-<script src="js/back2top.js"></script>
+<script src="js/tools/go-top-bottom.js"></script>
 
-<script src="js/dark-light-toggle.js"></script>
-
-
-
-    
-<script src="js/local-search.js"></script>
-
+<script src="js/tools/dark-light-toggle.js"></script>
 
 
 
     
-<script src="js/code-copy.js"></script>
+<script src="js/tools/local-search.js"></script>
 
 
 
 
     
-<script src="js/lazyload.js"></script>
+<script src="js/tools/code-block.js"></script>
 
 
 
 
     
-<script src="js/runtime.js"></script>
+<script src="js/layouts/lazyload.js"></script>
+
+
+
 
     
-<script src="js/odometer.min.js"></script>
+<script src="js/tools/runtime.js"></script>
+
+    
+<script src="js/layouts/odometer.min.js"></script>
 
     
 <link rel="stylesheet" href="css/odometer-theme-minimal.css">
@@ -625,12 +628,13 @@
 <div class="post-scripts pjax">
     
         
-<script src="js/toc-toggle.js"></script>
+<script src="js/tools/toc-toggle.js"></script>
 
 <script src="js/libs/anime.min.js"></script>
 
-<script src="js/toc.js"></script>
+<script src="js/layouts/toc.js"></script>
 
+    
     
 </div>
 

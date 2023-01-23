@@ -73,9 +73,9 @@
     <div class="page-main-content">
 
         <div class="page-main-content-top">
-            <header class="header-wrapper">
+            <header class="menu-wrapper">
     
-    <div class="header-content">
+    <div class="menu-content">
         <div class="left">
             
             <a class="logo-title" href="/">
@@ -142,7 +142,7 @@
     </div>
 
     <!-- Mobile drawer -->
-    <div class="header-drawer">
+    <div class="menu-drawer">
         <ul class="drawer-menu-list">
             
                 
@@ -195,7 +195,7 @@
     <div class="post-page-container">
         <div class="article-content-container">
             <div class="article-title">
-                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">Deep Learning Book Notes--Chapter 5</h1></span>
+                <span class="title-hover-animation"><h1 style="font-size:3rem; font-weight: bold; margin: 10px 0;">Deep Learning Book Notes--Chapter 5</h1></span>
             </div>
 
             
@@ -394,8 +394,10 @@
             <div class="toc-content-container">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Deep Learning Book Notes--Chapter 5</div>
         <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Statistical-learning-theory-tells-us"><span class="nav-text">Statistical learning theory tells us:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E5%86%B3%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95%E6%80%A7%E8%83%BD%E7%9A%84%E5%9B%A0%E7%B4%A0%E6%98%AF"><span class="nav-text">取决机器学习算法性能的因素是:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AC%A0%E6%8B%9F%E5%90%88"><span class="nav-text">欠拟合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E6%8B%9F%E5%90%88"><span class="nav-text">过拟合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%E8%B0%83%E8%8A%82capacity-%E5%AE%B9%E9%87%8F-%E6%9D%A5%E8%B0%83%E8%8A%82%E6%8B%9F%E5%90%88"><span class="nav-text">可以通过调节capacity(容量)来调节拟合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VC%E7%BB%B4%E5%BA%A6%E5%8F%AF%E4%BB%A5%E6%9D%A5%E9%87%8F%E5%8C%96%E5%AE%B9%E9%87%8F"><span class="nav-text">VC维度可以来量化容量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E7%90%86%E8%AE%BA%E4%B8%AD%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E7%BB%93%E8%AE%BA%E9%98%90%E8%BF%B0%E4%BA%86%E8%AE%AD%E7%BB%83%E8%AF%AF%E5%B7%AE%E5%92%8C%E6%B3%9B%E5%8C%96%E8%AF%AF%E5%B7%AE%E4%B9%8B%E9%97%B4%E5%B7%AE%E5%BC%82%E7%9A%84%E4%B8%8A%E7%95%8C%E9%9A%8F%E7%9D%80%E6%A8%A1%E5%9E%8B%E5%AE%B9%E9%87%8F%E5%A2%9E%E9%95%BF%E8%80%8C%E5%A2%9E%E9%95%BF%EF%BC%8C%E4%BD%86%E9%9A%8F%E7%9D%80%E8%AE%AD%E7%BB%83%E6%A0%B7%E6%9C%AC%E5%A2%9E%E5%A4%9A%E8%80%8C%E4%B8%8B%E9%99%8D"><span class="nav-text">统计学习理论中最重要的结论阐述了训练误差和泛化误差之间差异的上界随着模型容量增长而增长，但随着训练样本增多而下降</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E7%9D%80%E8%AE%AD%E7%BB%83%E9%9B%86%E5%A2%9E%E5%8A%A0-%E5%AE%B9%E9%87%8F%E4%B9%9F%E9%9C%80%E8%A6%81%E5%A2%9E%E5%8A%A0-%E5%90%A6%E5%88%99%E5%B0%86%E5%87%BA%E7%8E%B0%E6%AC%A0%E6%8B%9F%E5%90%88"><span class="nav-text">随着训练集增加, 容量也需要增加, 否则将出现欠拟合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#no-free-lauch-theorem"><span class="nav-text">no free lauch theorem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-text">正则化</span></a></li></ol></li></ol>
+
     </div>
 </div>
             </div>
@@ -479,7 +481,7 @@
     <ul class="tools-list">
         <!-- TOC aside toggle -->
         
-            <li class="tools-item page-aside-toggle">
+            <li class="right-bottom-tools page-aside-toggle">
                 <i class="fa-regular fa-outdent"></i>
             </li>
         
@@ -498,40 +500,40 @@
 
     <div class="right-bottom-side-tools">
         <div class="side-tools-container">
-    <ul class="side-tools-list">
-        <li class="tools-item tool-font-adjust-plus flex-center">
-            <i class="fa-solid fa-magnifying-glass-plus"></i>
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
         </li>
 
-        <li class="tools-item tool-font-adjust-minus flex-center">
-            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
         </li>
 
-        <li class="tools-item tool-expand-width flex-center">
-            <i class="fa-solid fa-left-right"></i>
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
         </li>
 
-        <li class="tools-item tool-dark-light-toggle flex-center">
-            <i class="fa-solid fa-moon"></i>
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
         </li>
 
         <!-- rss -->
         
 
         
-            <li class="tools-item tool-scroll-to-top flex-center">
-                <i class="fa-solid fa-arrow-up"></i>
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
             </li>
         
 
-        <li class="tools-item tool-scroll-to-bottom flex-center">
-            <i class="fa-solid fa-arrow-down"></i>
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
         </li>
     </ul>
 
-    <ul class="exposed-tools-list">
-        <li class="tools-item tool-toggle-show flex-center">
-            <i class="fa-solid fa-cog fa-spin"></i>
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
         </li>
         
     </ul>
@@ -575,6 +577,7 @@
 
     
 
+
 </main>
 
 
@@ -584,37 +587,37 @@
 
 <script src="js/main.js"></script>
 
-<script src="js/header-shrink.js"></script>
+<script src="js/layouts/menu-shrink.js"></script>
 
-<script src="js/back2top.js"></script>
+<script src="js/tools/go-top-bottom.js"></script>
 
-<script src="js/dark-light-toggle.js"></script>
-
-
-
-    
-<script src="js/local-search.js"></script>
-
+<script src="js/tools/dark-light-toggle.js"></script>
 
 
 
     
-<script src="js/code-copy.js"></script>
+<script src="js/tools/local-search.js"></script>
 
 
 
 
     
-<script src="js/lazyload.js"></script>
+<script src="js/tools/code-block.js"></script>
 
 
 
 
     
-<script src="js/runtime.js"></script>
+<script src="js/layouts/lazyload.js"></script>
+
+
+
 
     
-<script src="js/odometer.min.js"></script>
+<script src="js/tools/runtime.js"></script>
+
+    
+<script src="js/layouts/odometer.min.js"></script>
 
     
 <link rel="stylesheet" href="css/odometer-theme-minimal.css">
@@ -624,12 +627,13 @@
 <div class="post-scripts pjax">
     
         
-<script src="js/toc-toggle.js"></script>
+<script src="js/tools/toc-toggle.js"></script>
 
 <script src="js/libs/anime.min.js"></script>
 
-<script src="js/toc.js"></script>
+<script src="js/layouts/toc.js"></script>
 
+    
     
 </div>
 

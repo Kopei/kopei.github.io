@@ -73,9 +73,9 @@
     <div class="page-main-content">
 
         <div class="page-main-content-top">
-            <header class="header-wrapper">
+            <header class="menu-wrapper">
     
-    <div class="header-content">
+    <div class="menu-content">
         <div class="left">
             
             <a class="logo-title" href="/">
@@ -142,7 +142,7 @@
     </div>
 
     <!-- Mobile drawer -->
-    <div class="header-drawer">
+    <div class="menu-drawer">
         <ul class="drawer-menu-list">
             
                 
@@ -195,7 +195,7 @@
     <div class="post-page-container">
         <div class="article-content-container">
             <div class="article-title">
-                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">阿里云和aws的网路特点</h1></span>
+                <span class="title-hover-animation"><h1 style="font-size:3rem; font-weight: bold; margin: 10px 0;">阿里云和aws的网路特点</h1></span>
             </div>
 
             
@@ -408,8 +408,10 @@
             <div class="toc-content-container">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
+        <div class="toc-title">On this page</div>
+        <div class="page-title">阿里云和aws的网路特点</div>
         <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E6%96%87%E4%B8%BB%E8%A6%81%E4%BB%8B%E7%BB%8Daws%E7%BD%91%E7%BB%9C%E4%BA%A7%E5%93%81-%E5%B9%B6%E5%AF%B9%E6%AF%94%E9%98%BF%E9%87%8C%E4%BA%91%E7%9A%84%E4%BA%A7%E5%93%81"><span class="nav-text">本文主要介绍aws网络产品, 并对比阿里云的产品</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91%E9%AB%98%E9%80%9F%E9%80%9A%E9%81%93%E6%94%AF%E6%8C%81%E4%B8%8D%E5%90%8C%E5%8C%BA%E5%9F%9Fvpc%E7%9B%B4%E8%BF%9E%EF%BC%8C%E8%BF%99%E4%B8%AA%E6%AF%94aws%E7%9A%84vpc-peering%E5%A5%BD%EF%BC%8C-vpc-peering%E5%8F%AA%E8%83%BD%E7%94%A8%E4%BA%8E%E5%90%8C%E4%B8%80%E5%8C%BA%E5%9F%9F%EF%BC%8C%E4%B8%94%E6%98%AF%E4%B8%8D%E5%90%8Cip%E6%AE%B5%E8%BF%9E%E6%8E%A5%E3%80%82"><span class="nav-text">阿里云高速通道支持不同区域vpc直连，这个比aws的vpc peering好， vpc peering只能用于同一区域，且是不同ip段连接。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aws%E6%AF%8F%E4%B8%AA%E5%8C%BA%E5%9F%9F%E7%9A%84%E9%BB%98%E8%AE%A4-VPC-%E6%95%B0%E9%87%8F%E6%98%AF5%E4%B8%AA-%E6%AF%8F%E4%B8%AAvpc%E9%BB%98%E8%AE%A4%E5%AD%90%E7%BD%91%E6%9C%89200%E4%B8%AA-VPC-%E7%9A%84%E7%BD%91%E6%AE%B5%E4%BB%8E-x2F-16-%E5%88%B0-x2F-28"><span class="nav-text">aws每个区域的默认 VPC 数量是5个, 每个vpc默认子网有200个, VPC 的网段从&#x2F;16 到 &#x2F;28.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aws%E7%9A%84%E5%BC%B9%E6%80%A7%E7%BD%91%E8%B7%AF%E6%8E%A5%E5%8F%A3%EF%BC%88ENI-%EF%BC%8C%E6%98%AF%E4%B8%80%E4%B8%AA%E8%99%9A%E6%8B%9F%E7%BD%91%E5%8D%A1%EF%BC%8C%E5%8F%AA%E8%83%BD%E7%94%A8%E4%BA%8EVPC%E4%B8%AD%E7%9A%84%E5%AE%9E%E4%BE%8B%E3%80%82%E9%98%BF%E9%87%8C%E4%BA%91%E5%8F%AB%E5%BC%B9%E6%80%A7%E7%BD%91%E5%8D%A1%E3%80%82%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E5%9C%A8%E8%99%9A%E6%9C%BA%E9%BB%98%E8%AE%A4%E7%9A%84%E4%B8%BB%E7%BD%91%E5%8D%A1%E4%B8%8A%E9%A2%9D%E5%A4%96%E6%B7%BB%E5%8A%A0%E7%BD%91%E8%B7%AF%E6%8E%A5%E5%8F%A3%EF%BC%8C%E7%94%B1%E4%BA%8E%E5%AE%83%E6%98%AF%E5%BC%B9%E6%80%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E4%BB%A5%E6%8A%8A%E5%AE%83%E4%BB%8E%E4%B8%80%E4%B8%AA%E5%AE%9E%E4%BE%8B%E7%A7%BB%E9%99%A4%EF%BC%8C-%E7%84%B6%E5%90%8E%E6%94%BE%E5%88%B0%E5%8F%A6%E4%B8%80%E4%B8%AA%E8%99%9A%E6%9C%BA%E4%B8%8A%EF%BC%8C%E5%B9%B6%E4%BF%9D%E7%95%99%E5%8E%9F%E6%9C%89%E7%9A%84%E7%BD%91%E8%B7%AF%E5%B1%9E%E6%80%A7%E3%80%82-%E9%82%A3%E4%B9%88ENI%E6%9C%89%E5%93%AA%E4%BA%9B%E7%BD%91%E8%B7%AF%E5%B1%9E%E6%80%A7%E5%91%A2%EF%BC%9F-%E4%B8%80%E4%B8%AA%E5%BC%B9%E6%80%A7%E7%BD%91%E8%B7%AF%E6%8E%A5%E5%8F%A3%E5%8F%AF%E4%BB%A5%E6%9C%89%E5%A6%82%E4%B8%8B%E5%B1%9E%E6%80%A7%EF%BC%9A"><span class="nav-text">aws的弹性网路接口（ENI)，是一个虚拟网卡，只能用于VPC中的实例。阿里云叫弹性网卡。我们可以在虚机默认的主网卡上额外添加网路接口，由于它是弹性的，所以可以把它从一个实例移除， 然后放到另一个虚机上，并保留原有的网路属性。 那么ENI有哪些网路属性呢？ 一个弹性网路接口可以有如下属性：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aws%E7%9A%84%E5%BC%B9%E6%80%A7IP%E4%B8%8D%E6%94%AF%E6%8C%81IPv6%EF%BC%8C-%E5%BC%B9%E6%80%A7IP%E5%9C%B0%E5%9D%80%E5%8F%AA%E8%83%BD%E5%9C%A8%E4%B8%80%E4%B8%AA%E7%89%B9%E5%AE%9A%E5%8C%BA%E5%9F%9F%E4%B8%AD%E4%BD%BF%E7%94%A8%E3%80%82%E4%B8%80%E4%B8%AA%E8%BF%90%E8%A1%8C%E7%9D%80%E4%B8%80%E4%B8%AA%E5%BC%B9%E6%80%A7IP%E7%9A%84%E5%AE%9E%E4%BE%8B%E6%98%AF%E4%B8%8D%E6%94%B6%E5%8F%96ip%E8%B4%B9%E7%94%A8%E7%9A%84%EF%BC%8C%E4%BD%86%E6%98%AF%E9%97%B2%E7%BD%AE%E7%9A%84%E5%BC%B9%E6%80%A7IP-aws%E5%B0%86%E6%8C%89%E5%B0%8F%E6%97%B6%E6%94%B6%E8%B4%B9%E3%80%82%E8%80%8Caliyun%E6%80%BB%E6%98%AF%E6%94%B6%E5%8F%96EIP%E4%BF%9D%E6%9C%89%E8%B4%B9%E7%9A%84%EF%BC%88%E9%99%A4%E9%9D%9EEIP%E5%92%8CVPC%E4%B8%AD%E8%99%9A%E6%9C%BA%E7%BB%91%E5%AE%9A%EF%BC%89%EF%BC%8C%E5%8C%85%E5%B9%B4%E5%8C%85%E6%9C%88%E8%BF%98%E4%B8%8D%E8%83%BD%E9%87%8A%E6%94%BE%EF%BC%9B%E5%90%8E%E4%BB%98%E8%B4%B9%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%8C%89%E9%87%8F%E6%88%96%E8%80%85%E6%8C%89%E5%B8%A6%E5%AE%BD%E9%80%89%E6%8B%A9%E3%80%82"><span class="nav-text">aws的弹性IP不支持IPv6， 弹性IP地址只能在一个特定区域中使用。一个运行着一个弹性IP的实例是不收取ip费用的，但是闲置的弹性IP aws将按小时收费。而aliyun总是收取EIP保有费的（除非EIP和VPC中虚机绑定），包年包月还不能释放；后付费可以用按量或者按带宽选择。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aws-VPC-flow-logs-flow-log%E7%94%A8%E4%BA%8E%E6%8D%95%E8%8E%B7%E6%9C%89%E5%85%B3%E4%BC%A0%E5%85%A5%E5%92%8C%E4%BC%A0%E5%87%BA-VPC-%E4%B8%AD%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E7%9A%84-IP-%E6%B5%81%E9%87%8F%E7%9A%84%E4%BF%A1%E6%81%AF%E3%80%82%E6%B5%81%E6%97%A5%E5%BF%97%E6%95%B0%E6%8D%AE%E4%BD%BF%E7%94%A8-Amazon-CloudWatch-Logs-%E5%AD%98%E5%82%A8%E3%80%82%E5%88%9B%E5%BB%BA%E6%B5%81%E6%97%A5%E5%BF%97%E5%90%8E%EF%BC%8C%E6%82%A8%E5%8F%AF%E4%BB%A5%E5%9C%A8-Amazon-CloudWatch-Logs-%E4%B8%AD%E6%9F%A5%E7%9C%8B%E5%92%8C%E6%A3%80%E7%B4%A2%E5%85%B6%E6%95%B0%E6%8D%AE%E3%80%82%E5%8F%AF%E4%BB%A5%E4%B8%BA-VPC%E3%80%81%E5%AD%90%E7%BD%91%E6%88%96%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E5%88%9B%E5%BB%BA%E6%B5%81%E6%97%A5%E5%BF%97%E3%80%82%E5%A6%82%E6%9E%9C%E4%B8%BA%E5%AD%90%E7%BD%91%E6%88%96-VPC-%E5%88%9B%E5%BB%BA%E6%B5%81%E6%97%A5%E5%BF%97%EF%BC%8C%E5%88%99%E4%BC%9A%E7%9B%91%E8%A7%86-VPC-%E6%88%96%E5%AD%90%E7%BD%91%E4%B8%AD%E7%9A%84%E6%AF%8F%E4%B8%AA%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E3%80%82"><span class="nav-text">aws VPC flow logs. flow log用于捕获有关传入和传出 VPC 中网络接口的 IP 流量的信息。流日志数据使用 Amazon CloudWatch Logs 存储。创建流日志后，您可以在 Amazon CloudWatch Logs 中查看和检索其数据。可以为 VPC、子网或网络接口创建流日志。如果为子网或 VPC 创建流日志，则会监视 VPC 或子网中的每个网络接口。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8aws%E7%9A%84Direct-Connect%E9%99%A4%E4%BA%86%E5%B8%B8%E8%A7%84%E7%9A%84%E4%BC%98%E5%8A%BF%EF%BC%9A-%E5%87%8F%E5%B0%91%E6%B5%81%E9%87%8F%E8%B4%B9%E3%80%81%E7%BD%91%E9%80%9F%E4%BF%9D%E8%AF%81%E3%80%81%E7%A7%81%E6%9C%89%E8%BF%9E%E6%8E%A5%E5%A4%96%EF%BC%8C%E5%AE%83%E6%AF%94vpn%E8%BF%9E%E6%8E%A5%E6%9C%80%E5%A4%A7%E7%9A%84%E4%BC%98%E5%8A%BF%E6%98%AF%EF%BC%8C%E6%94%AF%E6%8C%8110G%E5%B8%A6%E5%AE%BD%EF%BC%8C%E8%80%8Cvpn%E5%8F%AA%E8%83%BD%E5%88%B04Gbps-%E5%AE%9E%E7%8E%B0direct-connect%E9%9C%80%E8%A6%812%E4%B8%AA%E7%BB%84%E4%BB%B6%EF%BC%9A%E7%89%A9%E7%90%86%E9%93%BE%E8%B7%AF%E5%92%8Cvirtual-interface-VIF-%E3%80%82"><span class="nav-text">使用aws的Direct Connect除了常规的优势： 减少流量费、网速保证、私有连接外，它比vpn连接最大的优势是，支持10G带宽，而vpn只能到4Gbps. 实现direct connect需要2个组件：物理链路和virtual interface(VIF)。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aws-LoadBalancer%E6%9C%89%E4%B8%89%E7%A7%8D%E7%B1%BB%E5%9E%8B%EF%BC%9A-Classic-Network-Application-LoadBalancer-%E8%A7%81%E4%B8%8B%E5%9B%BE%EF%BC%9A"><span class="nav-text">aws LoadBalancer有三种类型： Classic, Network, Application LoadBalancer. 见下图：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aws-CloudFront-%E6%98%AF%E4%B8%80%E4%B8%AA%E8%83%BD%E5%8A%A0%E9%80%9F%E4%BD%A0%E7%9A%84%E9%9D%99%E6%80%81%E5%92%8C%E5%8A%A8%E6%80%81%E5%86%85%E5%AE%B9%E7%9A%84web%E6%9C%8D%E5%8A%A1-%E9%99%A4%E4%BA%86%E8%83%BD%E5%88%86%E5%8F%91%E9%9D%99%E6%80%81%E5%86%85%E5%AE%B9-%E8%BF%98%E8%83%BD%E5%88%86%E5%8F%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AE%B9%E5%92%8C%E6%B5%81%E5%86%85%E5%AE%B9"><span class="nav-text">aws CloudFront 是一个能加速你的静态和动态内容的web服务.除了能分发静态内容,还能分发动态内容和流内容.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aws-Route-53%E7%9A%845%E4%B8%AD%E8%B7%AF%E7%94%B1%E6%96%B9%E5%BC%8F"><span class="nav-text">aws Route 53的5中路由方式:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#aws%E6%9C%89%E4%B8%89%E7%A7%8D%E6%8F%90%E4%BE%9Bvpn%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="nav-text">aws有三种提供vpn连接的方式：</span></a></li></ol></li></ol>
+
     </div>
 </div>
             </div>
@@ -493,7 +495,7 @@
     <ul class="tools-list">
         <!-- TOC aside toggle -->
         
-            <li class="tools-item page-aside-toggle">
+            <li class="right-bottom-tools page-aside-toggle">
                 <i class="fa-regular fa-outdent"></i>
             </li>
         
@@ -512,40 +514,40 @@
 
     <div class="right-bottom-side-tools">
         <div class="side-tools-container">
-    <ul class="side-tools-list">
-        <li class="tools-item tool-font-adjust-plus flex-center">
-            <i class="fa-solid fa-magnifying-glass-plus"></i>
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
         </li>
 
-        <li class="tools-item tool-font-adjust-minus flex-center">
-            <i class="fa-solid fa-magnifying-glass-minus"></i>
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
         </li>
 
-        <li class="tools-item tool-expand-width flex-center">
-            <i class="fa-solid fa-left-right"></i>
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
         </li>
 
-        <li class="tools-item tool-dark-light-toggle flex-center">
-            <i class="fa-solid fa-moon"></i>
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
         </li>
 
         <!-- rss -->
         
 
         
-            <li class="tools-item tool-scroll-to-top flex-center">
-                <i class="fa-solid fa-arrow-up"></i>
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
             </li>
         
 
-        <li class="tools-item tool-scroll-to-bottom flex-center">
-            <i class="fa-solid fa-arrow-down"></i>
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
         </li>
     </ul>
 
-    <ul class="exposed-tools-list">
-        <li class="tools-item tool-toggle-show flex-center">
-            <i class="fa-solid fa-cog fa-spin"></i>
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
         </li>
         
     </ul>
@@ -589,6 +591,7 @@
 
     
 
+
 </main>
 
 
@@ -598,37 +601,37 @@
 
 <script src="js/main.js"></script>
 
-<script src="js/header-shrink.js"></script>
+<script src="js/layouts/menu-shrink.js"></script>
 
-<script src="js/back2top.js"></script>
+<script src="js/tools/go-top-bottom.js"></script>
 
-<script src="js/dark-light-toggle.js"></script>
-
-
-
-    
-<script src="js/local-search.js"></script>
-
+<script src="js/tools/dark-light-toggle.js"></script>
 
 
 
     
-<script src="js/code-copy.js"></script>
+<script src="js/tools/local-search.js"></script>
 
 
 
 
     
-<script src="js/lazyload.js"></script>
+<script src="js/tools/code-block.js"></script>
 
 
 
 
     
-<script src="js/runtime.js"></script>
+<script src="js/layouts/lazyload.js"></script>
+
+
+
 
     
-<script src="js/odometer.min.js"></script>
+<script src="js/tools/runtime.js"></script>
+
+    
+<script src="js/layouts/odometer.min.js"></script>
 
     
 <link rel="stylesheet" href="css/odometer-theme-minimal.css">
@@ -638,12 +641,13 @@
 <div class="post-scripts pjax">
     
         
-<script src="js/toc-toggle.js"></script>
+<script src="js/tools/toc-toggle.js"></script>
 
 <script src="js/libs/anime.min.js"></script>
 
-<script src="js/toc.js"></script>
+<script src="js/layouts/toc.js"></script>
 
+    
     
 </div>
 
