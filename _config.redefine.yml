@@ -131,7 +131,7 @@ post:
     enable: true
     auto: false # if true, show Lv1, Lv2, Lv3... , If false, show custom label
     # label array item can be one or more
-    custom_label_list: ["lol"]
+    custom_label_list: ["article"]
 
 # ---------------------------------------------------------------------------------------
 # Code copy
@@ -262,7 +262,7 @@ fontawesome: # select fontawesome versions you want to use, in order to reduce t
 # ---------------------------------------------------------------------------------------
 footer:
   runtime: true # show website running time or not
-  start_time: 2023/01/01 00:00:00 # the starting time of your website, format: yyyy/mm/dd hh:mm:ss
+  start_time: 2017/01/01 00:00:00 # the starting time of your website, format: yyyy/mm/dd hh:mm:ss
   customize:  # customize footer message, can be html code
   icp: # ICP record number of your website, Can be null
 
