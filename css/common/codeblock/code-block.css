@@ -54,9 +54,9 @@
   top: 0;
 }
 .highlight-container[data-rel] {
-  background: var(--second-background-color);
+  background: var(--third-background-color);
   border-radius: $redefine-border-radius-large;
-  box-shadow: var(--redefine-box-shadow);
+  box-shadow: var(--redefine-box-shadow-flat);
   padding-top: 20px;
   margin-top: 10px;
 }
