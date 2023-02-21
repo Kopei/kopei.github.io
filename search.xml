@@ -420,6 +420,183 @@
       </tags>
   </entry>
   <entry>
+    <title>FHIR-Resource-Definition</title>
+    <url>/2023/02/20/FHIR-Resource-Definition/</url>
+    <content><![CDATA[<h1 id="FHIR资源定义"><a href="#FHIR资源定义" class="headerlink" title="FHIR资源定义"></a>FHIR资源定义</h1><blockquote>
+<p>本文主要记录FHIRv4.3.0的资源<code>Resource</code>内容是如何定义的。实际数据交换时，资源可以用不同的格式来表示: <code>XML</code>、<code>JSON</code>、<code>Turtle</code>和<code>UML</code>. 未来批量数据<code>Bulk Data Formats</code>的定义也将发布. </p>
+</blockquote>
+<h3 id="Resource-Definition"><a href="#Resource-Definition" class="headerlink" title="Resource Definition"></a>Resource Definition</h3><p>资源可以用几种不同的方法来定义:</p>
+<ul>
+<li>一种是层级表格，以逻辑视图的方式展示内容, 简称逻辑表<code>Logical table</code></li>
+<li>UML 统一模型语言</li>
+<li>片假XML语法</li>
+<li>片假JSON</li>
+<li>片假Turtle</li>
+</ul>
+<p>除了上述语法，还有其他格式可以使用，包括<code>W3C schema</code>, <code>Schematron</code>, <code>JSON Schema</code>和<code>StructureDefinition</code>.</p>
+<h4 id="Logical-Table-逻辑表"><a href="#Logical-Table-逻辑表" class="headerlink" title="Logical Table 逻辑表"></a>Logical Table 逻辑表</h4><p>逻辑表以树形结构来表示资源，并固定几个特定列， 如名称、标志、类型等。相对其它表示方式，用表格的形式显得更加直观和整洁。</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Name</td>
+<td>资源中元素的名字，如XML中manifest清单，JSON&#x2F;RDF的属性名。有些名字结尾有[x]代表下面详细的介绍。同时名字前面还有一个图标标记类型。</td>
+</tr>
+<tr>
+<td>Flags</td>
+<td>一组标记表示实现时该如何处理该元素。比如这个元素必须被支持或它是可以选择的。</td>
+</tr>
+<tr>
+<td>Card</td>
+<td>基。 该元素在资源中允许出现的次数的下限和上限。</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>元素的类型。注意，元素的类型有两种含义，取决于该元素是否有定义的子元素。如果元素有子代，那么元素有一个匿名的类型，由子元素给定具体的类型。如果元素没有子代，那么该元素可以被预置的类型所指定。</td>
+</tr>
+<tr>
+<td>Description&amp;Contraints</td>
+<td>元素的描述，约束的细节。比如那些情况适用编码的元素。</td>
+</tr>
+</tbody></table>
+<center>表一. 逻辑表固定字段</center>
+
+<p><strong>举例:</strong><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://fastly.jsdelivr.net/gh/filess/img17@main/2023/02/20/1676860770692-3f9519a8-782f-40b4-b462-4a1523e51b2a.png"
+                     
+                ></p>
+<p><strong>对于Type类型的图标：</strong></p>
+<ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://hl7.org/fhir/icon_resource.png"
+                      style="display: inline; margin:auto;" alt="resource" 
+                >代表一个基础资源。</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://hl7.org/fhir/icon_element.gif"
+                      style="display: inline; margin:auto;" alt="element"
+                >资源中的元素，同时此元素还可以定义子元素</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://hl7.org/fhir/icon_choice.gif"
+                      style="display: inline; margin:auto;" alt="type choice"
+                >此元素可以有多个不同的类型</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://hl7.org/fhir/icon_primitive.png"
+                      style="display: inline; margin:auto;" alt="基础类型" 
+                >代表基础类型元素，基础类型都以小写字母开头</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://hl7.org/fhir/icon_datatype.gif"
+                      style="display: inline; margin:auto;" alt="复合类型" 
+                >元素的数据类型描述了其它的元素，称为复合类型，复合类型用大写字母开头</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://hl7.org/fhir/icon_reference.png"
+                      style="display:inline; margin:auto;" alt="reference"
+                >子元素可以引用另一个资源</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://hl7.org/fhir/icon_reuse.png"
+                      style="display:inline; margin:auto;" alt="reuse"
+                >此元素和同一个资源内另一个元素内容一样</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://hl7.org/fhir/icon_slice.png"
+                      style="display:inline; margin:auto;" alt="切片集"
+                >引入切片集合, 具体见profile中定义.</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://hl7.org/fhir/icon_extension_complex.png"
+                       style="display:inline; margin:auto;" alt="complet extension" 
+                >复杂嵌套扩展</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://hl7.org/fhir/icon_extension_simple.png"
+                      style="display:inline; margin:auto;" alt="simple extension" 
+                >简单扩展，只扩展一个值没有嵌套</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://hl7.org/fhir/icon_modifier_extension_complex.png"
+                      style="display:inline; margin:auto;" atl="complex modifier" 
+                >复杂修改扩展</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://hl7.org/fhir/icon_modifier_extension_simple.png"
+                      style="display:inline; margin:auto;" alt="simple modifier" 
+                > 简单修改扩展</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://hl7.org/fhir/icon_profile.png"
+                      style="display:inline; margin:auto;" alt="rootprofile" 
+                >逻辑概貌的根</li>
+</ul>
+<p><strong>对于Flag标志的图标</strong></p>
+<ul>
+<li><code>?!</code>: 这个元素是一个正在建设的元素</li>
+<li><code>S</code>: 这个元素必须被支持</li>
+<li><code>Σ</code>: 此元素是汇总集合的一部分</li>
+<li><code>I</code>: 此元素定义了约束或被约束</li>
+<li><code>《A》</code>抽象类型</li>
+<li><code>《I》</code>此资源是接口定义</li>
+<li><a style="padding-left: 3px; padding-right: 3px; border: 1px grey solid; font-weight: bold; color: black; background-color: #ffe6e6" >TU</a>此元素是试用状态</li>
+<li><a style="padding-left: 3px; padding-right: 3px; border: 1px grey solid; font-weight: bold; color: black; background-color: #e6ffe6">N</a>该元素的标准状态为规范性，既正式状态。</li>
+<li><a style="padding-left: 3px; padding-right: 3px; border: 1px grey solid; font-weight: bold; color: black; background-color: #efefef" >D</a>该元素的标准状态是起草阶段。</li>
+</ul>
+<p><strong>其它注意项</strong></p>
+<ul>
+<li>资源和元素是大小写敏感的</li>
+<li>任何元素是基础类型的，它会有一个<code>value</code>的属性来表示具体的数值</li>
+<li>元素都有一个基数，来表示这个元素会出现或者必须出现多少次</li>
+<li>元素复用方面，如果子元素和另一个子元素有相同的数据类型，那么可以这样表示：<code>see[name]</code>括号中name是另子元素的名称。</li>
+<li>每个元素名都会在数值字典里有正式的定义名，通过超链接找到对应的关系。</li>
+<li>有些元素可能会有<code>id</code>的属性用来内部引用，上面的例子没有显示出来这个<code>id</code>。</li>
+<li>FHIR的元素永不为空。如果有一个元素在资源里出现，那么它要么必须有值，要么它的子元素定义，或者其他扩展。</li>
+<li>基础类的元素是所有资源共有的，所以不会在表格中展示。这些共用的元素在基类<a class="link"   href="http://hl7.org/fhir/resource.html" >Resource <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>和<a class="link"   href="http://hl7.org/fhir/domainresource.html" >DomainResource <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>中定义。<br>元素的数据类型表示一般是type类型直接体现的，但是有两个特例：</li>
+<li>如果元素支持多个类型（名字结尾[x]）, 那么类似可以是一系列选项，用<code>|</code>来分割。</li>
+<li>如果一个类型是<code>Reference</code>或<code>canonical</code>, 那么数据类型将直接列出可能的引用或者profile链接。如果链接到profile, 参考的类型可能被<code>profiled</code>， 比如元素的实例必须遵循特定profile或者一组profile列表。特定的url使用<code>&#123;&#125;</code>来表示。</li>
+</ul>
+<h4 id="数据类型的选择"><a href="#数据类型的选择" class="headerlink" title="数据类型的选择"></a>数据类型的选择</h4><p>有些元素可能有多个数据类型的选择，这样的情况需要使用<code>name[x]</code>来定义元素名，<code>[x]</code>指定实际使用的数据类型。如果想要某个元素只重复一次数据类型，那么它的基数只能是1. </p>
+<h4 id="格式的序列化"><a href="#格式的序列化" class="headerlink" title="格式的序列化"></a>格式的序列化</h4><p>可以使用如下方式序列化资源：</p>
+<ul>
+<li>JSON</li>
+<li>XML</li>
+<li>RDF(Turtle)</li>
+</ul>
+<p>系统必须在<a class="link"   href="http://hl7.org/fhir/capabilitystatement.html" >Capability Statement <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>声明它支持的格式. 如果一个服务器收到它不支持的格式请求，那么需要返回<code>406 Not Acceptable</code>. 如果客户端post一个不支持的格式，那么返回<code>416 Unsupported Media Type</code>.<br>比较推荐的做法是支持JSON和XML格式，以适用于不同的技术栈。RDF比较适用于数据分析而不是数据交换。</p>
+<h4 id="批量数据格式（建设中）"><a href="#批量数据格式（建设中）" class="headerlink" title="批量数据格式（建设中）"></a>批量数据格式（建设中）</h4><p>当FHIR需要交换批量数据如1000条以上数据的时候，批量数据格式就可以用上了。目前建议的支持格式有：</p>
+<ul>
+<li>ND-JSON(New line delimited JSON)</li>
+<li>Google Protobuf</li>
+<li>Apache Parquet&#x2F;Avro</li>
+</ul>
+<h4 id="外部链接"><a href="#外部链接" class="headerlink" title="外部链接"></a>外部链接</h4><ul>
+<li><a class="link"   href="http://hl7.org/fhir/formats.html#" >FHIR Resource Definition <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
     <title>机器学习一撇</title>
     <url>/2018/10/13/AI-2018-10-04-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%80%E6%92%87/</url>
     <content><![CDATA[<p>机器学习是建立在大量数据的基础上， 在有意义的大数据上面提取有用的信息， 然后做出预测。</p>
@@ -877,7 +1054,7 @@
 <li>贡献者</li>
 <li>产出物</li>
 </ul>
-<h2 id="概貌（Profiles）"><a href="#概貌（Profiles）" class="headerlink" title="概貌（Profiles）"></a>概貌（Profiles）</h2><p>HL7中国的wiki把<code>profile</code>翻译成<code>概貌</code>，也有翻译成<code>配置或规范</code>, 因为<code>profiling</code>翻译成<code>概貌化</code>似乎没有<code>规范化</code>更加准确。0.1版本中有如下临床概貌已经被定义：</p>
+<h2 id="概貌（Profiles）"><a href="#概貌（Profiles）" class="headerlink" title="概貌（Profiles）"></a>概貌（Profiles）</h2><p>HL7中国的wiki把<code>profile</code>翻译成<code>概貌</code>，也有翻译成<code>配置或规范</code>, 因为<code>profiling</code>翻译成<code>概貌化</code>似乎没有<code>规范化</code>更加准确。<code>profiling</code>用中文解释大概是把一个资源拓展并采用一些约束来限制它，以达到应用目的，拓展好的资源我们可以认识是<code>profile</code>. 0.1版本中有如下临床概貌已经被定义：</p>
 <h3 id="眼科观测（Observations）"><a href="#眼科观测（Observations）" class="headerlink" title="眼科观测（Observations）"></a>眼科观测（Observations）</h3><ul>
 <li><strong>基础眼科观察概貌</strong>，此<code>ObservationBase</code>概貌描述仅限眼科的观察，下表1是必须实现的字段。</li>
 </ul>
