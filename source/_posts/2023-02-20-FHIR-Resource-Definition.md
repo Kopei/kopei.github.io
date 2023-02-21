@@ -36,19 +36,19 @@ tags:
 ![](https://fastly.jsdelivr.net/gh/filess/img17@main/2023/02/20/1676860770692-3f9519a8-782f-40b4-b462-4a1523e51b2a.png)
 
 **对于Type类型的图标：**
-- <img src="http://hl7.org/fhir/icon_resource.png"  alt="resource" />代表一个基础资源。
-- <img src="http://hl7.org/fhir/icon_element.gif" alt="element"/>资源中的元素，同时此元素还可以定义子元素
-- <img src="http://hl7.org/fhir/icon_choice.gif" alt="type choice"/>此元素可以有多个不同的类型
-- <img src="http://hl7.org/fhir/icon_primitive.png" alt="基础类型" />代表基础类型元素，基础类型都以小写字母开头
-- <img src="http://hl7.org/fhir/icon_datatype.gif" alt="复合类型" />元素的数据类型描述了其它的元素，称为复合类型，复合类型用大写字母开头
-- <img src="http://hl7.org/fhir/icon_reference.png" alt="reference">子元素可以引用另一个资源
-- <img src="http://hl7.org/fhir/icon_reuse.png" alt="reuse">此元素和同一个资源内另一个元素内容一样
-- <img src="http://hl7.org/fhir/icon_slice.png" alt="切片集"/>引入切片集合, 具体见profile中定义.
-- <img src="http://hl7.org/fhir/icon_extension_complex.png" alt="complet extension" />复杂嵌套扩展
-- <img src="http://hl7.org/fhir/icon_extension_simple.png" alt="simple extension" />简单扩展，只扩展一个值没有嵌套
-- <img src="http://hl7.org/fhir/icon_modifier_extension_complex.png" atl="complex modifier" />复杂修改扩展
-- <img src="http://hl7.org/fhir/icon_modifier_extension_simple.png" alt="simple modifier" /> 简单修改扩展
-- <img src="http://hl7.org/fhir/icon_profile.png" alt="rootprofile" />逻辑概貌的根
+- <img src="http://hl7.org/fhir/icon_resource.png" style="display: inline; margin:auto;" alt="resource" />代表一个基础资源。
+- <img src="http://hl7.org/fhir/icon_element.gif" style="display: inline; margin:auto;" alt="element"/>资源中的元素，同时此元素还可以定义子元素
+- <img src="http://hl7.org/fhir/icon_choice.gif" style="display: inline; margin:auto;" alt="type choice"/>此元素可以有多个不同的类型
+- <img src="http://hl7.org/fhir/icon_primitive.png" style="display: inline; margin:auto;" alt="基础类型" />代表基础类型元素，基础类型都以小写字母开头
+- <img src="http://hl7.org/fhir/icon_datatype.gif" style="display: inline; margin:auto;" alt="复合类型" />元素的数据类型描述了其它的元素，称为复合类型，复合类型用大写字母开头
+- <img src="http://hl7.org/fhir/icon_reference.png" style="display:inline; margin:auto;" alt="reference">子元素可以引用另一个资源
+- <img src="http://hl7.org/fhir/icon_reuse.png" style="display:inline; margin:auto;" alt="reuse">此元素和同一个资源内另一个元素内容一样
+- <img src="http://hl7.org/fhir/icon_slice.png" style="display:inline; margin:auto;" alt="切片集"/>引入切片集合, 具体见profile中定义.
+- <img src="http://hl7.org/fhir/icon_extension_complex.png"  style="display:inline; margin:auto;" alt="complet extension" />复杂嵌套扩展
+- <img src="http://hl7.org/fhir/icon_extension_simple.png" style="display:inline; margin:auto;" alt="simple extension" />简单扩展，只扩展一个值没有嵌套
+- <img src="http://hl7.org/fhir/icon_modifier_extension_complex.png" style="display:inline; margin:auto;" atl="complex modifier" />复杂修改扩展
+- <img src="http://hl7.org/fhir/icon_modifier_extension_simple.png" style="display:inline; margin:auto;" alt="simple modifier" /> 简单修改扩展
+- <img src="http://hl7.org/fhir/icon_profile.png" style="display:inline; margin:auto;" alt="rootprofile" />逻辑概貌的根
 
 **对于Flag标志的图标**
 - <code>?!</code>: 这个元素是一个正在建设的元素
