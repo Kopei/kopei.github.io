@@ -401,25 +401,6 @@
       </tags>
   </entry>
   <entry>
-    <title>FHIR Rerource Definition</title>
-    <url>/2023/01/31/FHIR-Resource-definition/</url>
-    <content><![CDATA[<h2 id="FHIR资源定义"><a href="#FHIR资源定义" class="headerlink" title="FHIR资源定义"></a>FHIR资源定义</h2><p>本文主要记录FHIR的资源<code>Resource</code>是如何定义的。实际互操作时，资源可以用不同的格式来表示: <code>XML</code>、<code>JSON</code>、<code>Turtle</code>和<code>UML</code>. 未来批量数据的定义也发布<code>Bulk Data Formats</code>. </p>
-<h3 id="Resource-Definition"><a href="#Resource-Definition" class="headerlink" title="Resource Definition"></a>Resource Definition</h3><p>资源可以用几种不同的方法来定义:</p>
-<ul>
-<li>一个层级表格，以逻辑视图的方式展示内容, 简称逻辑表<code>Logical table</code></li>
-<li>UML</li>
-<li>片假XML语法</li>
-<li>片假JSON</li>
-<li>片假Turtle</li>
-</ul>
-<p>除了上述语法，还有其他格式可以使用，包括<code>W3C schema</code>, <code>Schematron</code>, <code>JSON Schema</code>和<code>StructureDefinition</code>.</p>
-<h4 id="Logical-table"><a href="#Logical-table" class="headerlink" title="Logical table"></a>Logical table</h4><p>逻辑表以树形结构来表示资源，并固定几个特定列。</p>
-]]></content>
-      <tags>
-        <tag>FHIR</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>FHIR-Resource-Definition</title>
     <url>/2023/02/20/FHIR-Resource-Definition/</url>
     <content><![CDATA[<h1 id="FHIR资源定义"><a href="#FHIR资源定义" class="headerlink" title="FHIR资源定义"></a>FHIR资源定义</h1><blockquote>
