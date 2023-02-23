@@ -2,7 +2,7 @@
 title: Health Data Security Guide
 comment: true
 date: 2023-02-21 10:56:17
-tags:
+tags: Data security
 ---
 > This article is a translation of Chinese national standard GB/T39725-2020.
 
