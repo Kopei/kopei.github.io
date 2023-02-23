@@ -4,6 +4,8 @@ comment: true
 date: 2023-02-21 10:56:17
 tags:
 ---
+> This article is a translation of Chinese national standard GB/T39725-2020.
+
 ## 0. Introduction
 Health data includes personal health data and health related data obtained from processed system. With the vigorous development of health application, "Internet + health" and intelligent medical care, various new businesses and applications are emerging, and health data are facing more and more security challenges in all stages of the life cycle, and security issues are frequently occurring. Since the security of health data is related to the safety of patients' lives, personal information security, social public interest and national security, in order to better protect the security of health data, regulate and promote the integration and sharing of health data, development and application, and promote the development of health business, this health data security guideline is formulated. 
 
