@@ -11,6 +11,7 @@ It is driven by the growing complexity of products and the demand for individual
 
 ## Explanation Terms
 
-## Findings
+## Key Characterics of subscription model
+
 
 ## Conclusion

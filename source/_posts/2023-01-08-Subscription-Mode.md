@@ -11,7 +11,7 @@ tags: Subscription mode,Zien
 - 自动化订阅管理
 - 报告和分析
 - 订阅产品管理
-![zuora](../images/zuora-subscription.png)
+![zuora](/images/zuora-subscription.png)
 
 ### 订阅模式的财务指标
 获客成本、生命周期客户价值、年经常性收益、每位客户带来的平均收益
