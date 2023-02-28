@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="openshift">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Kopei">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://kopei.github.io/2018/02/04/openshift-2018-02-05-prerequirement-deploy-a-cluster/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Openshift Origin cluster部署配置要求和主机准备">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="https://kopei.github.io2018/02/04/openshift-2018-02-05-prerequirement-deploy-a-cluster/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Kopei&#39;s Home">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Openshift Origin cluster部署配置要求和主机准备">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#005080">
+    <link rel="shortcut icon" href="../../../../images/redefine-logo.svg">
+    
+    <title>
+        
+            Openshift Origin cluster部署配置要求和主机准备 -
+        
+        Kopei&#39;s Home
+    </title>
+    
+<link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/assets/fonts.css">
+    
+    
+    
+    
+        <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"200px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"两仪立焉 朋来无咎","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.2","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/fontawesome/regular.min.css">
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Kopei&#39;s Home
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">Openshift Origin cluster部署配置要求和主机准备</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="../../../../images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Kopei</span>
+                            
+                                <span class="author-label">article</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2018-02-05</span>
+        <span class="mobile">2018-02-05 00</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2018-03-01</span>
+            <span class="mobile">2018-03-01 00</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/openshift/">openshift</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="../../../../categories/openshift/kubernetes/">kubernetes</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/kubernetes-openshift/">kubernetes, openshift</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <blockquote>
+<p><a class="link"   target="_blank" rel="noopener" href="https://github.com/openshift/openshift-ansible" >https://github.com/openshift/openshift-ansible <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<h3 id="杂言"><a href="#杂言" class="headerlink" title="杂言"></a>杂言</h3><p>官方提供的github ansible部署代码还是有一些坑的，首先不能用master分支的代码，master分支是他们的开发分支。所以需要选择某个release， 以下选择release-3.8作为说明。origin使用的kubernetes是1.7和docker1.12. 先说说配置要求和操作系统、网络等环境等要求, 这些要求覆盖所有节点。</p>
+<h3 id="系统配置需求"><a href="#系统配置需求" class="headerlink" title="系统配置需求"></a>系统配置需求</h3><ul>
+<li>master，nodes, 外部etcd都有最小推荐配置. 大致上，master每1000pods需要额外1CPU和1.5GB内存。node的配置根据业务负载配置。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-02-05%20%E4%B8%8B%E5%8D%882.07.52.png"
+                      alt="prerequirement"
+                ></li>
+</ul>
+<h3 id="CPU核数配置"><a href="#CPU核数配置" class="headerlink" title="CPU核数配置"></a>CPU核数配置</h3><p>master和node默认使用系统所有的CPU, 可以设置环境变量<code>GOMAXPROCS</code>限制核数。</p>
+<h3 id="开启SELinux"><a href="#开启SELinux" class="headerlink" title="开启SELinux"></a>开启SELinux</h3><p>SELinux必须开启，配置文件<code>/etc/selinux/config</code></p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELINUX=enforcing</span><br><span class="line">SELINUXTYPE=targeted</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="使用OverlayFS文件系统"><a href="#使用OverlayFS文件系统" class="headerlink" title="使用OverlayFS文件系统"></a>使用OverlayFS文件系统</h3><h3 id="节点和master必须同步时间"><a href="#节点和master必须同步时间" class="headerlink" title="节点和master必须同步时间"></a>节点和master必须同步时间</h3><p>ansible的环境变量设置为<code>openshift_clock_enabled=true</code></p>
+<h3 id="有些容器是previlige-可以访问docker守护进程。"><a href="#有些容器是previlige-可以访问docker守护进程。" class="headerlink" title="有些容器是previlige, 可以访问docker守护进程。"></a>有些容器是previlige, 可以访问docker守护进程。</h3><p>这就等于这个容器对所有容器和镜像有root权限，openshift使用<a class="link"   target="_blank" rel="noopener" href="https://docs.openshift.org/latest/architecture/additional_concepts/authorization.html#security-context-constraints" >security context constraints <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 来控制容器的权限。</p>
+<h3 id="容器的DNS"><a href="#容器的DNS" class="headerlink" title="容器的DNS"></a>容器的DNS</h3><p>由于docker容器不会认宿主机的&#x2F;etc&#x2F;hosts, 所以所有节点都要安装dnsmasq, 容器访问宿主机的dns，宿主机再查询dns nameserver. ansible剧本需要</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NM_CONTROLLED=<span class="built_in">yes</span>  <span class="comment">##使用network manager</span></span><br><span class="line">openshift_use_dnsmasq=<span class="literal">true</span></span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>默认容器内的域名解析按如下顺序进行：<ul>
+<li>使用宿主机的&#x2F;etc&#x2F;resolv.conf解析</li>
+<li>容器内<code>/etc/origin/node/node-config.yaml</code>有一条宿主机的IP作为dnsIP</li>
+<li>如果没有设置dnsIP， 默认值是kubernetes service IP。也就是pod中<code>/etc/resolv.conf</code>的第一个nameserver.</li>
+</ul>
+</li>
+<li>宿主机使用DNS<br>宿主机的域名解析配置取决于是否开启DHCP动态主机地址分配。如果没有开启使用静态ip地址，需要把DNS nameserver加入到NetworkManager;如果启用DHCP, NetworkManager会根据DHCP的配置自动分配DNS;或者在<code>node-config.yaml</code>手动加入dnsIP. 使用dig测试是否正确配置dns<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ dig &lt;node_hostname&gt; @&lt;IP_address&gt; +short</span><br><span class="line">$ dig master.example.com @10.64.33.1 +short</span><br><span class="line">10.64.33.100</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<h3 id="联通的网络"><a href="#联通的网络" class="headerlink" title="联通的网络"></a>联通的网络</h3><ul>
+<li>NetworkManager必须启用<code>NM_CONTROLLED=yes</code>，否则DNS配置会有问题。</li>
+<li>m-m, m-n节点需要开通一些端口，单节点master和多节点master的开放端口也不同。 OpenShift会自动配置一些iptables规则。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-02-05%20%E4%B8%8B%E5%8D%882.07.52.png"
+                      alt="port"
+                >)</li>
+</ul>
+<h3 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h3><p>Openshift使用Kubernetes的持久卷<a class="link"   target="_blank" rel="noopener" href="https://docs.openshift.org/latest/architecture/additional_concepts/storage.html#architecture-additional-concepts-storage" >Persistent Volume <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>提供持久化存储。在安装Openshift完成后，可以根据具体需求，要求更多的存储资源。安装脚本里有提供相应的代码，支持的存储方式包括：<code>NFS, GlusterFS, Ceph RBD, OpenStack Cinder, AWS Elastic Block Store (EBS), GCE Persistent Disks, and iSCSI</code>.</p>
+<h3 id="在云上安装openshift-origin需要考虑："><a href="#在云上安装openshift-origin需要考虑：" class="headerlink" title="在云上安装openshift origin需要考虑："></a>在云上安装openshift origin需要考虑：</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 配置安全组，开通部分端口</span><br><span class="line">2. 需要覆盖一些参数。通过下面指令得到正确的值。</span><br><span class="line">ansible-playbook  [-i /path/to/inventory] \</span><br><span class="line">    ~/openshift-ansible/roles/openshift_facts/library/openshift_facts.py</span><br></pre></td></tr></table></figure></div>
+<p><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-01%20%E4%B8%8A%E5%8D%8810.54.45.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-01%20%E4%B8%8A%E5%8D%8810.54.45.png"></p>
+<h3 id="如果安装容器化的GlusterFS-需要考虑额外的一些配置"><a href="#如果安装容器化的GlusterFS-需要考虑额外的一些配置" class="headerlink" title="如果安装容器化的GlusterFS,需要考虑额外的一些配置"></a>如果安装容器化的GlusterFS,需要考虑额外的一些配置</h3><p><a class="link"   target="_blank" rel="noopener" href="https://docs.openshift.org/latest/install_config/install/prerequisites.html#prereq-containerized-glusterfs-considerations" >https://docs.openshift.org/latest/install_config&#x2F;install&#x2F;prerequisites.html#prereq-containerized-glusterfs-considerations <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="主机需要安装的包"><a href="#主机需要安装的包" class="headerlink" title="主机需要安装的包"></a>主机需要安装的包</h3><p>可能需要epel仓库， 自行解决</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct ansible pyOpenSSL docker-1.12.6</span><br><span class="line">yum update</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="配置docker的容器和镜像存储"><a href="#配置docker的容器和镜像存储" class="headerlink" title="配置docker的容器和镜像存储"></a>配置docker的容器和镜像存储</h3><p>镜像和容器在openshift被认为是ephemeral, 他们和持久层分开存储。对于RHEL7, 默认的docker存储后端是在loopback的thin pool，这个配置不适合生产环境，在生产环境下，必须使用thin pool逻辑卷。配置存储必须在创建镜像和容器前，否则数据将丢失。<br>使用<strong>docker-storage-setup</strong>脚本可以配置thin pool和docker的存储驱动。这个脚本会读取&#x2F;etc&#x2F;sysconfig&#x2F;docker-storage-setup文件， 支持三种方式创建逻辑卷：</p>
+<ul>
+<li><p>使用另一存储块，推荐方式。需要新增一块存储块到主机。在&#x2F;etc&#x2F;sysconfig&#x2F;docker-storage-setup设置DEVS到新增的块，设置VG为新建的卷组名。运行脚本</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt; /etc/sysconfig/docker-storage-setup</span><br><span class="line">DEVS=/dev/vdc</span><br><span class="line">VG=docker-vg</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>使用已有的逻辑卷组, 修改上述脚本指定VG&#x3D;<used vg>.</p>
+</li>
+<li><p>使用根文件系统剩余的卷空间, 直接运行脚本。<br>查看存储配置, 重启docker.</p>
+</li>
+</ul>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/sysconfig/docker-storage</span><br><span class="line">DOCKER_STORAGE_OPTIONS=--storage-opt dm.fs=xfs --storage-opt</span><br><span class="line">dm.thinpooldev=/dev/mapper/docker--vg-docker--pool</span><br><span class="line"></span><br><span class="line">lvs</span><br><span class="line">LV          VG   Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert</span><br><span class="line">docker-pool rhel twi-a-t---  9.29g             0.00   0.12</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="管理容器日志"><a href="#管理容器日志" class="headerlink" title="管理容器日志"></a>管理容器日志</h3><p>容器的日志（&#x2F;var&#x2F;lib&#x2F;docker&#x2F;containers&#x2F;<hash>&#x2F;<hash>-json.log）大小增大可能会有问题，可以通过配置docker json-file 日志驱动来限制大小和日志数量。修改&#x2F;etc&#x2F;sysconfig&#x2F;docker, 然后重启。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OPTIONS=&#x27;--insecure-registry=172.30.0.0/16 --selinux-enabled --log-opt max-size=1M --log-opt max-file=3&#x27;</span><br></pre></td></tr></table></figure></div>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：Openshift Origin cluster部署配置要求和主机准备</li>
+        <li>Post author：Kopei</li>
+        <li>Create time：2018-02-05 00:00:00</li>
+        <li>
+            Post link：https://kopei.github.io/2018/02/04/openshift-2018-02-05-prerequirement-deploy-a-cluster/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="../../../../tags/kubernetes-openshift/">#kubernetes, openshift</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="../../18/docker-2018-02-19-docker-container-data-persistent/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">三种docker数据持久的方式</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="../../01/docker-2018-02-02-docker-cloud-autodeploy/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">使用Docker Cloud自动化部署</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script data-pjax 
+        src="//evan.beee.top/js/waline.js"></script>
+    <script data-pjax>
+        function loadWaline() {
+            Waline.init({
+                el: '#waline',
+                serverURL: 'https://kopie-comments-9snhujxxf-kopei.vercel.app',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Openshift Origin cluster部署配置要求和主机准备</div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%82%E8%A8%80"><span class="nav-text">杂言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE%E9%9C%80%E6%B1%82"><span class="nav-text">系统配置需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU%E6%A0%B8%E6%95%B0%E9%85%8D%E7%BD%AE"><span class="nav-text">CPU核数配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%90%AFSELinux"><span class="nav-text">开启SELinux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8OverlayFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-text">使用OverlayFS文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E5%92%8Cmaster%E5%BF%85%E9%A1%BB%E5%90%8C%E6%AD%A5%E6%97%B6%E9%97%B4"><span class="nav-text">节点和master必须同步时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E4%BA%9B%E5%AE%B9%E5%99%A8%E6%98%AFprevilige-%E5%8F%AF%E4%BB%A5%E8%AE%BF%E9%97%AEdocker%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E3%80%82"><span class="nav-text">有些容器是previlige, 可以访问docker守护进程。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E7%9A%84DNS"><span class="nav-text">容器的DNS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E9%80%9A%E7%9A%84%E7%BD%91%E7%BB%9C"><span class="nav-text">联通的网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8"><span class="nav-text">存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E4%BA%91%E4%B8%8A%E5%AE%89%E8%A3%85openshift-origin%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%EF%BC%9A"><span class="nav-text">在云上安装openshift origin需要考虑：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E5%AE%89%E8%A3%85%E5%AE%B9%E5%99%A8%E5%8C%96%E7%9A%84GlusterFS-%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E9%A2%9D%E5%A4%96%E7%9A%84%E4%B8%80%E4%BA%9B%E9%85%8D%E7%BD%AE"><span class="nav-text">如果安装容器化的GlusterFS,需要考虑额外的一些配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E6%9C%BA%E9%9C%80%E8%A6%81%E5%AE%89%E8%A3%85%E7%9A%84%E5%8C%85"><span class="nav-text">主机需要安装的包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEdocker%E7%9A%84%E5%AE%B9%E5%99%A8%E5%92%8C%E9%95%9C%E5%83%8F%E5%AD%98%E5%82%A8"><span class="nav-text">配置docker的容器和镜像存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97"><span class="nav-text">管理容器日志</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2017</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Kopei</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.2</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2017/01/01 00:00:00
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/layouts/menu-shrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/go-top-bottom.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/dark-light-toggle.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/local-search.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/code-block.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/assets/odometer-theme-minimal.css">
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/toc-toggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/plugins/tabs.js"></script>
+    
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

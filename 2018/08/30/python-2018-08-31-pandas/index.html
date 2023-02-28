@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="python, pandas">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Kopei">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://kopei.github.io/2018/08/30/python-2018-08-31-pandas/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Pandas的Groupby">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="https://kopei.github.io2018/08/30/python-2018-08-31-pandas/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Kopei&#39;s Home">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pandas的Groupby">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#005080">
+    <link rel="shortcut icon" href="../../../../images/redefine-logo.svg">
+    
+    <title>
+        
+            Pandas的Groupby -
+        
+        Kopei&#39;s Home
+    </title>
+    
+<link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/assets/fonts.css">
+    
+    
+    
+    
+        <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"200px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"两仪立焉 朋来无咎","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.2","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/fontawesome/regular.min.css">
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Kopei&#39;s Home
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">Pandas的Groupby</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="../../../../images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Kopei</span>
+                            
+                                <span class="author-label">article</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2018-08-31</span>
+        <span class="mobile">2018-08-31 00</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2023-02-28 13:08:13</span>
+            <span class="mobile">2023-02-28 13:08</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/python/">python</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/python/">python</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一般需要对数据做分割&#x2F;处理&#x2F;合并的时候会使用<code>groupby</code>, <code>groupby</code>的意思类似sql语句的分组. 对一个<code>DataFrame</code>做分割、处理、合并的过程一般如下图所示， 通过这样的流程能做到聚合数据的能力。<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/groupby-example.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/groupby-example.png"></p>
+<h3 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h3><p>官方叫<code>split</code>, 是把数据依照某种条件分组. 对一个DataFrame使用groupby就达到了<code>split</code>.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: df = pd.DataFrame(&#123;<span class="string">&#x27;A&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>,<span class="string">&#x27;bar&#x27;</span>,<span class="string">&#x27;foo&#x27;</span>,<span class="string">&#x27;bar&#x27;</span>,<span class="string">&#x27;foo&#x27;</span>,<span class="string">&#x27;bar&#x27;</span>,<span class="string">&#x27;foo&#x27;</span>,<span class="string">&#x27;foo&#x27;</span>], <span class="string">&#x27;B&#x27;</span>:[<span class="string">&#x27;one&#x27;</span>,<span class="string">&#x27;one&#x27;</span>,<span class="string">&#x27;two&#x27;</span>,<span class="string">&#x27;three&#x27;</span>,<span class="string">&#x27;two&#x27;</span>,<span class="string">&#x27;two&#x27;</span>,<span class="string">&#x27;one&#x27;</span>,<span class="string">&#x27;three&#x27;</span>],<span class="string">&#x27;C&#x27;</span>:[<span class="number">332</span>,<span class="number">42</span>,<span class="number">12</span>,<span class="number">31</span>,<span class="number">21</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">14</span>]&#125;)</span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: df</span><br><span class="line">Out[<span class="number">3</span>]: </span><br><span class="line">     A      B    C</span><br><span class="line"><span class="number">0</span>  foo    one  <span class="number">332</span></span><br><span class="line"><span class="number">1</span>  bar    one   <span class="number">42</span></span><br><span class="line"><span class="number">2</span>  foo    two   <span class="number">12</span></span><br><span class="line"><span class="number">3</span>  bar  three   <span class="number">31</span></span><br><span class="line"><span class="number">4</span>  foo    two   <span class="number">21</span></span><br><span class="line"><span class="number">5</span>  bar    two    <span class="number">1</span></span><br><span class="line"><span class="number">6</span>  foo    one    <span class="number">3</span></span><br><span class="line"><span class="number">7</span>  foo  three   <span class="number">14</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: group_a=df.groupby(<span class="string">&#x27;A&#x27;</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: group_a</span><br><span class="line">Out[<span class="number">5</span>]: &lt;pandas.core.groupby.DataFrameGroupBy <span class="built_in">object</span> at <span class="number">0x7f78fb9cfc50</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">52</span>]: grouped.get_group(<span class="string">&#x27;A&#x27;</span>)</span><br><span class="line">Out[<span class="number">52</span>]: </span><br><span class="line">     A      B         C         D</span><br><span class="line"><span class="number">1</span>  bar    one  <span class="number">0.254161</span>  <span class="number">1.511763</span></span><br><span class="line"><span class="number">3</span>  bar  three  <span class="number">0.215897</span> -<span class="number">0.990582</span></span><br><span class="line"><span class="number">5</span>  bar    two -<span class="number">0.077118</span>  <span class="number">1.211526</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="处理"><a href="#处理" class="headerlink" title="处理"></a>处理</h3><p><code>apply</code>对每个分割好的group运行某个(多个)函数. 在这一步我们可能会使用到如下方法:</p>
+<ul>
+<li><code>aggregation</code><br>的作用是统计组里的数据: 如平均值, 求和, 计数. 从下面的例子可以看出来, <code>aggregation</code>后得到一个以<code>groupby</code>参数作为<code>groupname</code>,<br>并且以它为<code>index</code>的<code>DataFrame</code>; 如果是通过多个值<code>groupby</code>的那么结果是以<code>MultiIndex</code>为索引, 当然index是可以通过<code>as_index</code>来设置的(<code>.reset_index()</code><br>也可以得到相同效果). <code>aggregation</code>函数会排除<code>NA</code>值.</li>
+</ul>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">6</span>]: group_a.agg(<span class="built_in">sum</span>)   <span class="comment">## 注意, 这里如果传递[sum]将会对所有column做sum</span></span><br><span class="line">Out[<span class="number">6</span>]: </span><br><span class="line">       C</span><br><span class="line">A       </span><br><span class="line">bar   <span class="number">74</span></span><br><span class="line">foo  <span class="number">382</span></span><br><span class="line">In [<span class="number">8</span>]: group_a[<span class="string">&#x27;C&#x27;</span>].agg(<span class="built_in">sum</span>)  <span class="comment">## 注意, 这里传给agg, 如果是[sum], 返回的是Dataframe, 否则是Series</span></span><br><span class="line">Out[<span class="number">8</span>]: </span><br><span class="line">A</span><br><span class="line">bar     <span class="number">74</span></span><br><span class="line">foo    <span class="number">382</span></span><br><span class="line">Name: C, dtype: int64</span><br><span class="line"></span><br><span class="line">In [<span class="number">9</span>]: group_a_b=df.groupby([<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">10</span>]: group_a_b.agg(<span class="built_in">sum</span>)</span><br><span class="line">Out[<span class="number">10</span>]: </span><br><span class="line">             C</span><br><span class="line">A   B         </span><br><span class="line">bar one     <span class="number">42</span></span><br><span class="line">    three   <span class="number">31</span></span><br><span class="line">    two      <span class="number">1</span></span><br><span class="line">foo one    <span class="number">335</span></span><br><span class="line">    three   <span class="number">14</span></span><br><span class="line">    two     <span class="number">33</span></span><br><span class="line">In [<span class="number">15</span>]: group_a_b=df.groupby([<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>], as_index=<span class="literal">False</span>).agg(<span class="built_in">sum</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">16</span>]: group_a_b</span><br><span class="line">Out[<span class="number">16</span>]: </span><br><span class="line">     A      B    C</span><br><span class="line"><span class="number">0</span>  bar    one   <span class="number">42</span></span><br><span class="line"><span class="number">1</span>  bar  three   <span class="number">31</span></span><br><span class="line"><span class="number">2</span>  bar    two    <span class="number">1</span></span><br><span class="line"><span class="number">3</span>  foo    one  <span class="number">335</span></span><br><span class="line"><span class="number">4</span>  foo  three   <span class="number">14</span></span><br><span class="line"><span class="number">5</span>  foo    two   <span class="number">33</span></span><br></pre></td></tr></table></figure></div>
+<p>所有的<code>Aggregation</code>函数如下表, 它们返回的对象一般会减少维度:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-08-31%20%E4%B8%8B%E5%8D%882.59.31.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-08-31%20%E4%B8%8B%E5%8D%882.59.31.png"></p>
+<p><code>agg()</code>是可以一次运作多个函数的, 注意下面这个函数是对于<code>grouped Series</code>, 即切出了一个<code>series</code>操作的, 返回的是<code>dataframe</code>. </p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">30</span>]: group_a[<span class="string">&#x27;C&#x27;</span>].agg([<span class="built_in">sum</span>, <span class="built_in">min</span>])</span><br><span class="line">Out[<span class="number">30</span>]: </span><br><span class="line">     <span class="built_in">sum</span>  <span class="built_in">min</span></span><br><span class="line">A            </span><br><span class="line">bar   <span class="number">74</span>    <span class="number">1</span></span><br><span class="line">foo  <span class="number">382</span>    <span class="number">3</span></span><br></pre></td></tr></table></figure></div>
+<p>如果对一个<code>groupby</code> <code>Dataframe</code>应用多个函数, 那么每个column都会有各自的聚合函数列:</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">63</span>]: df.groupby(<span class="string">&#x27;A&#x27;</span>).agg([<span class="built_in">sum</span>, <span class="built_in">min</span>,<span class="built_in">max</span>])</span><br><span class="line">Out[<span class="number">63</span>]: </span><br><span class="line">                     B              C         </span><br><span class="line">                   <span class="built_in">sum</span>  <span class="built_in">min</span>  <span class="built_in">max</span>  <span class="built_in">sum</span> <span class="built_in">min</span>  <span class="built_in">max</span></span><br><span class="line">A                                             </span><br><span class="line">bar        onethreetwo  one  two   <span class="number">74</span>   <span class="number">1</span>   <span class="number">42</span></span><br><span class="line">foo  onetwotwoonethree  one  two  <span class="number">382</span>   <span class="number">3</span>  <span class="number">332</span></span><br><span class="line"><span class="comment">###重命名列名</span></span><br><span class="line">In [<span class="number">65</span>]: df.groupby(<span class="string">&#x27;A&#x27;</span>).agg([<span class="built_in">sum</span>, <span class="built_in">min</span>,<span class="built_in">max</span>]).rename(columns=&#123;<span class="string">&#x27;B&#x27;</span>:<span class="string">&#x27;reName&#x27;</span>&#125;)</span><br><span class="line">Out[<span class="number">65</span>]: </span><br><span class="line">                   reName              C         </span><br><span class="line">                   <span class="built_in">sum</span>  <span class="built_in">min</span>  <span class="built_in">max</span>  <span class="built_in">sum</span> <span class="built_in">min</span>  <span class="built_in">max</span></span><br><span class="line">A                                             </span><br><span class="line">bar        onethreetwo  one  two   <span class="number">74</span>   <span class="number">1</span>   <span class="number">42</span></span><br><span class="line">foo  onetwotwoonethree  one  two  <span class="number">382</span>   <span class="number">3</span>  <span class="number">332</span></span><br></pre></td></tr></table></figure></div>
+<p>agg的函数也可以通过<code>lambda</code>把所有列改成标量值:</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">17</span>]: df.groudby(<span class="string">&#x27;A&#x27;</span>).agg(<span class="keyword">lambda</span> x:<span class="number">1</span>)</span><br><span class="line">Out[<span class="number">17</span>]: </span><br><span class="line">     B  C</span><br><span class="line">A        </span><br><span class="line">bar  <span class="number">1</span>  <span class="number">1</span></span><br><span class="line">foo  <span class="number">1</span>  <span class="number">1</span></span><br></pre></td></tr></table></figure></div>
+<p>通过给<code>agg()</code>传递<code>dict</code>可以对Dataframe的不同column应用不同的聚合. 这样得出的column没有顺序的, 想要有顺序需要使用<code>OrderedDict</code></p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">51</span>]: df.groupby(<span class="string">&#x27;A&#x27;</span>).agg(&#123;<span class="string">&#x27;B&#x27;</span>: <span class="built_in">sum</span>, <span class="string">&#x27;C&#x27;</span>: <span class="built_in">min</span>&#125;)</span><br><span class="line">Out[<span class="number">51</span>]: </span><br><span class="line">     C                  B</span><br><span class="line">A                        </span><br><span class="line">bar  <span class="number">1</span>        onethreetwo</span><br><span class="line">foo  <span class="number">3</span>  onetwotwoonethree</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>transformation</code><br><code>transform</code>方法把一个groupby对象做转变, 返回一个和grouped对象一样<code>index</code>的对象（这点和<code>agg</code>不同， <code>agg</code>通常返回维度减少的数据）. 这个<code>transform</code>实际传入的函数必须满足:<ul>
+<li>返回和group chunk一样大小的对象, 或者返回的对象大小可以<code>broadcastable</code>到group chunk size(<code>broadcasting</code>是numpy的术语, 描述了numpy对待不同形状阵列时如何计算.)</li>
+<li>在group chunk上做一列一列操作. 实际使用的是chunk.apply</li>
+<li>不能直接(inplace)在group chunk上修改, group chunk需要认为是不可改变的, <code>grouped.transform(lambda x: x.fillna(inplace=True))</code><br>这样的直接修改可能带来意外结果.</li>
+<li>也可以直接对整个chunk做操作</li>
+</ul>
+</li>
+</ul>
+<p>这里有个例子，讲述了如何使用<code>transform</code>减少处理的逻辑<a class="link"   target="_blank" rel="noopener" href="http://pbpython.com/pandas_transform.html" >http://pbpython.com/pandas_transform.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<ul>
+<li><code>filteration</code><br>使用<code>filter</code>函数可以返回原来对象的一个子集. <code>filter</code>的参数是个应用到整个组的函数， 其返回为True&#x2F;False.</li>
+</ul>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">115</span>]: sf = pd.Series([<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">116</span>]: sf.groupby(sf).<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: x.<span class="built_in">sum</span>() &gt; <span class="number">2</span>)</span><br><span class="line">Out[<span class="number">116</span>]: </span><br><span class="line"><span class="number">3</span>    <span class="number">3</span></span><br><span class="line"><span class="number">4</span>    <span class="number">3</span></span><br><span class="line"><span class="number">5</span>    <span class="number">3</span></span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [<span class="number">117</span>]: dff = pd.DataFrame(&#123;<span class="string">&#x27;A&#x27;</span>: np.arange(<span class="number">8</span>), <span class="string">&#x27;B&#x27;</span>: <span class="built_in">list</span>(<span class="string">&#x27;aabbbbcc&#x27;</span>)&#125;)</span><br><span class="line"></span><br><span class="line">In [<span class="number">118</span>]: dff.groupby(<span class="string">&#x27;B&#x27;</span>).<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: <span class="built_in">len</span>(x) &gt; <span class="number">2</span>)</span><br><span class="line">Out[<span class="number">118</span>]: </span><br><span class="line">   A  B</span><br><span class="line"><span class="number">2</span>  <span class="number">2</span>  b</span><br><span class="line"><span class="number">3</span>  <span class="number">3</span>  b</span><br><span class="line"><span class="number">4</span>  <span class="number">4</span>  b</span><br><span class="line"><span class="number">5</span>  <span class="number">5</span>  b</span><br><span class="line"></span><br><span class="line">In [<span class="number">119</span>]: dff.groupby(<span class="string">&#x27;B&#x27;</span>).<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: <span class="built_in">len</span>(x) &gt; <span class="number">2</span>, dropna=<span class="literal">False</span>)</span><br><span class="line">Out[<span class="number">119</span>]: </span><br><span class="line">     A    B</span><br><span class="line"><span class="number">0</span>  NaN  NaN</span><br><span class="line"><span class="number">1</span>  NaN  NaN</span><br><span class="line"><span class="number">2</span>  <span class="number">2.0</span>    b</span><br><span class="line"><span class="number">3</span>  <span class="number">3.0</span>    b</span><br><span class="line"><span class="number">4</span>  <span class="number">4.0</span>    b</span><br><span class="line"><span class="number">5</span>  <span class="number">5.0</span>    b</span><br><span class="line"><span class="number">6</span>  NaN  NaN</span><br><span class="line"><span class="number">7</span>  NaN  NaN</span><br><span class="line"></span><br><span class="line">In [<span class="number">120</span>]: dff[<span class="string">&#x27;C&#x27;</span>] = np.arange(<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">121</span>]: dff.groupby(<span class="string">&#x27;B&#x27;</span>).<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: <span class="built_in">len</span>(x[<span class="string">&#x27;C&#x27;</span>]) &gt; <span class="number">2</span>)</span><br><span class="line">Out[<span class="number">121</span>]: </span><br><span class="line">   A  B  C</span><br><span class="line"><span class="number">2</span>  <span class="number">2</span>  b  <span class="number">2</span></span><br><span class="line"><span class="number">3</span>  <span class="number">3</span>  b  <span class="number">3</span></span><br><span class="line"><span class="number">4</span>  <span class="number">4</span>  b  <span class="number">4</span></span><br><span class="line"><span class="number">5</span>  <span class="number">5</span>  b  <span class="number">5</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+<h3 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h3><p><code>combining</code>是再把处理好的数据组合一起.</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：Pandas的Groupby</li>
+        <li>Post author：Kopei</li>
+        <li>Create time：2018-08-31 00:00:00</li>
+        <li>
+            Post link：https://kopei.github.io/2018/08/30/python-2018-08-31-pandas/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="../../../../tags/python/">#python</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="../../../09/15/python-2018-09-16-pandas%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Pandas的数据结构</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="../../../07/19/python-2018-07-20-luiqi-base/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Luigi基础概念</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script data-pjax 
+        src="//evan.beee.top/js/waline.js"></script>
+    <script data-pjax>
+        function loadWaline() {
+            Waline.init({
+                el: '#waline',
+                serverURL: 'https://kopie-comments-9snhujxxf-kopei.vercel.app',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Pandas的Groupby</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%89%B2"><span class="nav-text">分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86"><span class="nav-text">处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%88%E5%B9%B6"><span class="nav-text">合并</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2017</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Kopei</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.2</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2017/01/01 00:00:00
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/layouts/menu-shrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/go-top-bottom.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/dark-light-toggle.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/local-search.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/code-block.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/assets/odometer-theme-minimal.css">
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/toc-toggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/plugins/tabs.js"></script>
+    
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

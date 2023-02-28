@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="DNS, route53">
+    <meta name="description" content="DNS的概念和Route53">
+    <meta name="author" content="Kopei">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://kopei.github.io/2018/10/26/cloud-2018-10-27-dns-and-route53/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="DNS和Route53简介">
+    <meta property="og:description" content="DNS的概念和Route53">
+    <meta property="og:url" content="https://kopei.github.io2018/10/26/cloud-2018-10-27-DNS-and-Route53/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Kopei&#39;s Home">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DNS和Route53简介">
+    <meta name="twitter:description" content="DNS的概念和Route53">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#005080">
+    <link rel="shortcut icon" href="../../../../images/redefine-logo.svg">
+    
+    <title>
+        
+            DNS和Route53简介 -
+        
+        Kopei&#39;s Home
+    </title>
+    
+<link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/assets/fonts.css">
+    
+    
+    
+    
+        <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"200px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"两仪立焉 朋来无咎","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.2","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/fontawesome/regular.min.css">
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Kopei&#39;s Home
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">DNS和Route53简介</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="../../../../images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Kopei</span>
+                            
+                                <span class="author-label">article</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2018-10-27</span>
+        <span class="mobile">2018-10-27 00</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2023-02-28 13:08:13</span>
+            <span class="mobile">2023-02-28 13:08</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/cloud/">cloud</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/cloud/">cloud</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="DNS基本概念"><a href="#DNS基本概念" class="headerlink" title="DNS基本概念"></a>DNS基本概念</h2><p>DNS(Domain Name Service)是人们使用英特网的基础服务，DNS提供的服务就像一个电话本一样, 计算机可以用它找到域名对应的IP地址。<code>DNS</code>采用层级的结构， 不同层采用<code>.</code>来分层。顶层是root, 用一个<code>.</code>表示，后面就是TLD了。<br><code>Top Level Domain</code>(TLD)顶级域名是域名中的最后一个部分， 比如<code>.com</code>. TLD又分为通用顶级域名和地域顶级域名如<code>.cn</code>. <code>Internet Corporation for Assigned Names and Numbers</code>(ICANN)<br>负责管理和分配部分顶级域名， 这些顶级域名下可以再分配我们常见的域名，这些域名会在<code>Network Information Center</code>(InterNIC)注册， 每个域名会在一个叫<code>Whois</code>的数据库注册， 以维护域名的唯一性。<br>这里有一个误区，域名如<code>example.com</code>, 一般所说的二级域名是应该是<code>example</code>(而国内的运营商叫做一级域名, .com叫顶级域名)， 其他的二级域名&#x2F;三级依次往后叫.</p>
+<h3 id="host和Subdomain"><a href="#host和Subdomain" class="headerlink" title="host和Subdomain"></a>host和Subdomain</h3><p>有了域名， 域名拥有者可以把自己的服务或主机定义成<code>host</code>, 比如大部分的web服务都可以通过<code>www</code>这个<code>host</code>访问。<br><code>TLD</code>是可以被按层级扩展成多个子域名的。如<code>example.com</code>中<code>example</code>就是<code>SLD</code>(Second-level domain), 又如<code>sina.com.cn</code>中<code>.com</code>是<code>SLD</code>. <code>SLD</code>和<code>host</code>主要的区别在于host定义的是一个资源，<br>而<code>SLD</code>是一个域名的扩展。不管是<code>SLD</code>还是<code>host</code>, 我们都从域名的左边读起， 可以看到越左边的部分意义越具体。</p>
+<h3 id="Name-Server"><a href="#Name-Server" class="headerlink" title="Name Server"></a>Name Server</h3><p>名字服务器就是实际把域名解析成Ip的服务器。由于域名实在太多，名字服务器需要转发解析请求到其他服务器。如果某个域名是这台名字服务器管理的， 那么这个NS的解析相应我们认为是权威的。（<code>authoritative</code>）</p>
+<h3 id="Zone-file"><a href="#Zone-file" class="headerlink" title="Zone file"></a>Zone file</h3><p><code>zone file</code>区域档案是DNS服务器存储域名和IP映射记录的文本。一个<code>zone file</code>定义了一个dns域, 多个<code>zone file</code>通常用来定义一个域。每个文件中的记录称为资源记录（<code>resource record</code>）。<br><code>zone file</code>有两个指令需要注意， 一个是<code>$ORIGIN</code>参数设定， 代表了本NS管理的域。<code>$TTL</code>表示解析记录在缓存中默认过期时间。</p>
+<h3 id="DNS-Record-Types"><a href="#DNS-Record-Types" class="headerlink" title="DNS Record Types"></a>DNS Record Types</h3><ul>
+<li><code>SOA Start Of Authority</code>, 每个区域文件的一条强制记录， 记录每个域的dns基本信息，具体包括：<ul>
+<li>这个区域的DNS server名称</li>
+<li>这个区域的管理员</li>
+<li>当前文件的版本</li>
+<li>二级域名服务器重试、更新、过期信息的时间设置</li>
+<li>RR的TTL默认时间</li>
+</ul>
+</li>
+<li><code>A</code> and <code>AAAA</code>. <code>A</code>把一个<code>host</code>映射到IPv4地址， <code>AAAA</code>映射到IPv6地址。</li>
+<li><code>CNAME</code> 别名.可以为你的<code>A</code>或者<code>AAAA</code>记录映射的服务取别名.</li>
+<li><code>MX</code>(Mail Exchange), 邮件交换主机记录. 此记录是用来宣告一个域底下哪一个<code>A</code>记录为专门负责邮件进出. 由于一个网域底下的<code>MX</code>记录可以超过一笔, 所以, 在众多<code>MX</code>记录里要排列出优先順序就必须倚靠<code>MX</code>记录里的另一项设定—<code>Preference</code>值, 值越小, 优先权越高, 最小的值为0. 同时<code>MX</code>不能指向<code>CNAME</code>.</li>
+<li><code>NS</code>(Name Server). 指定哪个<code>Name Server</code>可以得到某个域名的权威解析, 用于TLD顶级域名服务器解析会用到.</li>
+<li><code>PTR</code>(Pointer)反向解析, 把IP解析到域名.</li>
+<li>aws还支持一种叫<code>alias</code>的record, 指向aws的某个公网服务。</li>
+</ul>
+<h3 id="Fully-Qualified-Domain-Name-FQDN"><a href="#Fully-Qualified-Domain-Name-FQDN" class="headerlink" title="Fully Qualified Domain Name(FQDN)"></a>Fully Qualified Domain Name(FQDN)</h3><p>按ICANN的标准FQDN是需要按<code>.</code>结尾的，虽然通常我们并没有这么做. 具体语法如下图所示<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/fqdn-explained.jpg" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/fqdn-explained.jpg"></p>
+<h3 id="浏览器解析DNS步骤"><a href="#浏览器解析DNS步骤" class="headerlink" title="浏览器解析DNS步骤"></a>浏览器解析DNS步骤</h3><p>浏览器输入域名后， 从域名解析到实际的IP, 会走如下步骤：</p>
+<ul>
+<li>计算机先检查浏览器缓存是否存在， 如果是使用chrome, 可以在地址栏输入<code>chrome://net-internals/#dns</code>查看缓存信息。</li>
+<li>浏览器的缓存有一些限制， 比如缓存的条目数只有1000等等，所以如果不命中缓存， 那么就会查询本地hosts文件是否存在对应的ip。</li>
+<li>如果还是不中那么检查服务器端设置的域名解析服务器<code>Resolving Name Servers</code>（<code>/etc/resolv.conf</code>设置的DNS首选项）缓存是否命中。</li>
+<li>如果还是没有命中，那么就会查询<code>Resolving Name Servers</code>(通常是ISP供应商提供)。后续还会往root服务器迭代查询， root服务器又会重定向到TLD服务器，TLD再重定向到<code>Domain-Level Name Servers</code>等等。 但是基本上是本地设置的DNS服务器帮助用户做了和上层服务的交互。<br>下图很好解释流整个dns解析流程.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-10-28%20%E4%B8%8B%E5%8D%887.51.42.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-10-28%20%E4%B8%8B%E5%8D%887.51.42.png"></li>
+</ul>
+<h3 id="Route53提供的服务"><a href="#Route53提供的服务" class="headerlink" title="Route53提供的服务"></a>Route53提供的服务</h3><p>Route53提供三个服务：域名注册，DNS服务，健康检查。</p>
+<h3 id="使用Route53和其他服务提高系统韧性"><a href="#使用Route53和其他服务提高系统韧性" class="headerlink" title="使用Route53和其他服务提高系统韧性"></a>使用Route53和其他服务提高系统韧性</h3><ol>
+<li>每个区域有一个负载均衡器， 均衡器下的服务器分布在不同可用区。</li>
+<li>每个可用区都需要是自动伸缩。</li>
+<li>负载均衡器需要设置健康检查。</li>
+<li>每个负载均衡器上面是Route53， Route53设置别名记录<code>alias record</code>指向每个负载均衡器， 同时设置路由规则采用最小延时规则， 开启每个均衡器的健康检查。</li>
+<li>所有静态和动态内容使用CDN缓存。</li>
+</ol>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：DNS和Route53简介</li>
+        <li>Post author：Kopei</li>
+        <li>Create time：2018-10-27 00:00:00</li>
+        <li>
+            Post link：https://kopei.github.io/2018/10/26/cloud-2018-10-27-DNS-and-Route53/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="../../../../tags/cloud/">#cloud</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="../../../11/04/cloud-2018-11-05-aws-internet-gateway/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">AWS的VPC组件</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="../../13/AI-2018-10-04-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%80%E6%92%87/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">机器学习一撇</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script data-pjax 
+        src="//evan.beee.top/js/waline.js"></script>
+    <script data-pjax>
+        function loadWaline() {
+            Waline.init({
+                el: '#waline',
+                serverURL: 'https://kopie-comments-9snhujxxf-kopei.vercel.app',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">DNS和Route53简介</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">DNS基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#host%E5%92%8CSubdomain"><span class="nav-text">host和Subdomain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Name-Server"><span class="nav-text">Name Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Zone-file"><span class="nav-text">Zone file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS-Record-Types"><span class="nav-text">DNS Record Types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fully-Qualified-Domain-Name-FQDN"><span class="nav-text">Fully Qualified Domain Name(FQDN)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E6%9E%90DNS%E6%AD%A5%E9%AA%A4"><span class="nav-text">浏览器解析DNS步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Route53%E6%8F%90%E4%BE%9B%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="nav-text">Route53提供的服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Route53%E5%92%8C%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1%E6%8F%90%E9%AB%98%E7%B3%BB%E7%BB%9F%E9%9F%A7%E6%80%A7"><span class="nav-text">使用Route53和其他服务提高系统韧性</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2017</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Kopei</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.2</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2017/01/01 00:00:00
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/layouts/menu-shrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/go-top-bottom.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/dark-light-toggle.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/local-search.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/code-block.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/assets/odometer-theme-minimal.css">
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/toc-toggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/plugins/tabs.js"></script>
+    
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

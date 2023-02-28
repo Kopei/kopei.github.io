@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="data governance">
+    <meta name="description" content="企业级主数据治理框架">
+    <meta name="author" content="Kopei">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://kopei.github.io/2021/10/24/data-warehouse-2021-10-25-master-data-governance/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="企业级主数据治理框架">
+    <meta property="og:description" content="企业级主数据治理框架">
+    <meta property="og:url" content="https://kopei.github.io2021/10/24/data-warehouse-2021-10-25-master-data-governance/">
+    <meta property="og:image" content="/images/redefine-logo.svg">
+    <meta property="og:site_name" content="Kopei&#39;s Home">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="企业级主数据治理框架">
+    <meta name="twitter:description" content="企业级主数据治理框架">
+    <meta name="twitter:image" content="/images/redefine-logo.svg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-logo.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-logo.svg">
+    <meta name="theme-color" content="#005080">
+    <link rel="shortcut icon" href="../../../../images/redefine-logo.svg">
+    
+    <title>
+        
+            企业级主数据治理框架 -
+        
+        Kopei&#39;s Home
+    </title>
+    
+<link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/assets/fonts.css">
+    
+    
+    
+    
+        <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/redefine-avatar.svg","favicon":"/images/redefine-logo.svg","article_img_align":"center","right_side_width":"200px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"https://evan.beee.top/img/wallhaven-wqery6-light.webp","dark":"https://evan.beee.top/img/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"description":"两仪立焉 朋来无咎","custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.1.2","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/fontawesome/regular.min.css">
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Kopei&#39;s Home
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">企业级主数据治理框架</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="../../../../images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Kopei</span>
+                            
+                                <span class="author-label">article</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2021-10-25</span>
+        <span class="mobile">2021-10-25 00</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2023-02-28 13:08:13</span>
+            <span class="mobile">2023-02-28 13:08</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../categories/data-governance/">data governance</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/master-data-data-governance/">master data, data governance</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="1-Introduction-介绍"><a href="#1-Introduction-介绍" class="headerlink" title="1. Introduction 介绍"></a>1. Introduction 介绍</h2><h3 id="1-1-什么是主数据？"><a href="#1-1-什么是主数据？" class="headerlink" title="1.1 什么是主数据？"></a>1.1 什么是主数据？</h3><p>主数据是以与业务活动相关的通用和抽象概念形式提供业务活动语境的数据，包括业务活动中涉及内部和外部对象的详细信息(定义与标识符)。一般主数据使用业务实体来表示，如客户、产品、雇员、供应商等数据，实体是客观世界的对象(人、组织、地方或事物等)，实体被实例以数据&#x2F;记录的形式表示。</p>
+<h3 id="1-2-为什么需要管理主数据？"><a href="#1-2-为什么需要管理主数据？" class="headerlink" title="1.2 为什么需要管理主数据？"></a>1.2 为什么需要管理主数据？</h3><p>常见的主数据管理驱动因素有：</p>
+<ol>
+<li>满足组织数据的需求。组织中的多个业务领域需要访问相同的数据集，并且这些数据集是完整的、最新的、一致的。</li>
+<li>管理数据质量。主数据管理通过使用统一的表示来定义对组织至关重要的实体，以降低由于数据不一致、质量和差异等问题对决策失误和机会错失的风险。</li>
+<li>管理数据集成的成本。主数据管理需要将关键实体集成到统一的系统中，减少对因对关键实体定义和识别方式变化而产生的额外成本。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/2021-10/master_data_semantics.png"
+                     
+                ><center>图1. 主数据语境关系图</center></li>
+</ol>
+<h3 id="1-3-主数据管理的目标和原则"><a href="#1-3-主数据管理的目标和原则" class="headerlink" title="1.3 主数据管理的目标和原则"></a>1.3 主数据管理的目标和原则</h3><h4 id="1-3-1-企业主数据管理的目标有："><a href="#1-3-1-企业主数据管理的目标有：" class="headerlink" title="1.3.1 企业主数据管理的目标有："></a>1.3.1 企业主数据管理的目标有：</h4><ol>
+<li>确保组织在各个流程中拥有完整、一致、最新和权威的主数据。</li>
+<li>促使企业在各个单元和各应用系统之间共享主数据。</li>
+<li>通过采用标准的、通用的数据模型和整合模式，降低数据使用和数据整合的成本及复杂性。</li>
+</ol>
+<h4 id="1-3-2-企业主数据管理应遵循如下指导原则："><a href="#1-3-2-企业主数据管理应遵循如下指导原则：" class="headerlink" title="1.3.2 企业主数据管理应遵循如下指导原则："></a>1.3.2 企业主数据管理应遵循如下指导原则：</h4><ol>
+<li>共享数据。需要组织的全局管理，以实现广泛地共享主数据。</li>
+<li>所有权。主数据所有权属于整个组织，而不是属于某个应用系统或部门。在企业，主数据的所有权由信息化发展委员会做最终解释。相关业务记录系统的数据所有权属于相关业务部门，经过数据整合后在数据共享平台分发的主数据所有权转移为整个组织。</li>
+<li>质量问题。主数据需要持续的数据质量监控和管理。</li>
+<li>管理职责。企业信息化发展委员会拥有对主数据的远景和战略制定和监管，下设数据治理委员会负责策略发展和战略目标对齐，数据治理执行层负责具体地数据管理职责，控制和保证主数据的质量。</li>
+<li>变更控制。在给定的时间点，主数据的值代表组织对准确和最新内容的最佳理解。改变数据值的取值规则，应该在有关数据治理执行层监督下谨慎进行，修改数据实体版本需要通过数据治理委员会审批通过，并且做到变更可追溯。</li>
+<li>权限。任何主数据的使用和分发需要通过数据治理委员的审批，并由数据治理执行层执行并妥善管理权限。特定业务主数据的使用需要数据治理委员会分管领导亲自审批，例如人员信息主数据需要首席人力资源官审批才能给下游系统共享使用。</li>
+</ol>
+<h3 id="1-4-主数据治理管理层组织架构"><a href="#1-4-主数据治理管理层组织架构" class="headerlink" title="1.4 主数据治理管理层组织架构"></a>1.4 主数据治理管理层组织架构</h3><p>企业主数据治理组织架构分为管理层和执行层，管理层设信息化发展委员会负责整个集团的数据治理愿景设计和战略规划与监管。信息化发展委员会下设数据治理委员会，负责向上对齐目标，向下监督数据治理的执行和策略发展。数据治理的执行层负责具体的主数据治理工作，包括计划、开发、维护和运营。整个主数据治理组织架构设置如图 2。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/2021-10/organization_architucture.png"
+                     
+                ></p>
+<center>图2. 主数据治理组织架构图</center>
+
+<h3 id="1-5-主数据共享系统架构"><a href="#1-5-主数据共享系统架构" class="headerlink" title="1.5 主数据共享系统架构"></a>1.5 主数据共享系统架构</h3><p>企业的主数据共享架构采用业务系统本地管理主数据，数据共享平台作为公共平台集成和共享数据，对主数据做治理和展示，并将问题数据反馈给相关业务系统。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/2021-10/sharing_platform.png"
+                     
+                ></p>
+<center>图3. 数据共享平台主数据共享架构</center>
+
+<h3 id="1-6-评估主数据管理情况"><a href="#1-6-评估主数据管理情况" class="headerlink" title="1.6 评估主数据管理情况"></a>1.6 评估主数据管理情况</h3><p>公司需要定期评估当前主数据管理的能力、成熟度和有效性。需要从如下几点识别公司主数据管理的情况：</p>
+<ol>
+<li>哪些角色、组织、地点和事物等实体被反复引用</li>
+<li>哪些数据被用来描述人、组织、地点和事物等实体</li>
+<li>数据是如何被定义和设计的，以及数据颗粒度细化程度</li>
+<li>数据在哪里被创建或源于哪个系统，在哪里被存储、提供和访问</li>
+<li>数据通过组织内的系统时是如何发生变化的</li>
+<li>谁使用了这些数据，为了什么目的</li>
+<li>用什么标准来衡量数据及其来源的质量和可靠性</li>
+</ol>
+<h2 id="2-Activities-活动"><a href="#2-Activities-活动" class="headerlink" title="2.Activities 活动"></a>2.Activities 活动</h2><h3 id="2-1-主数据管理的关键步骤"><a href="#2-1-主数据管理的关键步骤" class="headerlink" title="2.1 主数据管理的关键步骤"></a>2.1 主数据管理的关键步骤</h3><p>主数据管理的关键步骤包括数据模型管理、数据采集、数据验证、标准化和数据丰富、实体解析、数据分发和共享。</p>
+<h4 id="2-1-1-数据模型管理"><a href="#2-1-1-数据模型管理" class="headerlink" title="2.1.1 数据模型管理"></a>2.1.1 数据模型管理</h4><p>清晰一致的逻辑数据模型定义对主数据管理至关重要。数据模型必须是企业级定义的术语，并对整个组织所进行的业务相关联。源系统中数据定义的术语不能在企业具有全局意义，所以不能依赖源系统的定义。每个主数据模型都要有严格的版本定义和辅助字段以帮助确定某一时刻此版本主数据是对企业级实体的最佳理解。推荐的主数据附加辅助属性有：</p>
+<p>|—————–+—————|</p>
+<table>
+<thead>
+<tr>
+<th>主数据元属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正式名称</td>
+<td>通过管理层审核的中英文名，统一企业内部语意</td>
+</tr>
+<tr>
+<td>—————–+—————</td>
+<td></td>
+</tr>
+<tr>
+<td>数据源提供者</td>
+<td>提供数据源系统</td>
+</tr>
+<tr>
+<td>—————–+—————</td>
+<td></td>
+</tr>
+<tr>
+<td>数据源数据创建时间</td>
+<td>标识数据值的创建时间</td>
+</tr>
+<tr>
+<td>—————–+—————</td>
+<td></td>
+</tr>
+<tr>
+<td>数据源数据更新时间</td>
+<td>标识数据值的更新时间</td>
+</tr>
+<tr>
+<td>—————–+—————</td>
+<td></td>
+</tr>
+<tr>
+<td>实体模型版本号</td>
+<td>官方确定的主数据版本号</td>
+</tr>
+<tr>
+<td>—————–+—————</td>
+<td></td>
+</tr>
+<tr>
+<td>实体数据的创建时间</td>
+<td>从源数据整合后的创建时间</td>
+</tr>
+<tr>
+<td>—————–+—————</td>
+<td></td>
+</tr>
+<tr>
+<td>实体数据的更新时间</td>
+<td>分发的数据集最新更新日期</td>
+</tr>
+<tr>
+<td>—————–+—————</td>
+<td></td>
+</tr>
+</tbody></table>
+<center>表1.主数据附加属性</center>
+
+
+<h4 id="2-1-2-数据采集"><a href="#2-1-2-数据采集" class="headerlink" title="2.1.2 数据采集"></a>2.1.2 数据采集</h4><p>从规划、评估和合并数据源数据到主数据系统必须是一个可靠、可重复的过程。数据采集活动包括:</p>
+<ol>
+<li>接受并应对新的数据源采集需求</li>
+<li>使用数据清洗和数据分析工具进行快速、即时、匹配的数据质量评估</li>
+<li>评估数据并将数据整合的复杂性传递给需求者，以帮助他们进行成本效益分析</li>
+<li>尝试数据采集及评估其匹配规则的影响</li>
+<li>为新数据源确定数据质量指标</li>
+<li>确定维护和监控数据质量的责任人</li>
+<li>完成与整体数据管理环境的集成</li>
+</ol>
+<h4 id="2-1-3-数据验证、标准化和数据丰富"><a href="#2-1-3-数据验证、标准化和数据丰富" class="headerlink" title="2.1.3 数据验证、标准化和数据丰富"></a>2.1.3 数据验证、标准化和数据丰富</h4><ol>
+<li>验证。识别明显错误或者不正确的数据，并采用对应措施（删除或合并）。</li>
+<li>标准化。确保数据内容符合标准参考数据、标准格式。</li>
+<li>数据丰富。添加可以用于改进实体解析服务的额外属性。</li>
+<li>实体解析和标识符管理。实体解析是指确定两个或多个对现实世界对象的表示是否为同一个对象的过程。通过确定两个或多个表示之间的相似性来确定是否为同一对象。实体解析包括一系列活动（实例提取、实例准备、实例解析、身份管理、关系分析），这些解析活动能够使实体、实例的身份以及实体、实例之间的关系持续地被管理。实例可以通过一个全局标识符把等价的实例关联起来。</li>
+</ol>
+<h4 id="2-1-4-数据分发与共享"><a href="#2-1-4-数据分发与共享" class="headerlink" title="2.1.4 数据分发与共享"></a>2.1.4 数据分发与共享</h4><p>主数据分发与共享需要严格的权限管理和数据安全使用声明。确保下游系统只使用最小的、必要的、可控的数据。</p>
+<h3 id="2-2-评估和评价数据源"><a href="#2-2-评估和评价数据源" class="headerlink" title="2.2 评估和评价数据源"></a>2.2 评估和评价数据源</h3><p>现有应用中的数据是主数据管理工作的基础。理解这些数据的结构和内容的过程很重要，评估数据源主要是为了评估数据质量，具体包括数据的完整性、唯一性、有效性、一致性、准确性和及时性。对于有些数据实体，可以采用购买标准化数据来实现主数据管理工作，这些参考数据可以和内部数据进行比较，以此来改善企业内部数据的质量。</p>
+<h3 id="2-3-定义架构方法"><a href="#2-3-定义架构方法" class="headerlink" title="2.3 定义架构方法"></a>2.3 定义架构方法</h3><p>主数据管理的架构方法取决于业务战略、现有数据源平台以及数据本身，特别受数据的血缘和波定性以及延迟性影响。依据企业现有的系统状况，由于缺少部分必要的业务记录系统，数据共享中心架构显得尤为重要，推荐开发数据共享平台，以便管理员可以在数据共享中心维护部分主数据并且共享数据给下游系统。</p>
+<h3 id="2-4-建模主数据"><a href="#2-4-建模主数据" class="headerlink" title="2.4 建模主数据"></a>2.4 建模主数据</h3><p>主数据管理是一个持续的整合过程。为了实现一致的结果，必须在主题域中为数据建模，定义企业级的主题域实体和属性。主数据定义的术语和属性应该和整个组织所进行的业务相关联，而不是单单取决于某个源系统的数据。构成主数据的属性也应该定义粒度，并且粒度在整个组织具有意义。如果多个数据源存在不同的命名属性，在企业级模型中必须整合成单一属性，并且数据值处于适当的语境中。</p>
+<h3 id="2-5-定义管理职责和维护过程"><a href="#2-5-定义管理职责和维护过程" class="headerlink" title="2.5 定义管理职责和维护过程"></a>2.5 定义管理职责和维护过程</h3><p>主数据管理组织架构如 1.4 章所述，具体的管理职责和维护方式如图 4 所示，技术解决方案和管理流程需要并存于主数据管理的工作中，技术解决方案用在主记录标识符的匹配、合并和管理工作，管理流程用来对记录进行修复和缺失补进。比如，相关业务部门作为业务系统和数据的所有者负有业务系统数据管理职责，当业务源数据经过主数据共享平台治理，数据所有权发生变更，相关业务数据也成为企业级主数据，同时主数据管理模块向源系统提供问题数据必要的反馈。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/2021-10/management_flow.png"
+                     
+                ></p>
+<center>图4. 管理职责和维护流程图</center>
+
+<h3 id="2-6-建立治理制度，推动主数据使用"><a href="#2-6-建立治理制度，推动主数据使用" class="headerlink" title="2.6 建立治理制度，推动主数据使用"></a>2.6 建立治理制度，推动主数据使用</h3><p>在初步完成主数据治理工作后，需要在系统之间建立单向闭环的数据流，以保持系统之间值的一致性。强制要求各下游系统使用主数据，保持主数据的一致。</p>
+<h2 id="3-Guidelines-实施指南"><a href="#3-Guidelines-实施指南" class="headerlink" title="3. Guidelines 实施指南"></a>3. Guidelines 实施指南</h2><h3 id="3-1-遵循主数据架构"><a href="#3-1-遵循主数据架构" class="headerlink" title="3.1 遵循主数据架构"></a>3.1 遵循主数据架构</h3><p>企业主数据建设需要遵循如上章描述的体系架构，整合方式需要考虑企业的组织架构、记录系统的数量、数据访问延迟性要求以及消费系统的需求。</p>
+<h3 id="3-2-监测数据流动"><a href="#3-2-监测数据流动" class="headerlink" title="3.2 监测数据流动"></a>3.2 监测数据流动</h3><p>当数据在共享环境中流动时，应监控相关数据流，以达到如下目的：</p>
+<ol>
+<li>显示数据如何在整个组织中共享和使用</li>
+<li>在应用系统中识别数据血缘关系</li>
+<li>辅助进行数据问题的溯源</li>
+<li>展示数据整合和消费整合技术的有效性</li>
+<li>通过消费数据来评估源系统数据传输的及时性</li>
+<li>确定在集成组件中执行业务规则和转换的有效性</li>
+</ol>
+<h3 id="3-3-设定主数据共享协议"><a href="#3-3-设定主数据共享协议" class="headerlink" title="3.3 设定主数据共享协议"></a>3.3 设定主数据共享协议</h3><p>为了确保恰当的访问和使用，数据共享协议需要被建立，协议规定：哪些数据可以被共享、在何种条件下可以被共享和使用。数据共享平台负责人应当建立服务水平协议和指标(SLA), 以衡量共享数据的可用性和分享数据的质量；并建立标准的沟通方法，使所有受到影响的相关方了解问题的存在和补救工作状况。</p>
+<h3 id="3-4-组织和文化变革"><a href="#3-4-组织和文化变革" class="headerlink" title="3.4 组织和文化变革"></a>3.4 组织和文化变革</h3><p>提高主数据的可用性和质量需要先考虑组织的准备情况、组织的未来使命和愿景。<br>文化变革才是数据治理的中心课题：确定哪些决定由哪些人负责，哪些工作由哪些人负责。本框架建议使用图 2 进行组织和文化架构调整，以适应主数据治理的挑战。<br>在执行层面，当主数据治理执行层认为数据源存在风险，并通知该数据的本地管理员需要开展整改工作时，本地管理员需要及时做出相应的修补措施。</p>
+<h2 id="4-Metrics-度量指标"><a href="#4-Metrics-度量指标" class="headerlink" title="4. Metrics 度量指标"></a>4. Metrics 度量指标</h2><p>企业的主数据治理状况可以参考如下指标度量：</p>
+<h3 id="4-1-数据质量和遵从性"><a href="#4-1-数据质量和遵从性" class="headerlink" title="4.1 数据质量和遵从性"></a>4.1 数据质量和遵从性</h3><p>数据质量仪表盘可以用来描述数据质量，其中应该说明实体或相关属性的置信度，包括数据准确性，及时性、唯一性、有效性、完整性和一致性。</p>
+<h3 id="4-2-数据变更活动"><a href="#4-2-数据变更活动" class="headerlink" title="4.2 数据变更活动"></a>4.2 数据变更活动</h3><p>审核可信的数据血缘对于提高数据共享环境中的数据质量十分重要，需要指标展示数据值的变化率，并且适当调整主数据管理进程中的算法。</p>
+<h3 id="4-3-数据获取和消费"><a href="#4-3-数据获取和消费" class="headerlink" title="4.3 数据获取和消费"></a>4.3 数据获取和消费</h3><p>数据由上游系统供应，由下游系统和流程使用。需要有记录显示和追踪哪些系统共享数据，哪些系统消费数据。</p>
+<h3 id="4-4-服务水平协议-SLA"><a href="#4-4-服务水平协议-SLA" class="headerlink" title="4.4 服务水平协议(SLA)"></a>4.4 服务水平协议(SLA)</h3><p>应建立服务水平协议并传到给贡献者和订阅者，以提供相应的流程支持，技术问题和数据问题解释。</p>
+<h3 id="4-5-数据管理专员覆盖率"><a href="#4-5-数据管理专员覆盖率" class="headerlink" title="4.5 数据管理专员覆盖率"></a>4.5 数据管理专员覆盖率</h3><p>这个指标关注对数据内容负责的团队，识别人员覆盖率对数据管理方面的差距。</p>
+<h3 id="4-6-拥有和维护成本"><a href="#4-6-拥有和维护成本" class="headerlink" title="4.6 拥有和维护成本"></a>4.6 拥有和维护成本</h3><p>从解决方案的角度来看，成本包括基础设施，软件许可证，支持人员，咨询费，培训等。</p>
+<h3 id="4-7-数据共享量和使用情况"><a href="#4-7-数据共享量和使用情况" class="headerlink" title="4.7 数据共享量和使用情况"></a>4.7 数据共享量和使用情况</h3><p>需要跟踪纳入主数据的数据量和使用情况，以确定数据共享环境的有效性。具体指标有流入和流出数据的定义、纳入和订阅数量和速率。</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：企业级主数据治理框架</li>
+        <li>Post author：Kopei</li>
+        <li>Create time：2021-10-25 00:00:00</li>
+        <li>
+            Post link：https://kopei.github.io/2021/10/24/data-warehouse-2021-10-25-master-data-governance/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="../../../../tags/master-data-data-governance/">#master data, data governance</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="../../../../2022/01/09/data-warehouse-2022-01-10-%E5%A2%9E%E9%87%8FETL%E6%BA%90%E6%95%B0%E6%8D%AE%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8C%E7%BB%86%E8%8A%82/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">增量ETL源数据的几种方式和细节</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="../../../08/08/data-warehouse-2021-08-09-data-modeling-type/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Three type of data model</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script data-pjax 
+        src="//evan.beee.top/js/waline.js"></script>
+    <script data-pjax>
+        function loadWaline() {
+            Waline.init({
+                el: '#waline',
+                serverURL: 'https://kopie-comments-9snhujxxf-kopei.vercel.app',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">企业级主数据治理框架</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction-%E4%BB%8B%E7%BB%8D"><span class="nav-text">1. Introduction 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%BB%E6%95%B0%E6%8D%AE%EF%BC%9F"><span class="nav-text">1.1 什么是主数据？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E4%B8%BB%E6%95%B0%E6%8D%AE%EF%BC%9F"><span class="nav-text">1.2 为什么需要管理主数据？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E4%B8%BB%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E7%9A%84%E7%9B%AE%E6%A0%87%E5%92%8C%E5%8E%9F%E5%88%99"><span class="nav-text">1.3 主数据管理的目标和原则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-1-%E4%BC%81%E4%B8%9A%E4%B8%BB%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E7%9A%84%E7%9B%AE%E6%A0%87%E6%9C%89%EF%BC%9A"><span class="nav-text">1.3.1 企业主数据管理的目标有：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-2-%E4%BC%81%E4%B8%9A%E4%B8%BB%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E5%BA%94%E9%81%B5%E5%BE%AA%E5%A6%82%E4%B8%8B%E6%8C%87%E5%AF%BC%E5%8E%9F%E5%88%99%EF%BC%9A"><span class="nav-text">1.3.2 企业主数据管理应遵循如下指导原则：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E4%B8%BB%E6%95%B0%E6%8D%AE%E6%B2%BB%E7%90%86%E7%AE%A1%E7%90%86%E5%B1%82%E7%BB%84%E7%BB%87%E6%9E%B6%E6%9E%84"><span class="nav-text">1.4 主数据治理管理层组织架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-%E4%B8%BB%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84"><span class="nav-text">1.5 主数据共享系统架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-%E8%AF%84%E4%BC%B0%E4%B8%BB%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E6%83%85%E5%86%B5"><span class="nav-text">1.6 评估主数据管理情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Activities-%E6%B4%BB%E5%8A%A8"><span class="nav-text">2.Activities 活动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E4%B8%BB%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E7%9A%84%E5%85%B3%E9%94%AE%E6%AD%A5%E9%AA%A4"><span class="nav-text">2.1 主数据管理的关键步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B%E7%AE%A1%E7%90%86"><span class="nav-text">2.1.1 数据模型管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86"><span class="nav-text">2.1.2 数据采集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-%E6%95%B0%E6%8D%AE%E9%AA%8C%E8%AF%81%E3%80%81%E6%A0%87%E5%87%86%E5%8C%96%E5%92%8C%E6%95%B0%E6%8D%AE%E4%B8%B0%E5%AF%8C"><span class="nav-text">2.1.3 数据验证、标准化和数据丰富</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-4-%E6%95%B0%E6%8D%AE%E5%88%86%E5%8F%91%E4%B8%8E%E5%85%B1%E4%BA%AB"><span class="nav-text">2.1.4 数据分发与共享</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E8%AF%84%E4%BC%B0%E5%92%8C%E8%AF%84%E4%BB%B7%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="nav-text">2.2 评估和评价数据源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%AE%9A%E4%B9%89%E6%9E%B6%E6%9E%84%E6%96%B9%E6%B3%95"><span class="nav-text">2.3 定义架构方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E5%BB%BA%E6%A8%A1%E4%B8%BB%E6%95%B0%E6%8D%AE"><span class="nav-text">2.4 建模主数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-%E5%AE%9A%E4%B9%89%E7%AE%A1%E7%90%86%E8%81%8C%E8%B4%A3%E5%92%8C%E7%BB%B4%E6%8A%A4%E8%BF%87%E7%A8%8B"><span class="nav-text">2.5 定义管理职责和维护过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-%E5%BB%BA%E7%AB%8B%E6%B2%BB%E7%90%86%E5%88%B6%E5%BA%A6%EF%BC%8C%E6%8E%A8%E5%8A%A8%E4%B8%BB%E6%95%B0%E6%8D%AE%E4%BD%BF%E7%94%A8"><span class="nav-text">2.6 建立治理制度，推动主数据使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Guidelines-%E5%AE%9E%E6%96%BD%E6%8C%87%E5%8D%97"><span class="nav-text">3. Guidelines 实施指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E9%81%B5%E5%BE%AA%E4%B8%BB%E6%95%B0%E6%8D%AE%E6%9E%B6%E6%9E%84"><span class="nav-text">3.1 遵循主数据架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E7%9B%91%E6%B5%8B%E6%95%B0%E6%8D%AE%E6%B5%81%E5%8A%A8"><span class="nav-text">3.2 监测数据流动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E8%AE%BE%E5%AE%9A%E4%B8%BB%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB%E5%8D%8F%E8%AE%AE"><span class="nav-text">3.3 设定主数据共享协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E7%BB%84%E7%BB%87%E5%92%8C%E6%96%87%E5%8C%96%E5%8F%98%E9%9D%A9"><span class="nav-text">3.4 组织和文化变革</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Metrics-%E5%BA%A6%E9%87%8F%E6%8C%87%E6%A0%87"><span class="nav-text">4. Metrics 度量指标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F%E5%92%8C%E9%81%B5%E4%BB%8E%E6%80%A7"><span class="nav-text">4.1 数据质量和遵从性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E6%95%B0%E6%8D%AE%E5%8F%98%E6%9B%B4%E6%B4%BB%E5%8A%A8"><span class="nav-text">4.2 数据变更活动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96%E5%92%8C%E6%B6%88%E8%B4%B9"><span class="nav-text">4.3 数据获取和消费</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-%E6%9C%8D%E5%8A%A1%E6%B0%B4%E5%B9%B3%E5%8D%8F%E8%AE%AE-SLA"><span class="nav-text">4.4 服务水平协议(SLA)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E4%B8%93%E5%91%98%E8%A6%86%E7%9B%96%E7%8E%87"><span class="nav-text">4.5 数据管理专员覆盖率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-%E6%8B%A5%E6%9C%89%E5%92%8C%E7%BB%B4%E6%8A%A4%E6%88%90%E6%9C%AC"><span class="nav-text">4.6 拥有和维护成本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-7-%E6%95%B0%E6%8D%AE%E5%85%B1%E4%BA%AB%E9%87%8F%E5%92%8C%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5"><span class="nav-text">4.7 数据共享量和使用情况</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2017</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-regular fa-computer-classic"></i>&nbsp;&nbsp;<a href="/">Kopei</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.1.2</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2017/01/01 00:00:00
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/layouts/menu-shrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/go-top-bottom.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/dark-light-toggle.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/local-search.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/code-block.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/assets/odometer-theme-minimal.css">
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/tools/toc-toggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/plugins/tabs.js"></script>
+    
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.1.2/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
