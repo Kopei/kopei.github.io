@@ -698,10 +698,10 @@ hexo-server@^3.0.0:
     picocolors "^1.0.0"
     serve-static "^1.14.1"
 
-hexo-theme-redefine@1.1.2:
-  version "1.1.2"
-  resolved "https://registry.npmjs.org/hexo-theme-redefine/-/hexo-theme-redefine-1.1.2.tgz#83f02d7a17f1cd38045ed581a8a200b21f28dc01"
-  integrity sha512-Do/n1LNON4KqPLuG33ltfOP+2WK7K2T7ky1C+WEI0vDD7ndMpLsEe3Wb5UrmFzO1BM0gjuGAHmExl6pm7xE3ug==
+hexo-theme-redefine@1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/hexo-theme-redefine/-/hexo-theme-redefine-1.1.6.tgz#ca830fe569b953d5ed6a9941e029c3d2af19b65d"
+  integrity sha512-Seu8UMwBA58XzTuK4l3yU9e3gi6xCeYav5aLxlEO0v8q+8FJmYmlOS2KWe7f6zJFRJk7g7ctDc2GzjWqvJCEiw==
 
 hexo-util@^2.0.0, hexo-util@^2.7.0:
   version "2.7.0"
