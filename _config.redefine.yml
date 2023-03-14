@@ -45,13 +45,23 @@ style:
   first_screen:
     enable: true
     background_image:
-      light: https://evan.beee.top/img/wallhaven-wqery6-light.webp # background image of the first screen, use relative path or external link (if your website is in subdirectory, use external link)
-      dark: https://evan.beee.top/img/wallhaven-wqery6-dark.webp # background image of the first screen, use relative path or external link (if your website is in subdirectory, use external link)
+      light: /images/wallhaven-wqery6-light.webp # background image of the first screen, use relative path or external link (if your website is in subdirectory, use external link)
+      dark: /images/wallhaven-wqery6-dark.webp # background image of the first screen, use relative path or external link (if your website is in subdirectory, use external link)
     title_color:
       light: "#fff" # first screen title color (light mode)
       dark: "#d1d1b6" # first screen title color (dark mode)
-    description: 三才之道 利有攸往 # the title in the middle of the first screen. HTML supported (e.g. svg html code of your logo)
-
+    font_sizes:
+      title: 2.8rem # first screen title font size
+      subtitle: 1.5rem # first screen subtitle font size
+    line_height: 1.2 # first screen title line height
+    title: 三才之道 利有攸往 # the title in the middle of the first screen. HTML supported (e.g. svg html code of your logo)
+    subtitle: 
+      enable: false
+      list: []
+    custom_font: # custom font for the first screen
+      enable: false
+      font_family: # the font family name of the url below
+      font_url:  # The url to the font file
   # Scroll style settings
   scroll:
     progress_bar: # reading progress bar
@@ -264,10 +274,13 @@ footer:
   runtime: true # show website running time or not
   start_time: 2017/01/01 00:00:00 # the starting time of your website, format: yyyy/mm/dd hh:mm:ss
   customize:  # customize footer message, can be html code
-  icp: null # ICP record number of your website, Can be null
+  icp: # ICP record number of your website, Can be null
+    enable: false
+    number: # ICP record number
+    url: # ICP record url
 
 # ---------------------------------------------------------------------------------------
 # Redefine Theme version (Please dont modify it)
 # Please go to github to update the latest version frequently
 # ---------------------------------------------------------------------------------------
-version: 1.1.2
+version: 1.2.1
