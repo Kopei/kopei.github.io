@@ -16,10 +16,10 @@ style:
   primary_color: "#005080"
 
   # Avatar (You can use local image or image external link)
-  avatar: /images/redefine-avatar.svg # avatar of the author
+  avatar: /images/kopei-icon.jpeg # avatar of the author
 
   # Favicon (You can use local image or image external link)
-  favicon: /images/redefine-logo.svg # favicon of the site
+  favicon: /images/k-favicon.jpeg # favicon of the site
 
   # Article image align position
   article_img_align: center # value: left | center
@@ -264,7 +264,7 @@ footer:
   runtime: true # show website running time or not
   start_time: 2017/01/01 00:00:00 # the starting time of your website, format: yyyy/mm/dd hh:mm:ss
   customize:  # customize footer message, can be html code
-  icp: # ICP record number of your website, Can be null
+  icp: null # ICP record number of your website, Can be null
 
 # ---------------------------------------------------------------------------------------
 # Redefine Theme version (Please dont modify it)

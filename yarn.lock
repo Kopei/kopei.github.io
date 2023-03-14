@@ -692,7 +692,7 @@ hexo-server@^3.0.0:
   integrity sha512-u4s0ty9Aew6jV+a9oMrXBwhrRpUQ0U8PWM/88a5aHgDru58VY81mVrxOFxs788NAsWQ8OvsJtF5m7mnXoRnSIA==
   dependencies:
     bluebird "^3.5.5"
-    compression "^1.7.4"
+    compression "^1.7.4
     connect "^3.7.0"
     mime "^3.0.0"
     morgan "^1.9.1"

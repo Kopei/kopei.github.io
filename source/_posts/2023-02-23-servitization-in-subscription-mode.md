@@ -12,6 +12,7 @@ It is driven by the growing complexity of products and the demand for individual
 ## Servitization Process
 General speaking, there are serveral steps to take so as a company transfers from product-centric to customer-centric 
 
-## Findings
+## Key Characterics of subscription model
+
 
 ## Conclusion
