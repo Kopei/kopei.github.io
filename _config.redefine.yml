@@ -54,7 +54,7 @@ style:
       title: 2.8rem # first screen title font size
       subtitle: 1.5rem # first screen subtitle font size
     line_height: 1.2 # first screen title line height
-    title: 三才之道 利有攸往 # the title in the middle of the first screen. HTML supported (e.g. svg html code of your logo)
+    title: 四象调和 元亨利贞 # the title in the middle of the first screen. HTML supported (e.g. svg html code of your logo)
     subtitle: 
       enable: false
       list: []
