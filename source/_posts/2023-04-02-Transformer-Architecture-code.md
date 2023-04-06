@@ -1,21 +1,21 @@
 ---
-title: Transformer Architecture Code
+title: Transformer Intepretion and Code
 comment: true
 date: 2023-04-02 17:12:16
 tags: transformer, AI
 ---
 ## Attention is all your need
-`Attention is all your need`这篇谷歌的transformer开山之作奠定了如今大热的GPT和机器视觉领域神经网络架构的基础。本文将在理解论文的基础上，结合其它材料，进一步深入了解具体代码实现（pytorch），并给出一个`fine tune`的实际应用例子。
+`Attention is all your need`这篇谷歌的`transformer`开山之作奠定了如今大热的GPT和机器视觉领域神经网络的基础架构。本文将在理解论文的基础上，结合其它材料，进一步深入了解具体代码实现（pytorch），并给出一个`fine tune`的实际应用例子。
 
 ### Paper Introduction
-`Transformer`是第一个提出只使用`attention`+`residual connection`+`MLP`架构的神经网络, 起初论文用这种架构去做序列到序列的文本翻译工作，相比`RNN`和`CNN`, `transformer`在大规模训练集上的表现更好，同时这个架构也提高了计算并行性和计算效率。那么为什么会表现地更好? 初步的研究发现，原因有如下几点：
+`Transformer`是第一个提出只使用`attention`+`residual connection`+`MLP`架构的神经网络, 起初论文用这种架构去做序列到序列的文本翻译工作，相比`RNN`和`CNN`, `transformer`在大规模训练集上的表现更好，同时这个架构也提高了计算并行性和计算效率。那么为什么它会表现地更好? 初步的研究发现，原因有如下几点：
 - `transformer`在网络中引入了更少的`inductive bias`归纳偏置，所以有更好的泛化性，对于没有训练过的样本就有更好的表现; 
-- 同时attention机制可以全局地计算出输入序列之间的相关性，相对CNN可以更好地理解上下文，而不是局限窗口特征;
+- 同时attention机制可以全局地计算出序列之间的相关性，相对CNN可以更好地理解上下文，而不是局限卷积窗口特征;
 - 更少的网络深度减少了长距离传输梯度消失的问题，相对RNN就有更好的长输入表现;
 - 当然`transformer`引入残差连接也是性能提升的另一个因素，具体还有其他原因分析还待进一步研究。
 
 ### Model Architecture
-`transformer`使用了`encoder-decoder`编码器-解码器架构, 整体架构论文很好地画出了。代码如下:
+`transformer`使用了`encoder-decoder`编码器-解码器架构, 整体架构论文完美地画了出来。实现的代码如下:
 ![arch](/images/screenshots/transformer_arch.png)
 ```python
 import torch.nn as nn
@@ -46,7 +46,7 @@ class EncoderDecoder(nn.Moudle):
 class Generator(nn.Module):
     """standard linear + softmax generator"""
     def __init__(self, d_model, vocab):
-        super(self, Generator, self).__init__()
+        super(Generator, self).__init__()
         self.projection = nn.Linear(d_model, vocab)
 
     def forward(self, x):
@@ -60,15 +60,15 @@ class Generator(nn.Module):
 2. 然后在Z后加入位置编码信息，位置信息可以用余弦来表示，随后进入编码器输入。
 ```python
 import math
+
 class Embedding(nn.Module):
     def __init__(self, d_model, vocab):
         super(Embedding, self).__init__()
-        self.lut = nn.Embedding(vocab, d_model)
+        self.lut = nn.Embedding(vocab, d_model)  # look up table
         self.d_model = d_model
 
     def forward(self, x):
-        """ 
-        same weight matrix between the two embedding layers and the pre-softmax linear transformation. this is multiply sqrts(d_modle) """
+        """same weight matrix between the two embedding layers and the pre-softmax linear transformation. this is multiply sqrts(d_modle)"""
         return self.lut(x) * math.sqrt(self.d_model)
     
 class PositionalEmbedding(nn.Module):
