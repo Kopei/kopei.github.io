@@ -48,7 +48,7 @@
     <script id="hexo-configurations">
     let REDEFINE = window.REDEFINE || {};
     REDEFINE.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
-    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/kopei-icon.jpeg","favicon":"/images/k-favicon.jpeg","og_image":{"enable":false,"image_url":null},"article_img_align":"center","right_side_width":"200px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"font_sizes":{"title":"2.8rem","subtitle":"1.5rem"},"line_height":1.2,"title":"三才之道 利有攸往","subtitle":{"enable":false,"list":[]},"custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.2.1","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}}};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/kopei-icon.jpeg","favicon":"/images/k-favicon.jpeg","og_image":{"enable":false,"image_url":null},"article_img_align":"center","right_side_width":"200px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"font_sizes":{"title":"2.8rem","subtitle":"1.5rem"},"line_height":1.2,"title":"四象调和 元亨利贞","subtitle":{"enable":false,"list":[]},"custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.2.1","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}}};
     REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
     
@@ -60,7 +60,11 @@
     
     
     
-<meta name="generator" content="Hexo 6.3.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
 
 
 <body>
@@ -205,6 +209,66 @@
                 
                     <div class="home-content-container fade-in-down-animation">
     <ul class="home-article-list">
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="../../2021/06/17/data-warehouse-2021-06-18-SCD/">
+                        Slow Change Dimension in DW
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        What is Slow Change DimensionSCD缓慢变化维是指维度的值会随着时间缓慢变化. 当维度值变化时, 我们可以直接把旧的值覆盖, 也可以存储一行新的值(把旧的记录无效), 还可以加一个字段使用列式存储新的值. 所以基本上SCD...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Fri Jun 18 2021 00:00:00 GMT+0800">
+                
+                    2021-06-18
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="../../categories/data-warehouse/">data warehouse</a>&nbsp;
+                        </li>
+                    
+                    
+                </ul>
+            </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="../../tags/data-warehouse-scd/">data warehouse, scd</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="../../2021/06/17/data-warehouse-2021-06-18-SCD/">Read more<span class="seo-reader-text">Slow Change Dimension in DW</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+            </li>
         
             <li class="home-article-item">
 
@@ -767,77 +831,6 @@ Intelligent Query Processing智能查...
     </div>
 
     <a href="../../2021/01/28/database-SQL-Server-2021-01-29-SQL-Server%E7%9A%84MDS/">Read more<span class="seo-reader-text">SQL Server的主数据服务MDS简介</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="../../2021/01/01/architecture-2021-01-02-%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%8F%B0%E7%9A%84%E4%BB%B7%E5%80%BC/">
-                        数据中台的价值
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        企业为什么需要数据中台?
-与业务更加紧密
-提供数据服务
-提供业务价值
-快速开发数据服务
-围绕业务场景
-提供统一数据
-赋能业务更智能
-构建统一数据资产
-打通数据孤岛
-
-数据仓库, 数据湖, 数据中台的区别从不同使用对象的角度, 我们可以认为三种有本质的...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Jan 02 2021 00:00:00 GMT+0800">
-                
-                    2021-01-02
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="../../categories/architecture/">architecture</a>&nbsp;
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="../../tags/architecture/">architecture</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="../../2021/01/01/architecture-2021-01-02-%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%8F%B0%E7%9A%84%E4%BB%B7%E5%80%BC/">Read more<span class="seo-reader-text">数据中台的价值</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
             </li>
