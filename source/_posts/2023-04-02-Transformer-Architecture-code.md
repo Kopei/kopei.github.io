@@ -68,7 +68,6 @@ class Embedding(nn.Module):
         self.d_model = d_model
 
     def forward(self, x):
-        """same weight matrix between the two embedding layers and the pre-softmax linear transformation. this is multiply sqrts(d_modle)"""
         return self.lut(x) * math.sqrt(self.d_model)
     
 class PositionalEmbedding(nn.Module):
@@ -81,7 +80,7 @@ class PositionalEmbedding(nn.Module):
         pe = torch.zeros(max_len, d_model)
         position = torch.arange(0, max_len).unsqueeze(1)
         div_term = torch.exp(torch.arange(0, d_model, 2) * -(math.log(10000.0)/d_model))
-        # 用指数转变把除法改成乘法
+        # 用指数转变把除法改成乘法, -1幂
         pe[:, 0::2] = torch.sin(position * div_term)
         pe[:, 1::2] = torch.cos(position * div_term)
         pe = pe.unsqueeze(0)
