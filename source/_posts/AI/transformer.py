@@ -4,6 +4,8 @@ import torch
 import torch.nn as nn
 from torch.nn.functional import log_softmax
 
+# model definition
+
 
 class EncoderDecoder(nn.Module):
     """
@@ -58,7 +60,7 @@ class PositionalEncoding(nn.Module):
 
         # 5000*512 tensor
         pe = torch.zeros(max_len, d_model)
-        position = torch.arange(0, max_len).unsqueeze(1)
+        position = torch.arange(0, max_len).unsqueeze(1)  # 5000*1
         div_term = torch.exp(torch.arange(0, d_model, 2)
                              * -(math.log(10000.0)/d_model))
         # 用指数转变把除法改成乘法, -1幂
@@ -90,7 +92,7 @@ class Encoder(nn.Module):
 
 
 def attention(query, key, value, mask=None, dropout=None):
-    d_k = query.size(-1)  # dim number
+    d_k = query.size(-1)  # dim size
     scores = torch.matmul(query, key.transpose(-2, -1)) / math.sqrt(d_k)
     if mask is not None:
         scores = scores.masked_fill(mask == 0, -1e9)  # 掩码是0的位置赋值很小的数
@@ -127,6 +129,8 @@ class MultiHeadAttention(nn.Module):
         del query
         del key
         del value
+
+        # todo plot self_attn
         return self.linears[-1](x)
 
 
@@ -230,9 +234,10 @@ def make_model(
 ):
     "Helper: Construct a model from hyperparameters."
     c = copy.deepcopy
-    attn = MultiHeadAttention(h, d_model)
-    ff = PositionwiseFeedForward(d_model, d_ff, dropout)
-    position = PositionalEncoding(d_model, dropout)
+    attn = MultiHeadAttention(h=h, d_model=d_model)
+    ff = PositionwiseFeedForward(
+        d_model=d_model, d_ff=d_ff, dropout=dropout)
+    position = PositionalEncoding(d_model=d_model, dropout=dropout)
     model = EncoderDecoder(
         Encoder(EncoderLayer(d_model, c(attn), c(ff), dropout), N),
         Decoder(DecoderLayer(d_model, c(attn), c(attn), c(ff), dropout), N),
@@ -250,6 +255,12 @@ def make_model(
 
 
 def inference_test():
+    """Here we make a forward step to generate a prediction of the
+    model. We try to use our transformer to memorize the input. As you
+    will see the output is randomly generated due to the fact that the
+    model is not trained yet. In the next tutorial we will build the
+    training function and try to train our model to memorize the numbers
+    from 1 to 10."""
     test_model = make_model(11, 11, 2)
     test_model.eval()
     src = torch.LongTensor([[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]])

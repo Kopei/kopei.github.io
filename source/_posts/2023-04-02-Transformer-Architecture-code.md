@@ -78,9 +78,8 @@ class PositionalEncoding(nn.Module):
         super(PositionalEncoding, self).__init__()
         self.dropout = nn.Dropout(p=dropout)
 
-        # 5000*512 tensor
-        pe = torch.zeros(max_len, d_model)
-        position = torch.arange(0, max_len).unsqueeze(1)
+        pe = torch.zeros(max_len, d_model) # 5000*512 tensor
+        position = torch.arange(0, max_len).unsqueeze(1) # 5000*1
         div_term = torch.exp(torch.arange(0, d_model, 2) * -(math.log(10000.0)/d_model))
         # 用指数转变把除法改成乘法, -1幂
         pe[:, 0::2] = torch.sin(position * div_term)
@@ -208,21 +207,6 @@ class LayerNorm(nn.Module):
         return x
 ```
 
-整个编码层代码如下：
-```python
-class EncoderLayer(nn.Module):
-    def __init__(self, size, self_attn, feed_forward, dropout):
-        super().__init__()
-        self.self_attn = self_attn
-        self.feed_forward = feed_forward
-        self.sublayer = clones(SublayerConnection(size, dropout), 2)
-        self.size = size
-
-    def forward(self, x, mask):
-        x = self.sublayer[0](x, lambda x: self.self_attn(x, x, x, mask))
-        return self.sublayer[1](x, self.feed_forward)
-```
-
 #### 残差连接
 每个子层的输出将通过残差连接，然后再通过`LayerNorm`, 这里代码实现将先进行归一化然后再做dropout[(cite)](http://jmlr.org/papers/v15/srivastava14a.html)最后再进行残差连接, 目的是为了代码简单。
 子层输出经过公式: {% mathjax %} $\mathrm{LayerNorm}(x + \mathrm{Sublayer}(x))$, where $\mathrm{Sublayer}(x)$ {% endmathjax %} 
@@ -240,6 +224,21 @@ class SublayerConnection(nn.Module):
     def forward(self, x, sublayer):
         "Apply residual connection to any sublayer with the same size."
         return x + self.dropout(sublayer(self.norm(x)))
+```
+
+整个编码层代码如下：
+```python
+class EncoderLayer(nn.Module):
+    def __init__(self, size, self_attn, feed_forward, dropout):
+        super().__init__()
+        self.self_attn = self_attn
+        self.feed_forward = feed_forward
+        self.sublayer = clones(SublayerConnection(size, dropout), 2)
+        self.size = size
+
+    def forward(self, x, mask):
+        x = self.sublayer[0](x, lambda x: self.self_attn(x, x, x, mask))
+        return self.sublayer[1](x, self.feed_forward)
 ```
 
 #### 解码器层
@@ -288,8 +287,8 @@ def make_model(
 ):
     "Helper: Construct a model from hyperparameters."
     c = copy.deepcopy
-    attn = MultiHeadedAttention(h, d_model)
-    ff = PositionwiseFeedForward(d_model, d_ff, dropout)
+    attn = MultiHeadedAttention(h=h, d_model=model)
+    ff = PositionwiseFeedForward(d_model=model, d_ff=d_ff, dropout=dropout)
     position = PositionalEncoding(d_model, dropout)
     model = EncoderDecoder(
         Encoder(EncoderLayer(d_model, c(attn), c(ff), dropout), N),
@@ -306,6 +305,7 @@ def make_model(
             nn.init.xavier_uniform_(p)
     return model
 
+# 没有训练的模型测试记录能力，结果是不能记忆输入。
 def inference_test():
     test_model = make_model(11, 11, 2)
     test_model.eval()
@@ -333,7 +333,7 @@ def run_tests():
         inference_test()
 
 def show_example(fn, args=[]):
-    if __name__ == "__main__" and RUN_EXAMPLES:
+    if __name__ == "__main__":
         return fn(*args)
 
 show_example(run_tests)
