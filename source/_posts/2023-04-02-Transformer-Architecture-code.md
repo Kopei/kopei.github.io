@@ -53,7 +53,7 @@ class Generator(nn.Module):
     def forward(self, x):
         return log_softmax(self.projection(x), dim=-1)
 ```
-上图中编码器和解码器实际上是由6个一样的网络串行堆叠而成，所以如果只看编解码器，它的大致架构如下图:
+上图中编码器和解码器实际上是由6个一样的网络串行堆叠而成，它的大致架构如下图:
 ![stacked_transformer](/images/screenshots/stacked_encoder_decoder.webp)
 
 #### 编码器输入
