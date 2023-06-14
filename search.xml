@@ -986,7 +986,9 @@
   <entry>
     <title>Transformer Intepretion and Code</title>
     <url>/2023/04/02/Transformer-Architecture-code/</url>
-    <content><![CDATA[<h2 id="Attention-is-all-your-need"><a href="#Attention-is-all-your-need" class="headerlink" title="Attention is all your need"></a>Attention is all your need</h2><p><code>Attention is all your need</code>这篇谷歌的<code>transformer</code>开山之作奠定了如今大热的GPT和机器视觉领域神经网络的基础架构。本文将在理解论文的基础上，结合其它材料，进一步深入了解具体代码实现（pytorch），并给出一个<code>fine tune</code>的实际应用例子。</p>
+    <content><![CDATA[<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2415109016615233"
+     crossorigin="anonymous"></script>
+<h2 id="Attention-is-all-your-need"><a href="#Attention-is-all-your-need" class="headerlink" title="Attention is all your need"></a>Attention is all your need</h2><p><code>Attention is all your need</code>这篇谷歌的<code>transformer</code>开山之作奠定了如今大热的GPT和机器视觉领域神经网络的基础架构。本文将在理解论文的基础上，结合其它材料，进一步深入了解具体代码实现（pytorch），并给出一个<code>fine tune</code>的实际应用例子。</p>
 <h3 id="Paper-Introduction"><a href="#Paper-Introduction" class="headerlink" title="Paper Introduction"></a>Paper Introduction</h3><p><code>Transformer</code>是第一个提出只使用<code>attention</code>+<code>residual connection</code>+<code>MLP</code>架构的神经网络, 起初论文用这种架构去做序列到序列的文本翻译工作，相比<code>RNN</code>和<code>CNN</code>, <code>transformer</code>在大规模训练集上的表现更好，同时这个架构也提高了计算并行性和计算效率。那么为什么它会表现地更好? 初步的研究发现，原因有如下几点：</p>
 <ul>
 <li><code>transformer</code>在网络中引入了更少的<code>inductive bias</code>归纳偏置，所以有更好的泛化性，对于没有训练过的样本就有更好的表现; </li>
