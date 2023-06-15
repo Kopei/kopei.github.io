@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="etl">
-    <meta name="description" content="ETL数据源可以分为全量，增量，固定范围和推送方式">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
     <meta name="author" content="Kopei">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
     
@@ -14,19 +14,19 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://kopei.github.io/2022/01/09/data-warehouse-2022-01-10-增量etl源数据的几种方式和细节/"/>
+    <link rel="canonical" href="https://kopei.github.io/2023/06/12/use-cds-authoring/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="增量ETL源数据的几种方式和细节">
-    <meta property="og:description" content="ETL数据源可以分为全量，增量，固定范围和推送方式">
-    <meta property="og:url" content="https://kopei.github.io2022/01/09/data-warehouse-2022-01-10-增量ETL源数据的几种方式和细节/">
+    <meta property="og:title" content="Use CDS Authoring Tool">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="https://kopei.github.io2023/06/12/Use-CDS-Authoring/">
     
     <meta property="og:site_name" content="Kopei&#39;s Home">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="增量ETL源数据的几种方式和细节">
-    <meta name="twitter:description" content="ETL数据源可以分为全量，增量，固定范围和推送方式">
+    <meta name="twitter:title" content="Use CDS Authoring Tool">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
     <meta name="twitter:image" content="/images/k-favicon.jpeg">
     <!--- Icon Part-->
     <link rel="icon" type="image/png" href="../../../../images/k-favicon.jpeg" sizes="192x192">
@@ -36,7 +36,7 @@
     
     <title>
         
-            增量ETL源数据的几种方式和细节 -
+            Use CDS Authoring Tool -
         
         Kopei&#39;s Home
     </title>
@@ -216,7 +216,7 @@
             
             
                 <div class="article-title">
-                    <h1 class="article-title-regular">增量ETL源数据的几种方式和细节</h1>
+                    <h1 class="article-title-regular">Use CDS Authoring Tool</h1>
                 </div>
             
                 
@@ -238,8 +238,8 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="pc">2022-01-10</span>
-        <span class="mobile">2022-01-10 00</span>
+        <span class="pc">2023-06-12 15:26:30</span>
+        <span class="mobile">2023-06-12 15:26</span>
         <span class="hover-info">Created</span>
     </span>
     
@@ -252,28 +252,6 @@
     
 
     
-        <span class="article-categories article-meta-item">
-            <i class="fa-regular fa-folders"></i>&nbsp;
-            <ul>
-                
-                    <li>
-                        <a href="../../../../categories/data-warehouse/">data warehouse</a>&nbsp;
-                    </li>
-                
-            </ul>
-        </span>
-    
-    
-        <span class="article-tags article-meta-item">
-            <i class="fa-regular fa-tags"></i>&nbsp;
-            <ul>
-                
-                    <li>
-                        <a href="../../../../tags/etl-data-warehouse/">etl, data warehouse</a>&nbsp;
-                    </li>
-                
-            </ul>
-        </span>
     
 
     
@@ -292,27 +270,54 @@
             
 
             <div class="article-content markdown-body">
-                <h2 id="Introduction-介绍"><a href="#Introduction-介绍" class="headerlink" title="Introduction 介绍"></a>Introduction 介绍</h2><p><code>ETL</code>是常见的把数据从 OLTP 系统导入数据仓库的方式，一般分为全量，增量，固定范围和推送方式。本文主要讲如何增量抽取，和抽取过程中遇到其它一些问题的解决方法。</p>
-<h3 id="增量抽取"><a href="#增量抽取" class="headerlink" title="增量抽取"></a>增量抽取</h3><p>增量抽取一般可以使用表中列的时间戳，标识符，交易日期和触发器等组合来判断是否需要增量抽取。使用时间戳，标识符和交易日期的方法大致一样，通过比较元数据中记录的上一次成功<code>etl</code>点和当前时间或位置做比较，进行增量抽取。</p>
-<h4 id="原始数据记录删除了数仓该如何处理？"><a href="#原始数据记录删除了数仓该如何处理？" class="headerlink" title="原始数据记录删除了数仓该如何处理？"></a>原始数据记录删除了数仓该如何处理？</h4><ul>
-<li>方法 1：比较原始数据和数仓表的主键，如果发现原始数据库主键已经不存在，那么需要在数据表做软删除。</li>
-<li>方法 2：如果原始数据库支持删除触发器，那么数仓只需 <code>etl</code>删除审计表或者事件表，标记记录已删除就行。（此方法也是用update,insert）<br>如果希望保存所有的更改记录，使用<code>temporal table</code>时态表是个很好的选择，但是需要业务系统支持。</li>
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2415109016615233"
+     crossorigin="anonymous"></script>
+
+<h2 id="导言"><a href="#导言" class="headerlink" title="导言"></a>导言</h2><p><code>CDS Connect</code>项目开源了一个工具<a class="link"   target="_blank" rel="noopener" href="https://github.com/AHRQ-CDS/AHRQ-CDS-Connect-Authoring-Tool" >Authoring tool <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>用于快速创建临床辅助的规则、内容。有了这个工具可以方便地编写CQL（Clinical Quality Language）表达，而不用非常了解语法细节，下面就配合官方文档，简单地用一个例子作一下演示。</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
+<li><code>Element</code>元素。CDS由元素组成，每个元素描述了一条标准用于决定某个患者是否满足临床辅助推荐的标准。</li>
+<li><code>Inclusion</code>包含。即患者满足某个元素的一条标准。</li>
+<li><code>Exclusion</code>排除。即患者不满足某个推荐要求。</li>
+<li><code>Subpopulation</code>子群。即子群体需要更多的具体推荐才能作出决定。</li>
 </ul>
-<h4 id="使用固定范围etl"><a href="#使用固定范围etl" class="headerlink" title="使用固定范围etl"></a>使用固定范围etl</h4><p>如果有些数据源没有自增键或者可用的时间戳，可用系统赋值的<code>RowID</code>作为参考值，固定范围etl数据。在SQL Server中可用如下代码定位，</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">%</span><span class="operator">%</span>physloc<span class="operator">%</span><span class="operator">%</span> <span class="keyword">AS</span> [<span class="operator">%</span><span class="operator">%</span>physloc<span class="operator">%</span><span class="operator">%</span>],</span><br><span class="line">       sys.fn_PhysLocFormatter(<span class="operator">%</span><span class="operator">%</span>physloc<span class="operator">%</span><span class="operator">%</span>) <span class="keyword">AS</span> [File:Page:Slot]</span><br><span class="line"><span class="keyword">FROM</span> Table1</span><br></pre></td></tr></table></figure></div>
-<p>但是数据的更新还是需要使用checksum来比对，如果字段较多性能还是会有瓶颈。</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table1 <span class="keyword">add</span> col4 <span class="keyword">as</span> checksum(col1, col2, col3)</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table2 <span class="keyword">add</span> col4 <span class="keyword">as</span> checksum(col1, col2, col3)</span><br><span class="line">go</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table1</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table2</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table1 t1</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">not</span> <span class="keyword">exists</span></span><br><span class="line">( <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table2 t2</span><br><span class="line"><span class="keyword">where</span> t1.col4 <span class="operator">=</span> t2.col4 )</span><br><span class="line">go</span><br></pre></td></tr></table></figure></div>
+<h3 id="创建和编辑元素流程"><a href="#创建和编辑元素流程" class="headerlink" title="创建和编辑元素流程"></a>创建和编辑元素流程</h3><p>通常步骤包括：</p>
+<ol>
+<li>选择一个元素，元素通常是一个FHIR资源类型，如<code>Condition</code>或<code>Observation</code>。元素的类型也会觉得那些数据需要从患者数据中来。具体的元素类型有：</li>
+</ol>
+<ul>
+<li><code>Allergy Intolerance</code>过敏不耐受: Instances of the FHIR <code>AllergyIntolerance</code> resource type</li>
+<li><code>Base Elements</code>基本元素: Re-usable elements defined in the “Base Elements” tab. 可重复使用的基本元素。</li>
+<li><code>Condition</code>病情: Instances of the FHIR <code>Condition</code> resource type</li>
+<li><code>Demographics</code>人口统计学: Age or Gender as specified in an instance of the FHIR Patient resource type</li>
+<li><code>Device</code>设备: Instances of the FHIR <code>Device</code> resource type</li>
+<li><code>Encounter</code>就诊: Instances of the FHIR <code>Encounter</code> resource type</li>
+<li><code>External CQL</code>外部CQL: Named CQL definitions, parameters, and functions from CQL files uploaded in the “External CQL” tab. 来自“外部CQL”标签中上传的命名CQL定义、参数和函数.</li>
+<li><code>Immunization</code>免疫: Instances of the FHIR <code>Immunization</code> resource type</li>
+<li><code>Medication Statement</code>用药记录: Instances of the FHIR <code>MedicationStatement</code> resource type</li>
+<li><code>Medication Request</code>用药请求: Instances of the FHIR <code>MedicationRequest</code>(STU3&#x2F;R4) or MedicationOrder(DSTU2) resource type</li>
+<li><code>Observation</code>观测: Instances of the <code>Observation</code> resource type</li>
+<li><code>Parameters</code>参数: Parameter values for parameters defined in the “Parameters” tab. 在“参数”标签中定义的参数值.</li>
+<li><code>Procedure</code>手术: Instances of the FHIR <code>Procedure</code> resource type</li>
+<li><code>ServiceRequest</code>服务请求: Instances of the FHIR <code>ServiceRequest</code> resource type, available only in FHIR R4</li>
+</ul>
+<ol start="2">
+<li><p>根据所选元素类型，赋予更多的具体含义，如赋予最少一个键值对（这里的键值对是指一组code，这些code会用来匹配患者病历的记录。举个例子，糖尿病会包含多个code来代表不同糖尿病诊断，如一型、二型糖尿病。同时不同的编码系统如ICD-9,ICD-10,SNOMED-CT又有不同值。所以使用键值对可以方便地把所有对应的编码code一次性地和患者电子病历记录匹配起来）或者code编码，如<code>Condition</code>-&gt;<code>Diabetes</code>症状对应糖尿病，<code>Observation</code>-&gt;<code>LDL Cholesterol Test</code>观测对应LDL胆固醇检测；又如通过表单提供额外的信息。</p>
+</li>
+<li><p>修改结果。通过自定义修改或者选择内建的表达式进一步过滤结果，得到元素类型需要得出的结果。</p>
+</li>
+</ol>
+
             </div>
 
             
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：增量ETL源数据的几种方式和细节</li>
+        <li>Post title：Use CDS Authoring Tool</li>
         <li>Post author：Kopei</li>
-        <li>Create time：2022-01-10 00:00:00</li>
+        <li>Create time：2023-06-12 15:26:30</li>
         <li>
-            Post link：https://kopei.github.io/2022/01/09/data-warehouse-2022-01-10-增量ETL源数据的几种方式和细节/
+            Post link：https://kopei.github.io/2023/06/12/Use-CDS-Authoring/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -324,43 +329,20 @@
             
 
             
-                <ul class="post-tags-box">
-                    
-                        <li class="tag-item">
-                            <a href="../../../../tags/etl-data-warehouse/">#etl, data warehouse</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            
 
             
 
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                            rel="prev"
-                            href="../../../03/18/frontend-2022-03-19-microfront-intro/"
-                            >
-                                <span class="left arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </span>
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">小探微前端</span>
-                                    <span class="post-nav-item">Prev posts</span>
-                                </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="../../../../2021/10/24/data-warehouse-2021-10-25-master-data-governance/"
+                            href="../../../04/02/Transformer-Architecture-code/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">企业级主数据治理框架</span>
+                                    <span class="post-nav-title-item">Transformer Intepretion and Code</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -425,8 +407,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">增量ETL源数据的几种方式和细节</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction-%E4%BB%8B%E7%BB%8D"><span class="nav-text">Introduction 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E%E9%87%8F%E6%8A%BD%E5%8F%96"><span class="nav-text">增量抽取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95%E5%88%A0%E9%99%A4%E4%BA%86%E6%95%B0%E4%BB%93%E8%AF%A5%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%EF%BC%9F"><span class="nav-text">原始数据记录删除了数仓该如何处理？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9B%BA%E5%AE%9A%E8%8C%83%E5%9B%B4etl"><span class="nav-text">使用固定范围etl</span></a></li></ol></li></ol></li></ol>
+        <div class="page-title">Use CDS Authoring Tool</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E8%A8%80"><span class="nav-text">导言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%92%8C%E7%BC%96%E8%BE%91%E5%85%83%E7%B4%A0%E6%B5%81%E7%A8%8B"><span class="nav-text">创建和编辑元素流程</span></a></li></ol></li></ol>
 
     </div>
 </div>
