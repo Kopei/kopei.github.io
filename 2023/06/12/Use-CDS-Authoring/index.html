@@ -245,8 +245,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-06-19 09:50:47</span>
-            <span class="mobile">2023-06-19 09:50</span>
+            <span class="pc">2023-06-20 09:58:55</span>
+            <span class="mobile">2023-06-20 09:58</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -319,7 +319,10 @@
 </li>
 </ol>
 <p>5.1 （可选）使用自建修改器定义逻辑。如果作者想进行更加精准的控制，可以自建逻辑，有的时候自建修改器可能不如外部导入CQL方便。当前版本（June, 2023）自定义修改器只能对 FHIR 资源实例的列表进行过滤。未来的版本可能提供额外的功能，如排序和返回特定属性。</p>
-<h3 id="组合元素"><a href="#组合元素" class="headerlink" title="组合元素"></a>组合元素</h3><p>虽然元素本身可以很有用，但通常它们会与其他元素结合使用，以表示更复杂的思想或要求。CDS 作者工具支持以下元素组合方式：</p>
+<ol start="6">
+<li>测试artifact。在将 CDS 逻辑部署到测试环境之前进行测试，可以让作者在流程早期发现和修复错误，从而节省时间和金钱。CDS创作工具的测试允许作者上传其自己的合成测试患者，这些患者以合成患者数据以FHIR资源形式存在。现存的患者测试数据构造工具主要 <a class="link"   target="_blank" rel="noopener" href="https://github.com/AHRQ-CDS/CQL-Testing-Framework" >CQL Testing Framework <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> , <a class="link"   target="_blank" rel="noopener" href="https://github.com/synthetichealth/synthea" >Synthea <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> , <a class="link"   target="_blank" rel="noopener" href="http://clinfhir.com/" >ClinFHIR <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> , and <a class="link"   target="_blank" rel="noopener" href="https://build.fhir.org/ig/HL7/fhir-shorthand/" >FHIR® Shorthand <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> .然后，作者可以针对其中一个或多个患者运行他们的CDS逻辑，并检查结果以确定其是否符合预期。CDS创作工具目前不提供测试患者编辑器，也没有提供结果自动验证的机制（例如，“测试断言”）。对于更高级的测试功能，请考虑使用CDS Connect的<a class="link"   target="_blank" rel="noopener" href="https://github.com/AHRQ-CDS/CQL-Testing-Framework" >CQL测试框架 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</li>
+</ol>
+<p>虽然元素本身可以很有用，但通常它们会与其他元素结合使用，以表示更复杂的思想或要求。CDS 作者工具支持以下元素组合方式：</p>
 <ul>
 <li>与（And）：要求一组布尔元素中的每个元素都为真。</li>
 <li>或（Or）：要求一组布尔元素中至少有一个元素为真。</li>
@@ -328,7 +331,11 @@
 <li>并集（Union）：将多个元素中的项目合并为一个项目集合。使用“并集（Union）”组合方式表示应将所有元素中的所有项目合并为一个项目集合。例如，使用“并集”将LDL-c元素与HDL-c元素组合，将得到所有的LDL-c和HDL-c观测结果。并集只能在“基本元素（Base Elements）”选项卡中使用“列表操作（List Operations）”元素类型应用“并集”组合方式。</li>
 </ul>
 <h3 id="Subpopulation亚群体页"><a href="#Subpopulation亚群体页" class="headerlink" title="Subpopulation亚群体页"></a>Subpopulation亚群体页</h3><p>作者可以使用“亚人群（Subpopulations）”选项卡来指定将患者分组，组内的亚群体适用标准为更具体的相关建议。虽然亚人群不是必需的，但对于需要提供更细致建议或与特定人群相关的建议而言，它们非常有用。例如，他汀类药物artifact可能会针对10年风险评分为8%的患者和10年风险评分为12%的患者提供不同强度的建议。“亚人群”选项卡允许作者创建所需数量的亚人群。对于每个亚人群，作者必须指定一个唯一的名称，然后根据上述部分的描述创建和组合元素。</p>
-<h3 id="基本元素"><a href="#基本元素" class="headerlink" title="基本元素"></a>基本元素</h3><p>作者使用“基本元素（Base Elements）”创建artifact的多个元素和上下文中可重复使用的元素。这样一来，常用元素只需定义一次，就可以在需要的任何地方使用，并可进行进一步修改。作者可以在任何特定上下文之外定义独立的元素，并将这些元素按原样导出为CQL。基于基本元素创建的元素会以浅蓝色进行阴影处理，以便更容易区分。此外，在元素定义的内容中使用“基本元素”标签列出了原始基本元素的名称。如果您点击基本元素名称最右侧的链接图标，将直接进入基本元素的定义页面。</p>
+<h3 id="基本元素"><a href="#基本元素" class="headerlink" title="基本元素"></a>基本元素</h3><p>作者可以使用“基本元素（Base Elements）”创建artifact，基础元素可以是在上下文中多次使用。这样一来，常用元素只需定义一次，就可以在需要的任何地方使用，并可进行进一步修改。作者可以在任何特定上下文之外定义独立的元素，并将这些元素按原样导出为CQL。基于基本元素创建的元素会以浅蓝色进行阴影处理，以便更容易区分。此外，在元素定义的内容中使用“基本元素”标签列出了原始基本元素的名称。如果您点击基本元素名称最右侧的链接图标，将直接进入基本元素的定义页面。请注意，在使用基本元素时会有一些限制。其中之一是您不能删除它。要删除正在使用的基本元素，必须首先删除（或编辑）其所有用到的地方。另一个限制是，如果删除应用表达式会改变基本元素的返回类型，则无法删除该表达式。这确保修改基本元素不会使其使用变得无效。为了删除表达式，请首先删除工件中所有对基本元素的使用。此外，在正在使用的基本元素上无法添加修改器，除非修改器不会改变元素的整体返回类型。如果修改器会改变基本元素的返回类型，则必须先删除工件中所有对基本元素的使用，然后再添加修改器。</p>
+<h3 id="推荐页面Recommendation"><a href="#推荐页面Recommendation" class="headerlink" title="推荐页面Recommendation"></a>推荐页面Recommendation</h3><p>推荐页面是CDS artifact在执行后会给临床医生一个推荐，推荐的具体内容可以被编辑并伴随合理的推荐理由。推荐也可以分亚群定制不同的内容。</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>在CDS运行时输入参数可以动态的输出结果。参数可以有默认值，主要类型有:<br><code>Boolean, Code, Concept, Integer, DateTime, Decimal, Quantity, String, Time, Interval&lt;Integer&gt;, Interval&lt;DateTime&gt;, Interval&lt;Decimal&gt;, and Interval&lt;Quantity&gt;</code></p>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>作者使用“处理错误”选项卡来定义在特定错误条件发生时向最终用户提供哪些信息。例如，作者可能希望在患者健康记录中缺少必要数据时返回错误消息。处理错误是可选的，对于某些用例可能不需要或不实用。</p>
+<h3 id="外部CQL"><a href="#外部CQL" class="headerlink" title="外部CQL"></a>外部CQL</h3><p>外部CQL可以通过页面上传并校验格式，外部CQL特别适合某些复杂数学计算和时间关系此工具处理不了的情况。同时外部CQL是read-only的类型。</p>
 
             </div>
 
@@ -431,7 +438,7 @@
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">Use CDS Authoring Tool</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8CDS%E4%BD%9C%E8%80%85%E5%B7%A5%E5%85%B7"><span class="nav-text">使用CDS作者工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E8%A8%80"><span class="nav-text">导言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%92%8C%E7%BC%96%E8%BE%91%E5%85%83%E7%B4%A0%E6%B5%81%E7%A8%8B"><span class="nav-text">创建和编辑元素流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E5%85%83%E7%B4%A0"><span class="nav-text">组合元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subpopulation%E4%BA%9A%E7%BE%A4%E4%BD%93%E9%A1%B5"><span class="nav-text">Subpopulation亚群体页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%85%83%E7%B4%A0"><span class="nav-text">基本元素</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8CDS%E4%BD%9C%E8%80%85%E5%B7%A5%E5%85%B7"><span class="nav-text">使用CDS作者工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E8%A8%80"><span class="nav-text">导言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%92%8C%E7%BC%96%E8%BE%91%E5%85%83%E7%B4%A0%E6%B5%81%E7%A8%8B"><span class="nav-text">创建和编辑元素流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subpopulation%E4%BA%9A%E7%BE%A4%E4%BD%93%E9%A1%B5"><span class="nav-text">Subpopulation亚群体页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%85%83%E7%B4%A0"><span class="nav-text">基本元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E9%A1%B5%E9%9D%A2Recommendation"><span class="nav-text">推荐页面Recommendation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0"><span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="nav-text">错误处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%83%A8CQL"><span class="nav-text">外部CQL</span></a></li></ol></li></ol></li></ol>
 
     </div>
 </div>
