@@ -19,16 +19,19 @@ tags:
 - `Inclusion`包含。即患者满足某个元素的一条标准。
 - `Exclusion`排除。即患者不满足某个推荐要求。
 - `Subpopulation`亚群体。即亚群体需要更多的具体推荐才能作出决定。
+- `Base Element`基础元素。可以自定义的基础元素。
+- `Recommendation`推荐。当满足条件是cds给出的建议内容。
+- `Parameter`参数。可以在运行时动态的输出参数。
 
 ### 创建和编辑元素流程
 通常步骤包括：
 1. 首先选择一个元素，元素通常是一个FHIR资源类型，如`Condition`或`Observation`。元素的类型也会取决哪些数据需要从患者数据（病例记录）中来。具体的元素类型有：
-	- `Allergy Intolerance`过敏不耐受: Instances of the FHIR `AllergyIntolerance` resource type
+	- `Allergy Intolerance`过敏不耐受: Instances of the FHIR `AllergyIntolerance` resource type.
 	- `Base Elements`基本元素: Re-usable elements defined in the "Base Elements" tab. 可重复使用的基本元素。
-	- `Condition`病情: Instances of the FHIR `Condition` resource type
+	- `Condition`病情: Instances of the FHIR `Condition` resource type.
 	- `Demographics`人口统计学: Age or Gender as specified in an instance of the FHIR Patient resource type
-	- `Device`设备: Instances of the FHIR `Device` resource type
-	- `Encounter`就诊: Instances of the FHIR `Encounter` resource type
+	- `Device`设备: Instances of the FHIR `Device` resource type.
+	- `Encounter`就诊: Instances of the FHIR `Encounter` resource type.
 	- `External CQL`外部CQL: Named CQL definitions, parameters, and functions from CQL files uploaded in the "External CQL" tab. 来自“外部CQL”标签中上传的命名CQL定义、参数和函数.
 	- `Immunization`免疫: Instances of the FHIR `Immunization` resource type
 	- `Medication Statement`用药记录: Instances of the FHIR `MedicationStatement` resource type
@@ -38,7 +41,7 @@ tags:
 	- `Procedure`手术: Instances of the FHIR `Procedure` resource type
 	- `ServiceRequest`服务请求: Instances of the FHIR `ServiceRequest` resource type, available only in FHIR R4
 
-2. 然后根据所选元素类型，赋予更多的具体含义，如赋予最少一个键值对（这里的键值对是指一组code，这些code会用来匹配患者病历的记录。举个例子，糖尿病会包含多个code来代表不同糖尿病诊断，如一型、二型糖尿病。同时不同的编码系统如ICD-9,ICD-10,SNOMED-CT又有不同值。所以使用键值对可以方便地把所有对应的编码code一次性地和患者电子病历记录匹配起来）或者code编码（单独赋予code需要指定编码系统并验证，如果是第三方编码系统需要指定FHIR兼容的URL），如`Condition`->`Diabetes`症状对应糖尿病，`Observation`->`LDL Cholesterol Test`观测对应LDL胆固醇检测；又如通过表单提供额外的信息。
+2. 然后根据所选元素类型，赋予更多的具体含义，如赋予最少一个键值对（这里的键值对是指一组code，这些code会用来匹配患者病历的记录。举个例子，糖尿病会包含多个code来代表不同糖尿病诊断，如一型、二型糖尿病。同时不同的编码系统如ICD-9,ICD-10,SNOMED-CT又有不同值。所以使用键值对可以方便地把所有对应的编码code一次性地和患者电子病历记录匹配起来）或者code编码（单独赋予code需要指定编码系统并验证，如果是第三方编码系统需要指定FHIR兼容的URL），如`Condition`->`Diabetes`症状对应糖尿病，`Observation`->`LDL Cholesterol Test`观测对应LDL胆固醇检测；又如通过表单提供额外的信息(目前仅用于人口统计学)。
 
 3. 命名元素。所有的元素可以被自定义命名，以便更好地体现用意。
 
@@ -52,7 +55,7 @@ tags:
 
 5.1 （可选）使用自建修改器定义逻辑。如果作者想进行更加精准的控制，可以自建逻辑，有的时候自建修改器可能不如外部导入CQL方便。当前版本（June, 2023）自定义修改器只能对 FHIR 资源实例的列表进行过滤。未来的版本可能提供额外的功能，如排序和返回特定属性。
 
-6. 测试artifact。在将 CDS 逻辑部署到测试环境之前进行测试，可以让作者在流程早期发现和修复错误，从而节省时间和金钱。CDS创作工具的测试允许作者上传其自己的合成测试患者，这些患者以合成患者数据以FHIR资源形式存在。现存的患者测试数据构造工具主要 [CQL Testing Framework](https://github.com/AHRQ-CDS/CQL-Testing-Framework) , [Synthea](https://github.com/synthetichealth/synthea) , [ClinFHIR](http://clinfhir.com/) , and [FHIR® Shorthand](https://build.fhir.org/ig/HL7/fhir-shorthand/) .然后，作者可以针对其中一个或多个患者运行他们的CDS逻辑，并检查结果以确定其是否符合预期。CDS创作工具目前不提供测试患者编辑器，也没有提供结果自动验证的机制（例如，“测试断言”）。对于更高级的测试功能，请考虑使用CDS Connect的[CQL测试框架](https://github.com/AHRQ-CDS/CQL-Testing-Framework)。
+6.测试artifact。在将 CDS 逻辑部署到测试环境之前进行测试，可以让作者在流程早期发现和修复错误，从而节省时间和金钱。CDS创作工具的测试允许作者上传其自己合成的测试患者，这些患者以FHIR资源形式存在。现存的患者测试数据构造工具主要 [CQL Testing Framework](https://github.com/AHRQ-CDS/CQL-Testing-Framework) , [Synthea](https://github.com/synthetichealth/synthea) , [ClinFHIR](http://clinfhir.com/) , and [FHIR® Shorthand](https://build.fhir.org/ig/HL7/fhir-shorthand/) .然后，作者可以针对其中一个或多个患者运行他们的CDS逻辑，并检查结果以确定其是否符合预期。CDS创作工具目前不提供测试患者编辑器，也没有提供结果自动验证的机制（例如，“测试断言”）。对于更高级的测试功能，请考虑使用CDS Connect的[CQL测试框架](https://github.com/AHRQ-CDS/CQL-Testing-Framework)。
 
 
 虽然元素本身可以很有用，但通常它们会与其他元素结合使用，以表示更复杂的思想或要求。CDS 作者工具支持以下元素组合方式：
@@ -63,7 +66,7 @@ tags:
 - 并集（Union）：将多个元素中的项目合并为一个项目集合。使用“并集（Union）”组合方式表示应将所有元素中的所有项目合并为一个项目集合。例如，使用“并集”将LDL-c元素与HDL-c元素组合，将得到所有的LDL-c和HDL-c观测结果。并集只能在“基本元素（Base Elements）”选项卡中使用“列表操作（List Operations）”元素类型应用“并集”组合方式。
 
 ### Subpopulation亚群体页
-作者可以使用“亚人群（Subpopulations）”选项卡来指定将患者分组，组内的亚群体适用标准为更具体的相关建议。虽然亚人群不是必需的，但对于需要提供更细致建议或与特定人群相关的建议而言，它们非常有用。例如，他汀类药物artifact可能会针对10年风险评分为8%的患者和10年风险评分为12%的患者提供不同强度的建议。“亚人群”选项卡允许作者创建所需数量的亚人群。对于每个亚人群，作者必须指定一个唯一的名称，然后根据上述部分的描述创建和组合元素。
+作者可以使用“亚人群（Subpopulations）”选项卡来指定将患者分组，组内的亚群体适用标准为更具体的相关建议。虽然亚人群不是必需的，但对于需要提供更细致建议或与特定人群相关的建议而言，它们非常有用。例如，他汀类药物artifact可能会针对10年风险评分为8%的患者和10年风险评分为12%的患者提供不同强度的建议。“亚人群”选项卡允许作者创建所需的亚人群。对于每个亚人群，作者必须指定一个唯一的名称，然后根据上述部分的描述创建和组合元素。
 
 ### 基本元素
 作者可以使用“基本元素（Base Elements）”创建artifact，基础元素可以是在上下文中多次使用。这样一来，常用元素只需定义一次，就可以在需要的任何地方使用，并可进行进一步修改。作者可以在任何特定上下文之外定义独立的元素，并将这些元素按原样导出为CQL。基于基本元素创建的元素会以浅蓝色进行阴影处理，以便更容易区分。此外，在元素定义的内容中使用“基本元素”标签列出了原始基本元素的名称。如果您点击基本元素名称最右侧的链接图标，将直接进入基本元素的定义页面。请注意，在使用基本元素时会有一些限制。其中之一是您不能删除它。要删除正在使用的基本元素，必须首先删除（或编辑）其所有用到的地方。另一个限制是，如果删除应用表达式会改变基本元素的返回类型，则无法删除该表达式。这确保修改基本元素不会使其使用变得无效。为了删除表达式，请首先删除工件中所有对基本元素的使用。此外，在正在使用的基本元素上无法添加修改器，除非修改器不会改变元素的整体返回类型。如果修改器会改变基本元素的返回类型，则必须先删除工件中所有对基本元素的使用，然后再添加修改器。
@@ -80,7 +83,4 @@ tags:
 
 ### 外部CQL
 外部CQL可以通过页面上传并校验格式，外部CQL特别适合某些复杂数学计算和时间关系此工具处理不了的情况。同时外部CQL是read-only的类型。
-
-
-
 
