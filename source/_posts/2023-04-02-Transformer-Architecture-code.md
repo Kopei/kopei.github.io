@@ -5,9 +5,6 @@ date: 2023-04-02 17:12:16
 tags: transformer, AI
 updated: 2023-04-11 18:12:00
 ---
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2415109016615233"
-     crossorigin="anonymous"></script>
-     
 ## Attention is all your need
 `Attention is all your need`这篇谷歌的`transformer`开山之作奠定了如今大热的GPT和机器视觉领域神经网络的基础架构。本文将在理解论文的基础上，结合其它材料，进一步深入了解具体代码实现（pytorch），并给出一个`fine tune`的实际应用例子。
 

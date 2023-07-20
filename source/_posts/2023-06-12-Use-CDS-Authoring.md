@@ -4,9 +4,6 @@ comment: true
 date: 2023-06-12 15:26:30
 tags:
 ---
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2415109016615233"
-     crossorigin="anonymous"></script>
-
 # 使用CDS作者工具
 
 > CDS Connect 作者工具是一种用于创建临床决策支持规则的工具。此工具提供了一个用户友好的界面，供医疗保健专业人员和技术人员使用。它允许用户创建、编辑和管理临床决策支持规则，这些规则可以帮助医生在临床实践中做出更明智的决策。
