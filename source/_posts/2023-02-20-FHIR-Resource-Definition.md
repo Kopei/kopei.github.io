@@ -2,6 +2,7 @@
 title: FHIR-Resource-Definition
 comment: true
 date: 2023-02-20 15:49:09
+updated: 2023-07-21 18:12:00
 tags:
 ---
 
@@ -10,7 +11,7 @@ tags:
 > 本文主要记录FHIRv4.3.0的资源`Resource`内容是如何定义的。实际数据交换时，资源可以用不同的格式来表示: `XML`、`JSON`、`Turtle`和`UML`. 未来批量数据`Bulk Data Formats`的定义也将发布. 
 
 ### Resource Definition
-资源可以用几种不同的方法来定义:
+FHIR资源指一个规格标准定义如何展示和健康相关的某个概念, 当前版本一共有146种资源，主要包括临床信息，人员与组织，财务，安全和术语。资源可以用几种不同的方法来定义:
 - 一种是层级表格，以逻辑视图的方式展示内容, 简称逻辑表`Logical table`
 - UML 统一模型语言
 - 片假XML语法
