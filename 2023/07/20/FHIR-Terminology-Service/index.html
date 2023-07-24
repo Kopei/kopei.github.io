@@ -19,13 +19,13 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="FHIR-Terminology-Service">
+    <meta property="og:title" content="FHIR Terminology Service">
     <meta property="og:description" content="Hexo Theme Redefine">
     <meta property="og:url" content="https://kopei.github.io2023/07/20/FHIR-Terminology-Service/">
     
     <meta property="og:site_name" content="Kopei&#39;s Home">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="FHIR-Terminology-Service">
+    <meta name="twitter:title" content="FHIR Terminology Service">
     <meta name="twitter:description" content="Hexo Theme Redefine">
     <meta name="twitter:image" content="/images/k-favicon.jpeg">
     <!--- Icon Part-->
@@ -36,7 +36,7 @@
     
     <title>
         
-            FHIR-Terminology-Service -
+            FHIR Terminology Service -
         
         Kopei&#39;s Home
     </title>
@@ -216,7 +216,7 @@
             
             
                 <div class="article-title">
-                    <h1 class="article-title-regular">FHIR-Terminology-Service</h1>
+                    <h1 class="article-title-regular">FHIR Terminology Service</h1>
                 </div>
             
                 
@@ -245,13 +245,24 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-07-21 23:19:34</span>
-            <span class="mobile">2023-07-21 23:19</span>
+            <span class="pc">2023-07-24 17:31:17</span>
+            <span class="mobile">2023-07-24 17:31</span>
             <span class="hover-info">Updated</span>
         </span>
     
 
     
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/FHIR/">FHIR</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -273,11 +284,11 @@
                 <h1 id="FHIR-Terminology-Service-术语服务"><a href="#FHIR-Terminology-Service-术语服务" class="headerlink" title="FHIR Terminology Service 术语服务"></a>FHIR Terminology Service 术语服务</h1><blockquote>
 <p>本文将正对<code>HL7 FHIR R4</code>的术语模块做一下介绍，包括官方文档和实现指引。</p>
 </blockquote>
-<h2 id="FHIR-术语模块的设计思路"><a href="#FHIR-术语模块的设计思路" class="headerlink" title="FHIR 术语模块的设计思路"></a>FHIR 术语模块的设计思路</h2><p>HL7 的术语模块提供了一个整体的设计用于指引大家如何使用术语资源，以及相应的操作，数据类型定义，外部和自定义术语库如何展示和交换。最终的目的是为了提供标准的术语服务支持 FHIR 资源间使用标准的编码系统。<br>术语模块主要有 5 个资源：</p>
+<h3 id="FHIR-术语模块的设计思路"><a href="#FHIR-术语模块的设计思路" class="headerlink" title="FHIR 术语模块的设计思路"></a>FHIR 术语模块的设计思路</h3><p>HL7 的术语模块提供了一个整体的设计用于指引大家如何使用术语资源，以及相应的操作，数据类型定义，外部和自定义术语库如何展示和交换。最终的目的是为了提供标准的术语服务支持 FHIR 资源间使用标准的编码系统。<br>术语模块主要有 5 个资源：</p>
 <ul>
 <li>CodeSystem: 编码系统，描述术语的关键元素和定义。</li>
-<li>ConceptMap: 定义一个编码系统的概念与另一个的隐射关系</li>
-<li>ValueSet: 将一个或多个编码系统中用于特定目的的一组代码进行组合。 LOINC 答案列表和 LOINC 分组是由 LOINC FHIR 术语服务器提供的值集示例。</li>
+<li>ConceptMap: 定义一个编码系统的概念与另一个的映射关系。</li>
+<li>ValueSet: 将一个或多个编码系统中用于特定目的的一组代码进行组合, 形成有特定含义的值集。</li>
 <li>NamingSystem: 命名系统。</li>
 <li>TerminologyCapabilities: 术语能力声明。</li>
 </ul>
@@ -293,7 +304,7 @@
                      data-src="/images/screenshots/valuesets-mapping.png"
                       alt="vsmapping"
                 ></p>
-<h3 id="术语服务"><a href="#术语服务" class="headerlink" title="术语服务"></a>术语服务</h3><p>HL7 也给出标准的术语服务实施规范，用户在使用这个服务的时候可以做到不用十分了解细节的编码系统、值集和映射概念。如果一个服务能满足如下列表要求，就可以在 FHIR 能力声明中宣称符合 FHIR 术语服务标准<a class="link"   target="_blank" rel="noopener" href="https://fhir-ru.github.io/capabilitystatement-terminology-server.html" >Terminology Service Capability Statement <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>：</p>
+<h3 id="术语服务"><a href="#术语服务" class="headerlink" title="术语服务"></a>术语服务</h3><p>HL7 也给出标准的术语服务实施规范，用户在使用这个服务的时候可以做到不用十分了解编码系统、值集和映射概念。如果一个服务能满足如下列表要求，就可以在 FHIR 能力声明中宣称符合 FHIR 术语服务标准<a class="link"   target="_blank" rel="noopener" href="https://fhir-ru.github.io/capabilitystatement-terminology-server.html" >Terminology Service Capability Statement <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>：</p>
 <ul>
 <li>安全</li>
 <li>值集拓展, $expand 从值集中扩展返回一组编码列表，实际使用时类似高级 search。</li>
@@ -305,9 +316,9 @@
 <li>批量翻译</li>
 <li>可以维护一个闭环表</li>
 </ul>
-<h4 id="服务的安全要求"><a href="#服务的安全要求" class="headerlink" title="服务的安全要求"></a>服务的安全要求</h4><p>SSL 加密传输是强制要求。如果值集系统允许被实时维护，认证和审计机制是必要的。</p>
+<h4 id="服务的安全要求"><a href="#服务的安全要求" class="headerlink" title="服务的安全要求"></a>服务的安全要求</h4><p>SSL 加密传输是强制要求。如果值集系统允许被实时维护，认证和审计机制也是必要的。</p>
 <h4 id="熟悉基本概念"><a href="#熟悉基本概念" class="headerlink" title="熟悉基本概念"></a>熟悉基本概念</h4><p>由于术语服务是基于几个基本资源的，所以熟悉这些资源和使用方法对实现十分重要。基本资源包括：<code>CodeSystem</code>,<code>ValueSet</code>, <code>ConceptMap</code>. 以及熟悉如何在 FHIR 中使用编码。</p>
-<h4 id="如何在-FHIR-中使用编码"><a href="#如何在-FHIR-中使用编码" class="headerlink" title="如何在 FHIR 中使用编码"></a>如何在 FHIR 中使用编码</h4><p>FHIR 中的资源很多会用到编码，这些编码往往是一串固定的值，代表一个特定的含义。FHIR 这里的编码定义都是通过一对组合:<code>system</code>和<code>code</code>. <code>system</code>的值是一个 url 指出哪里定义了这个编码，这个值需要区分大小写。</p>
+<h4 id="如何在-FHIR-中使用编码"><a href="#如何在-FHIR-中使用编码" class="headerlink" title="如何在 FHIR 中使用编码"></a>如何在 FHIR 中使用编码</h4><p>FHIR 中的资源很多会用到编码，这些编码往往是一串固定的值，代表一个特定的含义或概念。FHIR 这里的编码定义都是通过一对组合:<code>system</code>和<code>code</code>. <code>system</code>的值是一个 url 指出哪里定义了这个编码，这个值需要区分大小写。</p>
 <table>
 <thead>
 <tr>
@@ -341,8 +352,8 @@
  <tr><td colspan="2">另外，非资源元素定义时，如下字段也可以带着编码.或者内容当成编码，并绑定一个值集。</td></tr>
  <tr><td>Quantity</td><td>数量这个字段可以用`system`and<i>code</i>定义单位的类型.</td></tr>
  <tr><td>string</td><td>有的时候string字符串也可以用来控制某个元素固定的几个值.</td></tr>
- <tr><td>uri</td><td>类似string, uri也可以当成编码元素</td></tr>
-</tbody></table>
+ <tr><td>uri</td><td>类似string, uri也可以当成编码元素</td></tr></tbody>
+</table>
 
 <h4 id="选择编码系统"><a href="#选择编码系统" class="headerlink" title="选择编码系统"></a>选择编码系统</h4><p><code>system</code>对应的 url 需要指向一个编码系统。编码系统可以有如下地址可以引用:</p>
 <ul>
@@ -695,7 +706,7 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：FHIR-Terminology-Service</li>
+        <li>Post title：FHIR Terminology Service</li>
         <li>Post author：Kopei</li>
         <li>Create time：2023-07-20 11:12:12</li>
         <li>
@@ -710,6 +721,14 @@
                 </div>
             
 
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="../../../../tags/FHIR/">#FHIR</a>&nbsp;
+                        </li>
+                    
+                </ul>
             
 
             
@@ -789,8 +808,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">FHIR-Terminology-Service</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FHIR-Terminology-Service-%E6%9C%AF%E8%AF%AD%E6%9C%8D%E5%8A%A1"><span class="nav-text">FHIR Terminology Service 术语服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#FHIR-%E6%9C%AF%E8%AF%AD%E6%A8%A1%E5%9D%97%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="nav-text">FHIR 术语模块的设计思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AF%E8%AF%AD%E6%9C%8D%E5%8A%A1"><span class="nav-text">术语服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%89%E5%85%A8%E8%A6%81%E6%B1%82"><span class="nav-text">服务的安全要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%86%9F%E6%82%89%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">熟悉基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8-FHIR-%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%BC%96%E7%A0%81"><span class="nav-text">如何在 FHIR 中使用编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E7%BC%96%E7%A0%81%E7%B3%BB%E7%BB%9F"><span class="nav-text">选择编码系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%8D%E6%9D%82%E8%A1%A8%E8%BE%BE"><span class="nav-text">编码系统的复杂表达</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%83%E7%B4%A0%E7%BC%96%E7%A0%81%E5%80%BC%E7%BB%91%E5%AE%9A"><span class="nav-text">元素编码值绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#expand-%E6%93%8D%E4%BD%9C"><span class="nav-text">$expand 操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lookup-%E6%A6%82%E5%BF%B5%E6%9F%A5%E6%89%BE"><span class="nav-text">$lookup 概念查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#translate-%E6%A6%82%E5%BF%B5%E8%BD%AC%E5%8C%96"><span class="nav-text">$translate 概念转化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB"><span class="nav-text">推荐阅读</span></a></li></ol></li></ol></li></ol>
+        <div class="page-title">FHIR Terminology Service</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FHIR-Terminology-Service-%E6%9C%AF%E8%AF%AD%E6%9C%8D%E5%8A%A1"><span class="nav-text">FHIR Terminology Service 术语服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FHIR-%E6%9C%AF%E8%AF%AD%E6%A8%A1%E5%9D%97%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="nav-text">FHIR 术语模块的设计思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AF%E8%AF%AD%E6%9C%8D%E5%8A%A1"><span class="nav-text">术语服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%89%E5%85%A8%E8%A6%81%E6%B1%82"><span class="nav-text">服务的安全要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%86%9F%E6%82%89%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text">熟悉基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8-FHIR-%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%BC%96%E7%A0%81"><span class="nav-text">如何在 FHIR 中使用编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E7%BC%96%E7%A0%81%E7%B3%BB%E7%BB%9F"><span class="nav-text">选择编码系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A4%8D%E6%9D%82%E8%A1%A8%E8%BE%BE"><span class="nav-text">编码系统的复杂表达</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%83%E7%B4%A0%E7%BC%96%E7%A0%81%E5%80%BC%E7%BB%91%E5%AE%9A"><span class="nav-text">元素编码值绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#expand-%E6%93%8D%E4%BD%9C"><span class="nav-text">$expand 操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lookup-%E6%A6%82%E5%BF%B5%E6%9F%A5%E6%89%BE"><span class="nav-text">$lookup 概念查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#translate-%E6%A6%82%E5%BF%B5%E8%BD%AC%E5%8C%96"><span class="nav-text">$translate 概念转化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB"><span class="nav-text">推荐阅读</span></a></li></ol></li></ol></li></ol>
 
     </div>
 </div>
