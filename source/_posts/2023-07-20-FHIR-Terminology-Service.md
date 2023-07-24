@@ -1,21 +1,21 @@
 ---
-title: FHIR-Terminology-Service
+title: FHIR Terminology Service
 comment: true
 date: 2023-07-20 11:12:12
-tags:
+tags: FHIR
 ---
 # FHIR Terminology Service 术语服务
 
 > 本文将正对`HL7 FHIR R4`的术语模块做一下介绍，包括官方文档和实现指引。
 
-## FHIR 术语模块的设计思路
+### FHIR 术语模块的设计思路
 
 HL7 的术语模块提供了一个整体的设计用于指引大家如何使用术语资源，以及相应的操作，数据类型定义，外部和自定义术语库如何展示和交换。最终的目的是为了提供标准的术语服务支持 FHIR 资源间使用标准的编码系统。
 术语模块主要有 5 个资源：
 
 - CodeSystem: 编码系统，描述术语的关键元素和定义。
-- ConceptMap: 定义一个编码系统的概念与另一个的隐射关系
-- ValueSet: 将一个或多个编码系统中用于特定目的的一组代码进行组合。 LOINC 答案列表和 LOINC 分组是由 LOINC FHIR 术语服务器提供的值集示例。
+- ConceptMap: 定义一个编码系统的概念与另一个的映射关系。
+- ValueSet: 将一个或多个编码系统中用于特定目的的一组代码进行组合, 形成有特定含义的值集。
 - NamingSystem: 命名系统。
 - TerminologyCapabilities: 术语能力声明。
 
@@ -27,7 +27,7 @@ HL7 的术语模块提供了一个整体的设计用于指引大家如何使用�
 
 ### 术语服务
 
-HL7 也给出标准的术语服务实施规范，用户在使用这个服务的时候可以做到不用十分了解细节的编码系统、值集和映射概念。如果一个服务能满足如下列表要求，就可以在 FHIR 能力声明中宣称符合 FHIR 术语服务标准[Terminology Service Capability Statement](https://fhir-ru.github.io/capabilitystatement-terminology-server.html)：
+HL7 也给出标准的术语服务实施规范，用户在使用这个服务的时候可以做到不用十分了解编码系统、值集和映射概念。如果一个服务能满足如下列表要求，就可以在 FHIR 能力声明中宣称符合 FHIR 术语服务标准[Terminology Service Capability Statement](https://fhir-ru.github.io/capabilitystatement-terminology-server.html)：
 
 - 安全
 - 值集拓展, $expand 从值集中扩展返回一组编码列表，实际使用时类似高级 search。
@@ -41,7 +41,7 @@ HL7 也给出标准的术语服务实施规范，用户在使用这个服务的�
 
 #### 服务的安全要求
 
-SSL 加密传输是强制要求。如果值集系统允许被实时维护，认证和审计机制是必要的。
+SSL 加密传输是强制要求。如果值集系统允许被实时维护，认证和审计机制也是必要的。
 
 #### 熟悉基本概念
 
@@ -49,7 +49,7 @@ SSL 加密传输是强制要求。如果值集系统允许被实时维护，认�
 
 #### 如何在 FHIR 中使用编码
 
-FHIR 中的资源很多会用到编码，这些编码往往是一串固定的值，代表一个特定的含义。FHIR 这里的编码定义都是通过一对组合:`system`和`code`. `system`的值是一个 url 指出哪里定义了这个编码，这个值需要区分大小写。
+FHIR 中的资源很多会用到编码，这些编码往往是一串固定的值，代表一个特定的含义或概念。FHIR 这里的编码定义都是通过一对组合:`system`和`code`. `system`的值是一个 url 指出哪里定义了这个编码，这个值需要区分大小写。
 |Key|Value|
 |---|---|
 |system|URI 指定编码的位置|
@@ -67,8 +67,8 @@ FHIR 中的资源很多会用到编码，这些编码往往是一串固定的值
  <tr><td colspan="2">另外，非资源元素定义时，如下字段也可以带着编码.或者内容当成编码，并绑定一个值集。</td></tr>
  <tr><td>Quantity</td><td>数量这个字段可以用`system`and<i>code</i>定义单位的类型.</td></tr>
  <tr><td>string</td><td>有的时候string字符串也可以用来控制某个元素固定的几个值.</td></tr>
- <tr><td>uri</td><td>类似string, uri也可以当成编码元素</td></tr>
-</tbody></table>
+ <tr><td>uri</td><td>类似string, uri也可以当成编码元素</td></tr></tbody>
+</table>
 
 #### 选择编码系统
 
@@ -81,7 +81,7 @@ FHIR 中的资源很多会用到编码，这些编码往往是一串固定的值
 
 下表是所有外部编码系统：
 | URI | Source | Comment | OID (for non-FHIR systems) |
-| ----------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------- |
+| --- | --- | --- | --- |
 | http://snomed.info/sct | SNOMED CT (IHTSDO) | See [Using SNOMED CT with FHIR](snomedct.html) | 2.16.840.1.113883.6.96 |
 | http://www.nlm.nih.gov/research/umls/rxnorm | RxNorm (US NLM) | See [Using RxNorm with FHIR](rxnorm.html) | 2.16.840.1.113883.6.88 |
 | http://loinc.org | LOINC (LOINC.org) | See [Using LOINC with FHIR](loinc.html) | 2.16.840.1.113883.6.1 |
