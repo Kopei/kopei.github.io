@@ -299,8 +299,8 @@ HTTP/1.1 200 OK
 
 ### 几个具体实现
 市面上有大部分术语库有自己的fhir terminology service实现，如：
-- SNOMED实现的![snowstorm](https://github.com/IHTSDO/snowstorm), 支持SNOMED CT, LOINC, ICD-10, ICD-10-CM等等。当然对SNOMED-CT的支持更好。
-- ![Snow-owl](https://github.com/b2ihealthcare/snow-owl)开源版本支持SNOMED-CT, 付费版本支持LOINC，ICD-10等等。
+- SNOMED实现的[snowstorm](https://github.com/IHTSDO/snowstorm), 支持SNOMED CT, LOINC, ICD-10, ICD-10-CM等等。当然对SNOMED-CT的支持更好。
+- [Snow-owl](https://github.com/b2ihealthcare/snow-owl)开源版本支持SNOMED-CT, 付费版本支持LOINC，ICD-10等等。
 
 ### 推荐阅读
 
