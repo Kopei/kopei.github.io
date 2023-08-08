@@ -80,51 +80,51 @@ FHIR 中的资源很多会用到编码，这些编码往往是一串固定的值
 - 在[HL7 OID registry](http://www.hl7.org/oid/index.cfm)注册的 OID
 
 下表是所有外部编码系统：
-| URI | Source | Comment | OID (for non-FHIR systems) |
-| --- | --- | --- | --- |
-| http://snomed.info/sct | SNOMED CT (IHTSDO) | See [Using SNOMED CT with FHIR](snomedct.html) | 2.16.840.1.113883.6.96 |
-| http://www.nlm.nih.gov/research/umls/rxnorm | RxNorm (US NLM) | See [Using RxNorm with FHIR](rxnorm.html) | 2.16.840.1.113883.6.88 |
-| http://loinc.org | LOINC (LOINC.org) | See [Using LOINC with FHIR](loinc.html) | 2.16.840.1.113883.6.1 |
-| http://unitsofmeasure.org | UCUM: (UnitsOfMeasure.org) Case Sensitive Codes | See [Using UCUM with FHIR](ucum.html) | 2.16.840.1.113883.6.8 |
-| http://ncimeta.nci.nih.gov | [NCI Metathesaurus](http://ncimeta.nci.nih.gov) | See [Using NCI Metathesaurus with FHIR](ncimeta.html) | 2.16.840.1.113883.3.26.1.2 |
-| http://www.ama-assn.org/go/cpt | [AMA CPT codes](http://www.ama-assn.org/go/cpt) | See [Using CPT with FHIR](cpt.html) | 2.16.840.1.113883.6.12 |
-| http://hl7.org/fhir/ndfrt | [NDF-RT (National Drug File – Reference Terminology)](http://www.nlm.nih.gov/research/umls/sourcereleasedocs/current/NDFRT/) | See [Using NDF-RT with FHIR](ndfrt.html) | 2.16.840.1.113883.6.209 |
-| http://fdasis.nlm.nih.gov | [Unique Ingredient Identifier (UNII)](http://www.fda.gov/Drugs/InformationOnDrugs/ucm142438.htm) | See [Using UNII with FHIR](unii.html) | 2.16.840.1.113883.4.9 |
-| http://hl7.org/fhir/sid/ndc | [NDC/NHRIC Codes](http://www.fda.gov/Drugs/InformationOnDrugs/ucm142438.htm) | See [Using NDC with FHIR](ndc.html) | 2.16.840.1.113883.6.69 |
-| http://hl7.org/fhir/sid/cvx | [CVX (Vaccine Administered)](http://www2a.cdc.gov/vaccines/iis/iisstandards/vaccines.asp?rpt=cvx) | See [Using CVX with FHIR](cvx.html) | 2.16.840.1.113883.12.292 |
-| urn:iso:std:iso:3166 | [ISO Country & Regional Codes](http://www.iso.org/iso/country_codes.htm) | See [Using ISO 3166 Codes with FHIR](iso3166.html) | 1.0.3166.1.2.2 |
-| http://hl7.org/fhir/sid/dsm5 | [DSM-5](https://en.wikipedia.org/wiki/DSM-5) | Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-5) | 2.16.840.1.113883.6.344 |
-| http://www.nubc.org/patient-discharge | [NUBC code system for Patient Discharge Status](http://www.nubc.org) | National Uniform Billing Committee, manual UB-04, UB form locator 17 | 2.16.840.1.113883.6.301.5 |
-| http://www.radlex.org | [RadLex](http://www.radlex.org) | (Includes [play book](http://playbook.radlex.org) codes) | 2.16.840.1.113883.6.256 |
-| ICD-9, ICD-10 | [WHO](http://www.who.int/classifications/icd/en/) & National Variants | See [Using ICD-[x] with FHIR](icd.html) | See ICD page for details |
-| http://hl7.org/fhir/sid/icpc-1 | [ICPC (International Classification of Primary Care)](http://www.ph3c.org/) | [NHG Table 24 ICPC-1 (NL)](https://referentiemodel.nhg.org/tabellen/nhg-tabel-24-icpc1) | 2.16.840.1.113883.2.4.4.31.1 |
-| http://hl7.org/fhir/sid/icf-nl | [ICF (International Classification of Functioning, Disability and Health)](http://www.who.int/classifications/icf/en/) | | 2.16.840.1.113883.6.254 |
-| http://terminology.hl7.org/CodeSystem/v2-[X](/v) | [Version 2 tables](terminologies-v2.html) | [X] is the 4 digit identifier for a table; e.g. http://terminology.hl7.org/CodeSystem/v2-0203 | 2.16.840.1.113883.12.[X] |
-| http://terminology.hl7.org/CodeSystem/v3-[X] | [A HL7 v3 code system](terminologies-v3.html) | [X] is the code system name; e.g. http://terminology.hl7.org/CodeSystem/v3-GenderStatus | see [v3 list](terminologies-v3.html) |
-| https://www.gs1.org/gtin | [GTIN (GS1)](https://www.gs1.org) | Note: GTINs may be used in both [Codes](datatypes.html#Coding) and [Identifiers](datatypes.html#Identifier) | 1.3.160 |
-| http://www.whocc.no/atc | [Anatomical Therapeutic Chemical Classification System (WHO)](http://www.whocc.no/atc/structure_and_principles/) | | 2.16.840.1.113883.6.73 |
-| urn:ietf:bcp:47 | IETF language (see [Tags for Identifying Languages - BCP 47](http://tools.ietf.org/html/bcp47)) | This is used for identifying language throughout FHIR. Note that usually these codes are in a `code` and the system is assumed | |
-| urn:ietf:bcp:13 | Mime Types (see [Multipurpose Internet Mail Extensions (MIME) Part Four - BCP 13](http://tools.ietf.org/html/bcp13)) | This is used for identifying the mime type system throughout FHIR. Note that these codes are in a `code` (e.g. [Attachment.contentType](datatypes.html#Attachment)) and in these elements the system is assumed. This system is defined for when constructing value sets of mime type codes | |
-| urn:iso:std:iso:11073:10101 | Medical Device Codes (ISO 11073-10101) | See [Using MDC Codes with FHIR](mdc.html) | 2.16.840.1.113883.6.24 |
-| http://dicom.nema.org/resources/ontology/DCM | DICOM Code Definitions | The meanings of codes defined in DICOM, either explicitly or by reference to another part of DICOM or an external reference document or standard | 1.2.840.10008.2.16.4 |
-| http://hl7.org/fhir/NamingSystem/ca-hc-din | [Health Canada Drug Identification Number](http://www.hc-sc.gc.ca/dhp-mps/prodpharma/activit/fs-fi/dinfs_fd-eng.php) | A computer-generated eight-digit number assigned by Health Canada to a drug product prior to being marketed in Canada. [Canada Health Drug Product Database](http://www.hc-sc.gc.ca/dhp-mps/prodpharma/databasdon/index-eng.php) contains product specific information on drugs approved for use in Canada. | 2.16.840.1.113883.5.1105 |
-| http://hl7.org/fhir/sid/ca-hc-npn | [Health Canada Natural Product Number](https://www.canada.ca/en/health-canada/services/drugs-health-products/natural-non-prescription/applications-submissions/product-licensing/licensed-natural-health-products-database.html) | A computer-generated number assigned by Health Canada to a natural health product prior to being marketed in Canada. | 2.16.840.1.113883.5.1105 |
-| http://nucc.org/provider-taxonomy | [NUCC Provider Taxonomy](http://www.nucc.org/index.php/code-sets-mainmenu-41/provider-taxonomy-mainmenu-40/csv-mainmenu-57) | The Health Care Provider Taxonomy code is a unique alphanumeric code, ten characters in length. The code set is structured into three distinct "Levels" including Provider Type, Classification, and Area of Specialization. | 2.16.840.1.113883.6.101 |
-| | Code Systems for Genetics | | |
-| http://www.genenames.org | [HGNC: Human Gene Nomenclature Committee](http://www.genenames.org) | | 2.16.840.1.113883.6.281 |
-| http://www.ensembl.org | [ENSEMBL reference sequence identifiers](http://www.ensembl.org) | Maintained jointly by the European Bioinformatics Institute and Welcome Trust Sanger Institute | not assigned yet |
-| http://www.ncbi.nlm.nih.gov/refseq | [RefSeq: National Center for Biotechnology Information (NCBI) Reference Sequences](https://www.ncbi.nlm.nih.gov/refseq) | | 2.16.840.1.113883.6.280 |
-| http://www.ncbi.nlm.nih.gov/clinvar | [ClinVar Variant ID](http://www.ncbi.nlm.nih.gov/clinvar) | NCBI central repository for curating pathogenicity of potentially clinically relevant variants | not assigned yet |
-| http://sequenceontology.org | [Sequence Ontology](http://sequenceontology.org) | | not assigned yet |
-| http://varnomen.hgvs.org | [HGVS: Human Genome Variation Society](http://varnomen.hgvs.org) | | 2.16.840.1.113883.6.282 |
-| http://www.ncbi.nlm.nih.gov/projects/SNP | [DBSNP: Single Nucleotide Polymorphism database](http://www.ncbi.nlm.nih.gov/projects/SNP) | | 2.16.840.1.113883.6.284 |
-| http://cancer.sanger.ac.uk/cancergenome/projects/cosmic | [COSMIC: Catalogue Of Somatic Mutations In Cancer](http://cancer.sanger.ac.uk/cancergenome/projects/cosmic) | | 2.16.840.1.113883.3.912 |
-| http://www.lrg-sequence.org | [LRG: Locus Reference Genomic Sequences](http://www.lrg-sequence.org) | | 2.16.840.1.113883.6.283 |
-| http://www.omim.org | [OMIM: Online Mendelian Inheritance in Man](http://www.omim.org) | | 2.16.840.1.113883.6.174 |
-| http://www.ncbi.nlm.nih.gov/pubmed | [PubMed](http://www.ncbi.nlm.nih.gov/pubmed) | | 2.16.840.1.113883.13.191 |
-| http://www.pharmgkb.org | [PHARMGKB: Pharmacogenomic Knowledge Base](http://www.pharmgkb.org) | PharmGKB Accession ID | 2.16.840.1.113883.3.913 |
-| http://clinicaltrials.gov | [ClinicalTrials.gov](http://clinicaltrials.gov) | | 2.16.840.1.113883.3.1077 |
-| http://www.ebi.ac.uk/ipd/imgt/hla | [European Bioinformatics Institute](http://www.ebi.ac.uk/ipd/imgt/hla) | | 2.16.840.1.113883.6.341 |
+|URI|Source|Comment|OID (for non-FHIR systems)|
+|---|---|---|---|
+|http://snomed.info/sct|SNOMED CT (IHTSDO)|See [Using SNOMED CT with FHIR](snomedct.html)|2.16.840.1.113883.6.96|
+|http://www.nlm.nih.gov/research/umls/rxnorm|RxNorm (US NLM)|See [Using RxNorm with FHIR](rxnorm.html)|2.16.840.1.113883.6.88|
+|http://loinc.org|LOINC (LOINC.org)|See [Using LOINC with FHIR](loinc.html)|2.16.840.1.113883.6.1|
+|http://unitsofmeasure.org|UCUM: (UnitsOfMeasure.org) Case Sensitive Codes|See [Using UCUM with FHIR](ucum.html)|2.16.840.1.113883.6.8|
+|http://ncimeta.nci.nih.gov | [NCI Metathesaurus](http://ncimeta.nci.nih.gov) | See [Using NCI Metathesaurus with FHIR](ncimeta.html) | 2.16.840.1.113883.3.26.1.2 |
+|http://www.ama-assn.org/go/cpt | [AMA CPT codes](http://www.ama-assn.org/go/cpt) | See [Using CPT with FHIR](cpt.html) | 2.16.840.1.113883.6.12 |
+|http://hl7.org/fhir/ndfrt | [NDF-RT (National Drug File – Reference Terminology)](http://www.nlm.nih.gov/research/umls/sourcereleasedocs/current/NDFRT/) | See [Using NDF-RT with FHIR](ndfrt.html) | 2.16.840.1.113883.6.209 |
+|http://fdasis.nlm.nih.gov | [Unique Ingredient Identifier (UNII)](http://www.fda.gov/Drugs/InformationOnDrugs/ucm142438.htm) | See [Using UNII with FHIR](unii.html) | 2.16.840.1.113883.4.9 |
+|http://hl7.org/fhir/sid/ndc | [NDC/NHRIC Codes](http://www.fda.gov/Drugs/InformationOnDrugs/ucm142438.htm) | See [Using NDC with FHIR](ndc.html) | 2.16.840.1.113883.6.69 |
+|http://hl7.org/fhir/sid/cvx | [CVX (Vaccine Administered)](http://www2a.cdc.gov/vaccines/iis/iisstandards/vaccines.asp?rpt=cvx) | See [Using CVX with FHIR](cvx.html) | 2.16.840.1.113883.12.292 |
+|urn:iso:std:iso:3166 | [ISO Country & Regional Codes](http://www.iso.org/iso/country_codes.htm) | See [Using ISO 3166 Codes with FHIR](iso3166.html) | 1.0.3166.1.2.2 |
+|http://hl7.org/fhir/sid/dsm5 | [DSM-5](https://en.wikipedia.org/wiki/DSM-5) | Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-5) | 2.16.840.1.113883.6.344 |
+|http://www.nubc.org/patient-discharge | [NUBC code system for Patient Discharge Status](http://www.nubc.org) | National Uniform Billing Committee, manual UB-04, UB form locator 17 | 2.16.840.1.113883.6.301.5 |
+|http://www.radlex.org | [RadLex](http://www.radlex.org) | (Includes [play book](http://playbook.radlex.org) codes) | 2.16.840.1.113883.6.256 |
+|ICD-9, ICD-10 | [WHO](http://www.who.int/classifications/icd/en/) & National Variants | See [Using ICD-[x] with FHIR](icd.html) | See ICD page for details |
+|http://hl7.org/fhir/sid/icpc-1 | [ICPC (International Classification of Primary Care)](http://www.ph3c.org/) | [NHG Table 24 ICPC-1 (NL)](https://referentiemodel.nhg.org/tabellen/nhg-tabel-24-icpc1) | 2.16.840.1.113883.2.4.4.31.1 |
+|http://hl7.org/fhir/sid/icf-nl | [ICF (International Classification of Functioning, Disability and Health)](http://www.who.int/classifications/icf/en/) | | 2.16.840.1.113883.6.254 |
+|http://terminology.hl7.org/CodeSystem/v2-[X](/v) | [Version 2 tables](terminologies-v2.html) | [X] is the 4 digit identifier for a table; e.g. http://terminology.hl7.org/CodeSystem/v2-0203 | 2.16.840.1.113883.12.[X] |
+|http://terminology.hl7.org/CodeSystem/v3-[X] | [A HL7 v3 code system](terminologies-v3.html) | [X] is the code system name; e.g. http://terminology.hl7.org/CodeSystem/v3-GenderStatus | see [v3 list](terminologies-v3.html) |
+|https://www.gs1.org/gtin | [GTIN (GS1)](https://www.gs1.org) | Note: GTINs may be used in both [Codes](datatypes.html#Coding) and [Identifiers](datatypes.html#Identifier) | 1.3.160 |
+|http://www.whocc.no/atc | [Anatomical Therapeutic Chemical Classification System (WHO)](http://www.whocc.no/atc/structure_and_principles/) | | 2.16.840.1.113883.6.73 |
+|urn:ietf:bcp:47 | IETF language (see [Tags for Identifying Languages - BCP 47](http://tools.ietf.org/html/bcp47)) | This is used for identifying language throughout FHIR. Note that usually these codes are in a `code` and the system is assumed | |
+|urn:ietf:bcp:13 | Mime Types (see [Multipurpose Internet Mail Extensions (MIME) Part Four - BCP 13](http://tools.ietf.org/html/bcp13)) | This is used for identifying the mime type system throughout FHIR. Note that these codes are in a `code` (e.g. [Attachment.contentType](datatypes.html#Attachment)) and in these elements the system is assumed. This system is defined for when constructing value sets of mime type codes | |
+|urn:iso:std:iso:11073:10101 | Medical Device Codes (ISO 11073-10101) | See [Using MDC Codes with FHIR](mdc.html) | 2.16.840.1.113883.6.24 |
+|http://dicom.nema.org/resources/ontology/DCM | DICOM Code Definitions | The meanings of codes defined in DICOM, either explicitly or by reference to another part of DICOM or an external reference document or standard | 1.2.840.10008.2.16.4 |
+|http://hl7.org/fhir/NamingSystem/ca-hc-din | [Health Canada Drug Identification Number](http://www.hc-sc.gc.ca/dhp-mps/prodpharma/activit/fs-fi/dinfs_fd-eng.php) | A computer-generated eight-digit number assigned by Health Canada to a drug product prior to being marketed in Canada. [Canada Health Drug Product Database](http://www.hc-sc.gc.ca/dhp-mps/prodpharma/databasdon/index-eng.php) contains product specific information on drugs approved for use in Canada. | 2.16.840.1.113883.5.1105 |
+|http://hl7.org/fhir/sid/ca-hc-npn | [Health Canada Natural Product Number](https://www.canada.ca/en/health-canada/services/drugs-health-products/natural-non-prescription/applications-submissions/product-licensing/licensed-natural-health-products-database.html) | A computer-generated number assigned by Health Canada to a natural health product prior to being marketed in Canada. | 2.16.840.1.113883.5.1105 |
+|http://nucc.org/provider-taxonomy | [NUCC Provider Taxonomy](http://www.nucc.org/index.php/code-sets-mainmenu-41/provider-taxonomy-mainmenu-40/csv-mainmenu-57) | The Health Care Provider Taxonomy code is a unique alphanumeric code, ten characters in length. The code set is structured into three distinct "Levels" including Provider Type, Classification, and Area of Specialization. | 2.16.840.1.113883.6.101 |
+|| Code Systems for Genetics | | |
+|http://www.genenames.org | [HGNC: Human Gene Nomenclature Committee](http://www.genenames.org) | | 2.16.840.1.113883.6.281 |
+|http://www.ensembl.org | [ENSEMBL reference sequence identifiers](http://www.ensembl.org) | Maintained jointly by the European Bioinformatics Institute and Welcome Trust Sanger Institute | not assigned yet |
+|http://www.ncbi.nlm.nih.gov/refseq | [RefSeq: National Center for Biotechnology Information (NCBI) Reference Sequences](https://www.ncbi.nlm.nih.gov/refseq) | | 2.16.840.1.113883.6.280 |
+|http://www.ncbi.nlm.nih.gov/clinvar | [ClinVar Variant ID](http://www.ncbi.nlm.nih.gov/clinvar) | NCBI central repository for curating pathogenicity of potentially clinically relevant variants | not assigned yet |
+|http://sequenceontology.org | [Sequence Ontology](http://sequenceontology.org) | | not assigned yet |
+|http://varnomen.hgvs.org | [HGVS: Human Genome Variation Society](http://varnomen.hgvs.org) | | 2.16.840.1.113883.6.282 |
+|http://www.ncbi.nlm.nih.gov/projects/SNP | [DBSNP: Single Nucleotide Polymorphism database](http://www.ncbi.nlm.nih.gov/projects/SNP) | | 2.16.840.1.113883.6.284 |
+|http://cancer.sanger.ac.uk/cancergenome/projects/cosmic | [COSMIC: Catalogue Of Somatic Mutations In Cancer](http://cancer.sanger.ac.uk/cancergenome/projects/cosmic) | | 2.16.840.1.113883.3.912 |
+|http://www.lrg-sequence.org | [LRG: Locus Reference Genomic Sequences](http://www.lrg-sequence.org) | | 2.16.840.1.113883.6.283 |
+|http://www.omim.org | [OMIM: Online Mendelian Inheritance in Man](http://www.omim.org) | | 2.16.840.1.113883.6.174 |
+|http://www.ncbi.nlm.nih.gov/pubmed | [PubMed](http://www.ncbi.nlm.nih.gov/pubmed) | | 2.16.840.1.113883.13.191 |
+|http://www.pharmgkb.org | [PHARMGKB: Pharmacogenomic Knowledge Base](http://www.pharmgkb.org) | PharmGKB Accession ID | 2.16.840.1.113883.3.913 |
+|http://clinicaltrials.gov | [ClinicalTrials.gov](http://clinicaltrials.gov) | | 2.16.840.1.113883.3.1077 |
+|http://www.ebi.ac.uk/ipd/imgt/hla | [European Bioinformatics Institute](http://www.ebi.ac.uk/ipd/imgt/hla) | | 2.16.840.1.113883.6.341 |
 
 #### 编码系统的复杂表达
 
@@ -296,6 +296,11 @@ HTTP/1.1 200 OK
   ]
 }
 ```
+
+### 几个具体实现
+市面上有大部分术语库有自己的fhir terminology service实现，如：
+- SNOMED实现的![snowstorm](https://github.com/IHTSDO/snowstorm), 支持SNOMED CT, LOINC, ICD-10, ICD-10-CM等等。当然对SNOMED-CT的支持更好。
+- ![Snow-owl](https://github.com/b2ihealthcare/snow-owl)开源版本支持SNOMED-CT, 付费版本支持LOINC，ICD-10等等。
 
 ### 推荐阅读
 
