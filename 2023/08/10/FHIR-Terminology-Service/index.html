@@ -14,14 +14,14 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://kopei.github.io/2023/07/20/fhir-terminology-service/"/>
+    <link rel="canonical" href="https://kopei.github.io/2023/08/10/fhir-terminology-service/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     <meta property="og:type" content="article">
     <meta property="og:title" content="FHIR Terminology Service">
     <meta property="og:description" content="Hexo Theme Redefine">
-    <meta property="og:url" content="https://kopei.github.io2023/07/20/FHIR-Terminology-Service/">
+    <meta property="og:url" content="https://kopei.github.io2023/08/10/FHIR-Terminology-Service/">
     
     <meta property="og:site_name" content="Kopei&#39;s Home">
     <meta name="twitter:card" content="summary_large_image">
@@ -238,15 +238,15 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="pc">2023-07-20 11:12:12</span>
-        <span class="mobile">2023-07-20 11:12</span>
+        <span class="pc">2023-08-10 11:12:12</span>
+        <span class="mobile">2023-08-10 11:12</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-08-08 17:46:06</span>
-            <span class="mobile">2023-08-08 17:46</span>
+            <span class="pc">2023-08-10 09:03:27</span>
+            <span class="mobile">2023-08-10 09:03</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -284,7 +284,7 @@
                 <h1 id="FHIR-Terminology-Service-术语服务"><a href="#FHIR-Terminology-Service-术语服务" class="headerlink" title="FHIR Terminology Service 术语服务"></a>FHIR Terminology Service 术语服务</h1><blockquote>
 <p>本文将正对<code>HL7 FHIR R4</code>的术语模块做一下介绍，包括官方文档和实现指引。</p>
 </blockquote>
-<h3 id="FHIR-术语模块的设计思路"><a href="#FHIR-术语模块的设计思路" class="headerlink" title="FHIR 术语模块的设计思路"></a>FHIR 术语模块的设计思路</h3><p>HL7 的术语模块提供了一个整体的设计用于指引大家如何使用术语资源，以及相应的操作，数据类型定义，外部和自定义术语库如何展示和交换。最终的目的是为了提供标准的术语服务支持 FHIR 资源间使用标准的编码系统。<br>术语模块主要有 5 个资源：</p>
+<h3 id="FHIR-术语模块的设计思路"><a href="#FHIR-术语模块的设计思路" class="headerlink" title="FHIR 术语模块的设计思路"></a>FHIR 术语模块的设计思路</h3><p>HL7 的术语模块提供了一个整体的设计用于指引大家如何使用术语资源，以及相应的操作，数据类型，及外部和自定义术语库如何展示和交换信息。最终的目的是为了提供标准的术语服务支持 FHIR 资源间使用标准的编码系统。<br>术语模块主要有 5 个资源:</p>
 <ul>
 <li>CodeSystem: 编码系统，描述术语的关键元素和定义。</li>
 <li>ConceptMap: 定义一个编码系统的概念与另一个的映射关系。</li>
@@ -317,7 +317,7 @@
 <li>可以维护一个闭环表</li>
 </ul>
 <h4 id="服务的安全要求"><a href="#服务的安全要求" class="headerlink" title="服务的安全要求"></a>服务的安全要求</h4><p>SSL 加密传输是强制要求。如果值集系统允许被实时维护，认证和审计机制也是必要的。</p>
-<h4 id="熟悉基本概念"><a href="#熟悉基本概念" class="headerlink" title="熟悉基本概念"></a>熟悉基本概念</h4><p>由于术语服务是基于几个基本资源的，所以熟悉这些资源和使用方法对实现十分重要。基本资源包括：<code>CodeSystem</code>,<code>ValueSet</code>, <code>ConceptMap</code>. 以及熟悉如何在 FHIR 中使用编码。</p>
+<h4 id="熟悉基本概念"><a href="#熟悉基本概念" class="headerlink" title="熟悉基本概念"></a>熟悉基本概念</h4><p>由于术语服务是基于几个基本资源的，所以熟悉这些资源和使用方法对实现十分重要。基本资源包括：<code>CodeSystem</code>,<code>ValueSet</code>, <code>ConceptMap</code>. 以及熟悉如何在 FHIR 中使用编码(codesystem)。</p>
 <h4 id="如何在-FHIR-中使用编码"><a href="#如何在-FHIR-中使用编码" class="headerlink" title="如何在 FHIR 中使用编码"></a>如何在 FHIR 中使用编码</h4><p>FHIR 中的资源很多会用到编码，这些编码往往是一串固定的值，代表一个特定的含义或概念。FHIR 这里的编码定义都是通过一对组合:<code>system</code>和<code>code</code>. <code>system</code>的值是一个 url 指出哪里定义了这个编码，这个值需要区分大小写。</p>
 <table>
 <thead>
@@ -680,11 +680,12 @@
 <td>没有例子可以使用来绑定值集</td>
 </tr>
 </tbody></table>
-<h4 id="expand-操作"><a href="#expand-操作" class="headerlink" title="$expand 操作"></a>$expand 操作</h4><p>术语服务的“值集扩展”是指将值集解析为包含在该值集中的个别代码的过程, 使其更容易在特定上下文中处理和解释代码。该过程确保了值集所代表的信息被明确理解，并且可以轻松地被各种医疗保健应用程序和系统使用。</p>
+<h4 id="expand-操作"><a href="#expand-操作" class="headerlink" title="$expand 操作"></a>$expand 操作</h4><p>术语服务的“值集扩展”是指将值集从另一个编码系统引入编码的过程, 为了使其概念更容易在特定上下文中使用和处理。该过程确保了值集所代表的信息在真实复杂的医疗环境中被明确理解，并且可以轻松地被各种医疗保健应用程序和系统使用。</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">### 扩展查询第23值集，过滤“abdo”</span><br><span class="line"></span><br><span class="line">GET [base]/ValueSet/23/$expand?filter=abdo</span><br><span class="line">Expanding a value set that is specified by the client (using JSON):</span><br><span class="line"></span><br><span class="line">POST [base]/ValueSet/$expand</span><br><span class="line">[other headers]</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;resourceType&quot; : &quot;Parameters&quot;,</span><br><span class="line">  &quot;parameter&quot; : [</span><br><span class="line">     &#123;</span><br><span class="line">     &quot;name&quot; : &quot;valueSet&quot;,</span><br><span class="line">     &quot;resource&quot; : &#123;</span><br><span class="line">       &quot;resourceType&quot; : &quot;ValueSet&quot;,</span><br><span class="line">     [value set details]</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">## 返回</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">[other headers]</span><br><span class="line"></span><br><span class="line">&lt;ValueSet xmlns=&quot;http://hl7.org/fhir&quot;&gt;</span><br><span class="line">  &lt;!-- the server SHOULD populate the id with a newly created UUID</span><br><span class="line">    so clients can easily track a particular expansion  --&gt;</span><br><span class="line">  &lt;id value=&quot;43770626-f685-4ba8-8d66-fb63e674c467&quot;/&gt;</span><br><span class="line">  &lt;!-- no need for meta, though it is allowed for security labels, profiles --&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- other value set details --&gt;</span><br><span class="line">  &lt;expansion&gt;</span><br><span class="line">    &lt;!-- when expanded --&gt;</span><br><span class="line">    &lt;timestamp value=&quot;20141203T08:50:00+11:00&quot;/&gt;</span><br><span class="line">  &lt;contains&gt;</span><br><span class="line">    &lt;!-- expansion contents --&gt;</span><br><span class="line">  &lt;/contains&gt;</span><br><span class="line">  &lt;/expansion&gt;</span><br><span class="line">&lt;/ValueSet&gt;</span><br></pre></td></tr></table></figure></div>
 
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 搜索acme.org中Systolic展示的编码</span><br><span class="line">POST /ValueSet/$expand</span><br><span class="line">Content-Type: application/fhir+json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;resourceType&quot;: &quot;ValueSet&quot;,</span><br><span class="line">  &quot;compose&quot;: &#123;</span><br><span class="line">    &quot;include&quot;: [ &#123;</span><br><span class="line">      &quot;system&quot;: &quot;http://acme.org&quot;,</span><br><span class="line">      &quot;filter&quot;: [ &#123;</span><br><span class="line">        &quot;property&quot;: &quot;display&quot;,</span><br><span class="line">        &quot;op&quot;: &quot;=&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;Systolic&quot;</span><br><span class="line">      &#125; ]</span><br><span class="line">    &#125; ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 <h4 id="lookup-概念查找"><a href="#lookup-概念查找" class="headerlink" title="$lookup 概念查找"></a>$lookup 概念查找</h4><p>一个外部系统可以向术语服务器发出查询操作来获取关于特定的系统&#x2F;代码组合的一组信息。服务器会返回用于显示和处理的信息。<br>例如，通过已知 valueset 23 其验证一个 codesystem 概念:</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET [base]/ValueSet/23/$validate-code?system=http://loinc.org&amp;code=1963-8&amp;display=test</span><br></pre></td></tr></table></figure></div>
 
@@ -713,9 +714,9 @@
     <ul>
         <li>Post title：FHIR Terminology Service</li>
         <li>Post author：Kopei</li>
-        <li>Create time：2023-07-20 11:12:12</li>
+        <li>Create time：2023-08-10 11:12:12</li>
         <li>
-            Post link：https://kopei.github.io/2023/07/20/FHIR-Terminology-Service/
+            Post link：https://kopei.github.io/2023/08/10/FHIR-Terminology-Service/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
