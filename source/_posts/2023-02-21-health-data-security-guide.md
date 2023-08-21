@@ -16,7 +16,7 @@ This standard is suitable for guiding health data controllers in the security pr
 ## 2. Normative Reference 
 The following documents are essential to the application of this document. Where a reference document is dated, only the dated version applies to this document. Where the reference document is not dated, its latest version (including all the change orders) applies to this document. 
 |National standard document code	     |Category       |Document Name       |Applicable|
-| --- | --- | --- |---|
+| --- | --- | --- | --- |
 |  GB/T 22080—2016      |  Information Security tech     |   Information Security Management System      |Required|
 |GB/T 22081—2016	|Information Security tech|Information Security Control Practice Guide|Guide|
 |GB/T 22239—2019|Information Security tech|Baseline for Classified protection of cybersecurity|Required|
