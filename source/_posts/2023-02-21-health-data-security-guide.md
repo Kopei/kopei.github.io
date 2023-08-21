@@ -121,8 +121,9 @@ f) Public health data, are data related to public utilities that are relevant to
 The specific content of each type of data is shown in Table 1. The data elements, data sets, value codes and other related standards used in the health information domain can be found in Appendix B.
 
 <center>Table 1</center>
+
 |Data Category|Scope|
-|-------------|---|
+| --- | --- |
 |Personal attribute	|1) Demographic information, including name, date of birth, gender, ethnicity, nationality, occupation, address, employer, family member information, contact information, income, marital status, etc. 2) personal identification information, including name, ID card, work permit, residence permit, social security card, images that can identify the individual, health card number, hospitalization number, various types of examination and test-related bill numbers, etc. 3) personal communication information, including personal telephone numbers, mailboxes, account numbers and associated information, etc. 4) personal biometric information, including genetic, fingerprint, voice print, palm print, ear, iris, facial features, etc. 5) personal health monitoring sensor ID, etc.|
 |Health status  | Chief complaint, current and past medical history, physical examination (signs), family history, symptoms, test and examination data, genetic counseling data, health-related data collected by wearable devices, lifestyle, gene sequencing, transcription product sequencing, protein analysis and measurement, metabolic small molecule testing, human microbial testing, etc.  |
 | Medical application data |Outpatient (emergency) medical records, inpatient medical prescriptions, examination and test reports, medication information, course records, surgery records, anesthesia records, blood transfusion records, nursing records, admission records, discharge summaries, referral (hospital) records, informed information, etc.   |
@@ -166,7 +167,7 @@ f) Controller -> users data flow.
 ### 6.5 Data Public Ways
 The types of data public can be divided into completely public sharing, controlled public sharing, and enclave public sharing, which correspond to different de-identification requirements and are handled by the regulations of GB/T37964--2019. Common forms of data openness and their applicable types of sharing are shown in Table 2.
 
-|  Ways of open     | Description      |Applicable type of sharing       |
+|  Ways of open | Description | Applicable type of sharing |
 | --- | --- | --- |
 |   Public website    | Statistical aggregated data or anonymized data are available to the public and can be downloaded and analyzed by themselves.      |  Completely public     |
 | File share      | Generated files from data systems and push them to SFTP interface devices or applications, or share them using mobile media      |  Controlled public     |
