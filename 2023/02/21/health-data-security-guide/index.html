@@ -245,8 +245,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2023-08-21 11:39:47</span>
-            <span class="mobile">2023-08-21 11:39</span>
+            <span class="pc">2023-08-21 14:14</span>
+            <span class="mobile">2023-08-21 14:14</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -393,15 +393,39 @@
 <h2 id="６-Classification"><a href="#６-Classification" class="headerlink" title="６. Classification"></a>６. Classification</h2><h3 id="6-1-Data-Category"><a href="#6-1-Data-Category" class="headerlink" title="6.1  Data Category"></a>6.1  Data Category</h3><p>Health data can be classified as<br>a) Personal attribute, is data that alone or in combination with other information, can identify a specific natural person.<br>b) Health status, is data that reflects or is closely related to the health condition of an individual.<br>c) Medical application data, is data that reflects medical care, outpatient, inpatient, discharge, and other medical services.<br>d) Health payment data, are data related to the costs involved in services such as health or insurance.<br>e) Health resource data, are those data that capture the capacity and characteristics of health providers, health programs, and health systems.<br>f) Public health data, are data related to public utilities that are relevant to the public health of a country or region.</p>
 <p>The specific content of each type of data is shown in Table 1. The data elements, data sets, value codes and other related standards used in the health information domain can be found in Appendix B.</p>
 <center>Table 1</center>
-|Data Category|Scope|
-|-------------|---|
-|Personal attribute	|1) Demographic information, including name, date of birth, gender, ethnicity, nationality, occupation, address, employer, family member information, contact information, income, marital status, etc. 2) personal identification information, including name, ID card, work permit, residence permit, social security card, images that can identify the individual, health card number, hospitalization number, various types of examination and test-related bill numbers, etc. 3) personal communication information, including personal telephone numbers, mailboxes, account numbers and associated information, etc. 4) personal biometric information, including genetic, fingerprint, voice print, palm print, ear, iris, facial features, etc. 5) personal health monitoring sensor ID, etc.|
-|Health status  | Chief complaint, current and past medical history, physical examination (signs), family history, symptoms, test and examination data, genetic counseling data, health-related data collected by wearable devices, lifestyle, gene sequencing, transcription product sequencing, protein analysis and measurement, metabolic small molecule testing, human microbial testing, etc.  |
-| Medical application data |Outpatient (emergency) medical records, inpatient medical prescriptions, examination and test reports, medication information, course records, surgery records, anesthesia records, blood transfusion records, nursing records, admission records, discharge summaries, referral (hospital) records, informed information, etc.   |
-| Medical payment data | 1) Medical transaction information, including medical insurance payment information, transaction amount, transaction records, etc. 2）Insurance information, including insurance status, insurance amount, etc. |
-| Health Resource data |  Basic hospital information, hospital operation data, etc.|
-| Public health data | Environmental health data, epidemic disease data, disease monitoring data, disease prevention data, birth and death data, etc.  |
 
+<table>
+<thead>
+<tr>
+<th>Data Category</th>
+<th>Scope</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Personal attribute</td>
+<td>1) Demographic information, including name, date of birth, gender, ethnicity, nationality, occupation, address, employer, family member information, contact information, income, marital status, etc. 2) personal identification information, including name, ID card, work permit, residence permit, social security card, images that can identify the individual, health card number, hospitalization number, various types of examination and test-related bill numbers, etc. 3) personal communication information, including personal telephone numbers, mailboxes, account numbers and associated information, etc. 4) personal biometric information, including genetic, fingerprint, voice print, palm print, ear, iris, facial features, etc. 5) personal health monitoring sensor ID, etc.</td>
+</tr>
+<tr>
+<td>Health status</td>
+<td>Chief complaint, current and past medical history, physical examination (signs), family history, symptoms, test and examination data, genetic counseling data, health-related data collected by wearable devices, lifestyle, gene sequencing, transcription product sequencing, protein analysis and measurement, metabolic small molecule testing, human microbial testing, etc.</td>
+</tr>
+<tr>
+<td>Medical application data</td>
+<td>Outpatient (emergency) medical records, inpatient medical prescriptions, examination and test reports, medication information, course records, surgery records, anesthesia records, blood transfusion records, nursing records, admission records, discharge summaries, referral (hospital) records, informed information, etc.</td>
+</tr>
+<tr>
+<td>Medical payment data</td>
+<td>1) Medical transaction information, including medical insurance payment information, transaction amount, transaction records, etc. 2）Insurance information, including insurance status, insurance amount, etc.</td>
+</tr>
+<tr>
+<td>Health Resource data</td>
+<td>Basic hospital information, hospital operation data, etc.</td>
+</tr>
+<tr>
+<td>Public health data</td>
+<td>Environmental health data, epidemic disease data, disease monitoring data, disease prevention data, birth and death data, etc.</td>
+</tr>
+</tbody></table>
 <h3 id="6-2-Data-Grading"><a href="#6-2-Data-Grading" class="headerlink" title="6.2 Data Grading"></a>6.2 Data Grading</h3><p>Health data can be classified into the following five levels based on the level of data importance, risk level, and the level of possible damage and impact on the individual.<br>(a) Level 1: Data that can be used completely public. This includes data that can be accessed through public channels, such as hospital names, addresses, telephone numbers, etc., which can be directly disclosed to the public on the Internet.<br>(b) Level 2: Data that can be accessed on a large scale. For example, data that cannot identify individuals and can be used for research and analysis by doctors in each department upon application for approval.<br>(c) Level 3: Data that can be accessed on a medium scale and may cause moderate damage to individual subjects if disclosed without authorization. For example, data that has been partially de-identified, but may still be re-identified, is limited to use within the scope of the authorized project team.<br>d) Level 4: Data that is available for access use on a small scale and may cause a high degree of harm to the individual if disclosed without authorization. For example, data that can directly identify an individual is restricted to access and use by health professionals involved in healthcare activities.<br>(e) Level 5: Data that is accessible only to a very small extent and under strictly limited conditions, which, if disclosed without authorization, may cause serious damage to the individual subject. For example, details of specific diseases (e.g., AIDS, STDs) are restricted to access by treating health professionals and require strict controls.</p>
 <h3 id="6-3-Roles-Classification"><a href="#6-3-Roles-Classification" class="headerlink" title="6.3 Roles Classification"></a>6.3 Roles Classification</h3><p>For a data-specific scenario, the relevant organizations or individuals can be classified into the following four types of roles. Any organization or individual can only be classified into one of these roles for a specific data, a specific scenario or a specific data processing behavior.<br>(a) Personal health data subject (hereinafter referred to as “subject”): the natural person identified by personal health data.<br>(b) Health data controller (hereinafter referred to as “controller”): See Definition 3.5. To decide whether an organization or individual can determine the purpose, manner, and scope of health data processing, it is possible to consider<br>    - 1) Whether the processing of health data is necessary for the organization or individual to comply with a law or regulation.<br>    - 2) whether the health data processing is necessary for the organization or individual to perform its public functions.<br>    - 3) whether the health data processing is decided by the organization or individual itself or jointly with other organizations or individuals.<br>    - 4) Whether the health data processing is authorized by the individual or by the government authorize to the organization or the individual.</p>
 <p>The organization or individual who jointly decides the purpose, manner, and scope of a data processing is the joint controller.<br>(c) Health data processor (hereinafter referred to as “processor”): An organization or individual that collects, transmits, stores, uses, processes or discloses health data in its possession on behalf of the controller, or provides the controller with services related to the use, processing or disclosure of health data. Common processors include: health information system providers, health data analysis companies, and assisted treatment solution providers.<br>(d) Health data users (hereinafter referred to as “users”): Organizations or individuals who do not belong to the subjects, controllers or processors, but make use of health data for specific scenarios of specific data.</p>
