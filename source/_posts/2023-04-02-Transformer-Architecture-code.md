@@ -3,7 +3,7 @@ title: Transformer Intepretion and Code
 comment: true
 date: 2023-04-02 17:12:16
 tags: transformer, AI
-updated: 2023-04-11 18:12:00
+updated: 2023-12-06 18:12:00
 ---
 ## Attention is all your need
 `Attention is all your need`这篇谷歌的`transformer`开山之作奠定了如今大热的GPT和机器视觉领域神经网络的基础架构。本文将在理解论文的基础上，结合其它材料，进一步深入了解具体代码实现（pytorch），并给出一个`fine tune`的实际应用例子。
@@ -59,7 +59,9 @@ class Generator(nn.Module):
 #### 编码器输入
 对于翻译序列的例子，在数据输入阶段经过了如下流程：
 1. 当输入句子X(x1,x2...xn), 模型先对其做`embedding`,生成每个词对应的向量Z(z1,z2...zn). 
-2. 然后在Z后加入位置编码信息，位置信息可以用余弦来表示，随后加入编码器输入。
+2. 然后在Z后加入位置编码信息，位置信息可以用余弦来表示，随后加入编码器输入。正弦和余弦的公式是：
+{% mathjax %} \mathrm{PE}(pos,2i) = \mathrm{sin}(\frac{pos}{10000^\frac{2i}{Dmodel}}) {% endmathjax %}
+
 ```python
 import math
 
