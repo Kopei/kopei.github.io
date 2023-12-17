@@ -676,75 +676,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Use CDS Authoring Tool</title>
-    <url>/2023/06/12/Use-CDS-Authoring/</url>
-    <content><![CDATA[<h1 id="使用CDS作者工具"><a href="#使用CDS作者工具" class="headerlink" title="使用CDS作者工具"></a>使用CDS作者工具</h1><blockquote>
-<p>CDS Connect 作者工具是一种用于创建临床决策支持规则的工具。此工具提供了一个用户友好的界面，供医疗保健专业人员和技术人员使用。它允许用户创建、编辑和管理临床决策支持规则，这些规则可以帮助医生在临床实践中做出更明智的决策。</p>
-</blockquote>
-<h2 id="导言"><a href="#导言" class="headerlink" title="导言"></a>导言</h2><p><code>CDS Connect</code>项目开源了一个工具<a class="link"   href="https://github.com/AHRQ-CDS/AHRQ-CDS-Connect-Authoring-Tool" >Authoring tool <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>用于快速创建临床辅助的规则、内容。有了这个工具可以方便地编写CQL（Clinical Quality Language）表达，而不用非常了解语法细节。该工具使用基于标准化的临床知识表示形式，如CQL和FHIR（Fast Healthcare Interoperability Resources）。用户可以根据特定的临床指南、研究结果和实践经验，使用这些规则来定义临床决策的逻辑和条件。CDS Connect 作者工具还提供了验证和测试功能，以确保创建的规则能够正确地应用于真实的临床环境。它还支持与其他系统的集成，可以将创建的规则导出为可用于不同临床决策支持系统的格式。下面就配合官方文档，简单地用一个例子作一下演示。</p>
-<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
-<li><code>Element</code>元素。CDS每条规则由元素组成，每个元素描述了一条规则用于决定某个患者是否满足临床辅助推荐的标准。</li>
-<li><code>Inclusion</code>包含。即患者满足某个元素的一条标准。</li>
-<li><code>Exclusion</code>排除。即患者不满足某个推荐要求。</li>
-<li><code>Subpopulation</code>亚群体。即亚群体需要更多的具体推荐才能作出决定。</li>
-<li><code>Base Element</code>基础元素。可以自定义的基础元素。</li>
-<li><code>Recommendation</code>推荐。当满足条件是cds给出的建议内容。</li>
-<li><code>Parameter</code>参数。可以在运行时动态的输出参数。</li>
-</ul>
-<h3 id="创建和编辑元素流程"><a href="#创建和编辑元素流程" class="headerlink" title="创建和编辑元素流程"></a>创建和编辑元素流程</h3><p>通常步骤包括：</p>
-<ol>
-<li><p>首先选择一个元素，元素通常是一个FHIR资源类型，如<code>Condition</code>或<code>Observation</code>。元素的类型也会取决哪些数据需要从患者数据（病例记录）中来。具体的元素类型有：</p>
-<ul>
-<li><code>Allergy Intolerance</code>过敏不耐受: Instances of the FHIR <code>AllergyIntolerance</code> resource type.</li>
-<li><code>Base Elements</code>基本元素: Re-usable elements defined in the “Base Elements” tab. 可重复使用的基本元素。</li>
-<li><code>Condition</code>病情: Instances of the FHIR <code>Condition</code> resource type.</li>
-<li><code>Demographics</code>人口统计学: Age or Gender as specified in an instance of the FHIR Patient resource type</li>
-<li><code>Device</code>设备: Instances of the FHIR <code>Device</code> resource type.</li>
-<li><code>Encounter</code>就诊: Instances of the FHIR <code>Encounter</code> resource type.</li>
-<li><code>External CQL</code>外部CQL: Named CQL definitions, parameters, and functions from CQL files uploaded in the “External CQL” tab. 来自“外部CQL”标签中上传的命名CQL定义、参数和函数.</li>
-<li><code>Immunization</code>免疫: Instances of the FHIR <code>Immunization</code> resource type</li>
-<li><code>Medication Statement</code>用药记录: Instances of the FHIR <code>MedicationStatement</code> resource type</li>
-<li><code>Medication Request</code>用药请求: Instances of the FHIR <code>MedicationRequest</code>(STU3&#x2F;R4) or MedicationOrder(DSTU2) resource type</li>
-<li><code>Observation</code>观测: Instances of the <code>Observation</code> resource type</li>
-<li><code>Parameters</code>参数: Parameter values for parameters defined in the “Parameters” tab. 在“参数”标签中定义的参数值.</li>
-<li><code>Procedure</code>手术: Instances of the FHIR <code>Procedure</code> resource type</li>
-<li><code>ServiceRequest</code>服务请求: Instances of the FHIR <code>ServiceRequest</code> resource type, available only in FHIR R4</li>
-</ul>
-</li>
-<li><p>然后根据所选元素类型，赋予更多的具体含义，如赋予最少一个键值对（这里的键值对是指一组code，这些code会用来匹配患者病历的记录。举个例子，糖尿病会包含多个code来代表不同糖尿病诊断，如一型、二型糖尿病。同时不同的编码系统如ICD-9,ICD-10,SNOMED-CT又有不同值。所以使用键值对可以方便地把所有对应的编码code一次性地和患者电子病历记录匹配起来）或者code编码（单独赋予code需要指定编码系统并验证，如果是第三方编码系统需要指定FHIR兼容的URL），如<code>Condition</code>-&gt;<code>Diabetes</code>症状对应糖尿病，<code>Observation</code>-&gt;<code>LDL Cholesterol Test</code>观测对应LDL胆固醇检测；又如通过表单提供额外的信息(目前仅用于人口统计学)。</p>
-</li>
-<li><p>命名元素。所有的元素可以被自定义命名，以便更好地体现用意。</p>
-</li>
-<li><p>备注元素。所有元素也支持被标注，添加评论, 但是评论是不会参与决策逻辑的判别。评论主要的应用场景有：</p>
-<ul>
-<li>提供创建该元素的理由，或指示在创建该元素时做出的决策以及为何做出该决策。</li>
-<li>提供对该元素所包含的复杂逻辑的简要总结，或进一步解释构建该元素的目的。</li>
-<li>指示元素逻辑的来源并提供必要的参考文献。</li>
-<li>指示实施者可能基于特定场地需求而希望修改的逻辑部分。</li>
-</ul>
-</li>
-<li><p>修改结果。通过自定义修改或者选择内建的表达式进一步过滤结果，得到元素类型需要得出的结果。工具自带的修改器能覆盖一般的场景，同时修改器还可以串联逻辑，应用多个过滤条件得到最终结果。</p>
-</li>
-</ol>
-<p>5.1 （可选）使用自建修改器定义逻辑。如果作者想进行更加精准的控制，可以自建逻辑，有的时候自建修改器可能不如外部导入CQL方便。当前版本（June, 2023）自定义修改器只能对 FHIR 资源实例的列表进行过滤。未来的版本可能提供额外的功能，如排序和返回特定属性。</p>
-<p>6.测试artifact。在将 CDS 逻辑部署到测试环境之前进行测试，可以让作者在流程早期发现和修复错误，从而节省时间和金钱。CDS创作工具的测试允许作者上传其自己合成的测试患者，这些患者以FHIR资源形式存在。现存的患者测试数据构造工具主要 <a class="link"   href="https://github.com/AHRQ-CDS/CQL-Testing-Framework" >CQL Testing Framework <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> , <a class="link"   href="https://github.com/synthetichealth/synthea" >Synthea <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> , <a class="link"   href="http://clinfhir.com/" >ClinFHIR <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> , and <a class="link"   href="https://build.fhir.org/ig/HL7/fhir-shorthand/" >FHIR® Shorthand <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> .然后，作者可以针对其中一个或多个患者运行他们的CDS逻辑，并检查结果以确定其是否符合预期。CDS创作工具目前不提供测试患者编辑器，也没有提供结果自动验证的机制（例如，“测试断言”）。对于更高级的测试功能，请考虑使用CDS Connect的<a class="link"   href="https://github.com/AHRQ-CDS/CQL-Testing-Framework" >CQL测试框架 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
-<p>虽然元素本身可以很有用，但通常它们会与其他元素结合使用，以表示更复杂的思想或要求。CDS 作者工具支持以下元素组合方式：</p>
-<ul>
-<li>与（And）：要求一组布尔元素中的每个元素都为真。</li>
-<li>或（Or）：要求一组布尔元素中至少有一个元素为真。</li>
-<li>缩进组（Indented Group）：将一组元素组合在一起，表示一个单一的逻辑单元。</li>
-<li>交集（Intersect）：找出一组元素中每个元素中都出现的项目集合。使用“交集”组合方式表示应检查每个元素，并仅将与每个元素匹配的项目包含在交集结果中。例如，如果将表示已确认的心肌梗塞的元素与表示过去六个月内的心肌梗塞的元素使用“交集”进行组合，结果将仅包含同时在两个元素集合中的心肌梗塞（即已确认且在过去六个月内）。“交集”组合方式只能在“基本元素（Base Elements）”选项卡中使用“列表操作（List Operations）”元素类型进行应用。</li>
-<li>并集（Union）：将多个元素中的项目合并为一个项目集合。使用“并集（Union）”组合方式表示应将所有元素中的所有项目合并为一个项目集合。例如，使用“并集”将LDL-c元素与HDL-c元素组合，将得到所有的LDL-c和HDL-c观测结果。并集只能在“基本元素（Base Elements）”选项卡中使用“列表操作（List Operations）”元素类型应用“并集”组合方式。</li>
-</ul>
-<h3 id="Subpopulation亚群体页"><a href="#Subpopulation亚群体页" class="headerlink" title="Subpopulation亚群体页"></a>Subpopulation亚群体页</h3><p>作者可以使用“亚人群（Subpopulations）”选项卡来指定将患者分组，组内的亚群体适用标准为更具体的相关建议。虽然亚人群不是必需的，但对于需要提供更细致建议或与特定人群相关的建议而言，它们非常有用。例如，他汀类药物artifact可能会针对10年风险评分为8%的患者和10年风险评分为12%的患者提供不同强度的建议。“亚人群”选项卡允许作者创建所需的亚人群。对于每个亚人群，作者必须指定一个唯一的名称，然后根据上述部分的描述创建和组合元素。</p>
-<h3 id="基本元素"><a href="#基本元素" class="headerlink" title="基本元素"></a>基本元素</h3><p>作者可以使用“基本元素（Base Elements）”创建artifact，基础元素可以是在上下文中多次使用。这样一来，常用元素只需定义一次，就可以在需要的任何地方使用，并可进行进一步修改。作者可以在任何特定上下文之外定义独立的元素，并将这些元素按原样导出为CQL。基于基本元素创建的元素会以浅蓝色进行阴影处理，以便更容易区分。此外，在元素定义的内容中使用“基本元素”标签列出了原始基本元素的名称。如果您点击基本元素名称最右侧的链接图标，将直接进入基本元素的定义页面。请注意，在使用基本元素时会有一些限制。其中之一是您不能删除它。要删除正在使用的基本元素，必须首先删除（或编辑）其所有用到的地方。另一个限制是，如果删除应用表达式会改变基本元素的返回类型，则无法删除该表达式。这确保修改基本元素不会使其使用变得无效。为了删除表达式，请首先删除工件中所有对基本元素的使用。此外，在正在使用的基本元素上无法添加修改器，除非修改器不会改变元素的整体返回类型。如果修改器会改变基本元素的返回类型，则必须先删除工件中所有对基本元素的使用，然后再添加修改器。</p>
-<h3 id="推荐页面Recommendation"><a href="#推荐页面Recommendation" class="headerlink" title="推荐页面Recommendation"></a>推荐页面Recommendation</h3><p>推荐页面是CDS artifact在执行后会给临床医生一个推荐，推荐的具体内容可以被编辑并伴随合理的推荐理由。推荐也可以分亚群定制不同的内容。</p>
-<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>在CDS运行时输入参数可以动态的输出结果。参数可以有默认值，主要类型有:<br><code>Boolean, Code, Concept, Integer, DateTime, Decimal, Quantity, String, Time, Interval&lt;Integer&gt;, Interval&lt;DateTime&gt;, Interval&lt;Decimal&gt;, and Interval&lt;Quantity&gt;</code></p>
-<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>作者使用“处理错误”选项卡来定义在特定错误条件发生时向最终用户提供哪些信息。例如，作者可能希望在患者健康记录中缺少必要数据时返回错误消息。处理错误是可选的，对于某些用例可能不需要或不实用。</p>
-<h3 id="外部CQL"><a href="#外部CQL" class="headerlink" title="外部CQL"></a>外部CQL</h3><p>外部CQL可以通过页面上传并校验格式，外部CQL特别适合某些复杂数学计算和时间关系此工具处理不了的情况。同时外部CQL是read-only的类型。</p>
-]]></content>
-  </entry>
-  <entry>
     <title>Health Data Security Guide</title>
     <url>/2023/02/21/health-data-security-guide/</url>
     <content><![CDATA[<blockquote>
@@ -1153,6 +1084,75 @@
       <tags>
         <tag>Data security</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Use CDS Authoring Tool</title>
+    <url>/2023/06/12/Use-CDS-Authoring/</url>
+    <content><![CDATA[<h1 id="使用CDS作者工具"><a href="#使用CDS作者工具" class="headerlink" title="使用CDS作者工具"></a>使用CDS作者工具</h1><blockquote>
+<p>CDS Connect 作者工具是一种用于创建临床决策支持规则的工具。此工具提供了一个用户友好的界面，供医疗保健专业人员和技术人员使用。它允许用户创建、编辑和管理临床决策支持规则，这些规则可以帮助医生在临床实践中做出更明智的决策。</p>
+</blockquote>
+<h2 id="导言"><a href="#导言" class="headerlink" title="导言"></a>导言</h2><p><code>CDS Connect</code>项目开源了一个工具<a class="link"   href="https://github.com/AHRQ-CDS/AHRQ-CDS-Connect-Authoring-Tool" >Authoring tool <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>用于快速创建临床辅助的规则、内容。有了这个工具可以方便地编写CQL（Clinical Quality Language）表达，而不用非常了解语法细节。该工具使用基于标准化的临床知识表示形式，如CQL和FHIR（Fast Healthcare Interoperability Resources）。用户可以根据特定的临床指南、研究结果和实践经验，使用这些规则来定义临床决策的逻辑和条件。CDS Connect 作者工具还提供了验证和测试功能，以确保创建的规则能够正确地应用于真实的临床环境。它还支持与其他系统的集成，可以将创建的规则导出为可用于不同临床决策支持系统的格式。下面就配合官方文档，简单地用一个例子作一下演示。</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
+<li><code>Element</code>元素。CDS每条规则由元素组成，每个元素描述了一条规则用于决定某个患者是否满足临床辅助推荐的标准。</li>
+<li><code>Inclusion</code>包含。即患者满足某个元素的一条标准。</li>
+<li><code>Exclusion</code>排除。即患者不满足某个推荐要求。</li>
+<li><code>Subpopulation</code>亚群体。即亚群体需要更多的具体推荐才能作出决定。</li>
+<li><code>Base Element</code>基础元素。可以自定义的基础元素。</li>
+<li><code>Recommendation</code>推荐。当满足条件是cds给出的建议内容。</li>
+<li><code>Parameter</code>参数。可以在运行时动态的输出参数。</li>
+</ul>
+<h3 id="创建和编辑元素流程"><a href="#创建和编辑元素流程" class="headerlink" title="创建和编辑元素流程"></a>创建和编辑元素流程</h3><p>通常步骤包括：</p>
+<ol>
+<li><p>首先选择一个元素，元素通常是一个FHIR资源类型，如<code>Condition</code>或<code>Observation</code>。元素的类型也会取决哪些数据需要从患者数据（病例记录）中来。具体的元素类型有：</p>
+<ul>
+<li><code>Allergy Intolerance</code>过敏不耐受: Instances of the FHIR <code>AllergyIntolerance</code> resource type.</li>
+<li><code>Base Elements</code>基本元素: Re-usable elements defined in the “Base Elements” tab. 可重复使用的基本元素。</li>
+<li><code>Condition</code>病情: Instances of the FHIR <code>Condition</code> resource type.</li>
+<li><code>Demographics</code>人口统计学: Age or Gender as specified in an instance of the FHIR Patient resource type</li>
+<li><code>Device</code>设备: Instances of the FHIR <code>Device</code> resource type.</li>
+<li><code>Encounter</code>就诊: Instances of the FHIR <code>Encounter</code> resource type.</li>
+<li><code>External CQL</code>外部CQL: Named CQL definitions, parameters, and functions from CQL files uploaded in the “External CQL” tab. 来自“外部CQL”标签中上传的命名CQL定义、参数和函数.</li>
+<li><code>Immunization</code>免疫: Instances of the FHIR <code>Immunization</code> resource type</li>
+<li><code>Medication Statement</code>用药记录: Instances of the FHIR <code>MedicationStatement</code> resource type</li>
+<li><code>Medication Request</code>用药请求: Instances of the FHIR <code>MedicationRequest</code>(STU3&#x2F;R4) or MedicationOrder(DSTU2) resource type</li>
+<li><code>Observation</code>观测: Instances of the <code>Observation</code> resource type</li>
+<li><code>Parameters</code>参数: Parameter values for parameters defined in the “Parameters” tab. 在“参数”标签中定义的参数值.</li>
+<li><code>Procedure</code>手术: Instances of the FHIR <code>Procedure</code> resource type</li>
+<li><code>ServiceRequest</code>服务请求: Instances of the FHIR <code>ServiceRequest</code> resource type, available only in FHIR R4</li>
+</ul>
+</li>
+<li><p>然后根据所选元素类型，赋予更多的具体含义，如赋予最少一个键值对（这里的键值对是指一组code，这些code会用来匹配患者病历的记录。举个例子，糖尿病会包含多个code来代表不同糖尿病诊断，如一型、二型糖尿病。同时不同的编码系统如ICD-9,ICD-10,SNOMED-CT又有不同值。所以使用键值对可以方便地把所有对应的编码code一次性地和患者电子病历记录匹配起来）或者code编码（单独赋予code需要指定编码系统并验证，如果是第三方编码系统需要指定FHIR兼容的URL），如<code>Condition</code>-&gt;<code>Diabetes</code>症状对应糖尿病，<code>Observation</code>-&gt;<code>LDL Cholesterol Test</code>观测对应LDL胆固醇检测；又如通过表单提供额外的信息(目前仅用于人口统计学)。</p>
+</li>
+<li><p>命名元素。所有的元素可以被自定义命名，以便更好地体现用意。</p>
+</li>
+<li><p>备注元素。所有元素也支持被标注，添加评论, 但是评论是不会参与决策逻辑的判别。评论主要的应用场景有：</p>
+<ul>
+<li>提供创建该元素的理由，或指示在创建该元素时做出的决策以及为何做出该决策。</li>
+<li>提供对该元素所包含的复杂逻辑的简要总结，或进一步解释构建该元素的目的。</li>
+<li>指示元素逻辑的来源并提供必要的参考文献。</li>
+<li>指示实施者可能基于特定场地需求而希望修改的逻辑部分。</li>
+</ul>
+</li>
+<li><p>修改结果。通过自定义修改或者选择内建的表达式进一步过滤结果，得到元素类型需要得出的结果。工具自带的修改器能覆盖一般的场景，同时修改器还可以串联逻辑，应用多个过滤条件得到最终结果。</p>
+</li>
+</ol>
+<p>5.1 （可选）使用自建修改器定义逻辑。如果作者想进行更加精准的控制，可以自建逻辑，有的时候自建修改器可能不如外部导入CQL方便。当前版本（June, 2023）自定义修改器只能对 FHIR 资源实例的列表进行过滤。未来的版本可能提供额外的功能，如排序和返回特定属性。</p>
+<p>6.测试artifact。在将 CDS 逻辑部署到测试环境之前进行测试，可以让作者在流程早期发现和修复错误，从而节省时间和金钱。CDS创作工具的测试允许作者上传其自己合成的测试患者，这些患者以FHIR资源形式存在。现存的患者测试数据构造工具主要 <a class="link"   href="https://github.com/AHRQ-CDS/CQL-Testing-Framework" >CQL Testing Framework <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> , <a class="link"   href="https://github.com/synthetichealth/synthea" >Synthea <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> , <a class="link"   href="http://clinfhir.com/" >ClinFHIR <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> , and <a class="link"   href="https://build.fhir.org/ig/HL7/fhir-shorthand/" >FHIR® Shorthand <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> .然后，作者可以针对其中一个或多个患者运行他们的CDS逻辑，并检查结果以确定其是否符合预期。CDS创作工具目前不提供测试患者编辑器，也没有提供结果自动验证的机制（例如，“测试断言”）。对于更高级的测试功能，请考虑使用CDS Connect的<a class="link"   href="https://github.com/AHRQ-CDS/CQL-Testing-Framework" >CQL测试框架 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
+<p>虽然元素本身可以很有用，但通常它们会与其他元素结合使用，以表示更复杂的思想或要求。CDS 作者工具支持以下元素组合方式：</p>
+<ul>
+<li>与（And）：要求一组布尔元素中的每个元素都为真。</li>
+<li>或（Or）：要求一组布尔元素中至少有一个元素为真。</li>
+<li>缩进组（Indented Group）：将一组元素组合在一起，表示一个单一的逻辑单元。</li>
+<li>交集（Intersect）：找出一组元素中每个元素中都出现的项目集合。使用“交集”组合方式表示应检查每个元素，并仅将与每个元素匹配的项目包含在交集结果中。例如，如果将表示已确认的心肌梗塞的元素与表示过去六个月内的心肌梗塞的元素使用“交集”进行组合，结果将仅包含同时在两个元素集合中的心肌梗塞（即已确认且在过去六个月内）。“交集”组合方式只能在“基本元素（Base Elements）”选项卡中使用“列表操作（List Operations）”元素类型进行应用。</li>
+<li>并集（Union）：将多个元素中的项目合并为一个项目集合。使用“并集（Union）”组合方式表示应将所有元素中的所有项目合并为一个项目集合。例如，使用“并集”将LDL-c元素与HDL-c元素组合，将得到所有的LDL-c和HDL-c观测结果。并集只能在“基本元素（Base Elements）”选项卡中使用“列表操作（List Operations）”元素类型应用“并集”组合方式。</li>
+</ul>
+<h3 id="Subpopulation亚群体页"><a href="#Subpopulation亚群体页" class="headerlink" title="Subpopulation亚群体页"></a>Subpopulation亚群体页</h3><p>作者可以使用“亚人群（Subpopulations）”选项卡来指定将患者分组，组内的亚群体适用标准为更具体的相关建议。虽然亚人群不是必需的，但对于需要提供更细致建议或与特定人群相关的建议而言，它们非常有用。例如，他汀类药物artifact可能会针对10年风险评分为8%的患者和10年风险评分为12%的患者提供不同强度的建议。“亚人群”选项卡允许作者创建所需的亚人群。对于每个亚人群，作者必须指定一个唯一的名称，然后根据上述部分的描述创建和组合元素。</p>
+<h3 id="基本元素"><a href="#基本元素" class="headerlink" title="基本元素"></a>基本元素</h3><p>作者可以使用“基本元素（Base Elements）”创建artifact，基础元素可以是在上下文中多次使用。这样一来，常用元素只需定义一次，就可以在需要的任何地方使用，并可进行进一步修改。作者可以在任何特定上下文之外定义独立的元素，并将这些元素按原样导出为CQL。基于基本元素创建的元素会以浅蓝色进行阴影处理，以便更容易区分。此外，在元素定义的内容中使用“基本元素”标签列出了原始基本元素的名称。如果您点击基本元素名称最右侧的链接图标，将直接进入基本元素的定义页面。请注意，在使用基本元素时会有一些限制。其中之一是您不能删除它。要删除正在使用的基本元素，必须首先删除（或编辑）其所有用到的地方。另一个限制是，如果删除应用表达式会改变基本元素的返回类型，则无法删除该表达式。这确保修改基本元素不会使其使用变得无效。为了删除表达式，请首先删除工件中所有对基本元素的使用。此外，在正在使用的基本元素上无法添加修改器，除非修改器不会改变元素的整体返回类型。如果修改器会改变基本元素的返回类型，则必须先删除工件中所有对基本元素的使用，然后再添加修改器。</p>
+<h3 id="推荐页面Recommendation"><a href="#推荐页面Recommendation" class="headerlink" title="推荐页面Recommendation"></a>推荐页面Recommendation</h3><p>推荐页面是CDS artifact在执行后会给临床医生一个推荐，推荐的具体内容可以被编辑并伴随合理的推荐理由。推荐也可以分亚群定制不同的内容。</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>在CDS运行时输入参数可以动态的输出结果。参数可以有默认值，主要类型有:<br><code>Boolean, Code, Concept, Integer, DateTime, Decimal, Quantity, String, Time, Interval&lt;Integer&gt;, Interval&lt;DateTime&gt;, Interval&lt;Decimal&gt;, and Interval&lt;Quantity&gt;</code></p>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>作者使用“处理错误”选项卡来定义在特定错误条件发生时向最终用户提供哪些信息。例如，作者可能希望在患者健康记录中缺少必要数据时返回错误消息。处理错误是可选的，对于某些用例可能不需要或不实用。</p>
+<h3 id="外部CQL"><a href="#外部CQL" class="headerlink" title="外部CQL"></a>外部CQL</h3><p>外部CQL可以通过页面上传并校验格式，外部CQL特别适合某些复杂数学计算和时间关系此工具处理不了的情况。同时外部CQL是read-only的类型。</p>
+]]></content>
   </entry>
   <entry>
     <title>FHIR Terminology Service</title>
@@ -1777,6 +1777,206 @@
 ]]></content>
   </entry>
   <entry>
+    <title>What is vector database?</title>
+    <url>/2023/12/17/vector-database/</url>
+    <content><![CDATA[<h1 id="什么是向量数据库-Vector-Database"><a href="#什么是向量数据库-Vector-Database" class="headerlink" title="什么是向量数据库 Vector Database?"></a>什么是向量数据库 Vector Database?</h1><blockquote>
+<p>本文将为您简要介绍向量数据库的定义，基础原理，应用和市面上已有的实现选型比较。通过阅读本文，读者将对向量数据库有基本的认识，对日后开发大模型 AI 相关应用有所帮助。</p>
+</blockquote>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>向量数据库也叫矢量数据库，是一种以数学向量的形式存储数据集合的数据库。更通俗的说法，向量就是一个数字列表，例如：[12, 13, 19, 8, 9]。这些数字表示维度空间中的一个位置，代表在这个维度上的特征。就像行和列号表示电子表格中特定单元格一样（例如，“A10”表示 A 列 10 行）。向量数据库的应用是使机器学习模型更容易记住先前的输入，从而使机器学习能够用于支持搜索、推荐和内容生成等应用场景。向量数据可以基于相似性搜索进行识别，而不是精确匹配，使计算模型能够在上下文中理解数据。</p>
+<h3 id="什么是向量？"><a href="#什么是向量？" class="headerlink" title="什么是向量？"></a>什么是向量？</h3><p>向量是一组有序的数值，表示在多维空间中的位置或方向。向量通常用一个列或行的数字集合来表示，这些数字按顺序排列。在机器学习中，向量可以表示诸如单词、图像、视频和音频之类的复杂对象，由机器学习（ML）模型生成。高维度的向量数据对于机器学习、自然语言处理（NLP）和其他人工智能任务至关重要。一些向量数据的例子包括：</p>
+<ul>
+<li>文本：想象一下你上次与聊天机器人互动的情景。它们是如何理解自然语言的呢？它们依赖于可以表示单词、段落和整个文档的向量，这些向量是通过机器学习算法转换而来的。</li>
+<li>图像：图像的像素可以用数字数据描述，并组合成构成该图像的高维向量。</li>
+<li>语音&#x2F;音频：与图像类似，声波也可以分解为数字数据，并表示为向量，从而实现声音识别等人工智能应用。</li>
+</ul>
+<h2 id="向量数据库的兴起"><a href="#向量数据库的兴起" class="headerlink" title="向量数据库的兴起"></a>向量数据库的兴起</h2><p>向量数据库的兴起主要源于大模型 embedding 的应用。<code>Transformer</code>作为当今大模型的基础架构，在数据输入时需要对输入做 embedding, 由于当时主要是处理文本，所以这个 embedding 要做的就是词嵌入（word embedding），把文本转化为向量。由于大模型使用海量数据，数据的维度一般大于 1000 以上，所以临时或永久存储和计算（检索）这些高维向量数据就成了一个难题，这也是向量数据库崛起的一个主要原因。另一个方面，将人的输入以向量的方式临时存储起来，也可以提高类 chatgpt 应用的性能，让人觉得 ai 是有记忆的，可以检索历史问过的相关问题。<br>想要自己试一试 embedding 的应用吗？可以试试 openai 的<a class="link"   href="https://platform.openai.com/docs/guides/embeddings/what-are-embeddings" >embedding api <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, 通过这个 api, 你的一个文本输入将会转化为多维向量。</p>
+<h2 id="向量数据库的具体实现"><a href="#向量数据库的具体实现" class="headerlink" title="向量数据库的具体实现"></a>向量数据库的具体实现</h2><p>关于向量数据库引擎盖下的核心实现和算法，比如如何做两个向量间的相关性搜索，各个算法实现的优劣，请移步这几个链接, 作者以视频的方式做了介绍，更加直观：</p>
+<ul>
+<li><a class="link"   href="https://www.bilibili.com/video/BV11a4y1c7SW/" >向量数据库技术鉴赏 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://guangzhengli.com/blog/zh/vector-database/#%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%B4%9B%E8%B5%B7" >向量数据库的崛起 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h2 id="使用向量数据库的好处"><a href="#使用向量数据库的好处" class="headerlink" title="使用向量数据库的好处"></a>使用向量数据库的好处</h2><p>机器学习模型无法记住超出其训练范围的任何信息，它们必须在每次查询时重新获取上下文（这就是许多简单聊天机器人的工作方式）。<br>每次将查询的上下文传递给模型都非常缓慢，因为可能涉及大量数据；而且成本高昂，因为数据必须移动，计算能力必须反复用于让模型解析相同的数据。而且在实践中，大多数机器学习 API 可能受到它们一次能够接受多少数据的限制(所谓的 token 限制）。这就是向量数据库发挥作用的地方：数据集只需通过模型一次（或在数据变化时定期进行），模型对该数据的嵌入被存储在向量数据库中。<br>总结来说，使用向量数据库主要有如下好处:</p>
+<ul>
+<li><strong>速度与性能</strong>：向量数据库使用各种索引技术实现更快的搜索。向量索引与诸如最近邻搜索等距离计算算法特别有助于在数百万甚至数十亿数据点中搜索相关结果，实现了优化的性能。</li>
+<li><strong>可扩展性</strong>：向量数据库通过水平扩展存储和管理大量非结构化数据，可以在查询需求和数据量增加的情况下保持性能。</li>
+<li><strong>拥有成本 TOC</strong>：向量数据库是训练基础模型的有价值的替代选择，无论是从头开始还是进行微调。这降低了基础模型推理的成本和速度。</li>
+<li><strong>灵活性</strong>：无论是处理图像、视频还是其他多维数据，向量数据库都设计用于处理复杂性。由于具有从语义搜索到对话式人工智能应用等多种用例，向量数据库的使用可以定制以满足您的业务和人工智能要求。</li>
+<li><strong>LLM 的长期记忆</strong>：组织可以从通用型模型（如 IBM watsonx.ai 的 Granite 系列模型、Meta 的 Llama-2 或 Google 的 Flan 模型）入手，然后将自己的数据提供给向量数据库，以增强与检索增强生成相关的模型和人工智能应用的输出。</li>
+<li><strong>数据管理组件</strong>：向量数据库通常还提供内置功能，以便轻松更新和插入新的非结构化数据。</li>
+</ul>
+<h2 id="向量数据库的选型"><a href="#向量数据库的选型" class="headerlink" title="向量数据库的选型"></a>向量数据库的选型</h2><p>我们对市面上有的向量数据库从扩展性，查询速度，搜索准确性，灵活性和可及性做一个表格，做相应的比较。</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Scalability</th>
+<th>Query Speed</th>
+<th>Search Accuracy</th>
+<th>Flexibility</th>
+<th>Persistence</th>
+<th>Storage Location</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Chroma</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>DeepsetAI</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>Faiss</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Medium</td>
+<td>No</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>Milvus</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>pgvector</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local</td>
+</tr>
+<tr>
+<td>Pinecone</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Cloud</td>
+</tr>
+<tr>
+<td>Supabase</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Cloud</td>
+</tr>
+<tr>
+<td>Qdrant</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>Vespa</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>Weaviate</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>DeepLake</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>LangChain VectorStore</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>Annoy</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>No</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>Elasticsearch</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>Hnswlib</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>No</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>NMSLIB</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>No</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+</tbody></table>
+<h3 id="主要推荐"><a href="#主要推荐" class="headerlink" title="主要推荐"></a>主要推荐</h3><h4 id="Chroma"><a href="#Chroma" class="headerlink" title="Chroma"></a>Chroma</h4><p>Chroma 是由<a href="www.trychroma.com/">Chroma.ai</a>开发的开源向量数据库。它专注于可伸缩性，能够高效地存储和查询大规模向量数据集。Chroma 采用分布式架构，具有横向可伸缩性，可以处理海量的向量数据。它利用 Apache Cassandra 实现高可用性和容错性，确保数据的持久性和耐久性。<br>Chroma 的一个独特之处在于其灵活的索引系统。它支持多种索引策略，如近似最近邻（ANN）算法，例如 HNSW 和 IVFPQ，从而实现快速准确的相似性搜索。Chroma 还提供全面的 Python 和 RESTful API，便于与自然语言处理流水线轻松集成。凭借其对可伸缩性和速度的强调，Chroma 是对于需要高性能向量存储和检索的应用而言的绝佳选择。虽然它可能没有一些其他工具那么高的可伸缩性或先进的搜索算法，但对于小到中型项目或想要快速入门向量数据库的初学者来说，它是理想的选择。</p>
+<h4 id="Faiss"><a href="#Faiss" class="headerlink" title="Faiss"></a>Faiss</h4><p>Faiss 标志，由 Facebook AI Research 开发，是一种广泛使用的向量数据库，以其高性能的相似性搜索能力而闻名。它提供了一系列针对高效检索最近邻居的优化索引方法，包括 IVF 和 HNSW。Faiss 还支持 GPU 加速，可以在大规模嵌入式数据上进行快速计算。<br>Faiss 的一个显著特点是其支持多索引搜索，这将不同的索引方法结合在一起，以提高搜索准确性和速度。此外，Faiss 提供了 Python 接口，便于与现有的自然语言处理流水线和框架集成。凭借其对搜索性能和多功能性的关注，Faiss 是在需要对大规模嵌入集合进行快速准确相似性搜索的项目中的首选选择。</p>
+<h4 id="PostgreSQL-pgvector"><a href="#PostgreSQL-pgvector" class="headerlink" title="PostgreSQL + pgvector"></a>PostgreSQL + pgvector</h4><p>Pgvector 是用于 Postgres 的开源向量相似性搜索。Pgvector 有助于在流行的开源关系数据库 PostgreSQL 上构建向量数据库。它利用 PostgreSQL 扩展系统强大的索引功能，提供高效的向量嵌入存储和检索。Pgvector 支持 CPU 和 GPU 推理，实现高性能的向量操作。<br>Pgvector 的一个关键优势是它与更广泛的 PostgreSQL 生态系统的无缝集成。用户可以利用 PostgreSQL 的丰富功能，如 ACID 兼容性和对复杂查询的支持，同时受益于向量特定的操作。Pgvector 扩展了 SQL 语法以处理向量操作，并提供了一个用于简化集成的 Python 库。凭借其与 PostgreSQL 的兼容性和高效的向量存储，pgvector 是需要无缝 SQL 集成的自然语言处理应用的可靠选择。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>向量数据库从算法和技术层面来说并不是一个完全全新的领域，但由于LLM兴起，我们对其有了更多的重视，当前已有的产品可以说是百家齐鸣，本文也没有完全罗列其它传统数据库厂商如SQL, Redis, Mongo等对向量数据库的支持。希望通过这次GAI的浪潮，乘风破浪者们能够在不同领域找到更多的机会。</p>
+<h4 id="推荐阅读"><a href="#推荐阅读" class="headerlink" title="推荐阅读"></a>推荐阅读</h4><ul>
+<li><a class="link"   href="https://github.com/chroma-core/chroma" >chroma <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/facebookresearch/faiss" >Faiss <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://www.ibm.com/topics/vector-database" >IBM vector database <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>vector database</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习一撇</title>
     <url>/2018/10/13/AI-2018-10-04-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%80%E6%92%87/</url>
     <content><![CDATA[<p>机器学习是建立在大量数据的基础上， 在有意义的大数据上面提取有用的信息， 然后做出预测。</p>
@@ -2039,85 +2239,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Eyes on FHIR Implement Guide（1）</title>
-    <url>/2022/12/05/Standard-2022-12-06-Eyes-on-FHIR-IG-1/</url>
-    <content><![CDATA[<h1 id="FHIR眼科实施指南IG（1）"><a href="#FHIR眼科实施指南IG（1）" class="headerlink" title="FHIR眼科实施指南IG（1）"></a>FHIR眼科实施指南IG（1）</h1><blockquote>
-<p>2021年8月，FHIR patient care小组发布了FHIR眼科实施指南0.1.0版本，此版本只针对眼底相关疾病，并且通过了FHIR connectathon测试，可以双向与真实世界的EMR、诊断设备和PACS通信。</p>
-</blockquote>
-<h2 id="IG主要内容"><a href="#IG主要内容" class="headerlink" title="IG主要内容"></a>IG主要内容</h2><p>实施指南的主要内容可分为：</p>
-<ul>
-<li>患者旅程</li>
-<li>概貌（Profiles）</li>
-<li>15个真实用例</li>
-<li>指引规范</li>
-<li>术语</li>
-<li>贡献者</li>
-<li>产出物</li>
-</ul>
-<h2 id="患者旅程"><a href="#患者旅程" class="headerlink" title="患者旅程"></a>患者旅程</h2><p>本文将详细介绍患者旅程部分。目前0.1版本只涵盖了白内障和青光眼患者旅程，下面将分段介绍。</p>
-<h3 id="白内障用例"><a href="#白内障用例" class="headerlink" title="白内障用例"></a>白内障用例</h3><p><strong>问题声明</strong><br>白内障手术的方法和术后结果的评价目前没有一个统一的标准。手术大夫使用不同的设备、数据集和信息系统来存储数据，造成了数据孤岛。国际上目前也没有一个通用的技术来共享白内障手术的数据。这就阻碍了这个领域的专业从业人员之间的合作，分享和研究等工作。</p>
-<p><strong>用例</strong><br>手术大夫使用眼科管理系统记录患者白内障手术的术前数据、术中数据和术后数据。利益关系人包括手术大夫、患者群体、支付者、权威机构和研究者，他们需要追踪手术结果并评估类似工作，这么做主要的好处是可以分享白内障医疗实践和研究成果给其他眼科医生，并且进一步鉴别问题人群的需求，评估不同手术设备和耗材的差异与技术区别性。针对不同的用户，好处分别是：</p>
-<ul>
-<li><p>眼科大夫</p>
-<ul>
-<li>可以接收随访的数据来进一步观察患者术后的情况</li>
-<li>逐步累计的数据可以帮助医生自我审查手术的结果，提高自身技术</li>
-<li>同事间相互交流对比</li>
-<li>最大限度地减少用于记录、发送、检索和追踪的认知和实践的工作量</li>
-</ul>
-</li>
-<li><p>特检医师（验光师）</p>
-<ul>
-<li>增强在术前和术后对患者的沟通教育，提升服务质量</li>
-<li>更容易和医生建立好合作关系</li>
-<li>标准化和自动化审计和收集信息来提升或改善病患关系</li>
-<li>最小化数据整理的工作</li>
-</ul>
-</li>
-<li><p>患者</p>
-<ul>
-<li>可以收到自己的健康数据</li>
-<li>可以把个人眼科信息集中到各类眼健康应用，比如配镜场景</li>
-<li>最大限度减少个人信息管理的工作</li>
-</ul>
-</li>
-</ul>
-<h3 id="青光眼用例"><a href="#青光眼用例" class="headerlink" title="青光眼用例"></a>青光眼用例</h3><p><strong>患者旅程</strong>一个老年开角型青光眼（condition）患者需要经常性的监控。大部分检测发生在特检科，那里他需要经历一系列的检查，如视敏度，眼压（observation）等，和一系列诊断检查如视野，眼底照片，OCT等，以及风险评估。青光眼作为慢性病，较好的管理方式取决纵向和多模态数据的收集，如examination, testing, imaging(Observation, ImageStudy, DiagnosticReport)。患者复诊的频率一般从3-12个月之间。任何一个指标如果出现恶化，患者一般会被眼科大夫（ServiceRequest, Referral note）重新评估治疗方案或手术激光干预(Procedure)。所以这些过程中记录的数据就十分重要，方便后续随访和慢病管理。对于不同用户，使用这样用例的好处分别是：</p>
-<ul>
-<li>眼科大夫<ul>
-<li>可以远程监控患者的进展情况</li>
-<li>更加方便从患者慢病全流程上做结果评估</li>
-<li>同事间的交流</li>
-<li>最大限度地减少用于记录、发送、检索和追踪的认知和实践的工作量</li>
-</ul>
-</li>
-<li>特检医师（验光师）<ul>
-<li>更加有信心检查患者，并且知道大夫能够访问检查数据和结果</li>
-<li>增强对患者的沟通教育，引导患者随访医生，提升服务质量</li>
-<li>更容易和医生建立好合作关系</li>
-<li>标准化和自动化审计和收集信息来提升或改善病患关系</li>
-<li>最小化数据整理的工作</li>
-</ul>
-</li>
-<li>患者<ul>
-<li>可以收到自己的健康数据</li>
-<li>可以把自己的数据集成到各种健康档案应用，如青光眼药物依从性。也可以使用其它设备如Home Icare家用手持式眼压计来富集个人的监控数据</li>
-<li>最大限度减少个人信息管理的工作</li>
-</ul>
-</li>
-</ul>
-<h4 id="外部链接"><a href="#外部链接" class="headerlink" title="外部链接"></a>外部链接</h4><ul>
-<li><a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/patient_journey.html" >Patient Journey Use Case <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>standard</category>
-      </categories>
-      <tags>
-        <tag>FHIR, Standard,IG</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Eyes on FHIR</title>
     <url>/2022/11/19/Standard-2022-11-20-Eyes-on-FHIR/</url>
     <content><![CDATA[<h1 id="什么是-Eyes-on-FHIR-？"><a href="#什么是-Eyes-on-FHIR-？" class="headerlink" title="什么是 Eyes on FHIR ？"></a>什么是 Eyes on FHIR ？</h1><blockquote>
@@ -2216,6 +2337,85 @@
       </categories>
       <tags>
         <tag>FHIR, Standard</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Eyes on FHIR Implement Guide（1）</title>
+    <url>/2022/12/05/Standard-2022-12-06-Eyes-on-FHIR-IG-1/</url>
+    <content><![CDATA[<h1 id="FHIR眼科实施指南IG（1）"><a href="#FHIR眼科实施指南IG（1）" class="headerlink" title="FHIR眼科实施指南IG（1）"></a>FHIR眼科实施指南IG（1）</h1><blockquote>
+<p>2021年8月，FHIR patient care小组发布了FHIR眼科实施指南0.1.0版本，此版本只针对眼底相关疾病，并且通过了FHIR connectathon测试，可以双向与真实世界的EMR、诊断设备和PACS通信。</p>
+</blockquote>
+<h2 id="IG主要内容"><a href="#IG主要内容" class="headerlink" title="IG主要内容"></a>IG主要内容</h2><p>实施指南的主要内容可分为：</p>
+<ul>
+<li>患者旅程</li>
+<li>概貌（Profiles）</li>
+<li>15个真实用例</li>
+<li>指引规范</li>
+<li>术语</li>
+<li>贡献者</li>
+<li>产出物</li>
+</ul>
+<h2 id="患者旅程"><a href="#患者旅程" class="headerlink" title="患者旅程"></a>患者旅程</h2><p>本文将详细介绍患者旅程部分。目前0.1版本只涵盖了白内障和青光眼患者旅程，下面将分段介绍。</p>
+<h3 id="白内障用例"><a href="#白内障用例" class="headerlink" title="白内障用例"></a>白内障用例</h3><p><strong>问题声明</strong><br>白内障手术的方法和术后结果的评价目前没有一个统一的标准。手术大夫使用不同的设备、数据集和信息系统来存储数据，造成了数据孤岛。国际上目前也没有一个通用的技术来共享白内障手术的数据。这就阻碍了这个领域的专业从业人员之间的合作，分享和研究等工作。</p>
+<p><strong>用例</strong><br>手术大夫使用眼科管理系统记录患者白内障手术的术前数据、术中数据和术后数据。利益关系人包括手术大夫、患者群体、支付者、权威机构和研究者，他们需要追踪手术结果并评估类似工作，这么做主要的好处是可以分享白内障医疗实践和研究成果给其他眼科医生，并且进一步鉴别问题人群的需求，评估不同手术设备和耗材的差异与技术区别性。针对不同的用户，好处分别是：</p>
+<ul>
+<li><p>眼科大夫</p>
+<ul>
+<li>可以接收随访的数据来进一步观察患者术后的情况</li>
+<li>逐步累计的数据可以帮助医生自我审查手术的结果，提高自身技术</li>
+<li>同事间相互交流对比</li>
+<li>最大限度地减少用于记录、发送、检索和追踪的认知和实践的工作量</li>
+</ul>
+</li>
+<li><p>特检医师（验光师）</p>
+<ul>
+<li>增强在术前和术后对患者的沟通教育，提升服务质量</li>
+<li>更容易和医生建立好合作关系</li>
+<li>标准化和自动化审计和收集信息来提升或改善病患关系</li>
+<li>最小化数据整理的工作</li>
+</ul>
+</li>
+<li><p>患者</p>
+<ul>
+<li>可以收到自己的健康数据</li>
+<li>可以把个人眼科信息集中到各类眼健康应用，比如配镜场景</li>
+<li>最大限度减少个人信息管理的工作</li>
+</ul>
+</li>
+</ul>
+<h3 id="青光眼用例"><a href="#青光眼用例" class="headerlink" title="青光眼用例"></a>青光眼用例</h3><p><strong>患者旅程</strong>一个老年开角型青光眼（condition）患者需要经常性的监控。大部分检测发生在特检科，那里他需要经历一系列的检查，如视敏度，眼压（observation）等，和一系列诊断检查如视野，眼底照片，OCT等，以及风险评估。青光眼作为慢性病，较好的管理方式取决纵向和多模态数据的收集，如examination, testing, imaging(Observation, ImageStudy, DiagnosticReport)。患者复诊的频率一般从3-12个月之间。任何一个指标如果出现恶化，患者一般会被眼科大夫（ServiceRequest, Referral note）重新评估治疗方案或手术激光干预(Procedure)。所以这些过程中记录的数据就十分重要，方便后续随访和慢病管理。对于不同用户，使用这样用例的好处分别是：</p>
+<ul>
+<li>眼科大夫<ul>
+<li>可以远程监控患者的进展情况</li>
+<li>更加方便从患者慢病全流程上做结果评估</li>
+<li>同事间的交流</li>
+<li>最大限度地减少用于记录、发送、检索和追踪的认知和实践的工作量</li>
+</ul>
+</li>
+<li>特检医师（验光师）<ul>
+<li>更加有信心检查患者，并且知道大夫能够访问检查数据和结果</li>
+<li>增强对患者的沟通教育，引导患者随访医生，提升服务质量</li>
+<li>更容易和医生建立好合作关系</li>
+<li>标准化和自动化审计和收集信息来提升或改善病患关系</li>
+<li>最小化数据整理的工作</li>
+</ul>
+</li>
+<li>患者<ul>
+<li>可以收到自己的健康数据</li>
+<li>可以把自己的数据集成到各种健康档案应用，如青光眼药物依从性。也可以使用其它设备如Home Icare家用手持式眼压计来富集个人的监控数据</li>
+<li>最大限度减少个人信息管理的工作</li>
+</ul>
+</li>
+</ul>
+<h4 id="外部链接"><a href="#外部链接" class="headerlink" title="外部链接"></a>外部链接</h4><ul>
+<li><a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/patient_journey.html" >Patient Journey Use Case <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>standard</category>
+      </categories>
+      <tags>
+        <tag>FHIR, Standard,IG</tag>
       </tags>
   </entry>
   <entry>
@@ -2813,77 +3013,6 @@
       </tags>
   </entry>
   <entry>
-    <title>业务架构与设计原则</title>
-    <url>/2020/12/27/architecture-2020-12-08-bussiness-architecture/</url>
-    <content><![CDATA[<h2 id="企业业务架构"><a href="#企业业务架构" class="headerlink" title="企业业务架构"></a>企业业务架构</h2><p>企业的业务架构定义了企业的结构，这个结构包含了企业的治理结构，业务流程，服务和产品，业务信息和利益相关者。业务架构为实现企业战略目标勾画出一个可行的、方向性的系统。所以简单地可以认为企业业务架构是一个组织工作的蓝图。通过使用组织架构，企业可以以较小的代价和时间来面对挑战和处理问题，这是因为我们已经知道业务中所有重要的依赖，关系和信息流。企业不管大小都应该有业务架构。 业务架构不一定需要全放面描述或者按照一定的标准创建。设计和描述组织的工作是复杂和困难的， 所以我们需要一些工具来帮助加速这一过程。</p>
-<h3 id="开源工具"><a href="#开源工具" class="headerlink" title="开源工具"></a>开源工具</h3><ul>
-<li><strong>Collection</strong> 常见设计原则 <a class="link"   href="https://principles.design/" >https://principles.design/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><strong>Archi</strong> 架构图工具 <a class="link"   href="https://www.archimatetool.com/" >https://www.archimatetool.com/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><strong>Causal Loop Diagram</strong> 流程图工具。 <a class="link"   href="https://nocomplexity.com/causalloopdiagram/" >https://nocomplexity.com/causalloopdiagram/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><strong>Camunda Modeler</strong> 用于编辑BPMN(Business Process Model and Notation)的桌面工具。<a class="link"   href="https://camunda.com/download/modeler/" >https://camunda.com/download/modeler/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><strong>Protege</strong> 用于规划拓扑图 <a class="link"   href="https://protege.stanford.edu/" >https://protege.stanford.edu/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><strong>DrawIO</strong> 是一个线上项目用于创建流程图。类似国内的有processon. <a class="link"   href="https://app.diagrams.net/" >https://app.diagrams.net/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<h2 id="业务架构设计原则"><a href="#业务架构设计原则" class="headerlink" title="业务架构设计原则"></a>业务架构设计原则</h2><p>有一个清晰的业务原则对于成功的企业至关重要。有原则也是在限定的时间和资源下构建好的架构的基础，这些原则需要所有的利益相关者都参与和同意。</p>
-<h3 id="一些常见的原则"><a href="#一些常见的原则" class="headerlink" title="一些常见的原则"></a>一些常见的原则</h3><h4 id="solution-space解决的空间"><a href="#solution-space解决的空间" class="headerlink" title="solution space解决的空间"></a>solution space解决的空间</h4><p><strong>原则：</strong>永不尝试使用技术的手段解决非技术的问题。<br><br><strong>原因：</strong>技术当然可以帮助解决一些问题， 但是技术永远不可能是完备的手段。任何非技术的活动，过程，行为改变等等都可能是解决问题的手段。<br><br><strong>言下之意：</strong>解决问题的时候不要仅仅盯着技术。</p>
-<h4 id="start-simple简单先行"><a href="#start-simple简单先行" class="headerlink" title="start simple简单先行"></a>start simple简单先行</h4><p><strong>原则：</strong>简单先行 <br><br><strong>原因：</strong>简单开发一个产品其实是赢得对于构建下一步产品的权利。<br><br><strong>言下之意：</strong>当投入大量时间和金钱时，复杂性就会出现，简单的调整也会产生更大的影响。当产品变得成熟时，修复向后兼容性的问题将更加复杂。<br></p>
-<h4 id="快速构建MVP（Minimal-Viable-Product"><a href="#快速构建MVP（Minimal-Viable-Product" class="headerlink" title="快速构建MVP（Minimal Viable Product)"></a>快速构建MVP（Minimal Viable Product)</h4><p><strong>原则：</strong>如果你的MVP需要一年的时间构建， 那么这不是MVP <br><br><strong>原因：</strong>最好MVP不要超过一个月构建。<br><br><strong>言下之意：</strong>MVP不是用来贩卖的，而是从后续的阶段中学习如何贩卖。<br></p>
-<h4 id="make-it-easy-first-then-make-it-fast先简单做然后快速做"><a href="#make-it-easy-first-then-make-it-fast先简单做然后快速做" class="headerlink" title="make it easy first then make it fast先简单做然后快速做"></a>make it easy first then make it fast先简单做然后快速做</h4><p><strong>原则：</strong>先简单做， 然后快速做，最后做的漂亮. <br><br><strong>原因：</strong>开发新项目的成本是很高的，做一个优秀的产品更加复杂和昂贵。所以在做MVP的时候，尝试着让产品易用和易改。 <br><br><strong>言下之意：</strong>一些性能之类的问题可以后面再考虑。<br></p>
-<h4 id="use-open-data-open-standards-open-source-and-open-innovation使用公开数据，公开标准，公开源代码，公开创意"><a href="#use-open-data-open-standards-open-source-and-open-innovation使用公开数据，公开标准，公开源代码，公开创意" class="headerlink" title="use open data, open standards, open source and open innovation使用公开数据，公开标准，公开源代码，公开创意"></a>use open data, open standards, open source and open innovation使用公开数据，公开标准，公开源代码，公开创意</h4><p> <strong>原则：</strong>use open data, open standards, open source and open innovation. <br><br> <strong>原因：</strong>这个原则提供了一个框架使用公开的方式去技术赋能开发。<br><br> <strong>言下之意：</strong> <br></p>
-<ul>
-<li>采用并扩展存在的公开标准</li>
-<li>尽量以API的方式开放数据和功能， 越大的社区使用你的产品越好</li>
-<li>把投资软件当做公益</li>
-<li>尽可能的开源代码</li>
-</ul>
-<h4 id="Strategic-focus焦距策略"><a href="#Strategic-focus焦距策略" class="headerlink" title="Strategic focus焦距策略"></a>Strategic focus焦距策略</h4><p> <strong>原则：</strong>投资决策受业务需求驱动。<br><br> <strong>原因：</strong>一个业务领头和面向业务的架构在满足战术目标，不断改变的需求和客户期待上更可能成功。<br><br> <strong>言下之意：</strong>架构需要完全和整个公司的战略目标对齐。<br></p>
-<h4 id="make-things-open保持分享"><a href="#make-things-open保持分享" class="headerlink" title="make things open保持分享"></a>make things open保持分享</h4><p> <strong>原则：</strong>make things open: it makes things better.<br><br> <strong>原因：</strong>尽可能地分享我们在做的东西。和同事， 和用户，和世界分享代码，分享设计，分享想法，分享创意，分享失败。越多的人关注你越可能你的产品可以成功。<br></p>
-<h4 id="maximise-benefit-to-the-enterprise最大化企业的利益"><a href="#maximise-benefit-to-the-enterprise最大化企业的利益" class="headerlink" title="maximise benefit to the enterprise最大化企业的利益"></a>maximise benefit to the enterprise最大化企业的利益</h4><p> <strong>原则：</strong>信息管理的决定是为了最大化企业的利益。<br><br> <strong>原因：</strong>这个原则内嵌了“服务高于个人”的意思。从企业的角度做决定永远比从组织的角度出发对企业有更长远的价值。<br><br> <strong>言下之意：</strong>达到最大化企业的利益需要我们修正计划和管理信息的方式。技术不能完全解决这个改变。所以组织可能需要做一些牺牲来满足企业利益， 比如调整开发的优先级，改变一些喜欢的工具等等。<br></p>
-<h4 id="Reliability可靠性"><a href="#Reliability可靠性" class="headerlink" title="Reliability可靠性"></a>Reliability可靠性</h4><p> <strong>原则：</strong>信息系统需要可靠，准确，及时。<br></p>
-<h4 id="Reuse-and-Improve复用与提高"><a href="#Reuse-and-Improve复用与提高" class="headerlink" title="Reuse and Improve复用与提高"></a>Reuse and Improve复用与提高</h4><p> <strong>原则：</strong>复用与提高 <br><br> <strong>原因：</strong>避免资源浪费，只有在不满足需求的时候才升级原有的解决方案。<br><br> <strong>言下之意：</strong> <br></p>
-<ul>
-<li>尽可能使用、修改、扩展现有工具，平台和框架。</li>
-<li>开发模块化的软件是提倡的方式。</li>
-</ul>
-<h4 id="Reuse-before-buy-buy-before-build"><a href="#Reuse-before-buy-buy-before-build" class="headerlink" title="Reuse before buy, buy before build"></a>Reuse before buy, buy before build</h4><p><strong>原则：</strong>尽可能复内部it资产，不满足的情况下才考虑买外部IP, 最后才是定制化构建新的产品。<br><br><strong>原因：</strong> <br></p>
-<ul>
-<li>购买标准的IT解决方案只要它们不是快要淘汰都比自定制化便宜， 并且享有后续维护。</li>
-<li>定制化的产品后续的维护可能是否昂贵。<br><br><strong>言下之意：</strong> <br></li>
-<li>为了保证IT资产能够尽可能复用，业务单元必须保证治理部门不认为业务实践与行业标准实践有重大的不一致。</li>
-<li>有些商业化的软件是可以配置的，需要评估配置功能的复杂度是否和自己定制的复杂度相近。</li>
-<li>license合规性也是需要考虑的。</li>
-</ul>
-<h4 id="User-Experience-Continuity"><a href="#User-Experience-Continuity" class="headerlink" title="User Experience Continuity"></a>User Experience Continuity</h4><p><strong>原则：</strong>我们交付的产品要尽可能保持体验的延续性。<br><br><strong>原因：</strong>用户不管在公司内部还是外部都会使用不同应用，有不同的使用体验, 我们不想让用户使用自己的产品有使用20年前产品的感觉。<br><br><strong>言下之意：</strong> <br></p>
-<ul>
-<li>主动关注身边发生的新技术和新方法。</li>
-<li>保持好奇心，敢于尝试新鲜事物，积极听取他人意见或建议。</li>
-<li>积极采用新颖的方式来处理问题及机会。</li>
-<li>不断对现状提出问题，挑战传统的工作方法和思维方式。</li>
-<li>敢于为制定新政策、采取新措施或尝试新方法承担可控风险。</li>
-</ul>
-<h4 id="Routine-Tasks-are-automated-where-appropriate-尽可能自动化日常活动"><a href="#Routine-Tasks-are-automated-where-appropriate-尽可能自动化日常活动" class="headerlink" title="Routine Tasks are automated where appropriate 尽可能自动化日常活动"></a>Routine Tasks are automated where appropriate 尽可能自动化日常活动</h4><p> <strong>原则：</strong>尽可能自动化日常活动 <br><br> <strong>原因：</strong>自动化节约人力，提高效率和有更高的容错。<br><br> <strong>言下之意：</strong> <br></p>
-<ul>
-<li>需要专业知识去分析可以自动化流程的过程。</li>
-<li>不是日常的任务不需要自动化。</li>
-<li>自动化流程可以是一个流程接着另一个流程， 业务单元需要集成到整个工作流当中。</li>
-</ul>
-<h4 id="Give-before-receiving"><a href="#Give-before-receiving" class="headerlink" title="Give before receiving"></a>Give before receiving</h4><p> <strong>原则：</strong>先于奉献 <br><br> <strong>原因：</strong>奉献是建立一段关系的真正方式。仅仅关注于从联系中可以得到什么是不能构建相互共赢和可持续关系的。<br><br> <strong>言下之意：</strong>维护和利益相关者的关系是十分必要的。<br></p>
-<h4 id="Everyone-matters-in-Information-management-信息管理和所有人有关"><a href="#Everyone-matters-in-Information-management-信息管理和所有人有关" class="headerlink" title="Everyone matters in Information management 信息管理和所有人有关"></a>Everyone matters in Information management 信息管理和所有人有关</h4><p> <strong>原则：</strong>组织中所有参与信息管理决策的人都需要参与完成业务指标 <br><br> <strong>原因：</strong>信息系统的用户是关键利益相关者，是实际使用技术解决业务需求的人。为了保障信息系统和业务对齐，所有企业中的组织都需要参与到信息系统环境中的各方面。<br><br> <strong>言下之意：</strong>为了整体上作为一个团队，利益相关者需要接受开发信息系统环境的责任。保障必要的资源来完成这条原则。<br></p>
-<h4 id="Be-Collaborative"><a href="#Be-Collaborative" class="headerlink" title="Be Collaborative"></a>Be Collaborative</h4><p> <strong>原则：</strong>相互协助 <br><br> <strong>原因：</strong>If you want to go fast, go alone. If you want to go far, go together.<br><br> <strong>言下之意：</strong> <br></p>
-<ul>
-<li>让各个不同领域的专家参与项目</li>
-<li>跨部门合作</li>
-<li>把好的工作经验，结果，进展记录下来，并且分享它们。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>architecture</category>
-      </categories>
-      <tags>
-        <tag>architecture</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>企业架构师 vs 解决方案架构师 vs 技术架构师</title>
     <url>/2020/11/14/architecture-2020-11-15-%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E4%B8%8E%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E5%B8%88/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文主要简介一下企业架构师EA, 技术架构师TA, 解决方案架构师SA的区别, 同时探讨各自需要具备的能力和挑战.</p>
@@ -2971,6 +3100,77 @@
                      data-src="/images/2020-12/samm.png"
                      
                 ></p>
+]]></content>
+      <categories>
+        <category>architecture</category>
+      </categories>
+      <tags>
+        <tag>architecture</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>业务架构与设计原则</title>
+    <url>/2020/12/27/architecture-2020-12-08-bussiness-architecture/</url>
+    <content><![CDATA[<h2 id="企业业务架构"><a href="#企业业务架构" class="headerlink" title="企业业务架构"></a>企业业务架构</h2><p>企业的业务架构定义了企业的结构，这个结构包含了企业的治理结构，业务流程，服务和产品，业务信息和利益相关者。业务架构为实现企业战略目标勾画出一个可行的、方向性的系统。所以简单地可以认为企业业务架构是一个组织工作的蓝图。通过使用组织架构，企业可以以较小的代价和时间来面对挑战和处理问题，这是因为我们已经知道业务中所有重要的依赖，关系和信息流。企业不管大小都应该有业务架构。 业务架构不一定需要全放面描述或者按照一定的标准创建。设计和描述组织的工作是复杂和困难的， 所以我们需要一些工具来帮助加速这一过程。</p>
+<h3 id="开源工具"><a href="#开源工具" class="headerlink" title="开源工具"></a>开源工具</h3><ul>
+<li><strong>Collection</strong> 常见设计原则 <a class="link"   href="https://principles.design/" >https://principles.design/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><strong>Archi</strong> 架构图工具 <a class="link"   href="https://www.archimatetool.com/" >https://www.archimatetool.com/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><strong>Causal Loop Diagram</strong> 流程图工具。 <a class="link"   href="https://nocomplexity.com/causalloopdiagram/" >https://nocomplexity.com/causalloopdiagram/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><strong>Camunda Modeler</strong> 用于编辑BPMN(Business Process Model and Notation)的桌面工具。<a class="link"   href="https://camunda.com/download/modeler/" >https://camunda.com/download/modeler/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><strong>Protege</strong> 用于规划拓扑图 <a class="link"   href="https://protege.stanford.edu/" >https://protege.stanford.edu/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><strong>DrawIO</strong> 是一个线上项目用于创建流程图。类似国内的有processon. <a class="link"   href="https://app.diagrams.net/" >https://app.diagrams.net/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h2 id="业务架构设计原则"><a href="#业务架构设计原则" class="headerlink" title="业务架构设计原则"></a>业务架构设计原则</h2><p>有一个清晰的业务原则对于成功的企业至关重要。有原则也是在限定的时间和资源下构建好的架构的基础，这些原则需要所有的利益相关者都参与和同意。</p>
+<h3 id="一些常见的原则"><a href="#一些常见的原则" class="headerlink" title="一些常见的原则"></a>一些常见的原则</h3><h4 id="solution-space解决的空间"><a href="#solution-space解决的空间" class="headerlink" title="solution space解决的空间"></a>solution space解决的空间</h4><p><strong>原则：</strong>永不尝试使用技术的手段解决非技术的问题。<br><br><strong>原因：</strong>技术当然可以帮助解决一些问题， 但是技术永远不可能是完备的手段。任何非技术的活动，过程，行为改变等等都可能是解决问题的手段。<br><br><strong>言下之意：</strong>解决问题的时候不要仅仅盯着技术。</p>
+<h4 id="start-simple简单先行"><a href="#start-simple简单先行" class="headerlink" title="start simple简单先行"></a>start simple简单先行</h4><p><strong>原则：</strong>简单先行 <br><br><strong>原因：</strong>简单开发一个产品其实是赢得对于构建下一步产品的权利。<br><br><strong>言下之意：</strong>当投入大量时间和金钱时，复杂性就会出现，简单的调整也会产生更大的影响。当产品变得成熟时，修复向后兼容性的问题将更加复杂。<br></p>
+<h4 id="快速构建MVP（Minimal-Viable-Product"><a href="#快速构建MVP（Minimal-Viable-Product" class="headerlink" title="快速构建MVP（Minimal Viable Product)"></a>快速构建MVP（Minimal Viable Product)</h4><p><strong>原则：</strong>如果你的MVP需要一年的时间构建， 那么这不是MVP <br><br><strong>原因：</strong>最好MVP不要超过一个月构建。<br><br><strong>言下之意：</strong>MVP不是用来贩卖的，而是从后续的阶段中学习如何贩卖。<br></p>
+<h4 id="make-it-easy-first-then-make-it-fast先简单做然后快速做"><a href="#make-it-easy-first-then-make-it-fast先简单做然后快速做" class="headerlink" title="make it easy first then make it fast先简单做然后快速做"></a>make it easy first then make it fast先简单做然后快速做</h4><p><strong>原则：</strong>先简单做， 然后快速做，最后做的漂亮. <br><br><strong>原因：</strong>开发新项目的成本是很高的，做一个优秀的产品更加复杂和昂贵。所以在做MVP的时候，尝试着让产品易用和易改。 <br><br><strong>言下之意：</strong>一些性能之类的问题可以后面再考虑。<br></p>
+<h4 id="use-open-data-open-standards-open-source-and-open-innovation使用公开数据，公开标准，公开源代码，公开创意"><a href="#use-open-data-open-standards-open-source-and-open-innovation使用公开数据，公开标准，公开源代码，公开创意" class="headerlink" title="use open data, open standards, open source and open innovation使用公开数据，公开标准，公开源代码，公开创意"></a>use open data, open standards, open source and open innovation使用公开数据，公开标准，公开源代码，公开创意</h4><p> <strong>原则：</strong>use open data, open standards, open source and open innovation. <br><br> <strong>原因：</strong>这个原则提供了一个框架使用公开的方式去技术赋能开发。<br><br> <strong>言下之意：</strong> <br></p>
+<ul>
+<li>采用并扩展存在的公开标准</li>
+<li>尽量以API的方式开放数据和功能， 越大的社区使用你的产品越好</li>
+<li>把投资软件当做公益</li>
+<li>尽可能的开源代码</li>
+</ul>
+<h4 id="Strategic-focus焦距策略"><a href="#Strategic-focus焦距策略" class="headerlink" title="Strategic focus焦距策略"></a>Strategic focus焦距策略</h4><p> <strong>原则：</strong>投资决策受业务需求驱动。<br><br> <strong>原因：</strong>一个业务领头和面向业务的架构在满足战术目标，不断改变的需求和客户期待上更可能成功。<br><br> <strong>言下之意：</strong>架构需要完全和整个公司的战略目标对齐。<br></p>
+<h4 id="make-things-open保持分享"><a href="#make-things-open保持分享" class="headerlink" title="make things open保持分享"></a>make things open保持分享</h4><p> <strong>原则：</strong>make things open: it makes things better.<br><br> <strong>原因：</strong>尽可能地分享我们在做的东西。和同事， 和用户，和世界分享代码，分享设计，分享想法，分享创意，分享失败。越多的人关注你越可能你的产品可以成功。<br></p>
+<h4 id="maximise-benefit-to-the-enterprise最大化企业的利益"><a href="#maximise-benefit-to-the-enterprise最大化企业的利益" class="headerlink" title="maximise benefit to the enterprise最大化企业的利益"></a>maximise benefit to the enterprise最大化企业的利益</h4><p> <strong>原则：</strong>信息管理的决定是为了最大化企业的利益。<br><br> <strong>原因：</strong>这个原则内嵌了“服务高于个人”的意思。从企业的角度做决定永远比从组织的角度出发对企业有更长远的价值。<br><br> <strong>言下之意：</strong>达到最大化企业的利益需要我们修正计划和管理信息的方式。技术不能完全解决这个改变。所以组织可能需要做一些牺牲来满足企业利益， 比如调整开发的优先级，改变一些喜欢的工具等等。<br></p>
+<h4 id="Reliability可靠性"><a href="#Reliability可靠性" class="headerlink" title="Reliability可靠性"></a>Reliability可靠性</h4><p> <strong>原则：</strong>信息系统需要可靠，准确，及时。<br></p>
+<h4 id="Reuse-and-Improve复用与提高"><a href="#Reuse-and-Improve复用与提高" class="headerlink" title="Reuse and Improve复用与提高"></a>Reuse and Improve复用与提高</h4><p> <strong>原则：</strong>复用与提高 <br><br> <strong>原因：</strong>避免资源浪费，只有在不满足需求的时候才升级原有的解决方案。<br><br> <strong>言下之意：</strong> <br></p>
+<ul>
+<li>尽可能使用、修改、扩展现有工具，平台和框架。</li>
+<li>开发模块化的软件是提倡的方式。</li>
+</ul>
+<h4 id="Reuse-before-buy-buy-before-build"><a href="#Reuse-before-buy-buy-before-build" class="headerlink" title="Reuse before buy, buy before build"></a>Reuse before buy, buy before build</h4><p><strong>原则：</strong>尽可能复内部it资产，不满足的情况下才考虑买外部IP, 最后才是定制化构建新的产品。<br><br><strong>原因：</strong> <br></p>
+<ul>
+<li>购买标准的IT解决方案只要它们不是快要淘汰都比自定制化便宜， 并且享有后续维护。</li>
+<li>定制化的产品后续的维护可能是否昂贵。<br><br><strong>言下之意：</strong> <br></li>
+<li>为了保证IT资产能够尽可能复用，业务单元必须保证治理部门不认为业务实践与行业标准实践有重大的不一致。</li>
+<li>有些商业化的软件是可以配置的，需要评估配置功能的复杂度是否和自己定制的复杂度相近。</li>
+<li>license合规性也是需要考虑的。</li>
+</ul>
+<h4 id="User-Experience-Continuity"><a href="#User-Experience-Continuity" class="headerlink" title="User Experience Continuity"></a>User Experience Continuity</h4><p><strong>原则：</strong>我们交付的产品要尽可能保持体验的延续性。<br><br><strong>原因：</strong>用户不管在公司内部还是外部都会使用不同应用，有不同的使用体验, 我们不想让用户使用自己的产品有使用20年前产品的感觉。<br><br><strong>言下之意：</strong> <br></p>
+<ul>
+<li>主动关注身边发生的新技术和新方法。</li>
+<li>保持好奇心，敢于尝试新鲜事物，积极听取他人意见或建议。</li>
+<li>积极采用新颖的方式来处理问题及机会。</li>
+<li>不断对现状提出问题，挑战传统的工作方法和思维方式。</li>
+<li>敢于为制定新政策、采取新措施或尝试新方法承担可控风险。</li>
+</ul>
+<h4 id="Routine-Tasks-are-automated-where-appropriate-尽可能自动化日常活动"><a href="#Routine-Tasks-are-automated-where-appropriate-尽可能自动化日常活动" class="headerlink" title="Routine Tasks are automated where appropriate 尽可能自动化日常活动"></a>Routine Tasks are automated where appropriate 尽可能自动化日常活动</h4><p> <strong>原则：</strong>尽可能自动化日常活动 <br><br> <strong>原因：</strong>自动化节约人力，提高效率和有更高的容错。<br><br> <strong>言下之意：</strong> <br></p>
+<ul>
+<li>需要专业知识去分析可以自动化流程的过程。</li>
+<li>不是日常的任务不需要自动化。</li>
+<li>自动化流程可以是一个流程接着另一个流程， 业务单元需要集成到整个工作流当中。</li>
+</ul>
+<h4 id="Give-before-receiving"><a href="#Give-before-receiving" class="headerlink" title="Give before receiving"></a>Give before receiving</h4><p> <strong>原则：</strong>先于奉献 <br><br> <strong>原因：</strong>奉献是建立一段关系的真正方式。仅仅关注于从联系中可以得到什么是不能构建相互共赢和可持续关系的。<br><br> <strong>言下之意：</strong>维护和利益相关者的关系是十分必要的。<br></p>
+<h4 id="Everyone-matters-in-Information-management-信息管理和所有人有关"><a href="#Everyone-matters-in-Information-management-信息管理和所有人有关" class="headerlink" title="Everyone matters in Information management 信息管理和所有人有关"></a>Everyone matters in Information management 信息管理和所有人有关</h4><p> <strong>原则：</strong>组织中所有参与信息管理决策的人都需要参与完成业务指标 <br><br> <strong>原因：</strong>信息系统的用户是关键利益相关者，是实际使用技术解决业务需求的人。为了保障信息系统和业务对齐，所有企业中的组织都需要参与到信息系统环境中的各方面。<br><br> <strong>言下之意：</strong>为了整体上作为一个团队，利益相关者需要接受开发信息系统环境的责任。保障必要的资源来完成这条原则。<br></p>
+<h4 id="Be-Collaborative"><a href="#Be-Collaborative" class="headerlink" title="Be Collaborative"></a>Be Collaborative</h4><p> <strong>原则：</strong>相互协助 <br><br> <strong>原因：</strong>If you want to go fast, go alone. If you want to go far, go together.<br><br> <strong>言下之意：</strong> <br></p>
+<ul>
+<li>让各个不同领域的专家参与项目</li>
+<li>跨部门合作</li>
+<li>把好的工作经验，结果，进展记录下来，并且分享它们。</li>
+</ul>
 ]]></content>
       <categories>
         <category>architecture</category>
@@ -3796,27 +3996,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Data Governance Guide</title>
-    <url>/2021/05/06/data-warehouse-2021-05-07-data-governance-guide/</url>
-    <content><![CDATA[<h2 id="What-is-data-governance"><a href="#What-is-data-governance" class="headerlink" title="What is data governance?"></a>What is data governance?</h2><p>根据DGI定义: <code>Data Governance is a system of decision rights and accountabilities for information-related processes, executed according to agreed-upon models which describe who can take what actions with what information, and when, under what circumstances, using what methods</code> 数据治理指的是对数据相关事宜的决策制定与权利控制。具体来说，数据治理是处理信息和实施决策的一个系统，即根据约定模型实施决策，包括实施者、实施步骤、实施时间、实施情境以及实施途径与方法。<br>数据治理是业务流程, 角色, 规则, 标准和指标的集合, 为了让企业能够有效, 高效地使用信息以到达企业的目标. 数据治理需要建立流程和职责使得数据的质量和安全性在业务使用数据时中得到保证. 数据治理定义了谁可以在什么情况下对什么数据进行何种数据的操作. 一个好的数据治理框架需要覆盖策略, 战术, 和操作人员的角色和职责.</p>
-<p>一般情况下, 业务会驱动数据治理的策略, 如哪些数据需要仔细的监管. 所以业务规则是数据治理策略制定的基础之一. 举个例子, 如果一个业务驱动的需求是保证健康相关数据的隐私性, 那么治理策略就应该保证数据流被安全地处理. 留存需求如历史上谁在什么时候改了信息等, 这些需求需要能够满足相关监管的要求, 如GDPR和CCPA.</p>
-<h3 id="良好数据治理的好处"><a href="#良好数据治理的好处" class="headerlink" title="良好数据治理的好处"></a>良好数据治理的好处</h3><ul>
-<li>通用数据的理解. 良好治理能够提供一致的角度, 通用的术语对于数据来说.</li>
-<li>数据质量提升. </li>
-<li>数据地图. 帮助理清数据的来源位置</li>
-<li>360视图. </li>
-<li>一致性合规.</li>
-<li>容易访问.</li>
-</ul>
-]]></content>
-      <categories>
-        <category>data warehouse</category>
-      </categories>
-      <tags>
-        <tag>db, data governance</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Slow Change Dimension in DW</title>
     <url>/2021/06/17/data-warehouse-2021-06-18-SCD/</url>
     <content><![CDATA[<h2 id="What-is-Slow-Change-Dimension"><a href="#What-is-Slow-Change-Dimension" class="headerlink" title="What is Slow Change Dimension"></a>What is Slow Change Dimension</h2><p><code>SCD</code>缓慢变化维是指维度的值会随着时间缓慢变化. 当维度值变化时, 我们可以直接把旧的值覆盖, 也可以存储一行新的值(把旧的记录无效), 还可以加一个字段使用列式存储新的值. 所以基本上<code>SCD</code>有几种类型:</p>
@@ -3841,6 +4020,27 @@
       </categories>
       <tags>
         <tag>data warehouse, scd</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Data Governance Guide</title>
+    <url>/2021/05/06/data-warehouse-2021-05-07-data-governance-guide/</url>
+    <content><![CDATA[<h2 id="What-is-data-governance"><a href="#What-is-data-governance" class="headerlink" title="What is data governance?"></a>What is data governance?</h2><p>根据DGI定义: <code>Data Governance is a system of decision rights and accountabilities for information-related processes, executed according to agreed-upon models which describe who can take what actions with what information, and when, under what circumstances, using what methods</code> 数据治理指的是对数据相关事宜的决策制定与权利控制。具体来说，数据治理是处理信息和实施决策的一个系统，即根据约定模型实施决策，包括实施者、实施步骤、实施时间、实施情境以及实施途径与方法。<br>数据治理是业务流程, 角色, 规则, 标准和指标的集合, 为了让企业能够有效, 高效地使用信息以到达企业的目标. 数据治理需要建立流程和职责使得数据的质量和安全性在业务使用数据时中得到保证. 数据治理定义了谁可以在什么情况下对什么数据进行何种数据的操作. 一个好的数据治理框架需要覆盖策略, 战术, 和操作人员的角色和职责.</p>
+<p>一般情况下, 业务会驱动数据治理的策略, 如哪些数据需要仔细的监管. 所以业务规则是数据治理策略制定的基础之一. 举个例子, 如果一个业务驱动的需求是保证健康相关数据的隐私性, 那么治理策略就应该保证数据流被安全地处理. 留存需求如历史上谁在什么时候改了信息等, 这些需求需要能够满足相关监管的要求, 如GDPR和CCPA.</p>
+<h3 id="良好数据治理的好处"><a href="#良好数据治理的好处" class="headerlink" title="良好数据治理的好处"></a>良好数据治理的好处</h3><ul>
+<li>通用数据的理解. 良好治理能够提供一致的角度, 通用的术语对于数据来说.</li>
+<li>数据质量提升. </li>
+<li>数据地图. 帮助理清数据的来源位置</li>
+<li>360视图. </li>
+<li>一致性合规.</li>
+<li>容易访问.</li>
+</ul>
+]]></content>
+      <categories>
+        <category>data warehouse</category>
+      </categories>
+      <tags>
+        <tag>db, data governance</tag>
       </tags>
   </entry>
   <entry>
@@ -3928,6 +4128,26 @@
       </categories>
       <tags>
         <tag>data warehouse, data model</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>增量ETL源数据的几种方式和细节</title>
+    <url>/2022/01/09/data-warehouse-2022-01-10-%E5%A2%9E%E9%87%8FETL%E6%BA%90%E6%95%B0%E6%8D%AE%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8C%E7%BB%86%E8%8A%82/</url>
+    <content><![CDATA[<h2 id="Introduction-介绍"><a href="#Introduction-介绍" class="headerlink" title="Introduction 介绍"></a>Introduction 介绍</h2><p><code>ETL</code>是常见的把数据从 OLTP 系统导入数据仓库的方式，一般分为全量，增量，固定范围和推送方式。本文主要讲如何增量抽取，和抽取过程中遇到其它一些问题的解决方法。</p>
+<h3 id="增量抽取"><a href="#增量抽取" class="headerlink" title="增量抽取"></a>增量抽取</h3><p>增量抽取一般可以使用表中列的时间戳，标识符，交易日期和触发器等组合来判断是否需要增量抽取。使用时间戳，标识符和交易日期的方法大致一样，通过比较元数据中记录的上一次成功<code>etl</code>点和当前时间或位置做比较，进行增量抽取。</p>
+<h4 id="原始数据记录删除了数仓该如何处理？"><a href="#原始数据记录删除了数仓该如何处理？" class="headerlink" title="原始数据记录删除了数仓该如何处理？"></a>原始数据记录删除了数仓该如何处理？</h4><ul>
+<li>方法 1：比较原始数据和数仓表的主键，如果发现原始数据库主键已经不存在，那么需要在数据表做软删除。</li>
+<li>方法 2：如果原始数据库支持删除触发器，那么数仓只需 <code>etl</code>删除审计表或者事件表，标记记录已删除就行。（此方法也是用update,insert）<br>如果希望保存所有的更改记录，使用<code>temporal table</code>时态表是个很好的选择，但是需要业务系统支持。</li>
+</ul>
+<h4 id="使用固定范围etl"><a href="#使用固定范围etl" class="headerlink" title="使用固定范围etl"></a>使用固定范围etl</h4><p>如果有些数据源没有自增键或者可用的时间戳，可用系统赋值的<code>RowID</code>作为参考值，固定范围etl数据。在SQL Server中可用如下代码定位，</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">%</span><span class="operator">%</span>physloc<span class="operator">%</span><span class="operator">%</span> <span class="keyword">AS</span> [<span class="operator">%</span><span class="operator">%</span>physloc<span class="operator">%</span><span class="operator">%</span>],</span><br><span class="line">       sys.fn_PhysLocFormatter(<span class="operator">%</span><span class="operator">%</span>physloc<span class="operator">%</span><span class="operator">%</span>) <span class="keyword">AS</span> [File:Page:Slot]</span><br><span class="line"><span class="keyword">FROM</span> Table1</span><br></pre></td></tr></table></figure></div>
+<p>但是数据的更新还是需要使用checksum来比对，如果字段较多性能还是会有瓶颈。</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table1 <span class="keyword">add</span> col4 <span class="keyword">as</span> checksum(col1, col2, col3)</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table2 <span class="keyword">add</span> col4 <span class="keyword">as</span> checksum(col1, col2, col3)</span><br><span class="line">go</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table1</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table2</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table1 t1</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">not</span> <span class="keyword">exists</span></span><br><span class="line">( <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table2 t2</span><br><span class="line"><span class="keyword">where</span> t1.col4 <span class="operator">=</span> t2.col4 )</span><br><span class="line">go</span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>data warehouse</category>
+      </categories>
+      <tags>
+        <tag>etl, data warehouse</tag>
       </tags>
   </entry>
   <entry>
@@ -4110,26 +4330,6 @@
       </categories>
       <tags>
         <tag>master data, data governance</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>增量ETL源数据的几种方式和细节</title>
-    <url>/2022/01/09/data-warehouse-2022-01-10-%E5%A2%9E%E9%87%8FETL%E6%BA%90%E6%95%B0%E6%8D%AE%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8C%E7%BB%86%E8%8A%82/</url>
-    <content><![CDATA[<h2 id="Introduction-介绍"><a href="#Introduction-介绍" class="headerlink" title="Introduction 介绍"></a>Introduction 介绍</h2><p><code>ETL</code>是常见的把数据从 OLTP 系统导入数据仓库的方式，一般分为全量，增量，固定范围和推送方式。本文主要讲如何增量抽取，和抽取过程中遇到其它一些问题的解决方法。</p>
-<h3 id="增量抽取"><a href="#增量抽取" class="headerlink" title="增量抽取"></a>增量抽取</h3><p>增量抽取一般可以使用表中列的时间戳，标识符，交易日期和触发器等组合来判断是否需要增量抽取。使用时间戳，标识符和交易日期的方法大致一样，通过比较元数据中记录的上一次成功<code>etl</code>点和当前时间或位置做比较，进行增量抽取。</p>
-<h4 id="原始数据记录删除了数仓该如何处理？"><a href="#原始数据记录删除了数仓该如何处理？" class="headerlink" title="原始数据记录删除了数仓该如何处理？"></a>原始数据记录删除了数仓该如何处理？</h4><ul>
-<li>方法 1：比较原始数据和数仓表的主键，如果发现原始数据库主键已经不存在，那么需要在数据表做软删除。</li>
-<li>方法 2：如果原始数据库支持删除触发器，那么数仓只需 <code>etl</code>删除审计表或者事件表，标记记录已删除就行。（此方法也是用update,insert）<br>如果希望保存所有的更改记录，使用<code>temporal table</code>时态表是个很好的选择，但是需要业务系统支持。</li>
-</ul>
-<h4 id="使用固定范围etl"><a href="#使用固定范围etl" class="headerlink" title="使用固定范围etl"></a>使用固定范围etl</h4><p>如果有些数据源没有自增键或者可用的时间戳，可用系统赋值的<code>RowID</code>作为参考值，固定范围etl数据。在SQL Server中可用如下代码定位，</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">%</span><span class="operator">%</span>physloc<span class="operator">%</span><span class="operator">%</span> <span class="keyword">AS</span> [<span class="operator">%</span><span class="operator">%</span>physloc<span class="operator">%</span><span class="operator">%</span>],</span><br><span class="line">       sys.fn_PhysLocFormatter(<span class="operator">%</span><span class="operator">%</span>physloc<span class="operator">%</span><span class="operator">%</span>) <span class="keyword">AS</span> [File:Page:Slot]</span><br><span class="line"><span class="keyword">FROM</span> Table1</span><br></pre></td></tr></table></figure></div>
-<p>但是数据的更新还是需要使用checksum来比对，如果字段较多性能还是会有瓶颈。</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table1 <span class="keyword">add</span> col4 <span class="keyword">as</span> checksum(col1, col2, col3)</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table2 <span class="keyword">add</span> col4 <span class="keyword">as</span> checksum(col1, col2, col3)</span><br><span class="line">go</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table1</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table2</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table1 t1</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">not</span> <span class="keyword">exists</span></span><br><span class="line">( <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table2 t2</span><br><span class="line"><span class="keyword">where</span> t1.col4 <span class="operator">=</span> t2.col4 )</span><br><span class="line">go</span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>data warehouse</category>
-      </categories>
-      <tags>
-        <tag>etl, data warehouse</tag>
       </tags>
   </entry>
   <entry>
@@ -4615,32 +4815,6 @@
       </tags>
   </entry>
   <entry>
-    <title>在云上使用k8s动态PV</title>
-    <url>/2018/03/11/kubernetes-2018-03-12-k8s-dynamic-volume-provision/</url>
-    <content><![CDATA[<blockquote>
-<p><a class="link"   href="https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/" >https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</blockquote>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>动态卷配置允许按需创建存储卷。如果没有动态配置，管理员必须手动配置创建新的存储， 然后创建PV对象。动态卷配置的功能能让管理员不必预先配置存储。<br>而是当用户需要的时候自动配置存储。它可以按用户需要的用量配置存储空间，不像静态那样可能出现超额分配用量。</p>
-<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>动态配置数据卷的实现是基于<code>StorageClass</code>API对象。管理员可以配置很多<code>StorageClass</code>对象，每一个都可以指定一个存储供应商。管理员可以给一个<br>集群定义和暴露多个存储，每一个都有不同的参数配置。这样能减轻配置存储的复杂度，使用户简单选择存储服务。</p>
-<h3 id="开启动态配置数据卷"><a href="#开启动态配置数据卷" class="headerlink" title="开启动态配置数据卷"></a>开启动态配置数据卷</h3><ul>
-<li>首先需要创建StorageClass对象, 可以指定使用哪个供应商和那些参数，如下例：<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">slow</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/gce-pd</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">pd-standard</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">fast</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/gce-pd</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">pd-ssd</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-<p>如果使用aliyun的NAS作为provisioner, 需要先安装aliyun nas的插件</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-nas</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">alicloud/nas</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1beta1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">run-alicloud-nas-controller</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">    <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-disk-controller-runner</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">strategy:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">Recreate</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">tolerations:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">effect:</span> <span class="string">NoSchedule</span></span><br><span class="line">        <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">node-role.kubernetes.io/master</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">effect:</span> <span class="string">NoSchedule</span></span><br><span class="line">        <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">node.cloudprovider.kubernetes.io/uninitialized</span></span><br><span class="line">      <span class="attr">nodeSelector:</span></span><br><span class="line">         <span class="attr">node-role.kubernetes.io/master:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">      <span class="attr">serviceAccount:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">registry.cn-hangzhou.aliyuncs.com/acs/alicloud-nas-controller:v1.8.4</span></span><br><span class="line">          <span class="attr">volumeMounts:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nfs-client-root</span></span><br><span class="line">              <span class="attr">mountPath:</span> <span class="string">/persistentvolumes</span></span><br><span class="line">          <span class="attr">env:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">PROVISIONER_NAME</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">alicloud/nas</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">NFS_SERVER</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">0cd8b4a576-mmi32.cn-hangzhou.nas.aliyuncs.com</span>  <span class="comment"># 指定创建的NAS挂载点</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">NFS_PATH</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">/</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nfs-client-root</span></span><br><span class="line">          <span class="attr">nfs:</span></span><br><span class="line">            <span class="attr">server:</span> <span class="string">0cd8b4a576-mmi32.cn-hangzhou.nas.aliyuncs.com</span>   <span class="comment"># 指定创建的NAS挂载点</span></span><br><span class="line">            <span class="attr">path:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="使用动态配置数据卷"><a href="#使用动态配置数据卷" class="headerlink" title="使用动态配置数据卷"></a>使用动态配置数据卷</h3><p>用户需要在PVC指定<code>StorageClassName</code>, 如下</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">claim1</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">fast</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">30Gi</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="设置默认动态配置"><a href="#设置默认动态配置" class="headerlink" title="设置默认动态配置"></a>设置默认动态配置</h3><p>如果有个用户在<code>PersistentVolumeClaim</code>没有指定<code>storageClassName</code>， 那么可以配置默认的<code>storageClassName</code>使用。具体是在创建的<code>storageClassName</code>中annotation<br><code>storageclass.kubernetes.io/is-default-class</code></p>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>使用aliyun容器服务搭建mysql</title>
     <url>/2018/03/09/kubernetes-2018-03-10-k8s-mysql/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文简单介绍用aliyun的Kubernetes容器服务搭建mysql集群。首先确保k8s集群已经创建，并且已经开通了相关服务如NAS、容器镜像仓库等服务。</p>
@@ -4673,16 +4847,23 @@
       </tags>
   </entry>
   <entry>
-    <title>K8S使用私有镜像</title>
-    <url>/2018/03/11/kubernetes-2018-03-12-k8s-pull-private-image/</url>
+    <title>在云上使用k8s动态PV</title>
+    <url>/2018/03/11/kubernetes-2018-03-12-k8s-dynamic-volume-provision/</url>
     <content><![CDATA[<blockquote>
-<p><a class="link"   href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account" >https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/" >https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 </blockquote>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如果想要k8s能够拉取使用私有镜像需要创建secret, 然后有两种方法指定secret, 拉取image。 一是在pod的编排模板指定<code>imagePullSecret</code>, 二是修改<code>service account</code>的配置，本文讲述第二种方法。</p>
-<h3 id="第一步-创建imagePullSecret"><a href="#第一步-创建imagePullSecret" class="headerlink" title="第一步 创建imagePullSecret"></a>第一步 创建imagePullSecret</h3><div class="highlight-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">$</span> <span class="string">kubectl</span> <span class="string">create</span> <span class="string">secret</span> <span class="string">docker-registry</span> <span class="string">myregistrykey</span> <span class="string">--docker-server=DOCKER_REGISTRY_SERVER</span> <span class="string">--docker-username=DOCKER_USER</span> <span class="string">--docker-password=DOCKER_PASSWORD</span> <span class="string">--docker-email=DOCKER_EMAIL</span></span><br><span class="line"><span class="string">secret</span> <span class="string">&quot;myregistrykey&quot;</span> <span class="string">created.</span></span><br><span class="line"></span><br><span class="line"><span class="string">$</span> <span class="string">kubectl</span> <span class="string">get</span> <span class="string">secrets</span> <span class="string">myregistrykey</span></span><br><span class="line"><span class="string">NAME</span>             <span class="string">TYPE</span>                              <span class="string">DATA</span>    <span class="string">AGE</span></span><br><span class="line"><span class="string">myregistrykey</span>    <span class="string">kubernetes.io/.dockerconfigjson</span>   <span class="number">1</span>       <span class="string">1d</span></span><br></pre></td></tr></table></figure></div>
-<p>如果是使用aliyun的私有镜像，<code>docker-server</code>可是设置成vpc的server地址，这样省一点流量。</p>
-<h3 id="第二步-修改serviceaccount"><a href="#第二步-修改serviceaccount" class="headerlink" title="第二步 修改serviceaccount"></a>第二步 修改serviceaccount</h3><div class="highlight-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">kubectl</span> <span class="string">patch</span> <span class="string">serviceaccount</span> <span class="string">default</span> <span class="string">-p</span> <span class="string">&#x27;&#123;&quot;imagePullSecrets&quot;: [&#123;&quot;name&quot;: &quot;myregistrykey&quot;&#125;]&#125;&#x27;</span></span><br></pre></td></tr></table></figure></div>
-<p>完成！</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>动态卷配置允许按需创建存储卷。如果没有动态配置，管理员必须手动配置创建新的存储， 然后创建PV对象。动态卷配置的功能能让管理员不必预先配置存储。<br>而是当用户需要的时候自动配置存储。它可以按用户需要的用量配置存储空间，不像静态那样可能出现超额分配用量。</p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>动态配置数据卷的实现是基于<code>StorageClass</code>API对象。管理员可以配置很多<code>StorageClass</code>对象，每一个都可以指定一个存储供应商。管理员可以给一个<br>集群定义和暴露多个存储，每一个都有不同的参数配置。这样能减轻配置存储的复杂度，使用户简单选择存储服务。</p>
+<h3 id="开启动态配置数据卷"><a href="#开启动态配置数据卷" class="headerlink" title="开启动态配置数据卷"></a>开启动态配置数据卷</h3><ul>
+<li>首先需要创建StorageClass对象, 可以指定使用哪个供应商和那些参数，如下例：<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">slow</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/gce-pd</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">pd-standard</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">fast</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/gce-pd</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">pd-ssd</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<p>如果使用aliyun的NAS作为provisioner, 需要先安装aliyun nas的插件</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-nas</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">alicloud/nas</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1beta1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">run-alicloud-nas-controller</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">    <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-disk-controller-runner</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">strategy:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">Recreate</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">tolerations:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">effect:</span> <span class="string">NoSchedule</span></span><br><span class="line">        <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">node-role.kubernetes.io/master</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">effect:</span> <span class="string">NoSchedule</span></span><br><span class="line">        <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">node.cloudprovider.kubernetes.io/uninitialized</span></span><br><span class="line">      <span class="attr">nodeSelector:</span></span><br><span class="line">         <span class="attr">node-role.kubernetes.io/master:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">      <span class="attr">serviceAccount:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">registry.cn-hangzhou.aliyuncs.com/acs/alicloud-nas-controller:v1.8.4</span></span><br><span class="line">          <span class="attr">volumeMounts:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nfs-client-root</span></span><br><span class="line">              <span class="attr">mountPath:</span> <span class="string">/persistentvolumes</span></span><br><span class="line">          <span class="attr">env:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">PROVISIONER_NAME</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">alicloud/nas</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">NFS_SERVER</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">0cd8b4a576-mmi32.cn-hangzhou.nas.aliyuncs.com</span>  <span class="comment"># 指定创建的NAS挂载点</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">NFS_PATH</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">/</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nfs-client-root</span></span><br><span class="line">          <span class="attr">nfs:</span></span><br><span class="line">            <span class="attr">server:</span> <span class="string">0cd8b4a576-mmi32.cn-hangzhou.nas.aliyuncs.com</span>   <span class="comment"># 指定创建的NAS挂载点</span></span><br><span class="line">            <span class="attr">path:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="使用动态配置数据卷"><a href="#使用动态配置数据卷" class="headerlink" title="使用动态配置数据卷"></a>使用动态配置数据卷</h3><p>用户需要在PVC指定<code>StorageClassName</code>, 如下</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">claim1</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">fast</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">30Gi</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="设置默认动态配置"><a href="#设置默认动态配置" class="headerlink" title="设置默认动态配置"></a>设置默认动态配置</h3><p>如果有个用户在<code>PersistentVolumeClaim</code>没有指定<code>storageClassName</code>， 那么可以配置默认的<code>storageClassName</code>使用。具体是在创建的<code>storageClassName</code>中annotation<br><code>storageclass.kubernetes.io/is-default-class</code></p>
 ]]></content>
       <categories>
         <category>kubernetes</category>
@@ -4699,6 +4880,25 @@
 </blockquote>
 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>k8s可以给pod设置计算资源用量， 当遇到违反某些不满足性能的条件时，k8s会有一套机制来处理。限制资源在编排模拟中使用<code>limits</code>或<code>requests</code>.<br><code>requests</code>指定资源的最小要求，<code>limits</code>指定最大用量。详细关系是 <code>0 &lt;= request &lt;=Node Allocatable</code>和<code>request &lt;= limit &lt;= Infinity</code>。<br>具体查看<a class="link"   href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/resource-qos.md" >resource-qos <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <h3 id=""><a href="#" class="headerlink" title=""></a></h3>]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>K8S使用私有镜像</title>
+    <url>/2018/03/11/kubernetes-2018-03-12-k8s-pull-private-image/</url>
+    <content><![CDATA[<blockquote>
+<p><a class="link"   href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account" >https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如果想要k8s能够拉取使用私有镜像需要创建secret, 然后有两种方法指定secret, 拉取image。 一是在pod的编排模板指定<code>imagePullSecret</code>, 二是修改<code>service account</code>的配置，本文讲述第二种方法。</p>
+<h3 id="第一步-创建imagePullSecret"><a href="#第一步-创建imagePullSecret" class="headerlink" title="第一步 创建imagePullSecret"></a>第一步 创建imagePullSecret</h3><div class="highlight-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">$</span> <span class="string">kubectl</span> <span class="string">create</span> <span class="string">secret</span> <span class="string">docker-registry</span> <span class="string">myregistrykey</span> <span class="string">--docker-server=DOCKER_REGISTRY_SERVER</span> <span class="string">--docker-username=DOCKER_USER</span> <span class="string">--docker-password=DOCKER_PASSWORD</span> <span class="string">--docker-email=DOCKER_EMAIL</span></span><br><span class="line"><span class="string">secret</span> <span class="string">&quot;myregistrykey&quot;</span> <span class="string">created.</span></span><br><span class="line"></span><br><span class="line"><span class="string">$</span> <span class="string">kubectl</span> <span class="string">get</span> <span class="string">secrets</span> <span class="string">myregistrykey</span></span><br><span class="line"><span class="string">NAME</span>             <span class="string">TYPE</span>                              <span class="string">DATA</span>    <span class="string">AGE</span></span><br><span class="line"><span class="string">myregistrykey</span>    <span class="string">kubernetes.io/.dockerconfigjson</span>   <span class="number">1</span>       <span class="string">1d</span></span><br></pre></td></tr></table></figure></div>
+<p>如果是使用aliyun的私有镜像，<code>docker-server</code>可是设置成vpc的server地址，这样省一点流量。</p>
+<h3 id="第二步-修改serviceaccount"><a href="#第二步-修改serviceaccount" class="headerlink" title="第二步 修改serviceaccount"></a>第二步 修改serviceaccount</h3><div class="highlight-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">kubectl</span> <span class="string">patch</span> <span class="string">serviceaccount</span> <span class="string">default</span> <span class="string">-p</span> <span class="string">&#x27;&#123;&quot;imagePullSecrets&quot;: [&#123;&quot;name&quot;: &quot;myregistrykey&quot;&#125;]&#125;&#x27;</span></span><br></pre></td></tr></table></figure></div>
+<p>完成！</p>
+]]></content>
       <categories>
         <category>kubernetes</category>
       </categories>
@@ -4728,31 +4928,6 @@
       </categories>
       <tags>
         <tag>kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>AMQP-0-9-1模型总结</title>
-    <url>/2019/02/28/middleware-2019-02-28-amqp-model/</url>
-    <content><![CDATA[<h2 id="AMQP-0-9-1模型"><a href="#AMQP-0-9-1模型" class="headerlink" title="AMQP-0-9-1模型"></a>AMQP-0-9-1模型</h2><p><code>AMQP(Advanced Message Queue Protocol</code>模型很简单, 就是<code>publisher</code>将消息发给<code>exchanger</code>中间人, 然后<code>exchanger</code>中间人按规则将消息的副本塞入队列中(这个过程叫<code>binding</code>), 接着中间人消息推送给订阅队列的消费者<code>consumer</code>或者消费者主动去拉取消息.</p>
-<p>当发布消息的时候, 发布者可以给消息设置一些消息的元信息, 然后中间人就会使用这些信息作为消息路由的规则.由于网络是不稳定的, <code>AMQP</code>有消息确认的概念: 消费者拿到消息后需要通知中间人确认拿到消息, 然后中间人会把队列中的消息删除, 否则中间人会重发消息给另一个消费者(如果存在). 如果消息没有被确认, 同时又不能重发消息(不存在另一个消费者), 那么消息是可以被返回给发送者或者丢弃的. 可以设置<code>dead letter queue</code>来处理消息消费失败的情况. </p>
-<h2 id="AMQP是一个可编程协议"><a href="#AMQP是一个可编程协议" class="headerlink" title="AMQP是一个可编程协议"></a><code>AMQP</code>是一个可编程协议</h2><p><code>queue/exchange/binding</code>在<code>AMQP</code>中都是实体(entity), 所以<code>AMQP</code>的实体&#x2F;路由规则等是需要应用自己定义实现的. (就是再rabbitmq代码里定义)</p>
-<h3 id="Exchange和exchange类型"><a href="#Exchange和exchange类型" class="headerlink" title="Exchange和exchange类型"></a>Exchange和exchange类型</h3><p><code>Exchange</code>接受生产者发送的消息, 然后根据路由规则将消息送给零个或多个队列. 路由规则取决于<code>exchange type</code>和<code>binding</code>. <code>AMQP</code>有4种交换类型:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">|-----------------+----------------|</span><br><span class="line">| name | default pre-declared names|</span><br><span class="line">|-----------------+----------------|</span><br><span class="line">| direct(default) | (empty string) and amq.direct|</span><br><span class="line">|-----------------+----------------|</span><br><span class="line">| fanout          |  amq.fanout    |</span><br><span class="line">|-----------------+----------------|</span><br><span class="line">| topic           | amq.topic      |</span><br><span class="line">|-----------------+----------------|</span><br><span class="line">| headers         | amq.match(amq.headers in rabbitmq)|</span><br><span class="line">|-----------------+----------------|</span><br></pre></td></tr></table></figure></div>
-<p><code>headers exchange</code>用的比较少, 说一下.  这种类型的中间人不使用<code>routing key</code>作为路由规则, 而是使用生产者在消息中的头部<code>x-match</code>定义的k-v值. </p>
-<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p><code>queue</code>是存放消息的buffer, 与<code>exchange</code>分享一些共同的属性, 同时有一些自己属性可以定义:</p>
-<ul>
-<li>Name</li>
-<li>Durable (survive during restart)</li>
-<li>Exclusive (only use by one consumer)</li>
-<li>Auto-delete (delete when last consumer unsubscribes)</li>
-<li>Arguments (optional, )</li>
-</ul>
-]]></content>
-      <categories>
-        <category>middleware</category>
-      </categories>
-      <tags>
-        <tag>rabbitmq,amqp</tag>
       </tags>
   </entry>
   <entry>
@@ -4800,6 +4975,31 @@
       </tags>
   </entry>
   <entry>
+    <title>AMQP-0-9-1模型总结</title>
+    <url>/2019/02/28/middleware-2019-02-28-amqp-model/</url>
+    <content><![CDATA[<h2 id="AMQP-0-9-1模型"><a href="#AMQP-0-9-1模型" class="headerlink" title="AMQP-0-9-1模型"></a>AMQP-0-9-1模型</h2><p><code>AMQP(Advanced Message Queue Protocol</code>模型很简单, 就是<code>publisher</code>将消息发给<code>exchanger</code>中间人, 然后<code>exchanger</code>中间人按规则将消息的副本塞入队列中(这个过程叫<code>binding</code>), 接着中间人消息推送给订阅队列的消费者<code>consumer</code>或者消费者主动去拉取消息.</p>
+<p>当发布消息的时候, 发布者可以给消息设置一些消息的元信息, 然后中间人就会使用这些信息作为消息路由的规则.由于网络是不稳定的, <code>AMQP</code>有消息确认的概念: 消费者拿到消息后需要通知中间人确认拿到消息, 然后中间人会把队列中的消息删除, 否则中间人会重发消息给另一个消费者(如果存在). 如果消息没有被确认, 同时又不能重发消息(不存在另一个消费者), 那么消息是可以被返回给发送者或者丢弃的. 可以设置<code>dead letter queue</code>来处理消息消费失败的情况. </p>
+<h2 id="AMQP是一个可编程协议"><a href="#AMQP是一个可编程协议" class="headerlink" title="AMQP是一个可编程协议"></a><code>AMQP</code>是一个可编程协议</h2><p><code>queue/exchange/binding</code>在<code>AMQP</code>中都是实体(entity), 所以<code>AMQP</code>的实体&#x2F;路由规则等是需要应用自己定义实现的. (就是再rabbitmq代码里定义)</p>
+<h3 id="Exchange和exchange类型"><a href="#Exchange和exchange类型" class="headerlink" title="Exchange和exchange类型"></a>Exchange和exchange类型</h3><p><code>Exchange</code>接受生产者发送的消息, 然后根据路由规则将消息送给零个或多个队列. 路由规则取决于<code>exchange type</code>和<code>binding</code>. <code>AMQP</code>有4种交换类型:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">|-----------------+----------------|</span><br><span class="line">| name | default pre-declared names|</span><br><span class="line">|-----------------+----------------|</span><br><span class="line">| direct(default) | (empty string) and amq.direct|</span><br><span class="line">|-----------------+----------------|</span><br><span class="line">| fanout          |  amq.fanout    |</span><br><span class="line">|-----------------+----------------|</span><br><span class="line">| topic           | amq.topic      |</span><br><span class="line">|-----------------+----------------|</span><br><span class="line">| headers         | amq.match(amq.headers in rabbitmq)|</span><br><span class="line">|-----------------+----------------|</span><br></pre></td></tr></table></figure></div>
+<p><code>headers exchange</code>用的比较少, 说一下.  这种类型的中间人不使用<code>routing key</code>作为路由规则, 而是使用生产者在消息中的头部<code>x-match</code>定义的k-v值. </p>
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p><code>queue</code>是存放消息的buffer, 与<code>exchange</code>分享一些共同的属性, 同时有一些自己属性可以定义:</p>
+<ul>
+<li>Name</li>
+<li>Durable (survive during restart)</li>
+<li>Exclusive (only use by one consumer)</li>
+<li>Auto-delete (delete when last consumer unsubscribes)</li>
+<li>Arguments (optional, )</li>
+</ul>
+]]></content>
+      <categories>
+        <category>middleware</category>
+      </categories>
+      <tags>
+        <tag>rabbitmq,amqp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Openshift Commandline CheatSheet</title>
     <url>/2019/02/27/openshift-2018-01-03-openshift-commandline-shortcut/</url>
     <content><![CDATA[<h4 id="创建新的project"><a href="#创建新的project" class="headerlink" title="创建新的project"></a>创建新的project</h4><p><code>oc new-project postgres --display-name=&#39;postgres&#39; --description=&#39;postgres&#39;</code></p>
@@ -4827,31 +5027,6 @@
 
 <h4 id="简写对应"><a href="#简写对应" class="headerlink" title="简写对应"></a>简写对应</h4><p><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-01-03%20%E4%B8%8B%E5%8D%883.07.32.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-01-03%20%E4%B8%8B%E5%8D%883.07.32.png"></p>
 ]]></content>
-      <categories>
-        <category>openshift</category>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes, openshift</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Openshift Template</title>
-    <url>/2018/01/03/openshift-2018-01-04-Openshift-template/</url>
-    <content><![CDATA[<h3 id="Openshift的模板"><a href="#Openshift的模板" class="headerlink" title="Openshift的模板"></a>Openshift的模板</h3><p>定义：模板是一组可以被参数化的对象，这组对象被处理后可以被用于创建服务，构建配置，部署配置。</p>
-<h3 id="模板代码例子"><a href="#模板代码例子" class="headerlink" title="模板代码例子"></a>模板代码例子</h3><div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Template</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">redis-template</span> <span class="comment">#1</span></span><br><span class="line">  <span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">&quot;Description&quot;</span>  <span class="comment">#2</span></span><br><span class="line">    <span class="attr">iconClass:</span> <span class="string">&quot;icon-redis&quot;</span>  <span class="comment">#3</span></span><br><span class="line">    <span class="attr">tags:</span> <span class="string">&quot;database,nosql&quot;</span>  <span class="comment">#4</span></span><br><span class="line"><span class="attr">objects:</span>   <span class="comment">#5</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line">  <span class="attr">metadata:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">redis-master</span></span><br><span class="line">  <span class="attr">spec:</span></span><br><span class="line">    <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">env:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">REDIS_PASSWORD</span></span><br><span class="line">        <span class="attr">value:</span> <span class="string">$&#123;REDIS_PASSWORD&#125;</span>   <span class="comment">#6</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">dockerfile/redis</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">master</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">6379</span></span><br><span class="line">        <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">parameters:</span>  <span class="comment">#7</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">description:</span> <span class="string">Password</span> <span class="string">used</span> <span class="string">for</span> <span class="string">Redis</span> <span class="string">authentication</span></span><br><span class="line">  <span class="attr">from:</span> <span class="string">&#x27;[A-Z0-9]&#123;8&#125;&#x27;</span>   </span><br><span class="line">  <span class="attr">generate:</span> <span class="string">expression</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">REDIS_PASSWORD</span></span><br><span class="line"><span class="attr">labels:</span>      </span><br><span class="line">  <span class="attr">redis:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure></div>
-<ol>
-<li>模板名</li>
-<li>可选描述</li>
-<li>展示的icon（搜索”openshift-logos-icon”）</li>
-<li>这个模板的tag</li>
-<li>模板将会创建的对象</li>
-<li>模板处理的时候输入参数</li>
-<li>模板参数</li>
-<li>任意产生表达式</li>
-<li>所以对象将被打上标签</li>
-</ol>
-<h3 id="复杂一点的json模板"><a href="#复杂一点的json模板" class="headerlink" title="复杂一点的json模板"></a>复杂一点的json模板</h3><div class="highlight-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Template&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;apiVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;v1&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;metadata&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;postgresql-persistent&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;creationTimestamp&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">null</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;annotations&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;openshift.io/display-name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PostgreSQL (Persistent)&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PostgreSQL database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/9.5.\n\nNOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;iconClass&quot;</span><span class="punctuation">:</span> <span class="string">&quot;icon-postgresql&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;tags&quot;</span><span class="punctuation">:</span> <span class="string">&quot;database,postgresql&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;template.openshift.io/long-description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;This template provides a standalone PostgreSQL server with a database created.  The database is stored on persistent storage.  The database name, username, and password are chosen via parameters when provisioning this service.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;template.openshift.io/provider-display-name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Red Hat, Inc.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;template.openshift.io/documentation-url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://docs.openshift.org/latest/using_images/db_images/postgresql.html&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;template.openshift.io/support-url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://access.redhat.com&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;The following service(s) have been created in your project: $&#123;DATABASE_SERVICE_NAME&#125;.\n\n       Username: $&#123;POSTGRESQL_USER&#125;\n       Password: $&#123;POSTGRESQL_PASSWORD&#125;\n  Database Name: $&#123;POSTGRESQL_DATABASE&#125;\n Connection URL: postgresql://$&#123;DATABASE_SERVICE_NAME&#125;:5432/\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/9.5.&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;labels&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;template&quot;</span><span class="punctuation">:</span> <span class="string">&quot;postgresql-persistent-template&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;objects&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Secret&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;apiVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;v1&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;metadata&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;annotations&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;template.openshift.io/expose-username&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;.data[&#x27;database-user&#x27;]&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;template.openshift.io/expose-password&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;.data[&#x27;database-password&#x27;]&#125;&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;stringData&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;database-user&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;$&#123;POSTGRESQL_USER&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;database-password&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;$&#123;POSTGRESQL_PASSWORD&#125;&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Service&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;apiVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;v1&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;metadata&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;creationTimestamp&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">null</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;annotations&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;template.openshift.io/expose-uri&quot;</span><span class="punctuation">:</span> <span class="string">&quot;postgres://&#123;.spec.clusterIP&#125;:&#123;.spec.ports[?(.name==\&quot;postgresql\&quot;)].port&#125;&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;spec&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;ports&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">          <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;postgresql&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;protocol&quot;</span><span class="punctuation">:</span> <span class="string">&quot;TCP&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;port&quot;</span><span class="punctuation">:</span> <span class="number">5432</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;targetPort&quot;</span><span class="punctuation">:</span> <span class="number">5432</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;nodePort&quot;</span><span class="punctuation">:</span> <span class="number">0</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;selector&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ClusterIP&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;sessionAffinity&quot;</span><span class="punctuation">:</span> <span class="string">&quot;None&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;status&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;loadBalancer&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PersistentVolumeClaim&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;apiVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;v1&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;metadata&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;spec&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;accessModes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">          <span class="string">&quot;ReadWriteOnce&quot;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;resources&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;requests&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;storage&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;VOLUME_CAPACITY&#125;&quot;</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;DeploymentConfig&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;apiVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;v1&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;metadata&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;creationTimestamp&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">null</span></span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;spec&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;strategy&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Recreate&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;triggers&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">          <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ImageChange&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;imageChangeParams&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">              <span class="attr">&quot;automatic&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">              <span class="attr">&quot;containerNames&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;postgresql&quot;</span></span><br><span class="line">              <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">              <span class="attr">&quot;from&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ImageStreamTag&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;postgresql:$&#123;POSTGRESQL_VERSION&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;namespace&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;NAMESPACE&#125;&quot;</span></span><br><span class="line">              <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">              <span class="attr">&quot;lastTriggeredImage&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">            <span class="punctuation">&#125;</span></span><br><span class="line">          <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ConfigChange&quot;</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;replicas&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;selector&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;template&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;metadata&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;creationTimestamp&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">null</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;labels&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">              <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span></span><br><span class="line">            <span class="punctuation">&#125;</span></span><br><span class="line">          <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;spec&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;containers&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">              <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;postgresql&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;image&quot;</span><span class="punctuation">:</span> <span class="string">&quot; &quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;ports&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                  <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;containerPort&quot;</span><span class="punctuation">:</span> <span class="number">5432</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;protocol&quot;</span><span class="punctuation">:</span> <span class="string">&quot;TCP&quot;</span></span><br><span class="line">                  <span class="punctuation">&#125;</span></span><br><span class="line">                <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;readinessProbe&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                  <span class="attr">&quot;timeoutSeconds&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">                  <span class="attr">&quot;initialDelaySeconds&quot;</span><span class="punctuation">:</span> <span class="number">5</span><span class="punctuation">,</span></span><br><span class="line">                  <span class="attr">&quot;exec&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span> <span class="string">&quot;/bin/sh&quot;</span><span class="punctuation">,</span> <span class="string">&quot;-i&quot;</span><span class="punctuation">,</span> <span class="string">&quot;-c&quot;</span><span class="punctuation">,</span> <span class="string">&quot;psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c &#x27;SELECT 1&#x27;&quot;</span><span class="punctuation">]</span></span><br><span class="line">                  <span class="punctuation">&#125;</span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;livenessProbe&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                  <span class="attr">&quot;timeoutSeconds&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">                  <span class="attr">&quot;initialDelaySeconds&quot;</span><span class="punctuation">:</span> <span class="number">30</span><span class="punctuation">,</span></span><br><span class="line">                  <span class="attr">&quot;tcpSocket&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;port&quot;</span><span class="punctuation">:</span> <span class="number">5432</span></span><br><span class="line">                  <span class="punctuation">&#125;</span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;env&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                  <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;POSTGRESQL_USER&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;valueFrom&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                      <span class="attr">&quot;secretKeyRef&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                        <span class="attr">&quot;name&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                        <span class="attr">&quot;key&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;database-user&quot;</span></span><br><span class="line">                      <span class="punctuation">&#125;</span></span><br><span class="line">                    <span class="punctuation">&#125;</span></span><br><span class="line">                  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                  <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;POSTGRESQL_PASSWORD&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;valueFrom&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                      <span class="attr">&quot;secretKeyRef&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                        <span class="attr">&quot;name&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                        <span class="attr">&quot;key&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;database-password&quot;</span></span><br><span class="line">                      <span class="punctuation">&#125;</span></span><br><span class="line">                    <span class="punctuation">&#125;</span></span><br><span class="line">                  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                  <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;POSTGRESQL_DATABASE&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;POSTGRESQL_DATABASE&#125;&quot;</span></span><br><span class="line">                  <span class="punctuation">&#125;</span></span><br><span class="line">                <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;resources&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                  <span class="attr">&quot;limits&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;memory&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;MEMORY_LIMIT&#125;&quot;</span></span><br><span class="line">                  <span class="punctuation">&#125;</span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;volumeMounts&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                  <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;-data&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;mountPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/var/lib/pgsql/data&quot;</span></span><br><span class="line">                  <span class="punctuation">&#125;</span></span><br><span class="line">                <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;terminationMessagePath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/dev/termination-log&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;imagePullPolicy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;IfNotPresent&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;capabilities&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;securityContext&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                  <span class="attr">&quot;capabilities&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                  <span class="attr">&quot;privileged&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">              <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;volumes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">              <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;-data&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;persistentVolumeClaim&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                  <span class="attr">&quot;claimName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">              <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;restartPolicy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Always&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;dnsPolicy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ClusterFirst&quot;</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;status&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;parameters&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;MEMORY_LIMIT&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Memory Limit&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Maximum amount of memory the container can use.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;512Mi&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;NAMESPACE&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Namespace&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;The OpenShift Namespace where the ImageStream resides.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;openshift&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;DATABASE_SERVICE_NAME&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Database Service Name&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;The name of the OpenShift Service exposed for the database.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;postgresql&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;POSTGRESQL_USER&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PostgreSQL Connection Username&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Username for PostgreSQL user that will be used for accessing the database.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;generate&quot;</span><span class="punctuation">:</span> <span class="string">&quot;expression&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;from&quot;</span><span class="punctuation">:</span> <span class="string">&quot;user[A-Z0-9]&#123;3&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;POSTGRESQL_PASSWORD&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PostgreSQL Connection Password&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Password for the PostgreSQL connection user.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;generate&quot;</span><span class="punctuation">:</span> <span class="string">&quot;expression&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;from&quot;</span><span class="punctuation">:</span> <span class="string">&quot;[a-zA-Z0-9]&#123;16&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;POSTGRESQL_DATABASE&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PostgreSQL Database Name&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Name of the PostgreSQL database accessed.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;sampledb&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;VOLUME_CAPACITY&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Volume Capacity&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Volume space available for data, e.g. 512Mi, 2Gi.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1Gi&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;POSTGRESQL_VERSION&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Version of PostgreSQL Image&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Version of PostgreSQL image to be used (9.2, 9.4, 9.5 or latest).&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;9.5&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>]]></content>
       <categories>
         <category>openshift</category>
         <category>kubernetes</category>
@@ -4914,6 +5089,31 @@
 </ul>
 <h3 id="部署的资源利用"><a href="#部署的资源利用" class="headerlink" title="部署的资源利用"></a>部署的资源利用</h3><p>默认情况下，pod可以无限使用节点资源。当然也可以通过项目级别或者通过部署策略限制资源的使用。Openshift强制使用Cgroup控制CPU和内存使用。<br><code>oc patch -n welcome --type=strategic dc myapp -p &#39;&#123;&quot;spec&quot;: &#123;&quot;template&quot;:&#123;&quot;spec&quot;:&#123;&quot;containers&quot;:[&#123;&quot;name&quot;:&quot;myapp&quot;, &quot;resources&quot;:&#123;&quot;limits&quot;:&#123;&quot;cpu&quot;:&quot;100m&quot;,&quot;memory&quot;:&quot;256Mi&quot;&#125;&#125;&#125;]&#125;&#125;&#125;&#125;&#39;</code></p>
 ]]></content>
+      <categories>
+        <category>openshift</category>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes, openshift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Openshift Template</title>
+    <url>/2018/01/03/openshift-2018-01-04-Openshift-template/</url>
+    <content><![CDATA[<h3 id="Openshift的模板"><a href="#Openshift的模板" class="headerlink" title="Openshift的模板"></a>Openshift的模板</h3><p>定义：模板是一组可以被参数化的对象，这组对象被处理后可以被用于创建服务，构建配置，部署配置。</p>
+<h3 id="模板代码例子"><a href="#模板代码例子" class="headerlink" title="模板代码例子"></a>模板代码例子</h3><div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Template</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">redis-template</span> <span class="comment">#1</span></span><br><span class="line">  <span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">&quot;Description&quot;</span>  <span class="comment">#2</span></span><br><span class="line">    <span class="attr">iconClass:</span> <span class="string">&quot;icon-redis&quot;</span>  <span class="comment">#3</span></span><br><span class="line">    <span class="attr">tags:</span> <span class="string">&quot;database,nosql&quot;</span>  <span class="comment">#4</span></span><br><span class="line"><span class="attr">objects:</span>   <span class="comment">#5</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line">  <span class="attr">metadata:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">redis-master</span></span><br><span class="line">  <span class="attr">spec:</span></span><br><span class="line">    <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">env:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">REDIS_PASSWORD</span></span><br><span class="line">        <span class="attr">value:</span> <span class="string">$&#123;REDIS_PASSWORD&#125;</span>   <span class="comment">#6</span></span><br><span class="line">      <span class="attr">image:</span> <span class="string">dockerfile/redis</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">master</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">6379</span></span><br><span class="line">        <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">parameters:</span>  <span class="comment">#7</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">description:</span> <span class="string">Password</span> <span class="string">used</span> <span class="string">for</span> <span class="string">Redis</span> <span class="string">authentication</span></span><br><span class="line">  <span class="attr">from:</span> <span class="string">&#x27;[A-Z0-9]&#123;8&#125;&#x27;</span>   </span><br><span class="line">  <span class="attr">generate:</span> <span class="string">expression</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">REDIS_PASSWORD</span></span><br><span class="line"><span class="attr">labels:</span>      </span><br><span class="line">  <span class="attr">redis:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure></div>
+<ol>
+<li>模板名</li>
+<li>可选描述</li>
+<li>展示的icon（搜索”openshift-logos-icon”）</li>
+<li>这个模板的tag</li>
+<li>模板将会创建的对象</li>
+<li>模板处理的时候输入参数</li>
+<li>模板参数</li>
+<li>任意产生表达式</li>
+<li>所以对象将被打上标签</li>
+</ol>
+<h3 id="复杂一点的json模板"><a href="#复杂一点的json模板" class="headerlink" title="复杂一点的json模板"></a>复杂一点的json模板</h3><div class="highlight-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Template&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;apiVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;v1&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;metadata&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;postgresql-persistent&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;creationTimestamp&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">null</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;annotations&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;openshift.io/display-name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PostgreSQL (Persistent)&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PostgreSQL database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/9.5.\n\nNOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;iconClass&quot;</span><span class="punctuation">:</span> <span class="string">&quot;icon-postgresql&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;tags&quot;</span><span class="punctuation">:</span> <span class="string">&quot;database,postgresql&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;template.openshift.io/long-description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;This template provides a standalone PostgreSQL server with a database created.  The database is stored on persistent storage.  The database name, username, and password are chosen via parameters when provisioning this service.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;template.openshift.io/provider-display-name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Red Hat, Inc.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;template.openshift.io/documentation-url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://docs.openshift.org/latest/using_images/db_images/postgresql.html&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;template.openshift.io/support-url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://access.redhat.com&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;The following service(s) have been created in your project: $&#123;DATABASE_SERVICE_NAME&#125;.\n\n       Username: $&#123;POSTGRESQL_USER&#125;\n       Password: $&#123;POSTGRESQL_PASSWORD&#125;\n  Database Name: $&#123;POSTGRESQL_DATABASE&#125;\n Connection URL: postgresql://$&#123;DATABASE_SERVICE_NAME&#125;:5432/\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/9.5.&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;labels&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;template&quot;</span><span class="punctuation">:</span> <span class="string">&quot;postgresql-persistent-template&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;objects&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Secret&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;apiVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;v1&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;metadata&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;annotations&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;template.openshift.io/expose-username&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;.data[&#x27;database-user&#x27;]&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;template.openshift.io/expose-password&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;.data[&#x27;database-password&#x27;]&#125;&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;stringData&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;database-user&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;$&#123;POSTGRESQL_USER&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;database-password&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;$&#123;POSTGRESQL_PASSWORD&#125;&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Service&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;apiVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;v1&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;metadata&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;creationTimestamp&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">null</span></span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;annotations&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;template.openshift.io/expose-uri&quot;</span><span class="punctuation">:</span> <span class="string">&quot;postgres://&#123;.spec.clusterIP&#125;:&#123;.spec.ports[?(.name==\&quot;postgresql\&quot;)].port&#125;&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;spec&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;ports&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">          <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;postgresql&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;protocol&quot;</span><span class="punctuation">:</span> <span class="string">&quot;TCP&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;port&quot;</span><span class="punctuation">:</span> <span class="number">5432</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;targetPort&quot;</span><span class="punctuation">:</span> <span class="number">5432</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;nodePort&quot;</span><span class="punctuation">:</span> <span class="number">0</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;selector&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ClusterIP&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;sessionAffinity&quot;</span><span class="punctuation">:</span> <span class="string">&quot;None&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;status&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;loadBalancer&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PersistentVolumeClaim&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;apiVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;v1&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;metadata&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;spec&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;accessModes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">          <span class="string">&quot;ReadWriteOnce&quot;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;resources&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;requests&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;storage&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;VOLUME_CAPACITY&#125;&quot;</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;DeploymentConfig&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;apiVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;v1&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;metadata&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;creationTimestamp&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">null</span></span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;spec&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;strategy&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Recreate&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;triggers&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">          <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ImageChange&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;imageChangeParams&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">              <span class="attr">&quot;automatic&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">              <span class="attr">&quot;containerNames&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;postgresql&quot;</span></span><br><span class="line">              <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">              <span class="attr">&quot;from&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ImageStreamTag&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;postgresql:$&#123;POSTGRESQL_VERSION&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;namespace&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;NAMESPACE&#125;&quot;</span></span><br><span class="line">              <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">              <span class="attr">&quot;lastTriggeredImage&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">            <span class="punctuation">&#125;</span></span><br><span class="line">          <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ConfigChange&quot;</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;replicas&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;selector&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;template&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;metadata&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;creationTimestamp&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">null</span></span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;labels&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">              <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span></span><br><span class="line">            <span class="punctuation">&#125;</span></span><br><span class="line">          <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;spec&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;containers&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">              <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;postgresql&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;image&quot;</span><span class="punctuation">:</span> <span class="string">&quot; &quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;ports&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                  <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;containerPort&quot;</span><span class="punctuation">:</span> <span class="number">5432</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;protocol&quot;</span><span class="punctuation">:</span> <span class="string">&quot;TCP&quot;</span></span><br><span class="line">                  <span class="punctuation">&#125;</span></span><br><span class="line">                <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;readinessProbe&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                  <span class="attr">&quot;timeoutSeconds&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">                  <span class="attr">&quot;initialDelaySeconds&quot;</span><span class="punctuation">:</span> <span class="number">5</span><span class="punctuation">,</span></span><br><span class="line">                  <span class="attr">&quot;exec&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span> <span class="string">&quot;/bin/sh&quot;</span><span class="punctuation">,</span> <span class="string">&quot;-i&quot;</span><span class="punctuation">,</span> <span class="string">&quot;-c&quot;</span><span class="punctuation">,</span> <span class="string">&quot;psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c &#x27;SELECT 1&#x27;&quot;</span><span class="punctuation">]</span></span><br><span class="line">                  <span class="punctuation">&#125;</span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;livenessProbe&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                  <span class="attr">&quot;timeoutSeconds&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">                  <span class="attr">&quot;initialDelaySeconds&quot;</span><span class="punctuation">:</span> <span class="number">30</span><span class="punctuation">,</span></span><br><span class="line">                  <span class="attr">&quot;tcpSocket&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;port&quot;</span><span class="punctuation">:</span> <span class="number">5432</span></span><br><span class="line">                  <span class="punctuation">&#125;</span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;env&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                  <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;POSTGRESQL_USER&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;valueFrom&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                      <span class="attr">&quot;secretKeyRef&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                        <span class="attr">&quot;name&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                        <span class="attr">&quot;key&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;database-user&quot;</span></span><br><span class="line">                      <span class="punctuation">&#125;</span></span><br><span class="line">                    <span class="punctuation">&#125;</span></span><br><span class="line">                  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                  <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;POSTGRESQL_PASSWORD&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;valueFrom&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                      <span class="attr">&quot;secretKeyRef&quot;</span> <span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                        <span class="attr">&quot;name&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">                        <span class="attr">&quot;key&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;database-password&quot;</span></span><br><span class="line">                      <span class="punctuation">&#125;</span></span><br><span class="line">                    <span class="punctuation">&#125;</span></span><br><span class="line">                  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                  <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;POSTGRESQL_DATABASE&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;POSTGRESQL_DATABASE&#125;&quot;</span></span><br><span class="line">                  <span class="punctuation">&#125;</span></span><br><span class="line">                <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;resources&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                  <span class="attr">&quot;limits&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;memory&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;MEMORY_LIMIT&#125;&quot;</span></span><br><span class="line">                  <span class="punctuation">&#125;</span></span><br><span class="line">                <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;volumeMounts&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                  <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;-data&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;mountPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/var/lib/pgsql/data&quot;</span></span><br><span class="line">                  <span class="punctuation">&#125;</span></span><br><span class="line">                <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;terminationMessagePath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/dev/termination-log&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;imagePullPolicy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;IfNotPresent&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;capabilities&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;securityContext&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                  <span class="attr">&quot;capabilities&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">                  <span class="attr">&quot;privileged&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">              <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;volumes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">              <span class="punctuation">&#123;</span></span><br><span class="line">                <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;-data&quot;</span><span class="punctuation">,</span></span><br><span class="line">                <span class="attr">&quot;persistentVolumeClaim&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">                  <span class="attr">&quot;claimName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;DATABASE_SERVICE_NAME&#125;&quot;</span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">              <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;restartPolicy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Always&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;dnsPolicy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ClusterFirst&quot;</span></span><br><span class="line">          <span class="punctuation">&#125;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;status&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;parameters&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;MEMORY_LIMIT&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Memory Limit&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Maximum amount of memory the container can use.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;512Mi&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;NAMESPACE&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Namespace&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;The OpenShift Namespace where the ImageStream resides.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;openshift&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;DATABASE_SERVICE_NAME&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Database Service Name&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;The name of the OpenShift Service exposed for the database.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;postgresql&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;POSTGRESQL_USER&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PostgreSQL Connection Username&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Username for PostgreSQL user that will be used for accessing the database.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;generate&quot;</span><span class="punctuation">:</span> <span class="string">&quot;expression&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;from&quot;</span><span class="punctuation">:</span> <span class="string">&quot;user[A-Z0-9]&#123;3&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;POSTGRESQL_PASSWORD&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PostgreSQL Connection Password&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Password for the PostgreSQL connection user.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;generate&quot;</span><span class="punctuation">:</span> <span class="string">&quot;expression&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;from&quot;</span><span class="punctuation">:</span> <span class="string">&quot;[a-zA-Z0-9]&#123;16&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;POSTGRESQL_DATABASE&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;PostgreSQL Database Name&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Name of the PostgreSQL database accessed.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;sampledb&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;VOLUME_CAPACITY&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Volume Capacity&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Volume space available for data, e.g. 512Mi, 2Gi.&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1Gi&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;POSTGRESQL_VERSION&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Version of PostgreSQL Image&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Version of PostgreSQL image to be used (9.2, 9.4, 9.5 or latest).&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;9.5&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>]]></content>
       <categories>
         <category>openshift</category>
         <category>kubernetes</category>

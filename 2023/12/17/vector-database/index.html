@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Kopei">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    
+        
+            <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://kopei.github.io/2023/12/17/vector-database/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="What is vector database?">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="https://kopei.github.io2023/12/17/vector-database/">
+    
+    <meta property="og:site_name" content="Kopei&#39;s Home">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="What is vector database?">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/k-favicon.jpeg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="../../../../images/k-favicon.jpeg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../../images/k-favicon.jpeg">
+    <meta name="theme-color" content="#005080">
+    <link rel="shortcut icon" href="../../../../../../../../images/k-favicon.jpeg">
+    
+    <title>
+        
+            What is vector database? -
+        
+        Kopei&#39;s Home
+    </title>
+    
+<link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/assets/fonts.css">
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/kopei-icon.jpeg","favicon":"/images/k-favicon.jpeg","og_image":{"enable":false,"image_url":null},"article_img_align":"center","right_side_width":"200px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"font_sizes":{"title":"2.8rem","subtitle":"1.5rem"},"line_height":1.2,"title":"十方俱灭 无量量劫","subtitle":{"enable":false,"list":[]},"custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.2.1","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Kopei&#39;s Home
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">What is vector database?</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="../../../../../../../../images/kopei-icon.jpeg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Kopei</span>
+                            
+                                <span class="author-label">article</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2023-12-17 17:50:37</span>
+        <span class="mobile">2023-12-17 17:50</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2023-12-17 17:52</span>
+            <span class="mobile">2023-12-17 17:52</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/vector-database/">vector database</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="什么是向量数据库-Vector-Database"><a href="#什么是向量数据库-Vector-Database" class="headerlink" title="什么是向量数据库 Vector Database?"></a>什么是向量数据库 Vector Database?</h1><blockquote>
+<p>本文将为您简要介绍向量数据库的定义，基础原理，应用和市面上已有的实现选型比较。通过阅读本文，读者将对向量数据库有基本的认识，对日后开发大模型 AI 相关应用有所帮助。</p>
+</blockquote>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>向量数据库也叫矢量数据库，是一种以数学向量的形式存储数据集合的数据库。更通俗的说法，向量就是一个数字列表，例如：[12, 13, 19, 8, 9]。这些数字表示维度空间中的一个位置，代表在这个维度上的特征。就像行和列号表示电子表格中特定单元格一样（例如，“A10”表示 A 列 10 行）。向量数据库的应用是使机器学习模型更容易记住先前的输入，从而使机器学习能够用于支持搜索、推荐和内容生成等应用场景。向量数据可以基于相似性搜索进行识别，而不是精确匹配，使计算模型能够在上下文中理解数据。</p>
+<h3 id="什么是向量？"><a href="#什么是向量？" class="headerlink" title="什么是向量？"></a>什么是向量？</h3><p>向量是一组有序的数值，表示在多维空间中的位置或方向。向量通常用一个列或行的数字集合来表示，这些数字按顺序排列。在机器学习中，向量可以表示诸如单词、图像、视频和音频之类的复杂对象，由机器学习（ML）模型生成。高维度的向量数据对于机器学习、自然语言处理（NLP）和其他人工智能任务至关重要。一些向量数据的例子包括：</p>
+<ul>
+<li>文本：想象一下你上次与聊天机器人互动的情景。它们是如何理解自然语言的呢？它们依赖于可以表示单词、段落和整个文档的向量，这些向量是通过机器学习算法转换而来的。</li>
+<li>图像：图像的像素可以用数字数据描述，并组合成构成该图像的高维向量。</li>
+<li>语音&#x2F;音频：与图像类似，声波也可以分解为数字数据，并表示为向量，从而实现声音识别等人工智能应用。</li>
+</ul>
+<h2 id="向量数据库的兴起"><a href="#向量数据库的兴起" class="headerlink" title="向量数据库的兴起"></a>向量数据库的兴起</h2><p>向量数据库的兴起主要源于大模型 embedding 的应用。<code>Transformer</code>作为当今大模型的基础架构，在数据输入时需要对输入做 embedding, 由于当时主要是处理文本，所以这个 embedding 要做的就是词嵌入（word embedding），把文本转化为向量。由于大模型使用海量数据，数据的维度一般大于 1000 以上，所以临时或永久存储和计算（检索）这些高维向量数据就成了一个难题，这也是向量数据库崛起的一个主要原因。另一个方面，将人的输入以向量的方式临时存储起来，也可以提高类 chatgpt 应用的性能，让人觉得 ai 是有记忆的，可以检索历史问过的相关问题。<br>想要自己试一试 embedding 的应用吗？可以试试 openai 的<a class="link"   target="_blank" rel="noopener" href="https://platform.openai.com/docs/guides/embeddings/what-are-embeddings" >embedding api <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>, 通过这个 api, 你的一个文本输入将会转化为多维向量。</p>
+<h2 id="向量数据库的具体实现"><a href="#向量数据库的具体实现" class="headerlink" title="向量数据库的具体实现"></a>向量数据库的具体实现</h2><p>关于向量数据库引擎盖下的核心实现和算法，比如如何做两个向量间的相关性搜索，各个算法实现的优劣，请移步这几个链接, 作者以视频的方式做了介绍，更加直观：</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV11a4y1c7SW/" >向量数据库技术鉴赏 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://guangzhengli.com/blog/zh/vector-database/#%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%B4%9B%E8%B5%B7" >向量数据库的崛起 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h2 id="使用向量数据库的好处"><a href="#使用向量数据库的好处" class="headerlink" title="使用向量数据库的好处"></a>使用向量数据库的好处</h2><p>机器学习模型无法记住超出其训练范围的任何信息，它们必须在每次查询时重新获取上下文（这就是许多简单聊天机器人的工作方式）。<br>每次将查询的上下文传递给模型都非常缓慢，因为可能涉及大量数据；而且成本高昂，因为数据必须移动，计算能力必须反复用于让模型解析相同的数据。而且在实践中，大多数机器学习 API 可能受到它们一次能够接受多少数据的限制(所谓的 token 限制）。这就是向量数据库发挥作用的地方：数据集只需通过模型一次（或在数据变化时定期进行），模型对该数据的嵌入被存储在向量数据库中。<br>总结来说，使用向量数据库主要有如下好处:</p>
+<ul>
+<li><strong>速度与性能</strong>：向量数据库使用各种索引技术实现更快的搜索。向量索引与诸如最近邻搜索等距离计算算法特别有助于在数百万甚至数十亿数据点中搜索相关结果，实现了优化的性能。</li>
+<li><strong>可扩展性</strong>：向量数据库通过水平扩展存储和管理大量非结构化数据，可以在查询需求和数据量增加的情况下保持性能。</li>
+<li><strong>拥有成本 TOC</strong>：向量数据库是训练基础模型的有价值的替代选择，无论是从头开始还是进行微调。这降低了基础模型推理的成本和速度。</li>
+<li><strong>灵活性</strong>：无论是处理图像、视频还是其他多维数据，向量数据库都设计用于处理复杂性。由于具有从语义搜索到对话式人工智能应用等多种用例，向量数据库的使用可以定制以满足您的业务和人工智能要求。</li>
+<li><strong>LLM 的长期记忆</strong>：组织可以从通用型模型（如 IBM watsonx.ai 的 Granite 系列模型、Meta 的 Llama-2 或 Google 的 Flan 模型）入手，然后将自己的数据提供给向量数据库，以增强与检索增强生成相关的模型和人工智能应用的输出。</li>
+<li><strong>数据管理组件</strong>：向量数据库通常还提供内置功能，以便轻松更新和插入新的非结构化数据。</li>
+</ul>
+<h2 id="向量数据库的选型"><a href="#向量数据库的选型" class="headerlink" title="向量数据库的选型"></a>向量数据库的选型</h2><p>我们对市面上有的向量数据库从扩展性，查询速度，搜索准确性，灵活性和可及性做一个表格，做相应的比较。</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Scalability</th>
+<th>Query Speed</th>
+<th>Search Accuracy</th>
+<th>Flexibility</th>
+<th>Persistence</th>
+<th>Storage Location</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Chroma</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>DeepsetAI</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>Faiss</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Medium</td>
+<td>No</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>Milvus</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>pgvector</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local</td>
+</tr>
+<tr>
+<td>Pinecone</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Cloud</td>
+</tr>
+<tr>
+<td>Supabase</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Cloud</td>
+</tr>
+<tr>
+<td>Qdrant</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>Vespa</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>Weaviate</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>DeepLake</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>LangChain VectorStore</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>Annoy</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>Medium</td>
+<td>No</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>Elasticsearch</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>Yes</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>Hnswlib</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>No</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+<tr>
+<td>NMSLIB</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>High</td>
+<td>No</td>
+<td>Local&#x2F;Cloud</td>
+</tr>
+</tbody></table>
+<h3 id="主要推荐"><a href="#主要推荐" class="headerlink" title="主要推荐"></a>主要推荐</h3><h4 id="Chroma"><a href="#Chroma" class="headerlink" title="Chroma"></a>Chroma</h4><p>Chroma 是由<a href="www.trychroma.com/">Chroma.ai</a>开发的开源向量数据库。它专注于可伸缩性，能够高效地存储和查询大规模向量数据集。Chroma 采用分布式架构，具有横向可伸缩性，可以处理海量的向量数据。它利用 Apache Cassandra 实现高可用性和容错性，确保数据的持久性和耐久性。<br>Chroma 的一个独特之处在于其灵活的索引系统。它支持多种索引策略，如近似最近邻（ANN）算法，例如 HNSW 和 IVFPQ，从而实现快速准确的相似性搜索。Chroma 还提供全面的 Python 和 RESTful API，便于与自然语言处理流水线轻松集成。凭借其对可伸缩性和速度的强调，Chroma 是对于需要高性能向量存储和检索的应用而言的绝佳选择。虽然它可能没有一些其他工具那么高的可伸缩性或先进的搜索算法，但对于小到中型项目或想要快速入门向量数据库的初学者来说，它是理想的选择。</p>
+<h4 id="Faiss"><a href="#Faiss" class="headerlink" title="Faiss"></a>Faiss</h4><p>Faiss 标志，由 Facebook AI Research 开发，是一种广泛使用的向量数据库，以其高性能的相似性搜索能力而闻名。它提供了一系列针对高效检索最近邻居的优化索引方法，包括 IVF 和 HNSW。Faiss 还支持 GPU 加速，可以在大规模嵌入式数据上进行快速计算。<br>Faiss 的一个显著特点是其支持多索引搜索，这将不同的索引方法结合在一起，以提高搜索准确性和速度。此外，Faiss 提供了 Python 接口，便于与现有的自然语言处理流水线和框架集成。凭借其对搜索性能和多功能性的关注，Faiss 是在需要对大规模嵌入集合进行快速准确相似性搜索的项目中的首选选择。</p>
+<h4 id="PostgreSQL-pgvector"><a href="#PostgreSQL-pgvector" class="headerlink" title="PostgreSQL + pgvector"></a>PostgreSQL + pgvector</h4><p>Pgvector 是用于 Postgres 的开源向量相似性搜索。Pgvector 有助于在流行的开源关系数据库 PostgreSQL 上构建向量数据库。它利用 PostgreSQL 扩展系统强大的索引功能，提供高效的向量嵌入存储和检索。Pgvector 支持 CPU 和 GPU 推理，实现高性能的向量操作。<br>Pgvector 的一个关键优势是它与更广泛的 PostgreSQL 生态系统的无缝集成。用户可以利用 PostgreSQL 的丰富功能，如 ACID 兼容性和对复杂查询的支持，同时受益于向量特定的操作。Pgvector 扩展了 SQL 语法以处理向量操作，并提供了一个用于简化集成的 Python 库。凭借其与 PostgreSQL 的兼容性和高效的向量存储，pgvector 是需要无缝 SQL 集成的自然语言处理应用的可靠选择。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>向量数据库从算法和技术层面来说并不是一个完全全新的领域，但由于LLM兴起，我们对其有了更多的重视，当前已有的产品可以说是百家齐鸣，本文也没有完全罗列其它传统数据库厂商如SQL, Redis, Mongo等对向量数据库的支持。希望通过这次GAI的浪潮，乘风破浪者们能够在不同领域找到更多的机会。</p>
+<h4 id="推荐阅读"><a href="#推荐阅读" class="headerlink" title="推荐阅读"></a>推荐阅读</h4><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/chroma-core/chroma" >chroma <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/facebookresearch/faiss" >Faiss <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.ibm.com/topics/vector-database" >IBM vector database <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：What is vector database?</li>
+        <li>Post author：Kopei</li>
+        <li>Create time：2023-12-17 17:50:37</li>
+        <li>
+            Post link：https://kopei.github.io/2023/12/17/vector-database/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="../../../../tags/vector-database/">#vector database</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="../../13/%E9%9D%9E%E8%B4%A2%E5%8A%A1%E7%BB%8F%E7%90%86%E7%9A%84%E8%B4%A2%E5%8A%A1%E8%AF%BE/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">非财务经理的财务课</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://kopie-comments-9snhujxxf-kopei.vercel.app',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">What is vector database?</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93-Vector-Database"><span class="nav-text">什么是向量数据库 Vector Database?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%91%E9%87%8F%EF%BC%9F"><span class="nav-text">什么是向量？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%85%B4%E8%B5%B7"><span class="nav-text">向量数据库的兴起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="nav-text">向量数据库的具体实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="nav-text">使用向量数据库的好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E9%87%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%80%89%E5%9E%8B"><span class="nav-text">向量数据库的选型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%8E%A8%E8%8D%90"><span class="nav-text">主要推荐</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Chroma"><span class="nav-text">Chroma</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Faiss"><span class="nav-text">Faiss</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PostgreSQL-pgvector"><span class="nav-text">PostgreSQL + pgvector</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB"><span class="nav-text">推荐阅读</span></a></li></ol></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2017</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Kopei</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.2.1</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2017/01/01 00:00:00
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/layouts/menu-shrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/tools/go-top-bottom.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/tools/dark-light-toggle.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/tools/local-search.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/tools/code-block.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/tools/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/assets/odometer-theme-minimal.css">
+
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/tools/toc-toggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
