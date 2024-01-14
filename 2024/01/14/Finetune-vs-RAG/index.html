@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    <meta name="description" content="Hexo Theme Redefine">
+    <meta name="author" content="Kopei">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-redefine.png">
+    
+        
+            <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://kopei.github.io/2024/01/14/finetune-vs-rag/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="RAG">
+    <meta property="og:description" content="Hexo Theme Redefine">
+    <meta property="og:url" content="https://kopei.github.io2024/01/14/Finetune-vs-RAG/">
+    
+    <meta property="og:site_name" content="Kopei&#39;s Home">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RAG">
+    <meta name="twitter:description" content="Hexo Theme Redefine">
+    <meta name="twitter:image" content="/images/k-favicon.jpeg">
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="../../../../images/k-favicon.jpeg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../../images/k-favicon.jpeg">
+    <meta name="theme-color" content="#005080">
+    <link rel="shortcut icon" href="../../../../../../../../images/k-favicon.jpeg">
+    
+    <title>
+        
+            RAG -
+        
+        Kopei&#39;s Home
+    </title>
+    
+<link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/assets/fonts.css">
+    
+    
+    
+    <script id="hexo-configurations">
+    let REDEFINE = window.REDEFINE || {};
+    REDEFINE.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
+    REDEFINE.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#005080","avatar":"/images/kopei-icon.jpeg","favicon":"/images/k-favicon.jpeg","og_image":{"enable":false,"image_url":null},"article_img_align":"center","right_side_width":"200px","content_max_width":"1000px","nav_color":{"left":"#f78736","right":"#367df7","transparency":35},"hover":{"shadow":true,"scale":false},"first_screen":{"enable":true,"background_image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title_color":{"light":"#fff","dark":"#d1d1b6"},"font_sizes":{"title":"2.8rem","subtitle":"1.5rem"},"line_height":1.2,"title":"一元复始 万物复归","subtitle":{"enable":false,"list":[]},"custom_font":{"enable":false,"font_family":null,"font_url":null}},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_block":{"copy":true,"style":"mac","custom_font":{"enable":false,"font_family":null,"font_url":null}},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"1.2.1","friend_links":{"columns":2},"home_article":{"date_format":"auto","category":{"enable":true,"limit":3},"tag":{"enable":true,"limit":3}},"plugins":{"aplayer":{"enable":false,"audio":[{"name":null,"artist":null,"url":null,"cover":null},{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}}};
+    REDEFINE.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="menu-wrapper">
+    
+    <div class="menu-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Kopei&#39;s Home
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../index.html"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            <li class="menu-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="../../../../archives"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-archive"></i>
+                                        
+                                        ARCHIVES
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="menu-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../index.html"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+                
+                    <li class="drawer-menu-item flex-center">
+                        <a class="" 
+                        href="../../../../archives"  >
+                             
+                                
+                                    <i class="fa-regular fa-archive"></i>
+                                
+                                ARCHIVES
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">RAG</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="../../../../../../../../images/kopei-icon.jpeg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Kopei</span>
+                            
+                                <span class="author-label">article</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="pc">2024-01-14 15:27:22</span>
+        <span class="mobile">2024-01-14 15:27</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="pc">2024-01-14 15:42:17</span>
+            <span class="mobile">2024-01-14 15:42</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="../../../../tags/AI-RAG-Finetune/">AI, RAG, Finetune</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="Finetune-VS-RAG"><a href="#Finetune-VS-RAG" class="headerlink" title="Finetune VS RAG"></a>Finetune VS RAG</h1><blockquote>
+<p>在生成式人工智能领域目前的争论之一是围绕微调、检索增强生成（RAG）和提示语（prompt）哪个是最佳方案，或者他们两两组合是不是合适的选择。在这篇文章中，我们将探讨RAG和Finetune两种技术，突显它们的优势、劣势以及可能的两者结合方案。通过阅读本文，您将清晰了解如何充分利用这些方法的潜力，推动您的人工智能取得成功。</p>
+</blockquote>
+<h2 id="两者不是对立关系"><a href="#两者不是对立关系" class="headerlink" title="两者不是对立关系"></a>两者不是对立关系</h2><p>在深入比较之前，了解微调和检索增强生成并不是对立的技术是至关重要的。相反，它们可以结合使用，以充分发挥每种方法的优势。本文后面将举例说明如何让两者结合，提供企业级解决方案。如果不想看两者的简介，可以直接看下图比较</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="images/2024-01/ft-vs-rag.webp"
+                      alt="ee"
+                ></p>
+<h2 id="微调大模型Finetune简介"><a href="#微调大模型Finetune简介" class="headerlink" title="微调大模型Finetune简介"></a>微调大模型Finetune简介</h2><p>大多数当前的语言模型基于变种的Transformer，需要在大量文档的语料库上进行“预训练”，以学习单词之间的统计关系。语言模型学到的一切都存储在其基础人工神经网络的权重中。</p>
+<p>微调就是在以后的某个日期对已经训练过的语言模型进行额外数据的训练，以便重新调整其神经网络的权重以适应新的输入。微调和预训练的关键区别在于，您对模型进行微调的数据通常比LM在初始训练期间摄取的一般数据更为具体，符合实际场景使用。</p>
+<h4 id="微调的优势"><a href="#微调的优势" class="headerlink" title="微调的优势"></a>微调的优势</h4><p>微调允许语言模型专注于特定的领域或任务。例如，彭博（Bloomberg）在金融数据上训练了一个模型（BloombergGPT）；OpenAI对ChatGPT进行了问题-答案对的微调；ChatDoctor是一款使用LLaMA模型并结合医学知识进行微调训练的医疗助手。</p>
+<p>在这里，可以突破您的想象力是限制，您可以在诗歌、表情符号、您自己的日记、替代文本、小语种或任何您能够想象到的基于语言的数据上进行微调。视觉、音频和多模态模型都适用于微调。</p>
+<p>除了让语言模型专注于特定领域外，微调还享有附加优势，即允许使用更小的模型以及更便宜的训练和推理成本。例如，您通常可以使用大型预训练的语言模型，在其最初训练的数据的一小部分上进行微调，仍然能够在特定领域的应用中取得出色的性能。</p>
+<h4 id="微调的劣势"><a href="#微调的劣势" class="headerlink" title="微调的劣势"></a>微调的劣势</h4><p>微调语言模型虽然听起来像是一种灵丹妙药，但并非没有缺点。首先，尽管微调比从头开始训练语言模型更快，但仍然需要时间。其中之一是收集和准备用于微调的新数据。也许像谷歌这样的组织可以几乎每天都对LLM进行微调，但人类处理的许多信息甚至比日常数据更具临时性（例如，天气和地缘政治可能在一瞬间发生变化，当它们发生变化时，有些人需要更早地了解情况，而不是等待进行大模型微调所需的时间）。</p>
+<p>除了不能充分解决大模型的时效性问题外，反复的微调可能会引发灾难性的遗忘。由于人工神经网络的权重存储了它们在训练期间学到的知识，而这些权重在微调期间稍后会更新，如果你对模型进行足够多次的微调，它可能会直接“忘记”一些先前的知识。当然，这会留下类似幻觉的问题。微调的大模型也可能“记忆”数据，这可能看起来不像是问题（肯定比忘记好），但是记忆可能引发隐私问题（如果训练数据清理得不够充分），而当LMs记忆数据时，它们对与其训练语料库差异显著的文本的泛化能力不强。</p>
+<h2 id="RAG（Retrieval-Augmented-Generation）介绍"><a href="#RAG（Retrieval-Augmented-Generation）介绍" class="headerlink" title="RAG（Retrieval Augmented Generation）介绍"></a>RAG（Retrieval Augmented Generation）介绍</h2><p>现在我们知道微调可以使大模型更加专注于更专业的领域，但我们不能仅仅为了使它们的知识及时而不断进行微调。那么，我们还能以什么其他方式解决大模型的时效性和幻觉问题呢？</p>
+<p>如果大模型能够访问一系列外部文档，而不仅仅依赖于它们的内部知识，会怎么样呢？这基本上就是检索增强生成（RAG）所实现的概念，这个概念是在2020年Facebook的一篇论文中正式介绍的。随着LLM能力和受欢迎程度的不断提高，人们对它们的缺陷有了越来越多的认识，这促使对最初的RAG概念进行了实验。虽然不同的RAG变体提供了许多细节，但我们将专注于RAG的基本过程。</p>
+<h4 id="RAG的本质"><a href="#RAG的本质" class="headerlink" title="RAG的本质"></a>RAG的本质</h4><p>RAG的本质是让模型获取正确的上下文，利用ICL (In Context Learning)的能力，生产足够多上下文的prompt输入以确保输出正确的响应。它综合利用了固化在模型权重中的参数化知识和存在外部存储中的非参数化知识(知识库、数据库等)。</p>
+<p>首先，RAG类似于从图书馆（文档集合或数据库）借阅几本书，浏览它们的目录和索引，以判断它们是否可能包含你感兴趣的信息（检索），如果是的话，阅读相关的段落以帮助了解你想学习的内容（生成）。参数记忆是存储在人工神经网络内部的内在知识（即，大模型在不查阅外部来源的情况下已经知道的内容），而外部的非参数化知识存储在大模型权重之外（例如，在数据库中），但仍然可以被大模型访问。如果将原始的大模型检索类比为闭卷考试，而RAG则类似于开卷考试。</p>
+<p>RAG如同名称所示，包含两个关键步骤：</p>
+<ol>
+<li>检索</li>
+<li>使用检索到的文档生成<br>首先，为了使RAG良好运作，大模型需要知道它们不知道的事。这对于RAG的检索步骤至关重要。例如，如果一个大模型过于依赖其内部的参数化知识，它很少会查阅任何内容，使得该大模型容易产生幻觉或像谄媚者一样回答。虽然我们希望LM通过RAG利用外部知识，但如果大模型经常查阅外部的非参数化知识，它们就会浪费内部的参数化知识，从而在不断的信息检索中陷入困境。想象一下，为了塑造你的每一个想法，你都要查阅一本书、文章或网站——没有人会这样做。相反，我们在使用我们内部深深根植的任何知识和我们能够找到的任何相关外部知识之间，取得了一种不完美但有用的平衡。理想情况下，RAG也应该做到这一点。<br>检索通常始于将文档、网站、数据库或其他数据嵌入到向量表示中，与大模型词嵌入（embedding）的方式有些相似，以便机器能够使用它们。对于安全性不太关心的应用，扩充数据可以是互联网（例如，Bing的生成搜索）。然而，注重安全性和准确性至关重要的应用（例如，企业应用）会将扩充数据限制在一个较小、安全且经过审查的池中。<br>接下来，用户的问题也被嵌入。然后，将用户嵌入的问题与嵌入的文档（或段落、句子等）进行比较。一些足够相似的外部知识然后通过一些提示词工程追加到用户的查询中。有了这个额外的上下文，大模型通常能够生成比没有外部信息更准确的响应。RAG方法通常将外部数据存储在矢量数据库中，因为矢量数据库有助于快速找到与查询相关的信息。<br>我们甚至可以设置流程来持续改进RAG。例如，可以将RAG生成的答案存储在与其他外部文档相同的矢量数据库中。然后，这些答案就像缓存的答案一样，因为当大模型在后来接收到足够相似的查询时，它可以检索其先前的答案（现在是一个嵌入的文档）并将其用作生成新答案的上下文。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="images/2024-01/RAG_case.png"
+                      alt="wkflow"
+                ><br>RAG 工作流</p>
+<h4 id="RAG的优势"><a href="#RAG的优势" class="headerlink" title="RAG的优势"></a>RAG的优势</h4><p>RAG具有许多语言模型的优势。首先，它在一定程度上解决了大模型的时效性问题，因为数据可以轻松而快速地添加到大模型可以访问的任何数据库中；这显然比定期对LM进行微调更快速、更经济。</p>
+<p>其次，RAG显著减少了幻觉。即使使用RAG的大模型出现错误，RAG也允许大模型引用其信息来源，从而让我们能够识别、纠正或删除大模型检索到的不可靠信息。此外，由于RAG允许LM将其“知识”的大部分存储在外部来源中，您可以减少一些伴随着将敏感数据存储在大模型权重内的安全泄漏问题。此外，能够访问大型数据集的能力在一定程度上解决了大模型的上下文窗口限制问题，而且总体而言，RAG比持续微调更经济，当然这还要取决于需要为RAG嵌入多少文档以及某些微调语料库有多大。</p>
+<h4 id="RAG的劣势"><a href="#RAG的劣势" class="headerlink" title="RAG的劣势"></a>RAG的劣势</h4><p>RAG的劣势主要来自具体检索的实现上。这在实际工程实践上很有挑战。正如我们之前提到的，研究人员仍在努力找出如何让大模型可靠地知道何时查阅外部的非参数化知识以及何时依赖于其内部的参数化知识。查找字面所有信息的速度太慢且降低了大模型的效用，因此我们不希望RAG在检索部分过于宽泛。我们也不希望大模型总是凭直觉行事。找到一个平衡点可能是RAG最大的挑战。</p>
+<p>还有更多的考虑。如果一个大模型决定查阅外部来源，它应该如何做呢？大模型应该考虑每个文档吗？还是应该将每个文档分成页面、段落或句子，以便大模型可以查询更精细的信息？同样，我们需要一个平衡点。这个决定影响如何对大模型的外部知识库进行矢量化。</p>
+<p>同样，模型应该查阅哪些来源？整个互联网，还是其中的一些子集？手工制作的一组本地存储的文档？而RAG应该检索多少文档呢？所有相关文档吗？</p>
+<p>通常，RAG检索前n个文档（其中n是某个自然数），这似乎是合理的，但如果回答查询所需的知识要点位于第n+1个文档中呢？当前的RAG方法通常使用近似最近邻方法（因为纯最近邻可能导致查阅太多文档），但近似最近邻不能保证为某个查询返回一个有用的文档，因此即使使用了ANN减轻了工作量，幻觉问题仍然存在。</p>
+<p>最后，与仅查询大模型的内部知识相比，RAG可能更昂贵，因为RAG需要嵌入和存储大模型可以查阅的外部数据，通常会产生矢量数据库存储成本（但RAG仍然比例常规微调更便宜），而RAG可能增加推理成本，因为它会将检索到的文档附加到查询中。当然，所有这些决策和考虑都依赖于具体的应用场景，但你可以看到实施RAG可能会变得多么复杂。</p>
+<h4 id="FT和RAG结合"><a href="#FT和RAG结合" class="headerlink" title="FT和RAG结合"></a>FT和RAG结合</h4><p>RAG和微调为使大模型具有实时性并减少幻觉等问题行为提供了互补的优势和劣势。微调有助于使大模型专注于特定领域、词汇或新颖数据，但需要时间和计算资源，存在灾难性遗忘的风险，并且无法解决互联网快速演变的特性。RAG利用外部知识以增加事实和时效性，但仍然面临有关最佳检索的挑战。</p>
+<p>两种方法都不能完全解决LM的所有缺陷，但都有助于解决一些即时的问题。随着LLMs不断渗透到我们的数字体验中，我们可以预期进一步尝试将微调、RAG和其他信息检索技术结合起来，为LLMs提供更及时、真实的知识。目前meta的技术人员就开发了一个模型RA-DIT, 知识密集型的零和少量次学习基准范围内实现了最先进的性能。</p>
+<p><img src="images/2024-01/RAG_FT_eng.png" alt="images/2024-01/RAG_FT_eng.png"><br>RAG和其它优化方式比较</p>
+<h4 id="可能的企业级设计"><a href="#可能的企业级设计" class="headerlink" title="可能的企业级设计"></a>可能的企业级设计</h4><p>如下图所示, 一个企业级的应用可以结合微调模型和RAG技术，整合内部其它业务系统和数据将内部知识安全地与外部知识融为一体，从而减轻企业的成本，提高运营的效率。比如使用下面的架构重新整合企业内部HR相关服务，提高HR Share Serivce Center的能力和效率。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="images/2024-01/example_arch.webp"
+                      alt="example"
+                ></p>
+<p>又如，想象一个客户支持聊天助手。当代理需要在实时互动中获得指导时，他们会提示助手，触发以下流程：</p>
+<p>流水线检索关键客户信息，包括客户ID。<br>流水线查询客户的历史记录、问题、政策、特殊情况（例如故障）、当前支持团队的可用性以及其他动态外部变量。<br>流水线将收集到的上下文和原始查询成为最终提示。<br>模型生成一个基于提供的上下文的响应。<br>尽管此流水线可以使用“现成的”模型，但生成的响应的风格可能会有所不同，并偏离内部政策或最终用户的要求。为了提高一致性和帮助性响应的可能性，数据团队可以训练一个“专业化”的助手模型。</p>
+<p>数据团队将从适当的基础模型开始，例如Llama 2或GPT-4。然后，他们将构建或策划一个例子语料库，其中包含模型将经常遇到的每种特定任务类型的可能输入（上下文+提示）和理想输出（包括期望的格式）。这可能包括针对客户服务代理自己处理的任务（例如重新激活帐户）以及涉及引导用户执行他们自己操作的任务（例如故障排除）的不同方法。</p>
+<p>在这种情况下，微调和检索增强共同合作，以更快地提供正确的解决方案。</p>
+<h3 id="推荐阅读："><a href="#推荐阅读：" class="headerlink" title="推荐阅读："></a>推荐阅读：</h3><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/Tongji-KGLLM/RAG-Survey" >Retrieval-Augmented Generation for Large Language Models: A Survey <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li>Retrieval-Augmented Dual Instruction Tuning</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://deepgram.com/learn/rag-vs-finetuning" >RAG vs. Finetuning: Enhancing LLMs with new knowledge | Deepgram <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：RAG</li>
+        <li>Post author：Kopei</li>
+        <li>Create time：2024-01-14 15:27:22</li>
+        <li>
+            Post link：https://kopei.github.io/2024/01/14/Finetune-vs-RAG/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="../../../../tags/AI-RAG-Finetune/">#AI, RAG, Finetune</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="../../../../2023/12/17/vector-database/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">What is vector database?</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://kopie-comments-9snhujxxf-kopei.vercel.app',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">RAG</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Finetune-VS-RAG"><span class="nav-text">Finetune VS RAG</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E8%80%85%E4%B8%8D%E6%98%AF%E5%AF%B9%E7%AB%8B%E5%85%B3%E7%B3%BB"><span class="nav-text">两者不是对立关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E8%B0%83%E5%A4%A7%E6%A8%A1%E5%9E%8BFinetune%E7%AE%80%E4%BB%8B"><span class="nav-text">微调大模型Finetune简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E8%B0%83%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-text">微调的优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E8%B0%83%E7%9A%84%E5%8A%A3%E5%8A%BF"><span class="nav-text">微调的劣势</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RAG%EF%BC%88Retrieval-Augmented-Generation%EF%BC%89%E4%BB%8B%E7%BB%8D"><span class="nav-text">RAG（Retrieval Augmented Generation）介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RAG%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="nav-text">RAG的本质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RAG%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-text">RAG的优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RAG%E7%9A%84%E5%8A%A3%E5%8A%BF"><span class="nav-text">RAG的劣势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FT%E5%92%8CRAG%E7%BB%93%E5%90%88"><span class="nav-text">FT和RAG结合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E7%9A%84%E4%BC%81%E4%B8%9A%E7%BA%A7%E8%AE%BE%E8%AE%A1"><span class="nav-text">可能的企业级设计</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%EF%BC%9A"><span class="nav-text">推荐阅读：</span></a></li></ol></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+
+
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2017</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Kopei</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br> 
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v1.2.1</a>
+        </div>
+        
+        
+        
+            <div id="start_time_div" style="display:none">
+                2017/01/01 00:00:00
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="unfolded-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="fa-regular fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="folded-tools-list">
+        <li class="right-bottom-tools tool-toggle-show flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fa-solid fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fa-solid fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+</main>
+
+
+
+<script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/utils.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/main.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/layouts/menu-shrink.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/tools/go-top-bottom.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/tools/dark-light-toggle.js"></script>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/tools/local-search.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/tools/code-block.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/layouts/lazyload.js"></script>
+
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/tools/runtime.js"></script>
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/layouts/odometer.min.js"></script>
+    <link rel="stylesheet" href="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/assets/odometer-theme-minimal.css">
+
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/tools/toc-toggle.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/libs/anime.min.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/layouts/toc.js"></script><script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/plugins/tabs.js"></script>
+    
+</div>
+
+
+    <script src="//evan.beee.top/projects/hexo-theme-redefine/v1.2.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            REDEFINE.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            REDEFINE.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            REDEFINE.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
