@@ -19,13 +19,13 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="RAG">
+    <meta property="og:title" content="Finetune vs RAG">
     <meta property="og:description" content="Hexo Theme Redefine">
     <meta property="og:url" content="https://kopei.github.io2024/01/14/Finetune-vs-RAG/">
     
     <meta property="og:site_name" content="Kopei&#39;s Home">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="RAG">
+    <meta name="twitter:title" content="Finetune vs RAG">
     <meta name="twitter:description" content="Hexo Theme Redefine">
     <meta name="twitter:image" content="/images/k-favicon.jpeg">
     <!--- Icon Part-->
@@ -36,7 +36,7 @@
     
     <title>
         
-            RAG -
+            Finetune vs RAG -
         
         Kopei&#39;s Home
     </title>
@@ -216,7 +216,7 @@
             
             
                 <div class="article-title">
-                    <h1 class="article-title-regular">RAG</h1>
+                    <h1 class="article-title-regular">Finetune vs RAG</h1>
                 </div>
             
                 
@@ -245,8 +245,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="pc">2024-01-14 15:42:17</span>
-            <span class="mobile">2024-01-14 15:42</span>
+            <span class="pc">2024-01-14 22:06:51</span>
+            <span class="mobile">2024-01-14 22:06</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -315,13 +315,8 @@
                 ><br>RAG 工作流</p>
 <h4 id="RAG的优势"><a href="#RAG的优势" class="headerlink" title="RAG的优势"></a>RAG的优势</h4><p>RAG具有许多语言模型的优势。首先，它在一定程度上解决了大模型的时效性问题，因为数据可以轻松而快速地添加到大模型可以访问的任何数据库中；这显然比定期对LM进行微调更快速、更经济。</p>
 <p>其次，RAG显著减少了幻觉。即使使用RAG的大模型出现错误，RAG也允许大模型引用其信息来源，从而让我们能够识别、纠正或删除大模型检索到的不可靠信息。此外，由于RAG允许LM将其“知识”的大部分存储在外部来源中，您可以减少一些伴随着将敏感数据存储在大模型权重内的安全泄漏问题。此外，能够访问大型数据集的能力在一定程度上解决了大模型的上下文窗口限制问题，而且总体而言，RAG比持续微调更经济，当然这还要取决于需要为RAG嵌入多少文档以及某些微调语料库有多大。</p>
-<h4 id="RAG的劣势"><a href="#RAG的劣势" class="headerlink" title="RAG的劣势"></a>RAG的劣势</h4><p>RAG的劣势主要来自具体检索的实现上。这在实际工程实践上很有挑战。正如我们之前提到的，研究人员仍在努力找出如何让大模型可靠地知道何时查阅外部的非参数化知识以及何时依赖于其内部的参数化知识。查找字面所有信息的速度太慢且降低了大模型的效用，因此我们不希望RAG在检索部分过于宽泛。我们也不希望大模型总是凭直觉行事。找到一个平衡点可能是RAG最大的挑战。</p>
-<p>还有更多的考虑。如果一个大模型决定查阅外部来源，它应该如何做呢？大模型应该考虑每个文档吗？还是应该将每个文档分成页面、段落或句子，以便大模型可以查询更精细的信息？同样，我们需要一个平衡点。这个决定影响如何对大模型的外部知识库进行矢量化。</p>
-<p>同样，模型应该查阅哪些来源？整个互联网，还是其中的一些子集？手工制作的一组本地存储的文档？而RAG应该检索多少文档呢？所有相关文档吗？</p>
-<p>通常，RAG检索前n个文档（其中n是某个自然数），这似乎是合理的，但如果回答查询所需的知识要点位于第n+1个文档中呢？当前的RAG方法通常使用近似最近邻方法（因为纯最近邻可能导致查阅太多文档），但近似最近邻不能保证为某个查询返回一个有用的文档，因此即使使用了ANN减轻了工作量，幻觉问题仍然存在。</p>
-<p>最后，与仅查询大模型的内部知识相比，RAG可能更昂贵，因为RAG需要嵌入和存储大模型可以查阅的外部数据，通常会产生矢量数据库存储成本（但RAG仍然比例常规微调更便宜），而RAG可能增加推理成本，因为它会将检索到的文档附加到查询中。当然，所有这些决策和考虑都依赖于具体的应用场景，但你可以看到实施RAG可能会变得多么复杂。</p>
-<h4 id="FT和RAG结合"><a href="#FT和RAG结合" class="headerlink" title="FT和RAG结合"></a>FT和RAG结合</h4><p>RAG和微调为使大模型具有实时性并减少幻觉等问题行为提供了互补的优势和劣势。微调有助于使大模型专注于特定领域、词汇或新颖数据，但需要时间和计算资源，存在灾难性遗忘的风险，并且无法解决互联网快速演变的特性。RAG利用外部知识以增加事实和时效性，但仍然面临有关最佳检索的挑战。</p>
-<p>两种方法都不能完全解决LM的所有缺陷，但都有助于解决一些即时的问题。随着LLMs不断渗透到我们的数字体验中，我们可以预期进一步尝试将微调、RAG和其他信息检索技术结合起来，为LLMs提供更及时、真实的知识。目前meta的技术人员就开发了一个模型RA-DIT, 知识密集型的零和少量次学习基准范围内实现了最先进的性能。</p>
+<h4 id="RAG的劣势"><a href="#RAG的劣势" class="headerlink" title="RAG的劣势"></a>RAG的劣势</h4><p>RAG的劣势主要来自具体检索的实现上。这在实际工程实践上很有挑战。正如我们之前提到的，研究人员仍在努力找出如何让大模型可靠地知道何时查阅外部的非参数化知识以及何时依赖于其内部的参数化知识。查找字面所有信息的速度太慢且降低了大模型的效用，因此我们不希望RAG在检索部分过于宽泛。我们也不希望大模型总是凭直觉行事。找到一个平衡点可能是RAG最大的挑战。<br>还有更多的考虑。如果一个大模型决定查阅外部来源，它应该如何做呢？大模型应该考虑每个文档吗？还是应该将每个文档分成页面、段落或句子，以便大模型可以查询更精细的信息？同样，我们需要一个平衡点。这个决定影响如何对大模型的外部知识库进行矢量化。<br>同样，模型应该查阅哪些来源？整个互联网，还是其中的一些子集？手工制作的一组本地存储的文档？而RAG应该检索多少文档呢？所有相关文档吗？<br>通常，RAG检索前n个文档（其中n是某个自然数），这似乎是合理的，但如果回答查询所需的知识要点位于第n+1个文档中呢？当前的RAG方法通常使用近似最近邻方法（因为纯最近邻可能导致查阅太多文档），但近似最近邻不能保证为某个查询返回一个有用的文档，因此即使使用了ANN减轻了工作量，幻觉问题仍然存在。<br>最后，与仅查询大模型的内部知识相比，RAG可能更昂贵，因为RAG需要嵌入和存储大模型可以查阅的外部数据，通常会产生矢量数据库存储成本（但RAG仍然比例常规微调更便宜），并且RAG可能增加推理成本，因为它会将检索到的文档附加到查询中。当然，所有这些决策和考虑都依赖于具体的应用场景，但你可以看到实施RAG可能会变得多么复杂。</p>
+<h4 id="FT和RAG结合"><a href="#FT和RAG结合" class="headerlink" title="FT和RAG结合"></a>FT和RAG结合</h4><p>RAG和微调为使大模型具有实时性并减少幻觉等问题行为提供了互补的优势和劣势。微调有助于使大模型专注于特定领域、词汇或新颖数据，但需要时间和计算资源，存在灾难性遗忘的风险，并且无法解决互联网快速演变的特性。RAG利用外部知识以增加事实和时效性，但仍然面临有关最佳检索的挑战。<br>两种方法都不能完全解决LM的所有缺陷，但都有助于解决一些即时的问题。随着LLMs不断渗透到我们的数字体验中，我们可以预期进一步尝试将微调、RAG和其他信息检索技术结合起来，为LLMs提供更及时、真实的知识。目前meta的技术人员就开发了一个模型RA-DIT, 知识密集型的零和少量次学习基准范围内实现了最先进的性能。</p>
 <p><img src="images/2024-01/RAG_FT_eng.png" alt="images/2024-01/RAG_FT_eng.png"><br>RAG和其它优化方式比较</p>
 <h4 id="可能的企业级设计"><a href="#可能的企业级设计" class="headerlink" title="可能的企业级设计"></a>可能的企业级设计</h4><p>如下图所示, 一个企业级的应用可以结合微调模型和RAG技术，整合内部其它业务系统和数据将内部知识安全地与外部知识融为一体，从而减轻企业的成本，提高运营的效率。比如使用下面的架构重新整合企业内部HR相关服务，提高HR Share Serivce Center的能力和效率。<br><img  
                      lazyload
@@ -330,12 +325,15 @@
                       alt="example"
                 ></p>
 <p>又如，想象一个客户支持聊天助手。当代理需要在实时互动中获得指导时，他们会提示助手，触发以下流程：</p>
-<p>流水线检索关键客户信息，包括客户ID。<br>流水线查询客户的历史记录、问题、政策、特殊情况（例如故障）、当前支持团队的可用性以及其他动态外部变量。<br>流水线将收集到的上下文和原始查询成为最终提示。<br>模型生成一个基于提供的上下文的响应。<br>尽管此流水线可以使用“现成的”模型，但生成的响应的风格可能会有所不同，并偏离内部政策或最终用户的要求。为了提高一致性和帮助性响应的可能性，数据团队可以训练一个“专业化”的助手模型。</p>
-<p>数据团队将从适当的基础模型开始，例如Llama 2或GPT-4。然后，他们将构建或策划一个例子语料库，其中包含模型将经常遇到的每种特定任务类型的可能输入（上下文+提示）和理想输出（包括期望的格式）。这可能包括针对客户服务代理自己处理的任务（例如重新激活帐户）以及涉及引导用户执行他们自己操作的任务（例如故障排除）的不同方法。</p>
-<p>在这种情况下，微调和检索增强共同合作，以更快地提供正确的解决方案。</p>
+<ul>
+<li>流水线检索关键客户信息，包括客户ID。</li>
+<li>流水线查询客户的历史记录、问题、政策、特殊情况（例如故障）、当前支持团队的可用性以及其他动态外部变量。</li>
+<li>流水线将收集到的上下文和原始查询成为最终提示。</li>
+<li>模型生成一个基于提供的上下文的响应。<br>尽管此流水线可以使用“现成的”模型，但生成的响应的风格可能会有所不同，并偏离内部政策或最终用户的要求。为了提高一致性和帮助性响应的可能性，数据团队可以训练一个“专业化”的助手模型。<br>数据团队将从适当的基础模型开始，例如Llama 2或GPT-4。然后，他们将构建或策划一个例子语料库，其中包含模型将经常遇到的每种特定任务类型的可能输入（上下文+提示）和理想输出（包括期望的格式）。这可能包括针对客户服务代理自己处理的任务（例如重新激活帐户）以及涉及引导用户执行他们自己操作的任务（例如故障排除）的不同方法。<br>在这种情况下，微调和检索增强共同合作，以更快地提供正确的解决方案。</li>
+</ul>
 <h3 id="推荐阅读："><a href="#推荐阅读：" class="headerlink" title="推荐阅读："></a>推荐阅读：</h3><ul>
 <li><a class="link"   target="_blank" rel="noopener" href="https://github.com/Tongji-KGLLM/RAG-Survey" >Retrieval-Augmented Generation for Large Language Models: A Survey <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li>Retrieval-Augmented Dual Instruction Tuning</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://arxiv.org/abs/2310.01352" >Retrieval-Augmented Dual Instruction Tuning <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 <li><a class="link"   target="_blank" rel="noopener" href="https://deepgram.com/learn/rag-vs-finetuning" >RAG vs. Finetuning: Enhancing LLMs with new knowledge | Deepgram <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 
@@ -345,7 +343,7 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：RAG</li>
+        <li>Post title：Finetune vs RAG</li>
         <li>Post author：Kopei</li>
         <li>Create time：2024-01-14 15:27:22</li>
         <li>
@@ -447,7 +445,7 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">RAG</div>
+        <div class="page-title">Finetune vs RAG</div>
         <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Finetune-VS-RAG"><span class="nav-text">Finetune VS RAG</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E8%80%85%E4%B8%8D%E6%98%AF%E5%AF%B9%E7%AB%8B%E5%85%B3%E7%B3%BB"><span class="nav-text">两者不是对立关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E8%B0%83%E5%A4%A7%E6%A8%A1%E5%9E%8BFinetune%E7%AE%80%E4%BB%8B"><span class="nav-text">微调大模型Finetune简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E8%B0%83%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-text">微调的优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E8%B0%83%E7%9A%84%E5%8A%A3%E5%8A%BF"><span class="nav-text">微调的劣势</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RAG%EF%BC%88Retrieval-Augmented-Generation%EF%BC%89%E4%BB%8B%E7%BB%8D"><span class="nav-text">RAG（Retrieval Augmented Generation）介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RAG%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="nav-text">RAG的本质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RAG%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-text">RAG的优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RAG%E7%9A%84%E5%8A%A3%E5%8A%BF"><span class="nav-text">RAG的劣势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FT%E5%92%8CRAG%E7%BB%93%E5%90%88"><span class="nav-text">FT和RAG结合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E7%9A%84%E4%BC%81%E4%B8%9A%E7%BA%A7%E8%AE%BE%E8%AE%A1"><span class="nav-text">可能的企业级设计</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%EF%BC%9A"><span class="nav-text">推荐阅读：</span></a></li></ol></li></ol></li></ol>
 
     </div>
