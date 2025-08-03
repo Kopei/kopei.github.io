@@ -39,6 +39,38 @@
       </tags>
   </entry>
   <entry>
+    <title>Git如何同步fork的仓库</title>
+    <url>/2017/12/14/%E5%90%8C%E6%AD%A5Forked%E4%BB%93%E5%BA%93/</url>
+    <content><![CDATA[<h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>实际工作可能需要fork别人的代码另做开发，但是又有需求希望同步源仓库的更新。以下实例将演示如何同步源仓库代码。</p>
+<h3 id="Mac-Linux-windows通用"><a href="#Mac-Linux-windows通用" class="headerlink" title="Mac, Linux, windows通用"></a>Mac, Linux, windows通用</h3><ul>
+<li><p>首先需要配置git remote 到源仓库</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">blockchain git:(f03d28f) ✗ git remote -v</span><br><span class="line">origin	https://github.com/dvf/blockchain (fetch)</span><br><span class="line">origin	https://github.com/dvf/blockchain (push)</span><br><span class="line">blockchain git:(f03d28f) ✗ git remote add upstream https://github.com/dvf/blockchain</span><br><span class="line">blockchain git:(f03d28f) ✗ git remote -v</span><br><span class="line">origin	https://github.com/dvf/blockchain (fetch)</span><br><span class="line">origin	https://github.com/dvf/blockchain (push)</span><br><span class="line">upstream	https://github.com/dvf/blockchain (fetch)</span><br><span class="line">upstream	https://github.com/dvf/blockchain (push)</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>拉取原仓库更新的提交</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">blockchain git:(f03d28f) ✗ git fetch upstream</span><br><span class="line">remote: Counting objects: 77, done.</span><br><span class="line">remote: Total 77 (delta 23), reused 24 (delta 23), pack-reused 53</span><br><span class="line">Unpacking objects: 100% (77/77), done.</span><br><span class="line">From https://github.com/dvf/blockchain</span><br><span class="line"> [new branch]      dvf/bug-fix  -&gt; upstream/dvf/bug-fix</span><br><span class="line"> [new branch]      dvf/hash-fix -&gt; upstream/dvf/hash-fix</span><br><span class="line"> [new branch]      dvf/tests    -&gt; upstream/dvf/tests</span><br><span class="line"> [new branch]      master       -&gt; upstream/master</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>切换到本地master</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">blockchain git:(f03d28f) ✗ git checkout master</span><br><span class="line">M	blockchain.py</span><br><span class="line">Switched to branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line">Your branch is up-to-date with <span class="string">&#x27;origin/master&#x27;</span>.</span><br></pre></td></tr></table></figure></div></li>
+<li><p>合并upstream&#x2F;master到local master</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">blockchain git:(master) git merge upstream/master</span><br><span class="line">Updating f03d28f..4010cf3</span><br><span class="line">Fast-forward</span><br><span class="line"> .gitattributes                                       |  63 +++++++++++++++</span><br><span class="line"> .travis.yml                                          |  12 +++</span><br><span class="line"> README.md                                            |   2 +</span><br><span class="line"> blockchain.py                                        |  22 +++---</span><br><span class="line"> csharp/BlockChain.Console/App.config                 |  10 +++</span><br><span class="line"> csharp/BlockChain.Console/BlockChain.Console.csproj  |  63 +++++++++++++++</span><br><span class="line"> csharp/BlockChain.Console/Program.cs                 |  12 +++</span><br><span class="line"> csharp/BlockChain.Console/Properties/AssemblyInfo.cs |  36 +++++++++</span><br><span class="line"> csharp/BlockChain.sln                                |  43 ++++++++++</span><br><span class="line"> csharp/BlockChain/Block.cs                           |  19 +++++</span><br><span class="line"> csharp/BlockChain/BlockChain.cs                      | 226 +++++++++++++++++++++++++++++++++++++++++++++++++++++</span><br><span class="line"> csharp/BlockChain/BlockChain.csproj                  |  73 +++++++++++++++++</span><br><span class="line"> csharp/BlockChain/Node.cs                            |   9 +++</span><br><span class="line"> csharp/BlockChain/Properties/AssemblyInfo.cs         |  36 +++++++++</span><br><span class="line"> csharp/BlockChain/Transaction.cs                     |   9 +++</span><br><span class="line"> csharp/BlockChain/WebServer.cs                       |  78 ++++++++++++++++++</span><br><span class="line"> csharp/BlockChain/packages.config                    |   5 ++</span><br><span class="line"> tests/__init__.py                                    |   0</span><br><span class="line"> tests/test_blockchain.py                             | 104 ++++++++++++++++++++++++</span><br><span class="line"> 19 files changed, 811 insertions(+), 11 deletions(-)</span><br><span class="line"> create mode 100644 .gitattributes</span><br><span class="line"> create mode 100644 .travis.yml</span><br><span class="line"> create mode 100644 csharp/BlockChain.Console/App.config</span><br><span class="line"> create mode 100644 csharp/BlockChain.Console/BlockChain.Console.csproj</span><br><span class="line"> create mode 100644 csharp/BlockChain.Console/Program.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain.Console/Properties/AssemblyInfo.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain.sln</span><br><span class="line"> create mode 100644 csharp/BlockChain/Block.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/BlockChain.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/BlockChain.csproj</span><br><span class="line"> create mode 100644 csharp/BlockChain/Node.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/Properties/AssemblyInfo.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/Transaction.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/WebServer.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/packages.config</span><br><span class="line"> create mode 100644 tests/__init__.py</span><br><span class="line"> create mode 100644 tests/test_blockchain.py</span><br></pre></td></tr></table></figure></div></li>
+<li><p>看一下git branch tree</p>
+</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="../images/git-fork-upstream.png"
+                      alt="alt"
+                ></p>
+]]></content>
+      <categories>
+        <category>misc</category>
+      </categories>
+      <tags>
+        <tag>misc</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Customer Experience</title>
     <url>/2017/12/06/customer-experience/</url>
     <content><![CDATA[<h3 id="What-is-customer-experience"><a href="#What-is-customer-experience" class="headerlink" title="What is customer experience?"></a>What is customer experience?</h3><ul>
@@ -78,38 +110,6 @@
 </ul>
 </li>
 </ul>
-]]></content>
-      <categories>
-        <category>misc</category>
-      </categories>
-      <tags>
-        <tag>misc</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git如何同步fork的仓库</title>
-    <url>/2017/12/14/%E5%90%8C%E6%AD%A5Forked%E4%BB%93%E5%BA%93/</url>
-    <content><![CDATA[<h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>实际工作可能需要fork别人的代码另做开发，但是又有需求希望同步源仓库的更新。以下实例将演示如何同步源仓库代码。</p>
-<h3 id="Mac-Linux-windows通用"><a href="#Mac-Linux-windows通用" class="headerlink" title="Mac, Linux, windows通用"></a>Mac, Linux, windows通用</h3><ul>
-<li><p>首先需要配置git remote 到源仓库</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">blockchain git:(f03d28f) ✗ git remote -v</span><br><span class="line">origin	https://github.com/dvf/blockchain (fetch)</span><br><span class="line">origin	https://github.com/dvf/blockchain (push)</span><br><span class="line">blockchain git:(f03d28f) ✗ git remote add upstream https://github.com/dvf/blockchain</span><br><span class="line">blockchain git:(f03d28f) ✗ git remote -v</span><br><span class="line">origin	https://github.com/dvf/blockchain (fetch)</span><br><span class="line">origin	https://github.com/dvf/blockchain (push)</span><br><span class="line">upstream	https://github.com/dvf/blockchain (fetch)</span><br><span class="line">upstream	https://github.com/dvf/blockchain (push)</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>拉取原仓库更新的提交</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">blockchain git:(f03d28f) ✗ git fetch upstream</span><br><span class="line">remote: Counting objects: 77, done.</span><br><span class="line">remote: Total 77 (delta 23), reused 24 (delta 23), pack-reused 53</span><br><span class="line">Unpacking objects: 100% (77/77), done.</span><br><span class="line">From https://github.com/dvf/blockchain</span><br><span class="line"> [new branch]      dvf/bug-fix  -&gt; upstream/dvf/bug-fix</span><br><span class="line"> [new branch]      dvf/hash-fix -&gt; upstream/dvf/hash-fix</span><br><span class="line"> [new branch]      dvf/tests    -&gt; upstream/dvf/tests</span><br><span class="line"> [new branch]      master       -&gt; upstream/master</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>切换到本地master</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">blockchain git:(f03d28f) ✗ git checkout master</span><br><span class="line">M	blockchain.py</span><br><span class="line">Switched to branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line">Your branch is up-to-date with <span class="string">&#x27;origin/master&#x27;</span>.</span><br></pre></td></tr></table></figure></div></li>
-<li><p>合并upstream&#x2F;master到local master</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">blockchain git:(master) git merge upstream/master</span><br><span class="line">Updating f03d28f..4010cf3</span><br><span class="line">Fast-forward</span><br><span class="line"> .gitattributes                                       |  63 +++++++++++++++</span><br><span class="line"> .travis.yml                                          |  12 +++</span><br><span class="line"> README.md                                            |   2 +</span><br><span class="line"> blockchain.py                                        |  22 +++---</span><br><span class="line"> csharp/BlockChain.Console/App.config                 |  10 +++</span><br><span class="line"> csharp/BlockChain.Console/BlockChain.Console.csproj  |  63 +++++++++++++++</span><br><span class="line"> csharp/BlockChain.Console/Program.cs                 |  12 +++</span><br><span class="line"> csharp/BlockChain.Console/Properties/AssemblyInfo.cs |  36 +++++++++</span><br><span class="line"> csharp/BlockChain.sln                                |  43 ++++++++++</span><br><span class="line"> csharp/BlockChain/Block.cs                           |  19 +++++</span><br><span class="line"> csharp/BlockChain/BlockChain.cs                      | 226 +++++++++++++++++++++++++++++++++++++++++++++++++++++</span><br><span class="line"> csharp/BlockChain/BlockChain.csproj                  |  73 +++++++++++++++++</span><br><span class="line"> csharp/BlockChain/Node.cs                            |   9 +++</span><br><span class="line"> csharp/BlockChain/Properties/AssemblyInfo.cs         |  36 +++++++++</span><br><span class="line"> csharp/BlockChain/Transaction.cs                     |   9 +++</span><br><span class="line"> csharp/BlockChain/WebServer.cs                       |  78 ++++++++++++++++++</span><br><span class="line"> csharp/BlockChain/packages.config                    |   5 ++</span><br><span class="line"> tests/__init__.py                                    |   0</span><br><span class="line"> tests/test_blockchain.py                             | 104 ++++++++++++++++++++++++</span><br><span class="line"> 19 files changed, 811 insertions(+), 11 deletions(-)</span><br><span class="line"> create mode 100644 .gitattributes</span><br><span class="line"> create mode 100644 .travis.yml</span><br><span class="line"> create mode 100644 csharp/BlockChain.Console/App.config</span><br><span class="line"> create mode 100644 csharp/BlockChain.Console/BlockChain.Console.csproj</span><br><span class="line"> create mode 100644 csharp/BlockChain.Console/Program.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain.Console/Properties/AssemblyInfo.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain.sln</span><br><span class="line"> create mode 100644 csharp/BlockChain/Block.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/BlockChain.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/BlockChain.csproj</span><br><span class="line"> create mode 100644 csharp/BlockChain/Node.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/Properties/AssemblyInfo.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/Transaction.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/WebServer.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/packages.config</span><br><span class="line"> create mode 100644 tests/__init__.py</span><br><span class="line"> create mode 100644 tests/test_blockchain.py</span><br></pre></td></tr></table></figure></div></li>
-<li><p>看一下git branch tree</p>
-</li>
-</ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="../images/git-fork-upstream.png"
-                      alt="alt"
-                ></p>
 ]]></content>
       <categories>
         <category>misc</category>
@@ -588,6 +588,16 @@
 ]]></content>
   </entry>
   <entry>
+    <title>Servitization in Subscription Mode</title>
+    <url>/2023/02/23/servitization-in-subscription-mode/</url>
+    <content><![CDATA[<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Servitization is shift from a product only focus to a strategy where products<br>and services are bundled in various combinations. The shift could also be the focus from goods, technology and manufacturing to services, intangible resources, co-creation of value and relationships. Some scholars call it Prodcut Service System aka PSS. Nowadays more and more tranditional companies increase the influence of services in their traditional business to secure their competitive position.<br>It is driven by the growing complexity of products and the demand for individualization. Nowadays the extended target is to enhance the performance of products through the integration of services and digital components.</p>
+<h2 id="Servitization-Process"><a href="#Servitization-Process" class="headerlink" title="Servitization Process"></a>Servitization Process</h2><p>General speaking, there are serveral steps to take so as a company transfers from product-centric to customer-centric </p>
+<h2 id="Key-Characterics-of-subscription-model"><a href="#Key-Characterics-of-subscription-model" class="headerlink" title="Key Characterics of subscription model"></a>Key Characterics of subscription model</h2><h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2>]]></content>
+      <tags>
+        <tag>subscription model, Servitization</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Health Data Security Guide</title>
     <url>/2023/02/21/health-data-security-guide/</url>
     <content><![CDATA[<blockquote>
@@ -995,16 +1005,6 @@
 <h2 id="11-Data-Security-on-Typical-Scenarios-Skip"><a href="#11-Data-Security-on-Typical-Scenarios-Skip" class="headerlink" title="11 Data Security on Typical Scenarios(Skip)"></a>11 Data Security on Typical Scenarios(Skip)</h2>]]></content>
       <tags>
         <tag>Data security</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Servitization in Subscription Mode</title>
-    <url>/2023/02/23/servitization-in-subscription-mode/</url>
-    <content><![CDATA[<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Servitization is shift from a product only focus to a strategy where products<br>and services are bundled in various combinations. The shift could also be the focus from goods, technology and manufacturing to services, intangible resources, co-creation of value and relationships. Some scholars call it Prodcut Service System aka PSS. Nowadays more and more tranditional companies increase the influence of services in their traditional business to secure their competitive position.<br>It is driven by the growing complexity of products and the demand for individualization. Nowadays the extended target is to enhance the performance of products through the integration of services and digital components.</p>
-<h2 id="Servitization-Process"><a href="#Servitization-Process" class="headerlink" title="Servitization Process"></a>Servitization Process</h2><p>General speaking, there are serveral steps to take so as a company transfers from product-centric to customer-centric </p>
-<h2 id="Key-Characterics-of-subscription-model"><a href="#Key-Characterics-of-subscription-model" class="headerlink" title="Key Characterics of subscription model"></a>Key Characterics of subscription model</h2><h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2>]]></content>
-      <tags>
-        <tag>subscription model, Servitization</tag>
       </tags>
   </entry>
   <entry>
@@ -1625,6 +1625,158 @@
 ]]></content>
   </entry>
   <entry>
+    <title>非财务经理的财务课</title>
+    <url>/2023/12/13/%E9%9D%9E%E8%B4%A2%E5%8A%A1%E7%BB%8F%E7%90%86%E7%9A%84%E8%B4%A2%E5%8A%A1%E8%AF%BE/</url>
+    <content><![CDATA[<h2 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h2><p>财务知识对于很多非财务背景的同学看似很陌生，其实必要的财务知识对于我们日常的生活和工作都有着息息相关的帮助。本人曾参加多次参加线上和线下财务和金融知识方面的培训，可惜疏于总结和应用，直到最近开始规划产品的商业化落地才又捡起来。本文将总结自己曾经学习到的知识做个总结，适用于非财务背景的同学食用。</p>
+<h3 id="基础财务术语"><a href="#基础财务术语" class="headerlink" title="基础财务术语"></a>基础财务术语</h3><ul>
+<li>B&#x2F;S &#x3D; Balance Sheet 资产负债表</li>
+<li>P&amp;L &#x3D; Profit and Loss Statement 损益表</li>
+<li>Cash Flow (operating cash flow, free cash flow &#x3D; FCF) 现金流</li>
+<li>Sales Revenue (Net sales) 销售收入 （净销售）</li>
+<li>CoS&#x2F;CoGS &#x3D; Cost of Sales&#x2F;Cost of Goods Sales 销售成本</li>
+<li>GP&#x2F;GM &#x3D; Gross Profit&#x2F;Gross Margin 毛利</li>
+<li>GP% &#x3D; Gross Profit &#x2F; Sales Revenue 毛利率</li>
+<li>OpEx &#x3D; Operating Expenses 运营费用</li>
+<li>OpEx% &#x3D; OpEx&#x2F;Sales Revenue 运营费用率</li>
+<li>Ebit &#x3D; Earnings before Interest and Taxes 息税前利润</li>
+<li>MC &#x3D; Market Contribution 市场贡献(实体收入&#x2F;整个市场收入​) </li>
+<li>W&#x2F;C &#x3D; Working Capital 营运资本</li>
+<li>W&#x2F;C % of LTM Revenue &#x3D; Working Capital &#x2F; Last 12 month Revenue 营运资本占过去12个月收入百分比</li>
+<li>AR &#x3D; Accounts Receivables 应收账款</li>
+<li>Inv &#x3D; Inventory 存货</li>
+</ul>
+<h3 id="掌握三大表，韭菜当地好"><a href="#掌握三大表，韭菜当地好" class="headerlink" title="掌握三大表，韭菜当地好"></a>掌握三大表，韭菜当地好</h3><h4 id="资产负债表-Balance-Sheet"><a href="#资产负债表-Balance-Sheet" class="headerlink" title="资产负债表 Balance Sheet"></a>资产负债表 Balance Sheet</h4><p><strong>含义：</strong>总括地反映会计主体在特定日期（年末、季末、月末）财务状况的报表。<br><strong>基本结构：</strong>资产 &#x3D; 负债 + 所有者权益。 无论公司处于什么状态这个会计平衡公式永远是恒等的。<br><strong>提供的信息：</strong>资本来源和资本状况，包括公司掌握的经济资源，公司所负担的债务，公司的偿债能力，公司所有者所享有的权益，公司经营模式特点。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/screenshots/asset-eq.png"
+                      alt="asset-eq"
+                ></p>
+<p><strong>资产的组成包括：</strong></p>
+<ul>
+<li>非流动资产<ul>
+<li>无形资产</li>
+<li>有形资产</li>
+<li>资产投资</li>
+<li>权益法下投资的关系公司股权</li>
+<li>其它金融资产</li>
+</ul>
+</li>
+<li>流动资产<ul>
+<li>库存</li>
+<li>应收账款</li>
+<li>其它流动资产</li>
+<li>证券</li>
+<li>现金或现金等价物</li>
+</ul>
+</li>
+<li>待摊费用</li>
+<li>待售非流动资产</li>
+</ul>
+<p><strong>负债及所有者权益包括：</strong></p>
+<ul>
+<li>所有者权益<ul>
+<li>股本</li>
+<li>资本公积</li>
+<li>盈余公积</li>
+<li>未分配利润&#x2F;亏损</li>
+<li>累积其他综合收益</li>
+<li>少数股东收益</li>
+</ul>
+</li>
+<li>非流动负债<ul>
+<li>预提养老金</li>
+<li>其他非流动性预提</li>
+<li>非流动性银行借款</li>
+<li>其他非流动性负债</li>
+<li>递延所得税负债</li>
+</ul>
+</li>
+<li>流动负债<ul>
+<li>流动性预提费用</li>
+<li>流动性银行借款</li>
+<li>应付账款</li>
+<li>当期所得税负债</li>
+<li>其他流动性负债</li>
+</ul>
+</li>
+<li>递延收益</li>
+<li>带出售非流动资产相关负债</li>
+</ul>
+<h4 id="损益表-x2F-利润表-Profit-and-Loss-statement-x2F-Income-statement"><a href="#损益表-x2F-利润表-Profit-and-Loss-statement-x2F-Income-statement" class="headerlink" title="损益表&#x2F;利润表 Profit and Loss statement &#x2F; Income statement"></a>损益表&#x2F;利润表 Profit and Loss statement &#x2F; Income statement</h4><p><strong>含义：</strong>反映公司在过去一段时间销售收入、成本和盈利关系的报表。P&amp;L体现在<code>权责发生制度</code>下，收入和支出被记录在它们发生的时候，而不是在现金实际收到或支付的时候。这意味着，即使现金尚未交换，但在业务活动发生的时候，相应的收入或支出就会被记录。<br><strong>基本结构：</strong>利润 &#x3D; 收入 - 支出<br><strong>提供的信息：</strong>反映公司获利情况，反映公司利润的构成，反映税金缴纳情况，预测公司未来发展的情况。<br><strong>企业的净利润来自三方面：</strong>1. 营业利润 2. 投资收益 3. 营业外收支净额<br><strong>销售收入的确认时间：</strong></p>
+<ul>
+<li>销售商品采用托收承付方式，在办妥托收手续时确认收入。</li>
+<li>销售商品采用预收款方式的，在发出商品时确认收入，预收款应确认为负债。</li>
+<li>销售商品需要安装和检验的，在购买方接受商品以及安装和检验完毕前，不确认收入，待安装和检验完毕后确认收入。如果安装比较简单，可以在发出商品时确认收入。</li>
+<li>销售商品采用以旧换新的，销售的商品应当按照销售商品收入确认条件确认收入。回收的商品作为购进商品处理。</li>
+</ul>
+<p><strong>净利润公式展开</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Sales revenues 销售收入</span><br><span class="line">- Cost of goods sold(COGS) 销售成本</span><br><span class="line">= Gross profit  毛利</span><br><span class="line">+ Other operating income  其他运营收入</span><br><span class="line">- Sales and marketing (S&amp;M) expense  销售和市场费用</span><br><span class="line">- General administration (G&amp;A) expense 管理费用</span><br><span class="line">- Research and Development (R&amp;D) expense  研发费用</span><br><span class="line">- Other operating expense   其他运营费用</span><br><span class="line">= Earning Before Interest and Taxes(Ebit) 息税前利润</span><br><span class="line">+/- Financial result  财务费用</span><br><span class="line">= Earning Before Taxes (Ebt) 税前利润</span><br><span class="line">- income taxes  所得税</span><br><span class="line">= Net Income  净利润</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="现金流量表-Cash-Flow-Statement"><a href="#现金流量表-Cash-Flow-Statement" class="headerlink" title="现金流量表 Cash Flow Statement"></a>现金流量表 Cash Flow Statement</h4><p><strong>含义：</strong>提供企业在某一特定期间内有关现金及现金等价物的流入和流出信息。FCF体现在<code>现金发生制</code>下，现金发生制度只在现金实际发生交易时记录收入和支出，而不考虑交易发生的时间。<br><strong>基本结构：</strong>现金流量 &#x3D; 现金流入 - 现金流出<br><strong>提供的信息：</strong>反映净收益与现金余额的关系，预测未来现金流量，评价企业取得和运用现金的能力，确定企业支付利息、股利和到期债务的能力。<br><strong>影响因素：</strong></p>
+<ul>
+<li>应收账款 –</li>
+<li>存货 –</li>
+<li>固定资产投资 –</li>
+<li>应付账款 ++</li>
+<li>预收账款 ++</li>
+</ul>
+<p><strong>现金流中的流入和流出与损益表的收入和支出不完全一致，某些项并不会对现金流产生影响：</strong></p>
+<ul>
+<li>赊销产生的收入</li>
+<li>固定资产折旧</li>
+<li>存货或应收账款冲销</li>
+<li>费用的预提</li>
+</ul>
+<h5 id="自由现金流-Free-Cash-Flow"><a href="#自由现金流-Free-Cash-Flow" class="headerlink" title="自由现金流 Free Cash Flow"></a>自由现金流 Free Cash Flow</h5><p>定义：自由现金流指扣除除新增资本投资后公司核心经营活动产生的现金流，是一项理论上更准确的业绩和公司财务状况衡量指标，反映公司在会计年度或季度内支付所有现金成本和费用后剩余的现金。计算自由现金流时会将运营资本的变化考虑进去。因此，自由现金流能够体现企业产生或消耗现金的能力程度。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">EbiT</span><br><span class="line">+/- change in trade receivables</span><br><span class="line">+/- change in inventories</span><br><span class="line">+/- change in prepayments received</span><br><span class="line">+/- change in payments in advance</span><br><span class="line">+/- change in other provisions</span><br><span class="line">- investments</span><br><span class="line">+ Deprecation</span><br><span class="line">= Free Cash Flow</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="利润中心和成本中心"><a href="#利润中心和成本中心" class="headerlink" title="利润中心和成本中心"></a>利润中心和成本中心</h3><h4 id="利润中心-Profit-Center"><a href="#利润中心-Profit-Center" class="headerlink" title="利润中心 Profit Center"></a>利润中心 Profit Center</h4><p>指一个责任中心，如果能同时控制生产和销售，既要对成本负责又要对收入负责，但没有责任或权力决定该中心资产投资的水平，因而可以根据其利润的多少来评价该中心的业绩， 因此称为利润中心。</p>
+<ul>
+<li>处于内控目的而设定的反应管理架构的会计组织单位，是用于计算利润的一个组织单元</li>
+<li>可判断公司内各职责单元的损益情况</li>
+<li>事业部Business Unit内的最小组织单元</li>
+</ul>
+<p>利润中心生成报告的目的是：</p>
+<ul>
+<li>衡量组织内各单元的业务发展情况指标。</li>
+<li>报告采用全球统一的标准，保证全球各事业部的业务结果可统一衡量和合并。</li>
+<li>可比较衡量集团内或各事业部内各组织单元的利润情况</li>
+</ul>
+<h4 id="成本中心-Cost-Center"><a href="#成本中心-Cost-Center" class="headerlink" title="成本中心 Cost Center"></a>成本中心 Cost Center</h4><p>成本中心对费用进行独立预算，纪律和归集组织单位。成本中心一般包括生产，行政，管理层，财务，服务，销售，IT和HR等。也可以按区域划分，比如销售区域。<br>成本中心报告的目的：</p>
+<ul>
+<li>增加公司成本结构的透明度，以此明确各自的责任</li>
+<li>增强对于成本费用的管理，提供利润</li>
+<li>为组织内的各部分细分团队提供成本信息</li>
+<li>反映公司区域组织架构</li>
+<li>确保将成本正确地分担至各个利润中心</li>
+</ul>
+<h3 id="上市公司报表例子"><a href="#上市公司报表例子" class="headerlink" title="上市公司报表例子"></a>上市公司报表例子</h3><h4 id="资产-x3D-负债-权益："><a href="#资产-x3D-负债-权益：" class="headerlink" title="资产&#x3D;负债+权益："></a>资产&#x3D;负债+权益：</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/screenshots/BS-fix.png"
+                      alt="bs-fix"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/screenshots/BS-assets.png"
+                      alt="bs-assets"
+                ></p>
+<p>负债及所有者权益表：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/screenshots/BS-eq-lia.png"
+                      alt="bs-eq-lia"
+                ></p>
+<h4 id="损益表"><a href="#损益表" class="headerlink" title="损益表"></a>损益表</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/screenshots/income-statement.png"
+                      alt="income"
+                ></p>
+<h3 id="业财融合，发现问题和机会"><a href="#业财融合，发现问题和机会" class="headerlink" title="业财融合，发现问题和机会"></a>业财融合，发现问题和机会</h3><p>财务数据可以帮助高管做决策，而在决策的过程中，我们不能以看财报的眼光看待财务数据，而要从内部决策的角度看待数据，财务数据是可以支持内部决策的。<br>财务并不是在经营结束后进行总结的滞后性数据，财务往往可以提前涉及，是基于未来的。例如，在编制预算中，我们就可以有针对性的对报表架构进行设计，如用多少倍的杠杆，是否轻资产架构等等。<br>在做决策的过程中，我们往往不用账本上的数据做决策，因为记在账簿的数据是已经发生的沉没成本，沉没成本不能用于做决策，但可以参考这些数据，机会成本，机会业绩，这些可能在未来发生的数据才是用来支持决策。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>What is vector database?</title>
     <url>/2023/12/17/vector-database/</url>
     <content><![CDATA[<h1 id="什么是向量数据库-Vector-Database"><a href="#什么是向量数据库-Vector-Database" class="headerlink" title="什么是向量数据库 Vector Database?"></a>什么是向量数据库 Vector Database?</h1><blockquote>
@@ -1825,156 +1977,44 @@
       </tags>
   </entry>
   <entry>
-    <title>非财务经理的财务课</title>
-    <url>/2023/12/13/%E9%9D%9E%E8%B4%A2%E5%8A%A1%E7%BB%8F%E7%90%86%E7%9A%84%E8%B4%A2%E5%8A%A1%E8%AF%BE/</url>
-    <content><![CDATA[<h2 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h2><p>财务知识对于很多非财务背景的同学看似很陌生，其实必要的财务知识对于我们日常的生活和工作都有着息息相关的帮助。本人曾参加多次参加线上和线下财务和金融知识方面的培训，可惜疏于总结和应用，直到最近开始规划产品的商业化落地才又捡起来。本文将总结自己曾经学习到的知识做个总结，适用于非财务背景的同学食用。</p>
-<h3 id="基础财务术语"><a href="#基础财务术语" class="headerlink" title="基础财务术语"></a>基础财务术语</h3><ul>
-<li>B&#x2F;S &#x3D; Balance Sheet 资产负债表</li>
-<li>P&amp;L &#x3D; Profit and Loss Statement 损益表</li>
-<li>Cash Flow (operating cash flow, free cash flow &#x3D; FCF) 现金流</li>
-<li>Sales Revenue (Net sales) 销售收入 （净销售）</li>
-<li>CoS&#x2F;CoGS &#x3D; Cost of Sales&#x2F;Cost of Goods Sales 销售成本</li>
-<li>GP&#x2F;GM &#x3D; Gross Profit&#x2F;Gross Margin 毛利</li>
-<li>GP% &#x3D; Gross Profit &#x2F; Sales Revenue 毛利率</li>
-<li>OpEx &#x3D; Operating Expenses 运营费用</li>
-<li>OpEx% &#x3D; OpEx&#x2F;Sales Revenue 运营费用率</li>
-<li>Ebit &#x3D; Earnings before Interest and Taxes 息税前利润</li>
-<li>MC &#x3D; Market Contribution 市场贡献(实体收入&#x2F;整个市场收入​) </li>
-<li>W&#x2F;C &#x3D; Working Capital 营运资本</li>
-<li>W&#x2F;C % of LTM Revenue &#x3D; Working Capital &#x2F; Last 12 month Revenue 营运资本占过去12个月收入百分比</li>
-<li>AR &#x3D; Accounts Receivables 应收账款</li>
-<li>Inv &#x3D; Inventory 存货</li>
+    <title>机器学习一撇</title>
+    <url>/2018/10/13/AI-2018-10-04-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%80%E6%92%87/</url>
+    <content><![CDATA[<p>机器学习是建立在大量数据的基础上， 在有意义的大数据上面提取有用的信息， 然后做出预测。</p>
+<h3 id="典型应用场景"><a href="#典型应用场景" class="headerlink" title="典型应用场景"></a>典型应用场景</h3><ul>
+<li>推荐算法</li>
+<li>欺诈检测</li>
+<li>市场细分研究</li>
+<li>社交网络分析</li>
+<li>医学研究</li>
 </ul>
-<h3 id="掌握三大表，韭菜当地好"><a href="#掌握三大表，韭菜当地好" class="headerlink" title="掌握三大表，韭菜当地好"></a>掌握三大表，韭菜当地好</h3><h4 id="资产负债表-Balance-Sheet"><a href="#资产负债表-Balance-Sheet" class="headerlink" title="资产负债表 Balance Sheet"></a>资产负债表 Balance Sheet</h4><p><strong>含义：</strong>总括地反映会计主体在特定日期（年末、季末、月末）财务状况的报表。<br><strong>基本结构：</strong>资产 &#x3D; 负债 + 所有者权益。 无论公司处于什么状态这个会计平衡公式永远是恒等的。<br><strong>提供的信息：</strong>资本来源和资本状况，包括公司掌握的经济资源，公司所负担的债务，公司的偿债能力，公司所有者所享有的权益，公司经营模式特点。<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/screenshots/asset-eq.png"
-                      alt="asset-eq"
-                ></p>
-<p><strong>资产的组成包括：</strong></p>
-<ul>
-<li>非流动资产<ul>
-<li>无形资产</li>
-<li>有形资产</li>
-<li>资产投资</li>
-<li>权益法下投资的关系公司股权</li>
-<li>其它金融资产</li>
-</ul>
+<h3 id="机器学习的三个分支"><a href="#机器学习的三个分支" class="headerlink" title="机器学习的三个分支"></a>机器学习的三个分支</h3><ul>
+<li><p><strong>监督学习</strong><br>监督学习主要用于基于一组训练集做出预测结果， 如训练集和结果用数组表示<code>[x1, x2,...y]</code>, 算法将从训练集中学习如何预测将来的某个结果。如果y是数字那么这个预测叫做<code>回归</code>, 如果是明确的一些值， 那么这个预测叫做<code>分类</code>.</p>
 </li>
-<li>流动资产<ul>
-<li>库存</li>
-<li>应收账款</li>
-<li>其它流动资产</li>
-<li>证券</li>
-<li>现金或现金等价物</li>
-</ul>
+<li><p><strong>非监督学习</strong><br>非监督学习主要用于发现数据中未知的模式， 典型的例子是分类集群。</p>
 </li>
-<li>待摊费用</li>
-<li>待售非流动资产</li>
-</ul>
-<p><strong>负债及所有者权益包括：</strong></p>
-<ul>
-<li>所有者权益<ul>
-<li>股本</li>
-<li>资本公积</li>
-<li>盈余公积</li>
-<li>未分配利润&#x2F;亏损</li>
-<li>累积其他综合收益</li>
-<li>少数股东收益</li>
-</ul>
+<li><p><strong>加强学习</strong><br>也叫<code>连续学习</code>, 在这种模式下， 我们不会得到最终结果。而是基于当前状态得出一个最优解， 也就是所谓的<code>agent</code>选择一个最优<code>action</code>, 然后将得到一个<code>award</code>.</p>
 </li>
-<li>非流动负债<ul>
-<li>预提养老金</li>
-<li>其他非流动性预提</li>
-<li>非流动性银行借款</li>
-<li>其他非流动性负债</li>
-<li>递延所得税负债</li>
 </ul>
-</li>
-<li>流动负债<ul>
-<li>流动性预提费用</li>
-<li>流动性银行借款</li>
-<li>应付账款</li>
-<li>当期所得税负债</li>
-<li>其他流动性负债</li>
-</ul>
-</li>
-<li>递延收益</li>
-<li>带出售非流动资产相关负债</li>
-</ul>
-<h4 id="损益表-x2F-利润表-Profit-and-Loss-statement-x2F-Income-statement"><a href="#损益表-x2F-利润表-Profit-and-Loss-statement-x2F-Income-statement" class="headerlink" title="损益表&#x2F;利润表 Profit and Loss statement &#x2F; Income statement"></a>损益表&#x2F;利润表 Profit and Loss statement &#x2F; Income statement</h4><p><strong>含义：</strong>反映公司在过去一段时间销售收入、成本和盈利关系的报表。P&amp;L体现在<code>权责发生制度</code>下，收入和支出被记录在它们发生的时候，而不是在现金实际收到或支付的时候。这意味着，即使现金尚未交换，但在业务活动发生的时候，相应的收入或支出就会被记录。<br><strong>基本结构：</strong>利润 &#x3D; 收入 - 支出<br><strong>提供的信息：</strong>反映公司获利情况，反映公司利润的构成，反映税金缴纳情况，预测公司未来发展的情况。<br><strong>企业的净利润来自三方面：</strong>1. 营业利润 2. 投资收益 3. 营业外收支净额<br><strong>销售收入的确认时间：</strong></p>
+<h3 id="数据仓库"><a href="#数据仓库" class="headerlink" title="数据仓库"></a>数据仓库</h3><p>数据仓库是存放数据的各种源集合叫法。它有什么用呢？ 一个例子是把<code>OLTP</code>如mysql的数据做备份然后导入数据仓库做<code>OLAP</code>. 这时数据仓库中的数据多了一个时间维度， 用于区分版本。所以从不同的数据源导入数据仓可能需要做<code>ETL</code>, 也就是抽取-转化-导入。 这里的导入一般会把数据按不同维度导入到<code>data cube</code>.</p>
+<p>数据仓一般会把数据组织成多个维度的数据立方， 基于所谓的<code>star schema</code>(一张<code>fact</code>表， 用于索引多张不同维度的其它表)，表中的数据是不同维度数据的聚合。</p>
+<p>在数据仓做<code>OLAP</code>操作时， 一般涉及如下步骤：</p>
 <ul>
-<li>销售商品采用托收承付方式，在办妥托收手续时确认收入。</li>
-<li>销售商品采用预收款方式的，在发出商品时确认收入，预收款应确认为负债。</li>
-<li>销售商品需要安装和检验的，在购买方接受商品以及安装和检验完毕前，不确认收入，待安装和检验完毕后确认收入。如果安装比较简单，可以在发出商品时确认收入。</li>
-<li>销售商品采用以旧换新的，销售的商品应当按照销售商品收入确认条件确认收入。回收的商品作为购进商品处理。</li>
+<li><code>rollup</code>: 对某个维度的数据做聚合。</li>
+<li><code>drilldown</code>: 在某个维度把数据打散， 使其颗粒度更细。如把按月展示, 打成按天展示.</li>
+<li><code>slice</code>: 在一个维度切一层数据看， 比如查看所有二月的数据。</li>
+<li><code>Dice</code>: 从一个cube中选择一个子集。</li>
 </ul>
-<p><strong>净利润公式展开</strong></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">Sales revenues 销售收入</span><br><span class="line">- Cost of goods sold(COGS) 销售成本</span><br><span class="line">= Gross profit  毛利</span><br><span class="line">+ Other operating income  其他运营收入</span><br><span class="line">- Sales and marketing (S&amp;M) expense  销售和市场费用</span><br><span class="line">- General administration (G&amp;A) expense 管理费用</span><br><span class="line">- Research and Development (R&amp;D) expense  研发费用</span><br><span class="line">- Other operating expense   其他运营费用</span><br><span class="line">= Earning Before Interest and Taxes(Ebit) 息税前利润</span><br><span class="line">+/- Financial result  财务费用</span><br><span class="line">= Earning Before Taxes (Ebt) 税前利润</span><br><span class="line">- income taxes  所得税</span><br><span class="line">= Net Income  净利润</span><br></pre></td></tr></table></figure></div>
-
-<h4 id="现金流量表-Cash-Flow-Statement"><a href="#现金流量表-Cash-Flow-Statement" class="headerlink" title="现金流量表 Cash Flow Statement"></a>现金流量表 Cash Flow Statement</h4><p><strong>含义：</strong>提供企业在某一特定期间内有关现金及现金等价物的流入和流出信息。FCF体现在<code>现金发生制</code>下，现金发生制度只在现金实际发生交易时记录收入和支出，而不考虑交易发生的时间。<br><strong>基本结构：</strong>现金流量 &#x3D; 现金流入 - 现金流出<br><strong>提供的信息：</strong>反映净收益与现金余额的关系，预测未来现金流量，评价企业取得和运用现金的能力，确定企业支付利息、股利和到期债务的能力。<br><strong>影响因素：</strong></p>
-<ul>
-<li>应收账款 –</li>
-<li>存货 –</li>
-<li>固定资产投资 –</li>
-<li>应付账款 ++</li>
-<li>预收账款 ++</li>
-</ul>
-<p><strong>现金流中的流入和流出与损益表的收入和支出不完全一致，某些项并不会对现金流产生影响：</strong></p>
-<ul>
-<li>赊销产生的收入</li>
-<li>固定资产折旧</li>
-<li>存货或应收账款冲销</li>
-<li>费用的预提</li>
-</ul>
-<h5 id="自由现金流-Free-Cash-Flow"><a href="#自由现金流-Free-Cash-Flow" class="headerlink" title="自由现金流 Free Cash Flow"></a>自由现金流 Free Cash Flow</h5><p>定义：自由现金流指扣除除新增资本投资后公司核心经营活动产生的现金流，是一项理论上更准确的业绩和公司财务状况衡量指标，反映公司在会计年度或季度内支付所有现金成本和费用后剩余的现金。计算自由现金流时会将运营资本的变化考虑进去。因此，自由现金流能够体现企业产生或消耗现金的能力程度。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">EbiT</span><br><span class="line">+/- change in trade receivables</span><br><span class="line">+/- change in inventories</span><br><span class="line">+/- change in prepayments received</span><br><span class="line">+/- change in payments in advance</span><br><span class="line">+/- change in other provisions</span><br><span class="line">- investments</span><br><span class="line">+ Deprecation</span><br><span class="line">= Free Cash Flow</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="利润中心和成本中心"><a href="#利润中心和成本中心" class="headerlink" title="利润中心和成本中心"></a>利润中心和成本中心</h3><h4 id="利润中心-Profit-Center"><a href="#利润中心-Profit-Center" class="headerlink" title="利润中心 Profit Center"></a>利润中心 Profit Center</h4><p>指一个责任中心，如果能同时控制生产和销售，既要对成本负责又要对收入负责，但没有责任或权力决定该中心资产投资的水平，因而可以根据其利润的多少来评价该中心的业绩， 因此称为利润中心。</p>
-<ul>
-<li>处于内控目的而设定的反应管理架构的会计组织单位，是用于计算利润的一个组织单元</li>
-<li>可判断公司内各职责单元的损益情况</li>
-<li>事业部Business Unit内的最小组织单元</li>
-</ul>
-<p>利润中心生成报告的目的是：</p>
-<ul>
-<li>衡量组织内各单元的业务发展情况指标。</li>
-<li>报告采用全球统一的标准，保证全球各事业部的业务结果可统一衡量和合并。</li>
-<li>可比较衡量集团内或各事业部内各组织单元的利润情况</li>
-</ul>
-<h4 id="成本中心-Cost-Center"><a href="#成本中心-Cost-Center" class="headerlink" title="成本中心 Cost Center"></a>成本中心 Cost Center</h4><p>成本中心对费用进行独立预算，纪律和归集组织单位。成本中心一般包括生产，行政，管理层，财务，服务，销售，IT和HR等。也可以按区域划分，比如销售区域。<br>成本中心报告的目的：</p>
-<ul>
-<li>增加公司成本结构的透明度，以此明确各自的责任</li>
-<li>增强对于成本费用的管理，提供利润</li>
-<li>为组织内的各部分细分团队提供成本信息</li>
-<li>反映公司区域组织架构</li>
-<li>确保将成本正确地分担至各个利润中心</li>
-</ul>
-<h3 id="上市公司报表例子"><a href="#上市公司报表例子" class="headerlink" title="上市公司报表例子"></a>上市公司报表例子</h3><h4 id="资产-x3D-负债-权益："><a href="#资产-x3D-负债-权益：" class="headerlink" title="资产&#x3D;负债+权益："></a>资产&#x3D;负债+权益：</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/screenshots/BS-fix.png"
-                      alt="bs-fix"
-                ><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/screenshots/BS-assets.png"
-                      alt="bs-assets"
-                ></p>
-<p>负债及所有者权益表：<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/screenshots/BS-eq-lia.png"
-                      alt="bs-eq-lia"
-                ></p>
-<h4 id="损益表"><a href="#损益表" class="headerlink" title="损益表"></a>损益表</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/screenshots/income-statement.png"
-                      alt="income"
-                ></p>
-<h3 id="业财融合，发现问题和机会"><a href="#业财融合，发现问题和机会" class="headerlink" title="业财融合，发现问题和机会"></a>业财融合，发现问题和机会</h3><p>财务数据可以帮助高管做决策，而在决策的过程中，我们不能以看财报的眼光看待财务数据，而要从内部决策的角度看待数据，财务数据是可以支持内部决策的。<br>财务并不是在经营结束后进行总结的滞后性数据，财务往往可以提前涉及，是基于未来的。例如，在编制预算中，我们就可以有针对性的对报表架构进行设计，如用多少倍的杠杆，是否轻资产架构等等。<br>在做决策的过程中，我们往往不用账本上的数据做决策，因为记在账簿的数据是已经发生的沉没成本，沉没成本不能用于做决策，但可以参考这些数据，机会成本，机会业绩，这些可能在未来发生的数据才是用来支持决策。</p>
+<p>数据仓可以被进一步切分为<code>data marts</code>, 用于不同角度的<code>drilldown</code>分析。</p>
+<h3 id="机器学习的哲学"><a href="#机器学习的哲学" class="headerlink" title="机器学习的哲学"></a>机器学习的哲学</h3><p>正常想法，想要把一组输入数据经过处理得到结果， 一般可以研究输入的属性，然后写一个函数计算出结果。 但是有时候它们之间的关系往往难以确定。 这个时候机器学习就派上用处了，它可以基于历史所有的数据做出预测。 机器学习大致可以分两种学习策略：</p>
+<h4 id="懒惰学习lazy-learning"><a href="#懒惰学习lazy-learning" class="headerlink" title="懒惰学习lazy learning"></a>懒惰学习<code>lazy learning</code></h4><p>懒惰学习基于实例， 学习者记住所有之前看过的例子， 当一个新的数据来到， 它尝试从历史见过的数据中找到相似数据，然后使用历史数据的结果作为参考去预测当前输入数据的结果。这种学习的前提是上述两者在属性上近似，所以他们的输出也近似。 <code>Nearest neighbor</code>最近邻居法就是经典的懒惰学习例子。</p>
+<h4 id="主动学习eager-learning"><a href="#主动学习eager-learning" class="headerlink" title="主动学习eager learning"></a>主动学习<code>eager learning</code></h4><p>主动学习是基于模型的学习，学习者假设输入属性和输出相关， 并且基于某个模型（比如线性回归， 逻辑回归， 神经网络等等）。 所以学习者学习基于历史数据得出的模型（主要是模型参数）， 当一个新的数据来临， 它就会使用这个模型去预测结果。<br>主动学习学习通用模型， 懒惰学习从看过的例子中学习。他们还有一点不同， 主动学习的模型必须满足所有历史数据， 但是懒惰学习可以只关注最近某些时间的点。懒惰模型也更难以构建一个综合的模型，需要大量的内存存储所有见过的数据。</p>
 ]]></content>
+      <categories>
+        <category>machine learning</category>
+      </categories>
+      <tags>
+        <tag>ML</tag>
+      </tags>
   </entry>
   <entry>
     <title>Finetune vs RAG</title>
@@ -2037,46 +2077,6 @@
 ]]></content>
       <tags>
         <tag>AI, RAG, Finetune</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习一撇</title>
-    <url>/2018/10/13/AI-2018-10-04-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%80%E6%92%87/</url>
-    <content><![CDATA[<p>机器学习是建立在大量数据的基础上， 在有意义的大数据上面提取有用的信息， 然后做出预测。</p>
-<h3 id="典型应用场景"><a href="#典型应用场景" class="headerlink" title="典型应用场景"></a>典型应用场景</h3><ul>
-<li>推荐算法</li>
-<li>欺诈检测</li>
-<li>市场细分研究</li>
-<li>社交网络分析</li>
-<li>医学研究</li>
-</ul>
-<h3 id="机器学习的三个分支"><a href="#机器学习的三个分支" class="headerlink" title="机器学习的三个分支"></a>机器学习的三个分支</h3><ul>
-<li><p><strong>监督学习</strong><br>监督学习主要用于基于一组训练集做出预测结果， 如训练集和结果用数组表示<code>[x1, x2,...y]</code>, 算法将从训练集中学习如何预测将来的某个结果。如果y是数字那么这个预测叫做<code>回归</code>, 如果是明确的一些值， 那么这个预测叫做<code>分类</code>.</p>
-</li>
-<li><p><strong>非监督学习</strong><br>非监督学习主要用于发现数据中未知的模式， 典型的例子是分类集群。</p>
-</li>
-<li><p><strong>加强学习</strong><br>也叫<code>连续学习</code>, 在这种模式下， 我们不会得到最终结果。而是基于当前状态得出一个最优解， 也就是所谓的<code>agent</code>选择一个最优<code>action</code>, 然后将得到一个<code>award</code>.</p>
-</li>
-</ul>
-<h3 id="数据仓库"><a href="#数据仓库" class="headerlink" title="数据仓库"></a>数据仓库</h3><p>数据仓库是存放数据的各种源集合叫法。它有什么用呢？ 一个例子是把<code>OLTP</code>如mysql的数据做备份然后导入数据仓库做<code>OLAP</code>. 这时数据仓库中的数据多了一个时间维度， 用于区分版本。所以从不同的数据源导入数据仓可能需要做<code>ETL</code>, 也就是抽取-转化-导入。 这里的导入一般会把数据按不同维度导入到<code>data cube</code>.</p>
-<p>数据仓一般会把数据组织成多个维度的数据立方， 基于所谓的<code>star schema</code>(一张<code>fact</code>表， 用于索引多张不同维度的其它表)，表中的数据是不同维度数据的聚合。</p>
-<p>在数据仓做<code>OLAP</code>操作时， 一般涉及如下步骤：</p>
-<ul>
-<li><code>rollup</code>: 对某个维度的数据做聚合。</li>
-<li><code>drilldown</code>: 在某个维度把数据打散， 使其颗粒度更细。如把按月展示, 打成按天展示.</li>
-<li><code>slice</code>: 在一个维度切一层数据看， 比如查看所有二月的数据。</li>
-<li><code>Dice</code>: 从一个cube中选择一个子集。</li>
-</ul>
-<p>数据仓可以被进一步切分为<code>data marts</code>, 用于不同角度的<code>drilldown</code>分析。</p>
-<h3 id="机器学习的哲学"><a href="#机器学习的哲学" class="headerlink" title="机器学习的哲学"></a>机器学习的哲学</h3><p>正常想法，想要把一组输入数据经过处理得到结果， 一般可以研究输入的属性，然后写一个函数计算出结果。 但是有时候它们之间的关系往往难以确定。 这个时候机器学习就派上用处了，它可以基于历史所有的数据做出预测。 机器学习大致可以分两种学习策略：</p>
-<h4 id="懒惰学习lazy-learning"><a href="#懒惰学习lazy-learning" class="headerlink" title="懒惰学习lazy learning"></a>懒惰学习<code>lazy learning</code></h4><p>懒惰学习基于实例， 学习者记住所有之前看过的例子， 当一个新的数据来到， 它尝试从历史见过的数据中找到相似数据，然后使用历史数据的结果作为参考去预测当前输入数据的结果。这种学习的前提是上述两者在属性上近似，所以他们的输出也近似。 <code>Nearest neighbor</code>最近邻居法就是经典的懒惰学习例子。</p>
-<h4 id="主动学习eager-learning"><a href="#主动学习eager-learning" class="headerlink" title="主动学习eager learning"></a>主动学习<code>eager learning</code></h4><p>主动学习是基于模型的学习，学习者假设输入属性和输出相关， 并且基于某个模型（比如线性回归， 逻辑回归， 神经网络等等）。 所以学习者学习基于历史数据得出的模型（主要是模型参数）， 当一个新的数据来临， 它就会使用这个模型去预测结果。<br>主动学习学习通用模型， 懒惰学习从看过的例子中学习。他们还有一点不同， 主动学习的模型必须满足所有历史数据， 但是懒惰学习可以只关注最近某些时间的点。懒惰模型也更难以构建一个综合的模型，需要大量的内存存储所有见过的数据。</p>
-]]></content>
-      <categories>
-        <category>machine learning</category>
-      </categories>
-      <tags>
-        <tag>ML</tag>
       </tags>
   </entry>
   <entry>
@@ -2166,6 +2166,41 @@
       </tags>
   </entry>
   <entry>
+    <title>PowerBI Quickstart</title>
+    <url>/2022/10/01/BI-2022-10-04-PowerBI-Quickstart/</url>
+    <content><![CDATA[<h2 id="PowerBI-Quickstart-Guide"><a href="#PowerBI-Quickstart-Guide" class="headerlink" title="PowerBI Quickstart Guide"></a>PowerBI Quickstart Guide</h2><p>截止2022年末市面上主流的BI产品有PowerBI, Tableau和国产帆软的FineBI. 由于Tableau逐渐退出中国，本文主要介绍一下PowerBI的基础功能。</p>
+<h3 id="数据导入方式"><a href="#数据导入方式" class="headerlink" title="数据导入方式"></a>数据导入方式</h3><p>PowerBI支持从130+不同数据源直接导入数据，主要导入数据的方式分为:</p>
+<ul>
+<li>Direct import 直接导入</li>
+<li>DirectQuery 直接查询</li>
+<li>Live Connection 在线连接</li>
+</ul>
+<p>这三种数据连接方式主要区别于:</p>
+<ul>
+<li>direct import 是将数据直接导进PowerBI desktop端的SSAS(SQL Server Analysis Services)的向量内存中，既然要存入内存那么对客户端的内存有一些要求，当然SSAS提供了一些内存存储压缩的算法来减少内存占用量。缺点是数据不是实时更新的。</li>
+<li>DirectQuery 顾名思义是直接在另一端的数据库上做查询, 这样性能的压力来到了数据库端。PowerBI目前支持主流的数据库，做查询前PowerBI desktop会将查询解释成对应的数据库语言到目标数据库执行，所以这里的语言转化或者叫做翻译是限制DirectQuery能力的瓶颈点。</li>
+<li>Live Connection只支持类SSAS的远程数据库，所有的能力和限制取决于远端SSAS的能力。</li>
+</ul>
+<p>如下表可以用来决策什么时候用什么方式的数据连接，有时候我们可能需要一个综合的解决方案。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/screenshots/screen_shot_data_import.png"
+                     
+                ></p>
+<h3 id="数据转化策略"><a href="#数据转化策略" class="headerlink" title="数据转化策略"></a>数据转化策略</h3><p>PowerBI使用Power Query Editor来处理数据清洗和转换，底层使用的是<code>M</code>语言。在真正运行处理逻辑时，PowerQuery有个<code>Applied Steps</code>功能可以用来调整处理逻辑的顺序或者反悔某些操作如删除。</p>
+<p>Power Query Editor在增加列的时候有一个自动根据所填例子形成新增列的功能，就是在新增一列时填入这列一行想转化成的数据，powerBI会自动完成剩余列的数据填充。</p>
+<h4 id="条件列，向下填充，逆透视，合并查询和追加查询"><a href="#条件列，向下填充，逆透视，合并查询和追加查询" class="headerlink" title="条件列，向下填充，逆透视，合并查询和追加查询"></a>条件列，向下填充，逆透视，合并查询和追加查询</h4><p><code>conditional column</code>就是在某列上经过if条件过滤后的生成一个新的列，比如某些列为空则生成新的列。<br><code>fill down</code>向下填充就是把为空的值按最上面的非空值填充。<br><code>split column</code>把一个列按一定规则拆成两个列。<br><code>unpivot</code>逆透视是把原列头作为新的表的行值，而原来列的值将会被相应转成对应的行。<br><code>merge queries</code>类似SQL的join, 分为内联，左联，右联，外联等。</p>
+<h3 id="数据建模"><a href="#数据建模" class="headerlink" title="数据建模"></a>数据建模</h3><p>PowerBI有强大的数据建模能力，可以自动识别表的关系，处理多对多管理和角色扮演维表<code>role-play table</code>.</p>
+<h4 id="Role-play-table"><a href="#Role-play-table" class="headerlink" title="Role-play table"></a>Role-play table</h4><p>角色扮演维表是一张维表（比如时间维度表）对事实表有多个作用，同时一张表就可以扮演多个角色从而减少数据冗余。举个例子，一张销售事实表可有多个时间维度，如订单时间，交付时间，维护时间等。PowerBI需要使用非激活的关系和DAX度量来处理<code>Role-play</code>, 具体需要用到<code>USERELATIONSHIP</code>函数。</p>
+]]></content>
+      <categories>
+        <category>Business Intelligence</category>
+      </categories>
+      <tags>
+        <tag>BI,powerbi</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>OCT Basic</title>
     <url>/2022/08/04/Devices-2022-08-05-OCT-basic/</url>
     <content><![CDATA[<h3 id="OCT技术原理"><a href="#OCT技术原理" class="headerlink" title="OCT技术原理"></a>OCT技术原理</h3><p>OCT(光学相干断层扫描)的基本原理是把光束(近红外光800-1500nm)投射到被成像的组织或标本上，光束被不同距离上的显微组织反射，通过测量反射光的延迟时间以及反射光的强度，将不同的位置上测量相干光所获得的反射信息转化为数字信号，经过计算机处理得出二维或三维的图像。<br><img  
@@ -2220,41 +2255,6 @@
       </categories>
       <tags>
         <tag>science, eyeball</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PowerBI Quickstart</title>
-    <url>/2022/10/01/BI-2022-10-04-PowerBI-Quickstart/</url>
-    <content><![CDATA[<h2 id="PowerBI-Quickstart-Guide"><a href="#PowerBI-Quickstart-Guide" class="headerlink" title="PowerBI Quickstart Guide"></a>PowerBI Quickstart Guide</h2><p>截止2022年末市面上主流的BI产品有PowerBI, Tableau和国产帆软的FineBI. 由于Tableau逐渐退出中国，本文主要介绍一下PowerBI的基础功能。</p>
-<h3 id="数据导入方式"><a href="#数据导入方式" class="headerlink" title="数据导入方式"></a>数据导入方式</h3><p>PowerBI支持从130+不同数据源直接导入数据，主要导入数据的方式分为:</p>
-<ul>
-<li>Direct import 直接导入</li>
-<li>DirectQuery 直接查询</li>
-<li>Live Connection 在线连接</li>
-</ul>
-<p>这三种数据连接方式主要区别于:</p>
-<ul>
-<li>direct import 是将数据直接导进PowerBI desktop端的SSAS(SQL Server Analysis Services)的向量内存中，既然要存入内存那么对客户端的内存有一些要求，当然SSAS提供了一些内存存储压缩的算法来减少内存占用量。缺点是数据不是实时更新的。</li>
-<li>DirectQuery 顾名思义是直接在另一端的数据库上做查询, 这样性能的压力来到了数据库端。PowerBI目前支持主流的数据库，做查询前PowerBI desktop会将查询解释成对应的数据库语言到目标数据库执行，所以这里的语言转化或者叫做翻译是限制DirectQuery能力的瓶颈点。</li>
-<li>Live Connection只支持类SSAS的远程数据库，所有的能力和限制取决于远端SSAS的能力。</li>
-</ul>
-<p>如下表可以用来决策什么时候用什么方式的数据连接，有时候我们可能需要一个综合的解决方案。<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/screenshots/screen_shot_data_import.png"
-                     
-                ></p>
-<h3 id="数据转化策略"><a href="#数据转化策略" class="headerlink" title="数据转化策略"></a>数据转化策略</h3><p>PowerBI使用Power Query Editor来处理数据清洗和转换，底层使用的是<code>M</code>语言。在真正运行处理逻辑时，PowerQuery有个<code>Applied Steps</code>功能可以用来调整处理逻辑的顺序或者反悔某些操作如删除。</p>
-<p>Power Query Editor在增加列的时候有一个自动根据所填例子形成新增列的功能，就是在新增一列时填入这列一行想转化成的数据，powerBI会自动完成剩余列的数据填充。</p>
-<h4 id="条件列，向下填充，逆透视，合并查询和追加查询"><a href="#条件列，向下填充，逆透视，合并查询和追加查询" class="headerlink" title="条件列，向下填充，逆透视，合并查询和追加查询"></a>条件列，向下填充，逆透视，合并查询和追加查询</h4><p><code>conditional column</code>就是在某列上经过if条件过滤后的生成一个新的列，比如某些列为空则生成新的列。<br><code>fill down</code>向下填充就是把为空的值按最上面的非空值填充。<br><code>split column</code>把一个列按一定规则拆成两个列。<br><code>unpivot</code>逆透视是把原列头作为新的表的行值，而原来列的值将会被相应转成对应的行。<br><code>merge queries</code>类似SQL的join, 分为内联，左联，右联，外联等。</p>
-<h3 id="数据建模"><a href="#数据建模" class="headerlink" title="数据建模"></a>数据建模</h3><p>PowerBI有强大的数据建模能力，可以自动识别表的关系，处理多对多管理和角色扮演维表<code>role-play table</code>.</p>
-<h4 id="Role-play-table"><a href="#Role-play-table" class="headerlink" title="Role-play table"></a>Role-play table</h4><p>角色扮演维表是一张维表（比如时间维度表）对事实表有多个作用，同时一张表就可以扮演多个角色从而减少数据冗余。举个例子，一张销售事实表可有多个时间维度，如订单时间，交付时间，维护时间等。PowerBI需要使用非激活的关系和DAX度量来处理<code>Role-play</code>, 具体需要用到<code>USERELATIONSHIP</code>函数。</p>
-]]></content>
-      <categories>
-        <category>Business Intelligence</category>
-      </categories>
-      <tags>
-        <tag>BI,powerbi</tag>
       </tags>
   </entry>
   <entry>
@@ -4107,29 +4107,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Metadata in Data Warehouse</title>
-    <url>/2021/07/12/data-warehouse-2021-07-04-metadata-database/</url>
-    <content><![CDATA[<h2 id="What-is-metadata"><a href="#What-is-metadata" class="headerlink" title="What is metadata?"></a>What is metadata?</h2><p><code>Metadata</code>元数据是描述数据的数据。举个例子，一是原始单反拍摄的照片一般是RAW格式，这个格式的文件会附带一些属性信息，如Etag, 描述照片拍摄的时间，拍摄的相机，曝光ISO, 分辨率等等信息，<br>这些信息就是照片的元数据。</p>
-<h2 id="Why-do-we-need-metadata"><a href="#Why-do-we-need-metadata" class="headerlink" title="Why do we need metadata?"></a>Why do we need metadata?</h2><p>为什么需要元数据, 主要为了向用户解释数据和数据仓库, 让用户更好地理解数据仓库. </p>
-<h2 id="Metadata-in-data-warehouse"><a href="#Metadata-in-data-warehouse" class="headerlink" title="Metadata in data warehouse"></a>Metadata in data warehouse</h2><p>在数据仓库中存在7种元数据:</p>
-<ul>
-<li>数据结构元数据，描述每张表的表结构. 描述NDS, DDS, ODS和staging库中所有表结构, 包括<code>collation</code>(字符序). 这些信息大部分可以通过<code>object catalog view</code>拿到, 但是ETL元数据, DQ元数据, 数据定义元数据也需要结构信息, 所以我们需要单独创建这个库.</li>
-<li>数据定义和数据映射元数据，分别描述事实表和维度表的字段意义和来源。为了避免混淆和误解, 必须有一个清晰, 全公司都能理解的字段定义. 数据映射元数据有时候也叫数据血缘（<code>data linage metadata</code>）, 数据血缘可以用于数据影响性分析。</li>
-<li>数据源的元数据，描述原始数据库表结构和字段意义. 具体包含数据类型, 字符序, 主键, 外键, 视图, 索引和分区.</li>
-<li>ETL元数据，描述每个ETL流程中的每个数据流. 描述数据的流向, 所经过的转换, 父流程和定时任务.</li>
-<li>数据质量元数据，描述数据质量规则，对应的风险和措施.</li>
-<li>审计元数据，包含了所有数据仓库中的流程和活动.</li>
-<li>用量（<code>Usage metadata</code>）元数据，描述数据仓库的使用情况.</li>
-</ul>
-]]></content>
-      <categories>
-        <category>data warehouse</category>
-      </categories>
-      <tags>
-        <tag>metadata, data warehouse</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Data Quality Overview</title>
     <url>/2021/06/18/data-warehouse-2021-06-19-Data-Quality/</url>
     <content><![CDATA[<h2 id="The-importance-of-data-quality"><a href="#The-importance-of-data-quality" class="headerlink" title="The importance of data quality"></a>The importance of data quality</h2><p>数据质量对于数据报表至关重要, 数据的准确性(<code>Accuracy</code>), 完整性(<code>Completeness</code>), 一致性(<code>Consistency</code>), 精确性(<code>Precision</code>)和时效性(<code>timeliness</code>)这几个指标是评价数据质量的核心指标. 数据没有质量我们将构建数据仓库的意义将不复存在, 没有人相信一个数据不正确的数据仓库.</p>
@@ -4163,6 +4140,29 @@
       </categories>
       <tags>
         <tag>data warehouse, data quality</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Metadata in Data Warehouse</title>
+    <url>/2021/07/12/data-warehouse-2021-07-04-metadata-database/</url>
+    <content><![CDATA[<h2 id="What-is-metadata"><a href="#What-is-metadata" class="headerlink" title="What is metadata?"></a>What is metadata?</h2><p><code>Metadata</code>元数据是描述数据的数据。举个例子，一是原始单反拍摄的照片一般是RAW格式，这个格式的文件会附带一些属性信息，如Etag, 描述照片拍摄的时间，拍摄的相机，曝光ISO, 分辨率等等信息，<br>这些信息就是照片的元数据。</p>
+<h2 id="Why-do-we-need-metadata"><a href="#Why-do-we-need-metadata" class="headerlink" title="Why do we need metadata?"></a>Why do we need metadata?</h2><p>为什么需要元数据, 主要为了向用户解释数据和数据仓库, 让用户更好地理解数据仓库. </p>
+<h2 id="Metadata-in-data-warehouse"><a href="#Metadata-in-data-warehouse" class="headerlink" title="Metadata in data warehouse"></a>Metadata in data warehouse</h2><p>在数据仓库中存在7种元数据:</p>
+<ul>
+<li>数据结构元数据，描述每张表的表结构. 描述NDS, DDS, ODS和staging库中所有表结构, 包括<code>collation</code>(字符序). 这些信息大部分可以通过<code>object catalog view</code>拿到, 但是ETL元数据, DQ元数据, 数据定义元数据也需要结构信息, 所以我们需要单独创建这个库.</li>
+<li>数据定义和数据映射元数据，分别描述事实表和维度表的字段意义和来源。为了避免混淆和误解, 必须有一个清晰, 全公司都能理解的字段定义. 数据映射元数据有时候也叫数据血缘（<code>data linage metadata</code>）, 数据血缘可以用于数据影响性分析。</li>
+<li>数据源的元数据，描述原始数据库表结构和字段意义. 具体包含数据类型, 字符序, 主键, 外键, 视图, 索引和分区.</li>
+<li>ETL元数据，描述每个ETL流程中的每个数据流. 描述数据的流向, 所经过的转换, 父流程和定时任务.</li>
+<li>数据质量元数据，描述数据质量规则，对应的风险和措施.</li>
+<li>审计元数据，包含了所有数据仓库中的流程和活动.</li>
+<li>用量（<code>Usage metadata</code>）元数据，描述数据仓库的使用情况.</li>
+</ul>
+]]></content>
+      <categories>
+        <category>data warehouse</category>
+      </categories>
+      <tags>
+        <tag>metadata, data warehouse</tag>
       </tags>
   </entry>
   <entry>
@@ -4631,28 +4631,6 @@
       </tags>
   </entry>
   <entry>
-    <title>小探微前端</title>
-    <url>/2022/03/18/frontend-2022-03-19-microfront-intro/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="关键好处和缺点-Key-Pros-amp-Cons-of-Micro-frontend"><a href="#关键好处和缺点-Key-Pros-amp-Cons-of-Micro-frontend" class="headerlink" title="关键好处和缺点 Key Pros&amp;Cons of Micro frontend"></a>关键好处和缺点 Key Pros&amp;Cons of Micro frontend</h3><p>微前端的好处类似微服务，主要表现在:</p>
-<ul>
-<li>分开的前端代码仓库，每个仓库代码量少</li>
-<li>每个小团队有更多的自主权，解耦相互依赖</li>
-<li>重构或更新部分代码的代价更小</li>
-</ul>
-<p>微前端的缺点主要有:</p>
-<ul>
-<li>多个前端仓库可能导致依赖包的重复，这样客户端会多下载相关医疗</li>
-<li>高度的自治可能会导致开发的碎片化</li>
-</ul>
-]]></content>
-      <categories>
-        <category>frontend</category>
-      </categories>
-      <tags>
-        <tag>frontend, micro</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>D3-selection总结</title>
     <url>/2019/04/18/frontend-2019-04-19-D3-selection/</url>
     <content><![CDATA[<h2 id="什么是D3-selections"><a href="#什么是D3-selections" class="headerlink" title="什么是D3.selections?"></a>什么是D3.selections?</h2><p><code>D3</code>的selection概念其实很简单, 就是一组元素节点. 具体代码表达就是<code>d3.selectAll(&#39;div&#39;)</code>, 所有选中的<code>div</code>就是selection,有的翻译叫它<code>选择集</code>, 然后基于这个selection就可以做各种操作.</p>
@@ -4690,6 +4668,28 @@
       </categories>
       <tags>
         <tag>D3, data-driven</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>小探微前端</title>
+    <url>/2022/03/18/frontend-2022-03-19-microfront-intro/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="关键好处和缺点-Key-Pros-amp-Cons-of-Micro-frontend"><a href="#关键好处和缺点-Key-Pros-amp-Cons-of-Micro-frontend" class="headerlink" title="关键好处和缺点 Key Pros&amp;Cons of Micro frontend"></a>关键好处和缺点 Key Pros&amp;Cons of Micro frontend</h3><p>微前端的好处类似微服务，主要表现在:</p>
+<ul>
+<li>分开的前端代码仓库，每个仓库代码量少</li>
+<li>每个小团队有更多的自主权，解耦相互依赖</li>
+<li>重构或更新部分代码的代价更小</li>
+</ul>
+<p>微前端的缺点主要有:</p>
+<ul>
+<li>多个前端仓库可能导致依赖包的重复，这样客户端会多下载相关医疗</li>
+<li>高度的自治可能会导致开发的碎片化</li>
+</ul>
+]]></content>
+      <categories>
+        <category>frontend</category>
+      </categories>
+      <tags>
+        <tag>frontend, micro</tag>
       </tags>
   </entry>
   <entry>
@@ -4793,48 +4793,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Kubernetes的volume</title>
-    <url>/2018/03/07/kubernetes-2018-03-08-k8s-volume/</url>
-    <content><![CDATA[<h2 id="Volume"><a href="#Volume" class="headerlink" title="Volume"></a>Volume</h2><p>简单的说， 一个volume就是一个在磁盘或容器中的目录，volume里面有pod中容器可以访问的数据。K8S的volume主要解决容器中数据存储和容器间数据共享的问题。k8s的volume和pod有相同的生命周期。一个pod可以同时使用不同的volume类型。如果使用volume, 一个pod需要通过<code>spec.volumes</code>指定volume类型，<code>spec.containers.volumeMounts</code>指定挂载目录。volume不能再挂载到其他volume,</p>
-<h2 id="k8s支持的Volumes类型"><a href="#k8s支持的Volumes类型" class="headerlink" title="k8s支持的Volumes类型"></a>k8s支持的Volumes类型</h2><ul>
-<li>wsElasticBlockStore</li>
-<li>azureDisk</li>
-<li>azureFile</li>
-<li>cephfs</li>
-<li>configMap<br><code>configMap</code>提供了一种往pod里注入配置的方式。如果配置文件能够在Dockerfile中add进去，我建议还是用add，而不是</li>
-<li>csi</li>
-<li>downwardAPI</li>
-<li>emptyDir<br><code>emptyDir</code>这个卷是pod在node创建时生成的空卷，生命周期和pod一致， 存储在pod所在的node，删除pod将删除<code>emptyDir</code>, 存储媒介和node一致，但是可以通过<code>emptyDir.medium: Memory</code>把它mount到内存（docker的tmpfs）。它使用场景可以作为原型或checkpointing点.<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test-pd</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">k8s.gcr.io/test-webserver</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">test-container</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/cache</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">cache-volume</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">cache-volume</span></span><br><span class="line">    <span class="attr">emptyDir:</span> &#123;&#125;</span><br></pre></td></tr></table></figure></div></li>
-<li>fc (fibre channel)</li>
-<li>flocker</li>
-<li>gcePersistentDisk</li>
-<li>gitRepo</li>
-<li>glusterfs</li>
-<li>hostPath<br><code>hostPath</code>把node的目录挂进pod，可以用于：容器访问Docker内部<code>/var/lib/docker</code>; 跑cAdvisor要用到<code>/sys</code>; 或者允许pod运行前检查<code>hostPath</code>是否存在，然后再对pod做操作。<code>path</code>是<code>hostPath</code>必须的参数，还可以通过<code>type</code>来指定volume类型，type的类型如下：<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-08%20%E4%B8%8A%E5%8D%8810.28.01.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-08%20%E4%B8%8A%E5%8D%8810.28.01.png"><br>由于是主机的路径, 所以需要注意权限问题。<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test-pd</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">k8s.gcr.io/test-webserver</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">test-container</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/test-pd</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">test-volume</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test-volume</span></span><br><span class="line">    <span class="attr">hostPath:</span></span><br><span class="line">      <span class="comment"># directory location on host</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/data</span></span><br><span class="line">      <span class="comment"># this field is optional</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">Directory</span></span><br></pre></td></tr></table></figure></div></li>
-<li>iscsi</li>
-<li>local. 1.7以后新特性，需要开启<code>PersistentLocalVolumes</code>, 如果是1.9还需要开启<code>VolumeScheduling</code>。<code>local volume</code>代表了本地挂载的存储设备，可以被用于创建静态PersistentVolume。相比于hostPath, local卷可以被系统通过节点自动地发现PV, 而不用手动把某个pod分配到node. 下面的例子就是使用local来创建PV:<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"> <span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"> <span class="attr">kind:</span> <span class="string">PersistentVolume</span></span><br><span class="line"> <span class="attr">metadata:</span></span><br><span class="line">   <span class="attr">name:</span> <span class="string">example-pv</span></span><br><span class="line">   <span class="attr">annotations:</span></span><br><span class="line">     <span class="attr">&quot;volume.alpha.kubernetes.io/node-affinity&quot;:</span> <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">        &quot;requiredDuringSchedulingIgnoredDuringExecution&quot;: &#123;</span></span><br><span class="line"><span class="string">            &quot;nodeSelectorTerms&quot;: [</span></span><br><span class="line"><span class="string">                &#123; &quot;matchExpressions&quot;: [</span></span><br><span class="line"><span class="string">                    &#123; &quot;key&quot;: &quot;kubernetes.io/hostname&quot;,</span></span><br><span class="line"><span class="string">                      &quot;operator&quot;: &quot;In&quot;,</span></span><br><span class="line"><span class="string">                      &quot;values&quot;: [&quot;example-node&quot;]</span></span><br><span class="line"><span class="string">                    &#125;</span></span><br><span class="line"><span class="string">                ]&#125;</span></span><br><span class="line"><span class="string">             ]&#125;</span></span><br><span class="line"><span class="string">          &#125;&#x27;</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">capacity:</span></span><br><span class="line">    <span class="attr">storage:</span> <span class="string">100Gi</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br><span class="line">  <span class="attr">persistentVolumeReclaimPolicy:</span> <span class="string">Delete</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">local-storage</span></span><br><span class="line">  <span class="attr">local:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">/mnt/disks/ssd1</span></span><br></pre></td></tr></table></figure></div></li>
-<li>nfs. 如果pod的删除， nfs不会删除数据。NFS可以同时被多节点读写。</li>
-<li>persistentVolumeClaim<br><code>persistentVolumeClaim</code>把<code>persistentVolume</code>挂进pod，<code>persistentVolume</code>是一种k8s用户声明持久化存储的方式，好处是用户不需要底层存储环境细节。</li>
-<li>projected， 可以映射多个volume到同一个目录。 可以用于<code>secret</code>, <code>downwardAPI</code>, <code>configMap</code>.<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">volume-test</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">container-test</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">all-in-one</span></span><br><span class="line">      <span class="attr">mountPath:</span> <span class="string">&quot;/projected-volume&quot;</span></span><br><span class="line">      <span class="attr">readOnly:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">all-in-one</span></span><br><span class="line">    <span class="attr">projected:</span></span><br><span class="line">      <span class="attr">sources:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">secret:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">mysecret</span></span><br><span class="line">          <span class="attr">items:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">username</span></span><br><span class="line">              <span class="attr">path:</span> <span class="string">my-group/my-username</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">downwardAPI:</span></span><br><span class="line">          <span class="attr">items:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">&quot;labels&quot;</span></span><br><span class="line">              <span class="attr">fieldRef:</span></span><br><span class="line">                <span class="attr">fieldPath:</span> <span class="string">metadata.labels</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">&quot;cpu_limit&quot;</span></span><br><span class="line">              <span class="attr">resourceFieldRef:</span></span><br><span class="line">                <span class="attr">containerName:</span> <span class="string">container-test</span></span><br><span class="line">                <span class="attr">resource:</span> <span class="string">limits.cpu</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">configMap:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">myconfigmap</span></span><br><span class="line">          <span class="attr">items:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">config</span></span><br><span class="line">              <span class="attr">path:</span> <span class="string">my-group/my-config</span></span><br></pre></td></tr></table></figure></div></li>
-<li>portworxVolume</li>
-<li>quobyte</li>
-<li>rbd</li>
-<li>scaleIO</li>
-<li>secret</li>
-<li>storageos</li>
-<li>vsphereVolume</li>
-</ul>
-<h3 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h3><p><code>emptyDir</code>的存储介质取决于kubelet根目录的存储介质(&#x2F;var&#x2F;lib&#x2F;kubelet)， <code>emptyDir</code>和<code>hostPath</code>目前没有限制用量，也没有在容器间隔离数据。</p>
-<h3 id="Mount-propagation-挂载传递"><a href="#Mount-propagation-挂载传递" class="headerlink" title="Mount propagation 挂载传递"></a>Mount propagation 挂载传递</h3><p>1.8新特性。挂载传递能让同一pod里的容器共享volume, 甚至可以在同一node的pods间共享。</p>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>K8S的StatefulSets</title>
     <url>/2018/03/06/kubernetes-2018-03-07-StatefulSets/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>K8S的StatefulSets是一个负载API对象用于管理有状态的应用。StatefulSets会给每个pod维护一个独特的标记， 所以这些pods是不能交换的。<br>注意，V1.9才是稳定版本， 可以通过apiserver发送<code>--runtime-config</code>禁用这个控制器。</p>
@@ -4878,32 +4836,6 @@
       </tags>
   </entry>
   <entry>
-    <title>在云上使用k8s动态PV</title>
-    <url>/2018/03/11/kubernetes-2018-03-12-k8s-dynamic-volume-provision/</url>
-    <content><![CDATA[<blockquote>
-<p><a class="link"   href="https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/" >https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</blockquote>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>动态卷配置允许按需创建存储卷。如果没有动态配置，管理员必须手动配置创建新的存储， 然后创建PV对象。动态卷配置的功能能让管理员不必预先配置存储。<br>而是当用户需要的时候自动配置存储。它可以按用户需要的用量配置存储空间，不像静态那样可能出现超额分配用量。</p>
-<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>动态配置数据卷的实现是基于<code>StorageClass</code>API对象。管理员可以配置很多<code>StorageClass</code>对象，每一个都可以指定一个存储供应商。管理员可以给一个<br>集群定义和暴露多个存储，每一个都有不同的参数配置。这样能减轻配置存储的复杂度，使用户简单选择存储服务。</p>
-<h3 id="开启动态配置数据卷"><a href="#开启动态配置数据卷" class="headerlink" title="开启动态配置数据卷"></a>开启动态配置数据卷</h3><ul>
-<li>首先需要创建StorageClass对象, 可以指定使用哪个供应商和那些参数，如下例：<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">slow</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/gce-pd</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">pd-standard</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">fast</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/gce-pd</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">pd-ssd</span></span><br></pre></td></tr></table></figure></div></li>
-</ul>
-<p>如果使用aliyun的NAS作为provisioner, 需要先安装aliyun nas的插件</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-nas</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">alicloud/nas</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1beta1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">run-alicloud-nas-controller</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">    <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-disk-controller-runner</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">strategy:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">Recreate</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">tolerations:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">effect:</span> <span class="string">NoSchedule</span></span><br><span class="line">        <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">node-role.kubernetes.io/master</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">effect:</span> <span class="string">NoSchedule</span></span><br><span class="line">        <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">node.cloudprovider.kubernetes.io/uninitialized</span></span><br><span class="line">      <span class="attr">nodeSelector:</span></span><br><span class="line">         <span class="attr">node-role.kubernetes.io/master:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">      <span class="attr">serviceAccount:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">registry.cn-hangzhou.aliyuncs.com/acs/alicloud-nas-controller:v1.8.4</span></span><br><span class="line">          <span class="attr">volumeMounts:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nfs-client-root</span></span><br><span class="line">              <span class="attr">mountPath:</span> <span class="string">/persistentvolumes</span></span><br><span class="line">          <span class="attr">env:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">PROVISIONER_NAME</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">alicloud/nas</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">NFS_SERVER</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">0cd8b4a576-mmi32.cn-hangzhou.nas.aliyuncs.com</span>  <span class="comment"># 指定创建的NAS挂载点</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">NFS_PATH</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">/</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nfs-client-root</span></span><br><span class="line">          <span class="attr">nfs:</span></span><br><span class="line">            <span class="attr">server:</span> <span class="string">0cd8b4a576-mmi32.cn-hangzhou.nas.aliyuncs.com</span>   <span class="comment"># 指定创建的NAS挂载点</span></span><br><span class="line">            <span class="attr">path:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="使用动态配置数据卷"><a href="#使用动态配置数据卷" class="headerlink" title="使用动态配置数据卷"></a>使用动态配置数据卷</h3><p>用户需要在PVC指定<code>StorageClassName</code>, 如下</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">claim1</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">fast</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">30Gi</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="设置默认动态配置"><a href="#设置默认动态配置" class="headerlink" title="设置默认动态配置"></a>设置默认动态配置</h3><p>如果有个用户在<code>PersistentVolumeClaim</code>没有指定<code>storageClassName</code>， 那么可以配置默认的<code>storageClassName</code>使用。具体是在创建的<code>storageClassName</code>中annotation<br><code>storageclass.kubernetes.io/is-default-class</code></p>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>使用aliyun容器服务搭建mysql</title>
     <url>/2018/03/09/kubernetes-2018-03-10-k8s-mysql/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文简单介绍用aliyun的Kubernetes容器服务搭建mysql集群。首先确保k8s集群已经创建，并且已经开通了相关服务如NAS、容器镜像仓库等服务。</p>
@@ -4933,6 +4865,74 @@
       </categories>
       <tags>
         <tag>kubernetes, mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes的volume</title>
+    <url>/2018/03/07/kubernetes-2018-03-08-k8s-volume/</url>
+    <content><![CDATA[<h2 id="Volume"><a href="#Volume" class="headerlink" title="Volume"></a>Volume</h2><p>简单的说， 一个volume就是一个在磁盘或容器中的目录，volume里面有pod中容器可以访问的数据。K8S的volume主要解决容器中数据存储和容器间数据共享的问题。k8s的volume和pod有相同的生命周期。一个pod可以同时使用不同的volume类型。如果使用volume, 一个pod需要通过<code>spec.volumes</code>指定volume类型，<code>spec.containers.volumeMounts</code>指定挂载目录。volume不能再挂载到其他volume,</p>
+<h2 id="k8s支持的Volumes类型"><a href="#k8s支持的Volumes类型" class="headerlink" title="k8s支持的Volumes类型"></a>k8s支持的Volumes类型</h2><ul>
+<li>wsElasticBlockStore</li>
+<li>azureDisk</li>
+<li>azureFile</li>
+<li>cephfs</li>
+<li>configMap<br><code>configMap</code>提供了一种往pod里注入配置的方式。如果配置文件能够在Dockerfile中add进去，我建议还是用add，而不是</li>
+<li>csi</li>
+<li>downwardAPI</li>
+<li>emptyDir<br><code>emptyDir</code>这个卷是pod在node创建时生成的空卷，生命周期和pod一致， 存储在pod所在的node，删除pod将删除<code>emptyDir</code>, 存储媒介和node一致，但是可以通过<code>emptyDir.medium: Memory</code>把它mount到内存（docker的tmpfs）。它使用场景可以作为原型或checkpointing点.<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test-pd</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">k8s.gcr.io/test-webserver</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">test-container</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/cache</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">cache-volume</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">cache-volume</span></span><br><span class="line">    <span class="attr">emptyDir:</span> &#123;&#125;</span><br></pre></td></tr></table></figure></div></li>
+<li>fc (fibre channel)</li>
+<li>flocker</li>
+<li>gcePersistentDisk</li>
+<li>gitRepo</li>
+<li>glusterfs</li>
+<li>hostPath<br><code>hostPath</code>把node的目录挂进pod，可以用于：容器访问Docker内部<code>/var/lib/docker</code>; 跑cAdvisor要用到<code>/sys</code>; 或者允许pod运行前检查<code>hostPath</code>是否存在，然后再对pod做操作。<code>path</code>是<code>hostPath</code>必须的参数，还可以通过<code>type</code>来指定volume类型，type的类型如下：<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-08%20%E4%B8%8A%E5%8D%8810.28.01.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-08%20%E4%B8%8A%E5%8D%8810.28.01.png"><br>由于是主机的路径, 所以需要注意权限问题。<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test-pd</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">k8s.gcr.io/test-webserver</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">test-container</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/test-pd</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">test-volume</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test-volume</span></span><br><span class="line">    <span class="attr">hostPath:</span></span><br><span class="line">      <span class="comment"># directory location on host</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/data</span></span><br><span class="line">      <span class="comment"># this field is optional</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">Directory</span></span><br></pre></td></tr></table></figure></div></li>
+<li>iscsi</li>
+<li>local. 1.7以后新特性，需要开启<code>PersistentLocalVolumes</code>, 如果是1.9还需要开启<code>VolumeScheduling</code>。<code>local volume</code>代表了本地挂载的存储设备，可以被用于创建静态PersistentVolume。相比于hostPath, local卷可以被系统通过节点自动地发现PV, 而不用手动把某个pod分配到node. 下面的例子就是使用local来创建PV:<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"> <span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"> <span class="attr">kind:</span> <span class="string">PersistentVolume</span></span><br><span class="line"> <span class="attr">metadata:</span></span><br><span class="line">   <span class="attr">name:</span> <span class="string">example-pv</span></span><br><span class="line">   <span class="attr">annotations:</span></span><br><span class="line">     <span class="attr">&quot;volume.alpha.kubernetes.io/node-affinity&quot;:</span> <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">        &quot;requiredDuringSchedulingIgnoredDuringExecution&quot;: &#123;</span></span><br><span class="line"><span class="string">            &quot;nodeSelectorTerms&quot;: [</span></span><br><span class="line"><span class="string">                &#123; &quot;matchExpressions&quot;: [</span></span><br><span class="line"><span class="string">                    &#123; &quot;key&quot;: &quot;kubernetes.io/hostname&quot;,</span></span><br><span class="line"><span class="string">                      &quot;operator&quot;: &quot;In&quot;,</span></span><br><span class="line"><span class="string">                      &quot;values&quot;: [&quot;example-node&quot;]</span></span><br><span class="line"><span class="string">                    &#125;</span></span><br><span class="line"><span class="string">                ]&#125;</span></span><br><span class="line"><span class="string">             ]&#125;</span></span><br><span class="line"><span class="string">          &#125;&#x27;</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">capacity:</span></span><br><span class="line">    <span class="attr">storage:</span> <span class="string">100Gi</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br><span class="line">  <span class="attr">persistentVolumeReclaimPolicy:</span> <span class="string">Delete</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">local-storage</span></span><br><span class="line">  <span class="attr">local:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">/mnt/disks/ssd1</span></span><br></pre></td></tr></table></figure></div></li>
+<li>nfs. 如果pod的删除， nfs不会删除数据。NFS可以同时被多节点读写。</li>
+<li>persistentVolumeClaim<br><code>persistentVolumeClaim</code>把<code>persistentVolume</code>挂进pod，<code>persistentVolume</code>是一种k8s用户声明持久化存储的方式，好处是用户不需要底层存储环境细节。</li>
+<li>projected， 可以映射多个volume到同一个目录。 可以用于<code>secret</code>, <code>downwardAPI</code>, <code>configMap</code>.<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">volume-test</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">container-test</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">all-in-one</span></span><br><span class="line">      <span class="attr">mountPath:</span> <span class="string">&quot;/projected-volume&quot;</span></span><br><span class="line">      <span class="attr">readOnly:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">all-in-one</span></span><br><span class="line">    <span class="attr">projected:</span></span><br><span class="line">      <span class="attr">sources:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">secret:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">mysecret</span></span><br><span class="line">          <span class="attr">items:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">username</span></span><br><span class="line">              <span class="attr">path:</span> <span class="string">my-group/my-username</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">downwardAPI:</span></span><br><span class="line">          <span class="attr">items:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">&quot;labels&quot;</span></span><br><span class="line">              <span class="attr">fieldRef:</span></span><br><span class="line">                <span class="attr">fieldPath:</span> <span class="string">metadata.labels</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">&quot;cpu_limit&quot;</span></span><br><span class="line">              <span class="attr">resourceFieldRef:</span></span><br><span class="line">                <span class="attr">containerName:</span> <span class="string">container-test</span></span><br><span class="line">                <span class="attr">resource:</span> <span class="string">limits.cpu</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">configMap:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">myconfigmap</span></span><br><span class="line">          <span class="attr">items:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">config</span></span><br><span class="line">              <span class="attr">path:</span> <span class="string">my-group/my-config</span></span><br></pre></td></tr></table></figure></div></li>
+<li>portworxVolume</li>
+<li>quobyte</li>
+<li>rbd</li>
+<li>scaleIO</li>
+<li>secret</li>
+<li>storageos</li>
+<li>vsphereVolume</li>
+</ul>
+<h3 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h3><p><code>emptyDir</code>的存储介质取决于kubelet根目录的存储介质(&#x2F;var&#x2F;lib&#x2F;kubelet)， <code>emptyDir</code>和<code>hostPath</code>目前没有限制用量，也没有在容器间隔离数据。</p>
+<h3 id="Mount-propagation-挂载传递"><a href="#Mount-propagation-挂载传递" class="headerlink" title="Mount propagation 挂载传递"></a>Mount propagation 挂载传递</h3><p>1.8新特性。挂载传递能让同一pod里的容器共享volume, 甚至可以在同一node的pods间共享。</p>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在云上使用k8s动态PV</title>
+    <url>/2018/03/11/kubernetes-2018-03-12-k8s-dynamic-volume-provision/</url>
+    <content><![CDATA[<blockquote>
+<p><a class="link"   href="https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/" >https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>动态卷配置允许按需创建存储卷。如果没有动态配置，管理员必须手动配置创建新的存储， 然后创建PV对象。动态卷配置的功能能让管理员不必预先配置存储。<br>而是当用户需要的时候自动配置存储。它可以按用户需要的用量配置存储空间，不像静态那样可能出现超额分配用量。</p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>动态配置数据卷的实现是基于<code>StorageClass</code>API对象。管理员可以配置很多<code>StorageClass</code>对象，每一个都可以指定一个存储供应商。管理员可以给一个<br>集群定义和暴露多个存储，每一个都有不同的参数配置。这样能减轻配置存储的复杂度，使用户简单选择存储服务。</p>
+<h3 id="开启动态配置数据卷"><a href="#开启动态配置数据卷" class="headerlink" title="开启动态配置数据卷"></a>开启动态配置数据卷</h3><ul>
+<li>首先需要创建StorageClass对象, 可以指定使用哪个供应商和那些参数，如下例：<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">slow</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/gce-pd</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">pd-standard</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">fast</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">kubernetes.io/gce-pd</span></span><br><span class="line"><span class="attr">parameters:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">pd-ssd</span></span><br></pre></td></tr></table></figure></div></li>
+</ul>
+<p>如果使用aliyun的NAS作为provisioner, 需要先安装aliyun nas的插件</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">storage.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StorageClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-nas</span></span><br><span class="line"><span class="attr">provisioner:</span> <span class="string">alicloud/nas</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRoleBinding</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1beta1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">run-alicloud-nas-controller</span></span><br><span class="line"><span class="attr">subjects:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">kind:</span> <span class="string">ServiceAccount</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">    <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="attr">roleRef:</span></span><br><span class="line">  <span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-disk-controller-runner</span></span><br><span class="line">  <span class="attr">apiGroup:</span> <span class="string">rbac.authorization.k8s.io</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kube-system</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">strategy:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">Recreate</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">tolerations:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">effect:</span> <span class="string">NoSchedule</span></span><br><span class="line">        <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">node-role.kubernetes.io/master</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">effect:</span> <span class="string">NoSchedule</span></span><br><span class="line">        <span class="attr">operator:</span> <span class="string">Exists</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">node.cloudprovider.kubernetes.io/uninitialized</span></span><br><span class="line">      <span class="attr">nodeSelector:</span></span><br><span class="line">         <span class="attr">node-role.kubernetes.io/master:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">      <span class="attr">serviceAccount:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">alicloud-nas-controller</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">registry.cn-hangzhou.aliyuncs.com/acs/alicloud-nas-controller:v1.8.4</span></span><br><span class="line">          <span class="attr">volumeMounts:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nfs-client-root</span></span><br><span class="line">              <span class="attr">mountPath:</span> <span class="string">/persistentvolumes</span></span><br><span class="line">          <span class="attr">env:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">PROVISIONER_NAME</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">alicloud/nas</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">NFS_SERVER</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">0cd8b4a576-mmi32.cn-hangzhou.nas.aliyuncs.com</span>  <span class="comment"># 指定创建的NAS挂载点</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">NFS_PATH</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">/</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nfs-client-root</span></span><br><span class="line">          <span class="attr">nfs:</span></span><br><span class="line">            <span class="attr">server:</span> <span class="string">0cd8b4a576-mmi32.cn-hangzhou.nas.aliyuncs.com</span>   <span class="comment"># 指定创建的NAS挂载点</span></span><br><span class="line">            <span class="attr">path:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="使用动态配置数据卷"><a href="#使用动态配置数据卷" class="headerlink" title="使用动态配置数据卷"></a>使用动态配置数据卷</h3><p>用户需要在PVC指定<code>StorageClassName</code>, 如下</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">claim1</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">fast</span></span><br><span class="line">  <span class="attr">resources:</span></span><br><span class="line">    <span class="attr">requests:</span></span><br><span class="line">      <span class="attr">storage:</span> <span class="string">30Gi</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="设置默认动态配置"><a href="#设置默认动态配置" class="headerlink" title="设置默认动态配置"></a>设置默认动态配置</h3><p>如果有个用户在<code>PersistentVolumeClaim</code>没有指定<code>storageClassName</code>， 那么可以配置默认的<code>storageClassName</code>使用。具体是在创建的<code>storageClassName</code>中annotation<br><code>storageclass.kubernetes.io/is-default-class</code></p>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
       </tags>
   </entry>
   <entry>
@@ -5233,13 +5233,10 @@
       </tags>
   </entry>
   <entry>
-    <title>OpenShift Blue-Green Deployment</title>
-    <url>/2018/01/08/openshift-2018-01-09-openshift-bg-deployment/</url>
-    <content><![CDATA[<h3 id="OpenShift的蓝绿部署"><a href="#OpenShift的蓝绿部署" class="headerlink" title="OpenShift的蓝绿部署"></a>OpenShift的蓝绿部署</h3><p>使用<code>oc patch route</code>切换路由</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">oc new-project bluegreen --display-name=<span class="string">&quot;Blue Green Deployments&quot;</span>  --description=<span class="string">&quot;Blue Green Deployments&quot;</span></span><br><span class="line">oc new-app https://github.com/devops-with-openshift/bluegreen<span class="comment">#master  --name=blue</span></span><br><span class="line">oc expose service blue --name=bluegreen <span class="comment">#注意route的名称</span></span><br><span class="line">oc new-app https://github.com/devops-with-openshift/bluegreen<span class="comment">#green  --name=green</span></span><br><span class="line"><span class="comment">##切换</span></span><br><span class="line">oc patch route/bluegreen -p <span class="string">&#x27;&#123;&quot;spec&quot;: &#123;&quot;to&quot;:&#123;&quot;name&quot;:&quot;green&quot;&#125;&#125;&#125;&#x27;</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="蓝绿最佳适用场景"><a href="#蓝绿最佳适用场景" class="headerlink" title="蓝绿最佳适用场景"></a>蓝绿最佳适用场景</h3><p>无状态的服务实现蓝绿部署较为轻松， 因为不需要考虑旧实例的长事务和数据的迁移和回滚。</p>
-]]></content>
+    <title>OpenShift Annotation</title>
+    <url>/2018/01/08/openshift-2018-01-09-openshift-annotation/</url>
+    <content><![CDATA[<h3 id="OpenShift的Annotation"><a href="#OpenShift的Annotation" class="headerlink" title="OpenShift的Annotation"></a>OpenShift的Annotation</h3><p>Openshift的Annotation是一个键值对，用于机器识别等其它用途。它不像label适用于人类识别，所以可以存较大的值。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">oc annotate route/ab haproxy.router.openshift.io/balance=roundrobin</span><br></pre></td></tr></table></figure></div>]]></content>
       <categories>
         <category>openshift</category>
         <category>kubernetes</category>
@@ -5249,10 +5246,13 @@
       </tags>
   </entry>
   <entry>
-    <title>OpenShift Annotation</title>
-    <url>/2018/01/08/openshift-2018-01-09-openshift-annotation/</url>
-    <content><![CDATA[<h3 id="OpenShift的Annotation"><a href="#OpenShift的Annotation" class="headerlink" title="OpenShift的Annotation"></a>OpenShift的Annotation</h3><p>Openshift的Annotation是一个键值对，用于机器识别等其它用途。它不像label适用于人类识别，所以可以存较大的值。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">oc annotate route/ab haproxy.router.openshift.io/balance=roundrobin</span><br></pre></td></tr></table></figure></div>]]></content>
+    <title>OpenShift Blue-Green Deployment</title>
+    <url>/2018/01/08/openshift-2018-01-09-openshift-bg-deployment/</url>
+    <content><![CDATA[<h3 id="OpenShift的蓝绿部署"><a href="#OpenShift的蓝绿部署" class="headerlink" title="OpenShift的蓝绿部署"></a>OpenShift的蓝绿部署</h3><p>使用<code>oc patch route</code>切换路由</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">oc new-project bluegreen --display-name=<span class="string">&quot;Blue Green Deployments&quot;</span>  --description=<span class="string">&quot;Blue Green Deployments&quot;</span></span><br><span class="line">oc new-app https://github.com/devops-with-openshift/bluegreen<span class="comment">#master  --name=blue</span></span><br><span class="line">oc expose service blue --name=bluegreen <span class="comment">#注意route的名称</span></span><br><span class="line">oc new-app https://github.com/devops-with-openshift/bluegreen<span class="comment">#green  --name=green</span></span><br><span class="line"><span class="comment">##切换</span></span><br><span class="line">oc patch route/bluegreen -p <span class="string">&#x27;&#123;&quot;spec&quot;: &#123;&quot;to&quot;:&#123;&quot;name&quot;:&quot;green&quot;&#125;&#125;&#125;&#x27;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="蓝绿最佳适用场景"><a href="#蓝绿最佳适用场景" class="headerlink" title="蓝绿最佳适用场景"></a>蓝绿最佳适用场景</h3><p>无状态的服务实现蓝绿部署较为轻松， 因为不需要考虑旧实例的长事务和数据的迁移和回滚。</p>
+]]></content>
       <categories>
         <category>openshift</category>
         <category>kubernetes</category>
@@ -5333,43 +5333,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Openshift的网路</title>
-    <url>/2018/02/21/openshift-2018-02-22-openshift-network/</url>
-    <content><![CDATA[<blockquote>
-<p><a class="link"   href="https://docs.openshift.org/latest/architecture/networking/networking.html" >https://docs.openshift.org/latest/architecture/networking/networking.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</blockquote>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>openshift的网路架构是建立在kubernetes的service上的。K8S的<a class="link"   href="https://kubernetes.io/docs/concepts/services-networking/service/" >Service <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>是一组pods和访问这些pods的逻辑抽象，service解耦了下游pods的网路变化。但是由于Service也会变化，所以openshift在master运行<a class="link"   href="https://github.com/skynetservices/skydns" >skyDNS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>来解决service网路的变化。</p>
-<h3 id="SDN"><a href="#SDN" class="headerlink" title="SDN"></a>SDN</h3><p>Software Define Networking软件定义集群网络使openshift的pods相互能够通信，SDN使用Open vSwitch(OVS)来管理配置网路。有三种SDN插件可以配置pods网路：</p>
-<ul>
-<li>ovs-subnet, 提供所有的pods直接相互通信</li>
-<li>ovs-multitenant, 能够提供项目级别的pods和service隔离。每一个项目都有一个VNID, 这个网路内项目之间的pods不能相互通信。VNID 0是一个例外，可以和所有pods通信，可以提供负载均衡等服务。Openshift正是使用br0的tag VNID功能，做到网络的隔离。</li>
-<li>ovs-networkpolicy, 这里用户可以自己定义网路规则。</li>
-</ul>
-<p>在master上，Openshift SDN分配网络给运行节点并且注册到etcd, SDN会给新的节点分配新的子网，可以定义的网段有10.128.0.0&#x2F;14, node节点定义在10.128.0.0&#x2F;23。SDN是不会给master配置集群网络访问，所以master节点是不能访问集群网络的，除非它也作为运行节点。</p>
-<p>在运行节点，SDN先在etcd注册，然后会创建三个网络装置: br0,tun0,vxlan_sys_4789</p>
-<ul>
-<li>br0, ovs的网桥，pods会和它连在一起。SDN也会在这个网桥上配置非子网的流量进出规则。</li>
-<li>tun0, ovs的内部端口，在br0的port 2, 是子网的网关，负责pods访问外部网络。SDN会通过配置netfilter和路由规则使集群子网NAT访问外部网络。<br><code>eth0 (in A’s netns) → vethA → br0 → tun0 → (NAT) → eth0 (physical device) → Internet</code></li>
-<li>vxlan_sys_4798, OVS的VXLAN，在br0的port 1, 提供容器访问远程节点。<br><code>eth0 (in A’s netns) → vethA → br0 → vxlan0 → network → vxlan0 → br0 → vethB → eth0 (in B’s netns)</code></li>
-</ul>
-<p>SDN会对每个新的pod作4件事：</p>
-<ul>
-<li>分配子网内的一个新的ip给pod。</li>
-<li>连接宿主机边pod的veth网络接口到OVS的br0。</li>
-<li>在OVS数据库增加一条OpenFlow规则，让到新pod的流量导入正确的OVS端口。</li>
-<li>如果是多租户情况， 给流量打上标记VNID, 并且使其正确流向对应VNID. 没有匹配的VNID将会采用默认规则。</li>
-</ul>
-<p>SDN运行节点也会跟踪master节点对子网的更新, 当新的子网加入，br0会在新增一条Openflow规则，使vxlan0能够访问远程子网。</p>
-]]></content>
-      <categories>
-        <category>openshift</category>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes, openshift</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Openshift中Kubernetes的基础设施</title>
     <url>/2018/03/04/openshift-2018-03-05-kubernetes-infrastrcture/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>主要是从Openshift Origin的<a class="link"   href="https://docs.openshift.org/latest/architecture/infrastructure_components/kubernetes_infrastructure.html#master-components" >Doc <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>看到的, 对应k8s 1.7. 加上官网的Doc. </p>
@@ -5412,6 +5375,43 @@
 <li>Container Resource Monitoring</li>
 <li>Cluster-level Logging</li>
 </ul>
+]]></content>
+      <categories>
+        <category>openshift</category>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes, openshift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Openshift的网路</title>
+    <url>/2018/02/21/openshift-2018-02-22-openshift-network/</url>
+    <content><![CDATA[<blockquote>
+<p><a class="link"   href="https://docs.openshift.org/latest/architecture/networking/networking.html" >https://docs.openshift.org/latest/architecture/networking/networking.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>openshift的网路架构是建立在kubernetes的service上的。K8S的<a class="link"   href="https://kubernetes.io/docs/concepts/services-networking/service/" >Service <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>是一组pods和访问这些pods的逻辑抽象，service解耦了下游pods的网路变化。但是由于Service也会变化，所以openshift在master运行<a class="link"   href="https://github.com/skynetservices/skydns" >skyDNS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>来解决service网路的变化。</p>
+<h3 id="SDN"><a href="#SDN" class="headerlink" title="SDN"></a>SDN</h3><p>Software Define Networking软件定义集群网络使openshift的pods相互能够通信，SDN使用Open vSwitch(OVS)来管理配置网路。有三种SDN插件可以配置pods网路：</p>
+<ul>
+<li>ovs-subnet, 提供所有的pods直接相互通信</li>
+<li>ovs-multitenant, 能够提供项目级别的pods和service隔离。每一个项目都有一个VNID, 这个网路内项目之间的pods不能相互通信。VNID 0是一个例外，可以和所有pods通信，可以提供负载均衡等服务。Openshift正是使用br0的tag VNID功能，做到网络的隔离。</li>
+<li>ovs-networkpolicy, 这里用户可以自己定义网路规则。</li>
+</ul>
+<p>在master上，Openshift SDN分配网络给运行节点并且注册到etcd, SDN会给新的节点分配新的子网，可以定义的网段有10.128.0.0&#x2F;14, node节点定义在10.128.0.0&#x2F;23。SDN是不会给master配置集群网络访问，所以master节点是不能访问集群网络的，除非它也作为运行节点。</p>
+<p>在运行节点，SDN先在etcd注册，然后会创建三个网络装置: br0,tun0,vxlan_sys_4789</p>
+<ul>
+<li>br0, ovs的网桥，pods会和它连在一起。SDN也会在这个网桥上配置非子网的流量进出规则。</li>
+<li>tun0, ovs的内部端口，在br0的port 2, 是子网的网关，负责pods访问外部网络。SDN会通过配置netfilter和路由规则使集群子网NAT访问外部网络。<br><code>eth0 (in A’s netns) → vethA → br0 → tun0 → (NAT) → eth0 (physical device) → Internet</code></li>
+<li>vxlan_sys_4798, OVS的VXLAN，在br0的port 1, 提供容器访问远程节点。<br><code>eth0 (in A’s netns) → vethA → br0 → vxlan0 → network → vxlan0 → br0 → vethB → eth0 (in B’s netns)</code></li>
+</ul>
+<p>SDN会对每个新的pod作4件事：</p>
+<ul>
+<li>分配子网内的一个新的ip给pod。</li>
+<li>连接宿主机边pod的veth网络接口到OVS的br0。</li>
+<li>在OVS数据库增加一条OpenFlow规则，让到新pod的流量导入正确的OVS端口。</li>
+<li>如果是多租户情况， 给流量打上标记VNID, 并且使其正确流向对应VNID. 没有匹配的VNID将会采用默认规则。</li>
+</ul>
+<p>SDN运行节点也会跟踪master节点对子网的更新, 当新的子网加入，br0会在新增一条Openflow规则，使vxlan0能够访问远程子网。</p>
 ]]></content>
       <categories>
         <category>openshift</category>
@@ -6307,50 +6307,6 @@ all	The default. Buffer inserts, delete-marking operations, and purges.
       </tags>
   </entry>
   <entry>
-    <title>Mysql 索引总结</title>
-    <url>/2019/06/29/database-mysql-2019-06-29-mysql-index/</url>
-    <content><![CDATA[<h2 id="mysql索引的作用和意义"><a href="#mysql索引的作用和意义" class="headerlink" title="mysql索引的作用和意义"></a>mysql索引的作用和意义</h2><p>当我们使用sql语句查询时往往要加where, 使用索引我们可以快速查找到满足where条件的行. </p>
-<h3 id="mysql如何使用索引"><a href="#mysql如何使用索引" class="headerlink" title="mysql如何使用索引"></a>mysql如何使用索引</h3><p>mysql大部分索引使用B-tree, 例如(PRIMARY KEY, UNIQUE, INDEX, FULLTEXT); 空间数据类型使用R-tree; 内存表还支持hash索引, InnoDB使用反向列表(inverted list)作为FULLTEXT的索引.</p>
-<p>mysql会在做如下操作时用到索引:</p>
-<ul>
-<li>使用索引快速找到满足where条件语句的行.</li>
-<li>如果在查找时有多个索引选择, mysql使用那个能找到最少数据行的索引.</li>
-<li>如果使用多列索引, 最左边的列将被用于优化.</li>
-<li>在执行join其它表的时候</li>
-<li>计算有索引的列min(),max()时</li>
-<li>当使用最左边的索引排序和分组表时</li>
-</ul>
-<h3 id="如何使用主键索引"><a href="#如何使用主键索引" class="headerlink" title="如何使用主键索引"></a>如何使用主键索引</h3><p>作为查询条件使用最多的列可以设置为主键(Primary key). 主键有附属索引, 用于提升查询性能.主键是不能为空的,所以性能也比较好. 如果表比较大, 同时又不知道选哪个列作为索引时, 可以创建一个自增的列作为索引. 用这个列作为其他表的外键方便join.</p>
-<h3 id="如何使用外键优化表查询"><a href="#如何使用外键优化表查询" class="headerlink" title="如何使用外键优化表查询"></a>如何使用外键优化表查询</h3><p>有时候如果有一个张大表, 可以把这张大表分成若干小表, 把不太常用的字段放在一起, 通过外键和主表关联, 这样子表既有主键用于快速查询又可以做join操作. 查询也可能使用更少的内存和IO, 因为相应的数据列都已经物理上在一起了.</p>
-<h3 id="普通列索引"><a href="#普通列索引" class="headerlink" title="普通列索引"></a>普通列索引</h3><p>最常见的索引是单列索引, mysql把列的值复制一份在数据结构, 用于快速查询.大部分数据结构采用B-tree, 可以快速定位到单个值, 一组值或值的范围. 在sql where语句对应<code>=, &gt;, &lt;=, BETWEEN, IN</code>等等.</p>
-<p>每个存储引擎的定义了每张表的索引最大值和最大长度. 基本上, 所有存储引擎至少支持16个索引和单个索引256字节以上.</p>
-<h4 id="TEXT-x2F-BLOB的索引"><a href="#TEXT-x2F-BLOB的索引" class="headerlink" title="TEXT&#x2F;BLOB的索引"></a>TEXT&#x2F;BLOB的索引</h4><p><code>Index Prefixes</code>指在文本类型上创建索引时, 可以指定这个字段的开头一部分N个字节作为索引, 这样索引的长度将被限制, 特别适用于TEXT&#x2F;BLOB这样没有长度的字段上.</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test (blob_col <span class="type">BLOB</span>, index(blob_col(<span class="number">10</span>)))</span><br></pre></td></tr></table></figure></div>
-<p>如果一个查询超出<code>index prefixes</code>的长度, 超出的部分将会被排除.</p>
-<h3 id="多列索引"><a href="#多列索引" class="headerlink" title="多列索引"></a>多列索引</h3><p>mysql可以在多个列上创建索引. 一个索引最多可以有16个列组成. 使用多列索引的好处是你只需要创建一个索引,就可以享受到多个查询条件快速命中的优点.<br>使用多列作为索引查询时, mysql可以检查索引中的所有列, 也可以只检查第一个列, 头二个列, 或头三个列.所以正确的定义复合索引的顺序可以加速好几种情况的查询.<br>一个多列索引可以被当成是一个排序的数组, 索引的值是多个列的值<code>CONCAT</code>后的hash, 等同于没有多列索引时, 自己创建一个hash几个列值的字段, 这样就可以快速查询:</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> hash_col<span class="operator">=</span>MD5(CONCAT(val1, val2))</span><br><span class="line"><span class="keyword">and</span> col1<span class="operator">=</span>val1 <span class="keyword">and</span> col2<span class="operator">=</span>val2;</span><br></pre></td></tr></table></figure></div>
-
-<p>假设有如下表:</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test (</span><br><span class="line">  id <span class="type">int</span> <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">  last_name <span class="type">char</span>(<span class="number">30</span>) <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">  first_name <span class="type">char</span>(<span class="number">30</span>) <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">  <span class="keyword">primary</span> key(id),</span><br><span class="line">  index name (last_name, first_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></div>
-<p><code>name</code>索引是<code>last_name</code>和<code>first_name</code>的组合索引. 所以各种<code>last_name</code>和<code>first_name</code>的组合查询都可以使用到索引. 但是只有<code>last_name</code>可以作为单独查询条件, 因为只有最左边的索引值才能被优化器(<code>optimizer</code>)使用. 索引如下都是会使用到索引:</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">and</span> first_name<span class="operator">=</span><span class="string">&#x27;Micheal&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">and</span> first_name <span class="operator">&gt;=</span> <span class="string">&#x27;M&#x27;</span> <span class="keyword">and</span> first_name <span class="operator">&lt;</span> <span class="string">&#x27;N&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">and</span> (first_name <span class="operator">=</span> <span class="string">&#x27;Micheal&#x27;</span> <span class="keyword">or</span> first_name<span class="operator">=</span><span class="string">&#x27;Monty&#x27;</span>);</span><br></pre></td></tr></table></figure></div>
-<p>但是如下查询是不会使用到<code>name</code>索引的:</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> first_name<span class="operator">=</span><span class="string">&#x27;Micheal&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name<span class="operator">=</span><span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">or</span> first_name <span class="operator">=</span> <span class="string">&#x27;Micheal&#x27;</span>;</span><br></pre></td></tr></table></figure></div>
-
-<h4 id="单列索引和多列索引的区别"><a href="#单列索引和多列索引的区别" class="headerlink" title="单列索引和多列索引的区别"></a>单列索引和多列索引的区别</h4><p>假设有如下查询:</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table_name <span class="keyword">where</span> col1<span class="operator">=</span>val1 <span class="keyword">and</span> col2<span class="operator">=</span>val2;</span><br></pre></td></tr></table></figure></div>
-<p>如果有一个由col1和col2组成的多列索引, 那么满足条件的行会快速被找到. 那么如果col1和col2分别采用单列索引那么优化器将会尝试合并索引,或者使用单个索引, 具体使用哪个索引取决于哪个索引能够排除更多的行.</p>
-<h4 id="多列索引最左列优化"><a href="#多列索引最左列优化" class="headerlink" title="多列索引最左列优化"></a>多列索引最左列优化</h4><p>多列索引中最左列会被优化器用于快速查找行, 假设有一个三列索引(col1, col2, col3), 那么(col1), (col1, col2)和(col1, col2, col3)这样的查询组合将会使用到索引.</p>
-<h3 id="检查索引的使用正确性"><a href="#检查索引的使用正确性" class="headerlink" title="检查索引的使用正确性"></a>检查索引的使用正确性</h3><p>使用<code>explain</code>查看sql语句的执行计划, 可以了解索引是否被正确使用. 如果怀疑优化器没有按最佳的执行计划执行语句, 可以<code>ANALYZE TABLE</code>更新表的统计.</p>
-]]></content>
-      <categories>
-        <category>database</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MySQL 5.7 性能调优</title>
     <url>/2018/06/26/database-mysql-2018-06-27-mysql5-7%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在使用<code>new relic</code>监控发现有个sql update花了30s, 于是开启了数据库优化的路径…</p>
@@ -6403,6 +6359,50 @@ all	The default. Buffer inserts, delete-marking operations, and purges.
 <li>key_cache_age_threshold</li>
 </ul>
 <h3 id="配置Innodb-buffer-pool-size"><a href="#配置Innodb-buffer-pool-size" class="headerlink" title="配置Innodb_buffer_pool_size"></a>配置Innodb_buffer_pool_size</h3>]]></content>
+      <categories>
+        <category>database</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mysql 索引总结</title>
+    <url>/2019/06/29/database-mysql-2019-06-29-mysql-index/</url>
+    <content><![CDATA[<h2 id="mysql索引的作用和意义"><a href="#mysql索引的作用和意义" class="headerlink" title="mysql索引的作用和意义"></a>mysql索引的作用和意义</h2><p>当我们使用sql语句查询时往往要加where, 使用索引我们可以快速查找到满足where条件的行. </p>
+<h3 id="mysql如何使用索引"><a href="#mysql如何使用索引" class="headerlink" title="mysql如何使用索引"></a>mysql如何使用索引</h3><p>mysql大部分索引使用B-tree, 例如(PRIMARY KEY, UNIQUE, INDEX, FULLTEXT); 空间数据类型使用R-tree; 内存表还支持hash索引, InnoDB使用反向列表(inverted list)作为FULLTEXT的索引.</p>
+<p>mysql会在做如下操作时用到索引:</p>
+<ul>
+<li>使用索引快速找到满足where条件语句的行.</li>
+<li>如果在查找时有多个索引选择, mysql使用那个能找到最少数据行的索引.</li>
+<li>如果使用多列索引, 最左边的列将被用于优化.</li>
+<li>在执行join其它表的时候</li>
+<li>计算有索引的列min(),max()时</li>
+<li>当使用最左边的索引排序和分组表时</li>
+</ul>
+<h3 id="如何使用主键索引"><a href="#如何使用主键索引" class="headerlink" title="如何使用主键索引"></a>如何使用主键索引</h3><p>作为查询条件使用最多的列可以设置为主键(Primary key). 主键有附属索引, 用于提升查询性能.主键是不能为空的,所以性能也比较好. 如果表比较大, 同时又不知道选哪个列作为索引时, 可以创建一个自增的列作为索引. 用这个列作为其他表的外键方便join.</p>
+<h3 id="如何使用外键优化表查询"><a href="#如何使用外键优化表查询" class="headerlink" title="如何使用外键优化表查询"></a>如何使用外键优化表查询</h3><p>有时候如果有一个张大表, 可以把这张大表分成若干小表, 把不太常用的字段放在一起, 通过外键和主表关联, 这样子表既有主键用于快速查询又可以做join操作. 查询也可能使用更少的内存和IO, 因为相应的数据列都已经物理上在一起了.</p>
+<h3 id="普通列索引"><a href="#普通列索引" class="headerlink" title="普通列索引"></a>普通列索引</h3><p>最常见的索引是单列索引, mysql把列的值复制一份在数据结构, 用于快速查询.大部分数据结构采用B-tree, 可以快速定位到单个值, 一组值或值的范围. 在sql where语句对应<code>=, &gt;, &lt;=, BETWEEN, IN</code>等等.</p>
+<p>每个存储引擎的定义了每张表的索引最大值和最大长度. 基本上, 所有存储引擎至少支持16个索引和单个索引256字节以上.</p>
+<h4 id="TEXT-x2F-BLOB的索引"><a href="#TEXT-x2F-BLOB的索引" class="headerlink" title="TEXT&#x2F;BLOB的索引"></a>TEXT&#x2F;BLOB的索引</h4><p><code>Index Prefixes</code>指在文本类型上创建索引时, 可以指定这个字段的开头一部分N个字节作为索引, 这样索引的长度将被限制, 特别适用于TEXT&#x2F;BLOB这样没有长度的字段上.</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test (blob_col <span class="type">BLOB</span>, index(blob_col(<span class="number">10</span>)))</span><br></pre></td></tr></table></figure></div>
+<p>如果一个查询超出<code>index prefixes</code>的长度, 超出的部分将会被排除.</p>
+<h3 id="多列索引"><a href="#多列索引" class="headerlink" title="多列索引"></a>多列索引</h3><p>mysql可以在多个列上创建索引. 一个索引最多可以有16个列组成. 使用多列索引的好处是你只需要创建一个索引,就可以享受到多个查询条件快速命中的优点.<br>使用多列作为索引查询时, mysql可以检查索引中的所有列, 也可以只检查第一个列, 头二个列, 或头三个列.所以正确的定义复合索引的顺序可以加速好几种情况的查询.<br>一个多列索引可以被当成是一个排序的数组, 索引的值是多个列的值<code>CONCAT</code>后的hash, 等同于没有多列索引时, 自己创建一个hash几个列值的字段, 这样就可以快速查询:</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> hash_col<span class="operator">=</span>MD5(CONCAT(val1, val2))</span><br><span class="line"><span class="keyword">and</span> col1<span class="operator">=</span>val1 <span class="keyword">and</span> col2<span class="operator">=</span>val2;</span><br></pre></td></tr></table></figure></div>
+
+<p>假设有如下表:</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test (</span><br><span class="line">  id <span class="type">int</span> <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">  last_name <span class="type">char</span>(<span class="number">30</span>) <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">  first_name <span class="type">char</span>(<span class="number">30</span>) <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">  <span class="keyword">primary</span> key(id),</span><br><span class="line">  index name (last_name, first_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></div>
+<p><code>name</code>索引是<code>last_name</code>和<code>first_name</code>的组合索引. 所以各种<code>last_name</code>和<code>first_name</code>的组合查询都可以使用到索引. 但是只有<code>last_name</code>可以作为单独查询条件, 因为只有最左边的索引值才能被优化器(<code>optimizer</code>)使用. 索引如下都是会使用到索引:</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">and</span> first_name<span class="operator">=</span><span class="string">&#x27;Micheal&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">and</span> first_name <span class="operator">&gt;=</span> <span class="string">&#x27;M&#x27;</span> <span class="keyword">and</span> first_name <span class="operator">&lt;</span> <span class="string">&#x27;N&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">and</span> (first_name <span class="operator">=</span> <span class="string">&#x27;Micheal&#x27;</span> <span class="keyword">or</span> first_name<span class="operator">=</span><span class="string">&#x27;Monty&#x27;</span>);</span><br></pre></td></tr></table></figure></div>
+<p>但是如下查询是不会使用到<code>name</code>索引的:</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> first_name<span class="operator">=</span><span class="string">&#x27;Micheal&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name<span class="operator">=</span><span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">or</span> first_name <span class="operator">=</span> <span class="string">&#x27;Micheal&#x27;</span>;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="单列索引和多列索引的区别"><a href="#单列索引和多列索引的区别" class="headerlink" title="单列索引和多列索引的区别"></a>单列索引和多列索引的区别</h4><p>假设有如下查询:</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table_name <span class="keyword">where</span> col1<span class="operator">=</span>val1 <span class="keyword">and</span> col2<span class="operator">=</span>val2;</span><br></pre></td></tr></table></figure></div>
+<p>如果有一个由col1和col2组成的多列索引, 那么满足条件的行会快速被找到. 那么如果col1和col2分别采用单列索引那么优化器将会尝试合并索引,或者使用单个索引, 具体使用哪个索引取决于哪个索引能够排除更多的行.</p>
+<h4 id="多列索引最左列优化"><a href="#多列索引最左列优化" class="headerlink" title="多列索引最左列优化"></a>多列索引最左列优化</h4><p>多列索引中最左列会被优化器用于快速查找行, 假设有一个三列索引(col1, col2, col3), 那么(col1), (col1, col2)和(col1, col2, col3)这样的查询组合将会使用到索引.</p>
+<h3 id="检查索引的使用正确性"><a href="#检查索引的使用正确性" class="headerlink" title="检查索引的使用正确性"></a>检查索引的使用正确性</h3><p>使用<code>explain</code>查看sql语句的执行计划, 可以了解索引是否被正确使用. 如果怀疑优化器没有按最佳的执行计划执行语句, 可以<code>ANALYZE TABLE</code>更新表的统计.</p>
+]]></content>
       <categories>
         <category>database</category>
       </categories>
