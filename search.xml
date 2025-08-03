@@ -39,38 +39,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Git如何同步fork的仓库</title>
-    <url>/2017/12/14/%E5%90%8C%E6%AD%A5Forked%E4%BB%93%E5%BA%93/</url>
-    <content><![CDATA[<h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>实际工作可能需要fork别人的代码另做开发，但是又有需求希望同步源仓库的更新。以下实例将演示如何同步源仓库代码。</p>
-<h3 id="Mac-Linux-windows通用"><a href="#Mac-Linux-windows通用" class="headerlink" title="Mac, Linux, windows通用"></a>Mac, Linux, windows通用</h3><ul>
-<li><p>首先需要配置git remote 到源仓库</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">blockchain git:(f03d28f) ✗ git remote -v</span><br><span class="line">origin	https://github.com/dvf/blockchain (fetch)</span><br><span class="line">origin	https://github.com/dvf/blockchain (push)</span><br><span class="line">blockchain git:(f03d28f) ✗ git remote add upstream https://github.com/dvf/blockchain</span><br><span class="line">blockchain git:(f03d28f) ✗ git remote -v</span><br><span class="line">origin	https://github.com/dvf/blockchain (fetch)</span><br><span class="line">origin	https://github.com/dvf/blockchain (push)</span><br><span class="line">upstream	https://github.com/dvf/blockchain (fetch)</span><br><span class="line">upstream	https://github.com/dvf/blockchain (push)</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>拉取原仓库更新的提交</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">blockchain git:(f03d28f) ✗ git fetch upstream</span><br><span class="line">remote: Counting objects: 77, done.</span><br><span class="line">remote: Total 77 (delta 23), reused 24 (delta 23), pack-reused 53</span><br><span class="line">Unpacking objects: 100% (77/77), done.</span><br><span class="line">From https://github.com/dvf/blockchain</span><br><span class="line"> [new branch]      dvf/bug-fix  -&gt; upstream/dvf/bug-fix</span><br><span class="line"> [new branch]      dvf/hash-fix -&gt; upstream/dvf/hash-fix</span><br><span class="line"> [new branch]      dvf/tests    -&gt; upstream/dvf/tests</span><br><span class="line"> [new branch]      master       -&gt; upstream/master</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>切换到本地master</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">blockchain git:(f03d28f) ✗ git checkout master</span><br><span class="line">M	blockchain.py</span><br><span class="line">Switched to branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line">Your branch is up-to-date with <span class="string">&#x27;origin/master&#x27;</span>.</span><br></pre></td></tr></table></figure></div></li>
-<li><p>合并upstream&#x2F;master到local master</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">blockchain git:(master) git merge upstream/master</span><br><span class="line">Updating f03d28f..4010cf3</span><br><span class="line">Fast-forward</span><br><span class="line"> .gitattributes                                       |  63 +++++++++++++++</span><br><span class="line"> .travis.yml                                          |  12 +++</span><br><span class="line"> README.md                                            |   2 +</span><br><span class="line"> blockchain.py                                        |  22 +++---</span><br><span class="line"> csharp/BlockChain.Console/App.config                 |  10 +++</span><br><span class="line"> csharp/BlockChain.Console/BlockChain.Console.csproj  |  63 +++++++++++++++</span><br><span class="line"> csharp/BlockChain.Console/Program.cs                 |  12 +++</span><br><span class="line"> csharp/BlockChain.Console/Properties/AssemblyInfo.cs |  36 +++++++++</span><br><span class="line"> csharp/BlockChain.sln                                |  43 ++++++++++</span><br><span class="line"> csharp/BlockChain/Block.cs                           |  19 +++++</span><br><span class="line"> csharp/BlockChain/BlockChain.cs                      | 226 +++++++++++++++++++++++++++++++++++++++++++++++++++++</span><br><span class="line"> csharp/BlockChain/BlockChain.csproj                  |  73 +++++++++++++++++</span><br><span class="line"> csharp/BlockChain/Node.cs                            |   9 +++</span><br><span class="line"> csharp/BlockChain/Properties/AssemblyInfo.cs         |  36 +++++++++</span><br><span class="line"> csharp/BlockChain/Transaction.cs                     |   9 +++</span><br><span class="line"> csharp/BlockChain/WebServer.cs                       |  78 ++++++++++++++++++</span><br><span class="line"> csharp/BlockChain/packages.config                    |   5 ++</span><br><span class="line"> tests/__init__.py                                    |   0</span><br><span class="line"> tests/test_blockchain.py                             | 104 ++++++++++++++++++++++++</span><br><span class="line"> 19 files changed, 811 insertions(+), 11 deletions(-)</span><br><span class="line"> create mode 100644 .gitattributes</span><br><span class="line"> create mode 100644 .travis.yml</span><br><span class="line"> create mode 100644 csharp/BlockChain.Console/App.config</span><br><span class="line"> create mode 100644 csharp/BlockChain.Console/BlockChain.Console.csproj</span><br><span class="line"> create mode 100644 csharp/BlockChain.Console/Program.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain.Console/Properties/AssemblyInfo.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain.sln</span><br><span class="line"> create mode 100644 csharp/BlockChain/Block.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/BlockChain.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/BlockChain.csproj</span><br><span class="line"> create mode 100644 csharp/BlockChain/Node.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/Properties/AssemblyInfo.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/Transaction.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/WebServer.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/packages.config</span><br><span class="line"> create mode 100644 tests/__init__.py</span><br><span class="line"> create mode 100644 tests/test_blockchain.py</span><br></pre></td></tr></table></figure></div></li>
-<li><p>看一下git branch tree</p>
-</li>
-</ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="../images/git-fork-upstream.png"
-                      alt="alt"
-                ></p>
-]]></content>
-      <categories>
-        <category>misc</category>
-      </categories>
-      <tags>
-        <tag>misc</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Customer Experience</title>
     <url>/2017/12/06/customer-experience/</url>
     <content><![CDATA[<h3 id="What-is-customer-experience"><a href="#What-is-customer-experience" class="headerlink" title="What is customer experience?"></a>What is customer experience?</h3><ul>
@@ -110,6 +78,38 @@
 </ul>
 </li>
 </ul>
+]]></content>
+      <categories>
+        <category>misc</category>
+      </categories>
+      <tags>
+        <tag>misc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git如何同步fork的仓库</title>
+    <url>/2017/12/14/%E5%90%8C%E6%AD%A5Forked%E4%BB%93%E5%BA%93/</url>
+    <content><![CDATA[<h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>实际工作可能需要fork别人的代码另做开发，但是又有需求希望同步源仓库的更新。以下实例将演示如何同步源仓库代码。</p>
+<h3 id="Mac-Linux-windows通用"><a href="#Mac-Linux-windows通用" class="headerlink" title="Mac, Linux, windows通用"></a>Mac, Linux, windows通用</h3><ul>
+<li><p>首先需要配置git remote 到源仓库</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">blockchain git:(f03d28f) ✗ git remote -v</span><br><span class="line">origin	https://github.com/dvf/blockchain (fetch)</span><br><span class="line">origin	https://github.com/dvf/blockchain (push)</span><br><span class="line">blockchain git:(f03d28f) ✗ git remote add upstream https://github.com/dvf/blockchain</span><br><span class="line">blockchain git:(f03d28f) ✗ git remote -v</span><br><span class="line">origin	https://github.com/dvf/blockchain (fetch)</span><br><span class="line">origin	https://github.com/dvf/blockchain (push)</span><br><span class="line">upstream	https://github.com/dvf/blockchain (fetch)</span><br><span class="line">upstream	https://github.com/dvf/blockchain (push)</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>拉取原仓库更新的提交</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">blockchain git:(f03d28f) ✗ git fetch upstream</span><br><span class="line">remote: Counting objects: 77, done.</span><br><span class="line">remote: Total 77 (delta 23), reused 24 (delta 23), pack-reused 53</span><br><span class="line">Unpacking objects: 100% (77/77), done.</span><br><span class="line">From https://github.com/dvf/blockchain</span><br><span class="line"> [new branch]      dvf/bug-fix  -&gt; upstream/dvf/bug-fix</span><br><span class="line"> [new branch]      dvf/hash-fix -&gt; upstream/dvf/hash-fix</span><br><span class="line"> [new branch]      dvf/tests    -&gt; upstream/dvf/tests</span><br><span class="line"> [new branch]      master       -&gt; upstream/master</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>切换到本地master</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">blockchain git:(f03d28f) ✗ git checkout master</span><br><span class="line">M	blockchain.py</span><br><span class="line">Switched to branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line">Your branch is up-to-date with <span class="string">&#x27;origin/master&#x27;</span>.</span><br></pre></td></tr></table></figure></div></li>
+<li><p>合并upstream&#x2F;master到local master</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">blockchain git:(master) git merge upstream/master</span><br><span class="line">Updating f03d28f..4010cf3</span><br><span class="line">Fast-forward</span><br><span class="line"> .gitattributes                                       |  63 +++++++++++++++</span><br><span class="line"> .travis.yml                                          |  12 +++</span><br><span class="line"> README.md                                            |   2 +</span><br><span class="line"> blockchain.py                                        |  22 +++---</span><br><span class="line"> csharp/BlockChain.Console/App.config                 |  10 +++</span><br><span class="line"> csharp/BlockChain.Console/BlockChain.Console.csproj  |  63 +++++++++++++++</span><br><span class="line"> csharp/BlockChain.Console/Program.cs                 |  12 +++</span><br><span class="line"> csharp/BlockChain.Console/Properties/AssemblyInfo.cs |  36 +++++++++</span><br><span class="line"> csharp/BlockChain.sln                                |  43 ++++++++++</span><br><span class="line"> csharp/BlockChain/Block.cs                           |  19 +++++</span><br><span class="line"> csharp/BlockChain/BlockChain.cs                      | 226 +++++++++++++++++++++++++++++++++++++++++++++++++++++</span><br><span class="line"> csharp/BlockChain/BlockChain.csproj                  |  73 +++++++++++++++++</span><br><span class="line"> csharp/BlockChain/Node.cs                            |   9 +++</span><br><span class="line"> csharp/BlockChain/Properties/AssemblyInfo.cs         |  36 +++++++++</span><br><span class="line"> csharp/BlockChain/Transaction.cs                     |   9 +++</span><br><span class="line"> csharp/BlockChain/WebServer.cs                       |  78 ++++++++++++++++++</span><br><span class="line"> csharp/BlockChain/packages.config                    |   5 ++</span><br><span class="line"> tests/__init__.py                                    |   0</span><br><span class="line"> tests/test_blockchain.py                             | 104 ++++++++++++++++++++++++</span><br><span class="line"> 19 files changed, 811 insertions(+), 11 deletions(-)</span><br><span class="line"> create mode 100644 .gitattributes</span><br><span class="line"> create mode 100644 .travis.yml</span><br><span class="line"> create mode 100644 csharp/BlockChain.Console/App.config</span><br><span class="line"> create mode 100644 csharp/BlockChain.Console/BlockChain.Console.csproj</span><br><span class="line"> create mode 100644 csharp/BlockChain.Console/Program.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain.Console/Properties/AssemblyInfo.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain.sln</span><br><span class="line"> create mode 100644 csharp/BlockChain/Block.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/BlockChain.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/BlockChain.csproj</span><br><span class="line"> create mode 100644 csharp/BlockChain/Node.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/Properties/AssemblyInfo.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/Transaction.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/WebServer.cs</span><br><span class="line"> create mode 100644 csharp/BlockChain/packages.config</span><br><span class="line"> create mode 100644 tests/__init__.py</span><br><span class="line"> create mode 100644 tests/test_blockchain.py</span><br></pre></td></tr></table></figure></div></li>
+<li><p>看一下git branch tree</p>
+</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="../images/git-fork-upstream.png"
+                      alt="alt"
+                ></p>
 ]]></content>
       <categories>
         <category>misc</category>
@@ -588,16 +588,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Servitization in Subscription Mode</title>
-    <url>/2023/02/23/servitization-in-subscription-mode/</url>
-    <content><![CDATA[<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Servitization is shift from a product only focus to a strategy where products<br>and services are bundled in various combinations. The shift could also be the focus from goods, technology and manufacturing to services, intangible resources, co-creation of value and relationships. Some scholars call it Prodcut Service System aka PSS. Nowadays more and more tranditional companies increase the influence of services in their traditional business to secure their competitive position.<br>It is driven by the growing complexity of products and the demand for individualization. Nowadays the extended target is to enhance the performance of products through the integration of services and digital components.</p>
-<h2 id="Servitization-Process"><a href="#Servitization-Process" class="headerlink" title="Servitization Process"></a>Servitization Process</h2><p>General speaking, there are serveral steps to take so as a company transfers from product-centric to customer-centric </p>
-<h2 id="Key-Characterics-of-subscription-model"><a href="#Key-Characterics-of-subscription-model" class="headerlink" title="Key Characterics of subscription model"></a>Key Characterics of subscription model</h2><h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2>]]></content>
-      <tags>
-        <tag>subscription model, Servitization</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Health Data Security Guide</title>
     <url>/2023/02/21/health-data-security-guide/</url>
     <content><![CDATA[<blockquote>
@@ -1005,6 +995,16 @@
 <h2 id="11-Data-Security-on-Typical-Scenarios-Skip"><a href="#11-Data-Security-on-Typical-Scenarios-Skip" class="headerlink" title="11 Data Security on Typical Scenarios(Skip)"></a>11 Data Security on Typical Scenarios(Skip)</h2>]]></content>
       <tags>
         <tag>Data security</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Servitization in Subscription Mode</title>
+    <url>/2023/02/23/servitization-in-subscription-mode/</url>
+    <content><![CDATA[<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Servitization is shift from a product only focus to a strategy where products<br>and services are bundled in various combinations. The shift could also be the focus from goods, technology and manufacturing to services, intangible resources, co-creation of value and relationships. Some scholars call it Prodcut Service System aka PSS. Nowadays more and more tranditional companies increase the influence of services in their traditional business to secure their competitive position.<br>It is driven by the growing complexity of products and the demand for individualization. Nowadays the extended target is to enhance the performance of products through the integration of services and digital components.</p>
+<h2 id="Servitization-Process"><a href="#Servitization-Process" class="headerlink" title="Servitization Process"></a>Servitization Process</h2><p>General speaking, there are serveral steps to take so as a company transfers from product-centric to customer-centric </p>
+<h2 id="Key-Characterics-of-subscription-model"><a href="#Key-Characterics-of-subscription-model" class="headerlink" title="Key Characterics of subscription model"></a>Key Characterics of subscription model</h2><h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2>]]></content>
+      <tags>
+        <tag>subscription model, Servitization</tag>
       </tags>
   </entry>
   <entry>
@@ -1977,46 +1977,6 @@
       </tags>
   </entry>
   <entry>
-    <title>机器学习一撇</title>
-    <url>/2018/10/13/AI-2018-10-04-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%80%E6%92%87/</url>
-    <content><![CDATA[<p>机器学习是建立在大量数据的基础上， 在有意义的大数据上面提取有用的信息， 然后做出预测。</p>
-<h3 id="典型应用场景"><a href="#典型应用场景" class="headerlink" title="典型应用场景"></a>典型应用场景</h3><ul>
-<li>推荐算法</li>
-<li>欺诈检测</li>
-<li>市场细分研究</li>
-<li>社交网络分析</li>
-<li>医学研究</li>
-</ul>
-<h3 id="机器学习的三个分支"><a href="#机器学习的三个分支" class="headerlink" title="机器学习的三个分支"></a>机器学习的三个分支</h3><ul>
-<li><p><strong>监督学习</strong><br>监督学习主要用于基于一组训练集做出预测结果， 如训练集和结果用数组表示<code>[x1, x2,...y]</code>, 算法将从训练集中学习如何预测将来的某个结果。如果y是数字那么这个预测叫做<code>回归</code>, 如果是明确的一些值， 那么这个预测叫做<code>分类</code>.</p>
-</li>
-<li><p><strong>非监督学习</strong><br>非监督学习主要用于发现数据中未知的模式， 典型的例子是分类集群。</p>
-</li>
-<li><p><strong>加强学习</strong><br>也叫<code>连续学习</code>, 在这种模式下， 我们不会得到最终结果。而是基于当前状态得出一个最优解， 也就是所谓的<code>agent</code>选择一个最优<code>action</code>, 然后将得到一个<code>award</code>.</p>
-</li>
-</ul>
-<h3 id="数据仓库"><a href="#数据仓库" class="headerlink" title="数据仓库"></a>数据仓库</h3><p>数据仓库是存放数据的各种源集合叫法。它有什么用呢？ 一个例子是把<code>OLTP</code>如mysql的数据做备份然后导入数据仓库做<code>OLAP</code>. 这时数据仓库中的数据多了一个时间维度， 用于区分版本。所以从不同的数据源导入数据仓可能需要做<code>ETL</code>, 也就是抽取-转化-导入。 这里的导入一般会把数据按不同维度导入到<code>data cube</code>.</p>
-<p>数据仓一般会把数据组织成多个维度的数据立方， 基于所谓的<code>star schema</code>(一张<code>fact</code>表， 用于索引多张不同维度的其它表)，表中的数据是不同维度数据的聚合。</p>
-<p>在数据仓做<code>OLAP</code>操作时， 一般涉及如下步骤：</p>
-<ul>
-<li><code>rollup</code>: 对某个维度的数据做聚合。</li>
-<li><code>drilldown</code>: 在某个维度把数据打散， 使其颗粒度更细。如把按月展示, 打成按天展示.</li>
-<li><code>slice</code>: 在一个维度切一层数据看， 比如查看所有二月的数据。</li>
-<li><code>Dice</code>: 从一个cube中选择一个子集。</li>
-</ul>
-<p>数据仓可以被进一步切分为<code>data marts</code>, 用于不同角度的<code>drilldown</code>分析。</p>
-<h3 id="机器学习的哲学"><a href="#机器学习的哲学" class="headerlink" title="机器学习的哲学"></a>机器学习的哲学</h3><p>正常想法，想要把一组输入数据经过处理得到结果， 一般可以研究输入的属性，然后写一个函数计算出结果。 但是有时候它们之间的关系往往难以确定。 这个时候机器学习就派上用处了，它可以基于历史所有的数据做出预测。 机器学习大致可以分两种学习策略：</p>
-<h4 id="懒惰学习lazy-learning"><a href="#懒惰学习lazy-learning" class="headerlink" title="懒惰学习lazy learning"></a>懒惰学习<code>lazy learning</code></h4><p>懒惰学习基于实例， 学习者记住所有之前看过的例子， 当一个新的数据来到， 它尝试从历史见过的数据中找到相似数据，然后使用历史数据的结果作为参考去预测当前输入数据的结果。这种学习的前提是上述两者在属性上近似，所以他们的输出也近似。 <code>Nearest neighbor</code>最近邻居法就是经典的懒惰学习例子。</p>
-<h4 id="主动学习eager-learning"><a href="#主动学习eager-learning" class="headerlink" title="主动学习eager learning"></a>主动学习<code>eager learning</code></h4><p>主动学习是基于模型的学习，学习者假设输入属性和输出相关， 并且基于某个模型（比如线性回归， 逻辑回归， 神经网络等等）。 所以学习者学习基于历史数据得出的模型（主要是模型参数）， 当一个新的数据来临， 它就会使用这个模型去预测结果。<br>主动学习学习通用模型， 懒惰学习从看过的例子中学习。他们还有一点不同， 主动学习的模型必须满足所有历史数据， 但是懒惰学习可以只关注最近某些时间的点。懒惰模型也更难以构建一个综合的模型，需要大量的内存存储所有见过的数据。</p>
-]]></content>
-      <categories>
-        <category>machine learning</category>
-      </categories>
-      <tags>
-        <tag>ML</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Finetune vs RAG</title>
     <url>/2024/01/14/Finetune-vs-RAG/</url>
     <content><![CDATA[<blockquote>
@@ -2077,6 +2037,46 @@
 ]]></content>
       <tags>
         <tag>AI, RAG, Finetune</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习一撇</title>
+    <url>/2018/10/13/AI-2018-10-04-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%80%E6%92%87/</url>
+    <content><![CDATA[<p>机器学习是建立在大量数据的基础上， 在有意义的大数据上面提取有用的信息， 然后做出预测。</p>
+<h3 id="典型应用场景"><a href="#典型应用场景" class="headerlink" title="典型应用场景"></a>典型应用场景</h3><ul>
+<li>推荐算法</li>
+<li>欺诈检测</li>
+<li>市场细分研究</li>
+<li>社交网络分析</li>
+<li>医学研究</li>
+</ul>
+<h3 id="机器学习的三个分支"><a href="#机器学习的三个分支" class="headerlink" title="机器学习的三个分支"></a>机器学习的三个分支</h3><ul>
+<li><p><strong>监督学习</strong><br>监督学习主要用于基于一组训练集做出预测结果， 如训练集和结果用数组表示<code>[x1, x2,...y]</code>, 算法将从训练集中学习如何预测将来的某个结果。如果y是数字那么这个预测叫做<code>回归</code>, 如果是明确的一些值， 那么这个预测叫做<code>分类</code>.</p>
+</li>
+<li><p><strong>非监督学习</strong><br>非监督学习主要用于发现数据中未知的模式， 典型的例子是分类集群。</p>
+</li>
+<li><p><strong>加强学习</strong><br>也叫<code>连续学习</code>, 在这种模式下， 我们不会得到最终结果。而是基于当前状态得出一个最优解， 也就是所谓的<code>agent</code>选择一个最优<code>action</code>, 然后将得到一个<code>award</code>.</p>
+</li>
+</ul>
+<h3 id="数据仓库"><a href="#数据仓库" class="headerlink" title="数据仓库"></a>数据仓库</h3><p>数据仓库是存放数据的各种源集合叫法。它有什么用呢？ 一个例子是把<code>OLTP</code>如mysql的数据做备份然后导入数据仓库做<code>OLAP</code>. 这时数据仓库中的数据多了一个时间维度， 用于区分版本。所以从不同的数据源导入数据仓可能需要做<code>ETL</code>, 也就是抽取-转化-导入。 这里的导入一般会把数据按不同维度导入到<code>data cube</code>.</p>
+<p>数据仓一般会把数据组织成多个维度的数据立方， 基于所谓的<code>star schema</code>(一张<code>fact</code>表， 用于索引多张不同维度的其它表)，表中的数据是不同维度数据的聚合。</p>
+<p>在数据仓做<code>OLAP</code>操作时， 一般涉及如下步骤：</p>
+<ul>
+<li><code>rollup</code>: 对某个维度的数据做聚合。</li>
+<li><code>drilldown</code>: 在某个维度把数据打散， 使其颗粒度更细。如把按月展示, 打成按天展示.</li>
+<li><code>slice</code>: 在一个维度切一层数据看， 比如查看所有二月的数据。</li>
+<li><code>Dice</code>: 从一个cube中选择一个子集。</li>
+</ul>
+<p>数据仓可以被进一步切分为<code>data marts</code>, 用于不同角度的<code>drilldown</code>分析。</p>
+<h3 id="机器学习的哲学"><a href="#机器学习的哲学" class="headerlink" title="机器学习的哲学"></a>机器学习的哲学</h3><p>正常想法，想要把一组输入数据经过处理得到结果， 一般可以研究输入的属性，然后写一个函数计算出结果。 但是有时候它们之间的关系往往难以确定。 这个时候机器学习就派上用处了，它可以基于历史所有的数据做出预测。 机器学习大致可以分两种学习策略：</p>
+<h4 id="懒惰学习lazy-learning"><a href="#懒惰学习lazy-learning" class="headerlink" title="懒惰学习lazy learning"></a>懒惰学习<code>lazy learning</code></h4><p>懒惰学习基于实例， 学习者记住所有之前看过的例子， 当一个新的数据来到， 它尝试从历史见过的数据中找到相似数据，然后使用历史数据的结果作为参考去预测当前输入数据的结果。这种学习的前提是上述两者在属性上近似，所以他们的输出也近似。 <code>Nearest neighbor</code>最近邻居法就是经典的懒惰学习例子。</p>
+<h4 id="主动学习eager-learning"><a href="#主动学习eager-learning" class="headerlink" title="主动学习eager learning"></a>主动学习<code>eager learning</code></h4><p>主动学习是基于模型的学习，学习者假设输入属性和输出相关， 并且基于某个模型（比如线性回归， 逻辑回归， 神经网络等等）。 所以学习者学习基于历史数据得出的模型（主要是模型参数）， 当一个新的数据来临， 它就会使用这个模型去预测结果。<br>主动学习学习通用模型， 懒惰学习从看过的例子中学习。他们还有一点不同， 主动学习的模型必须满足所有历史数据， 但是懒惰学习可以只关注最近某些时间的点。懒惰模型也更难以构建一个综合的模型，需要大量的内存存储所有见过的数据。</p>
+]]></content>
+      <categories>
+        <category>machine learning</category>
+      </categories>
+      <tags>
+        <tag>ML</tag>
       </tags>
   </entry>
   <entry>
@@ -3076,6 +3076,77 @@
       </tags>
   </entry>
   <entry>
+    <title>业务架构与设计原则</title>
+    <url>/2020/12/27/architecture-2020-12-08-bussiness-architecture/</url>
+    <content><![CDATA[<h2 id="企业业务架构"><a href="#企业业务架构" class="headerlink" title="企业业务架构"></a>企业业务架构</h2><p>企业的业务架构定义了企业的结构，这个结构包含了企业的治理结构，业务流程，服务和产品，业务信息和利益相关者。业务架构为实现企业战略目标勾画出一个可行的、方向性的系统。所以简单地可以认为企业业务架构是一个组织工作的蓝图。通过使用组织架构，企业可以以较小的代价和时间来面对挑战和处理问题，这是因为我们已经知道业务中所有重要的依赖，关系和信息流。企业不管大小都应该有业务架构。 业务架构不一定需要全放面描述或者按照一定的标准创建。设计和描述组织的工作是复杂和困难的， 所以我们需要一些工具来帮助加速这一过程。</p>
+<h3 id="开源工具"><a href="#开源工具" class="headerlink" title="开源工具"></a>开源工具</h3><ul>
+<li><strong>Collection</strong> 常见设计原则 <a class="link"   href="https://principles.design/" >https://principles.design/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><strong>Archi</strong> 架构图工具 <a class="link"   href="https://www.archimatetool.com/" >https://www.archimatetool.com/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><strong>Causal Loop Diagram</strong> 流程图工具。 <a class="link"   href="https://nocomplexity.com/causalloopdiagram/" >https://nocomplexity.com/causalloopdiagram/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><strong>Camunda Modeler</strong> 用于编辑BPMN(Business Process Model and Notation)的桌面工具。<a class="link"   href="https://camunda.com/download/modeler/" >https://camunda.com/download/modeler/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><strong>Protege</strong> 用于规划拓扑图 <a class="link"   href="https://protege.stanford.edu/" >https://protege.stanford.edu/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><strong>DrawIO</strong> 是一个线上项目用于创建流程图。类似国内的有processon. <a class="link"   href="https://app.diagrams.net/" >https://app.diagrams.net/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h2 id="业务架构设计原则"><a href="#业务架构设计原则" class="headerlink" title="业务架构设计原则"></a>业务架构设计原则</h2><p>有一个清晰的业务原则对于成功的企业至关重要。有原则也是在限定的时间和资源下构建好的架构的基础，这些原则需要所有的利益相关者都参与和同意。</p>
+<h3 id="一些常见的原则"><a href="#一些常见的原则" class="headerlink" title="一些常见的原则"></a>一些常见的原则</h3><h4 id="solution-space解决的空间"><a href="#solution-space解决的空间" class="headerlink" title="solution space解决的空间"></a>solution space解决的空间</h4><p><strong>原则：</strong>永不尝试使用技术的手段解决非技术的问题。<br><br><strong>原因：</strong>技术当然可以帮助解决一些问题， 但是技术永远不可能是完备的手段。任何非技术的活动，过程，行为改变等等都可能是解决问题的手段。<br><br><strong>言下之意：</strong>解决问题的时候不要仅仅盯着技术。</p>
+<h4 id="start-simple简单先行"><a href="#start-simple简单先行" class="headerlink" title="start simple简单先行"></a>start simple简单先行</h4><p><strong>原则：</strong>简单先行 <br><br><strong>原因：</strong>简单开发一个产品其实是赢得对于构建下一步产品的权利。<br><br><strong>言下之意：</strong>当投入大量时间和金钱时，复杂性就会出现，简单的调整也会产生更大的影响。当产品变得成熟时，修复向后兼容性的问题将更加复杂。<br></p>
+<h4 id="快速构建MVP（Minimal-Viable-Product"><a href="#快速构建MVP（Minimal-Viable-Product" class="headerlink" title="快速构建MVP（Minimal Viable Product)"></a>快速构建MVP（Minimal Viable Product)</h4><p><strong>原则：</strong>如果你的MVP需要一年的时间构建， 那么这不是MVP <br><br><strong>原因：</strong>最好MVP不要超过一个月构建。<br><br><strong>言下之意：</strong>MVP不是用来贩卖的，而是从后续的阶段中学习如何贩卖。<br></p>
+<h4 id="make-it-easy-first-then-make-it-fast先简单做然后快速做"><a href="#make-it-easy-first-then-make-it-fast先简单做然后快速做" class="headerlink" title="make it easy first then make it fast先简单做然后快速做"></a>make it easy first then make it fast先简单做然后快速做</h4><p><strong>原则：</strong>先简单做， 然后快速做，最后做的漂亮. <br><br><strong>原因：</strong>开发新项目的成本是很高的，做一个优秀的产品更加复杂和昂贵。所以在做MVP的时候，尝试着让产品易用和易改。 <br><br><strong>言下之意：</strong>一些性能之类的问题可以后面再考虑。<br></p>
+<h4 id="use-open-data-open-standards-open-source-and-open-innovation使用公开数据，公开标准，公开源代码，公开创意"><a href="#use-open-data-open-standards-open-source-and-open-innovation使用公开数据，公开标准，公开源代码，公开创意" class="headerlink" title="use open data, open standards, open source and open innovation使用公开数据，公开标准，公开源代码，公开创意"></a>use open data, open standards, open source and open innovation使用公开数据，公开标准，公开源代码，公开创意</h4><p> <strong>原则：</strong>use open data, open standards, open source and open innovation. <br><br> <strong>原因：</strong>这个原则提供了一个框架使用公开的方式去技术赋能开发。<br><br> <strong>言下之意：</strong> <br></p>
+<ul>
+<li>采用并扩展存在的公开标准</li>
+<li>尽量以API的方式开放数据和功能， 越大的社区使用你的产品越好</li>
+<li>把投资软件当做公益</li>
+<li>尽可能的开源代码</li>
+</ul>
+<h4 id="Strategic-focus焦距策略"><a href="#Strategic-focus焦距策略" class="headerlink" title="Strategic focus焦距策略"></a>Strategic focus焦距策略</h4><p> <strong>原则：</strong>投资决策受业务需求驱动。<br><br> <strong>原因：</strong>一个业务领头和面向业务的架构在满足战术目标，不断改变的需求和客户期待上更可能成功。<br><br> <strong>言下之意：</strong>架构需要完全和整个公司的战略目标对齐。<br></p>
+<h4 id="make-things-open保持分享"><a href="#make-things-open保持分享" class="headerlink" title="make things open保持分享"></a>make things open保持分享</h4><p> <strong>原则：</strong>make things open: it makes things better.<br><br> <strong>原因：</strong>尽可能地分享我们在做的东西。和同事， 和用户，和世界分享代码，分享设计，分享想法，分享创意，分享失败。越多的人关注你越可能你的产品可以成功。<br></p>
+<h4 id="maximise-benefit-to-the-enterprise最大化企业的利益"><a href="#maximise-benefit-to-the-enterprise最大化企业的利益" class="headerlink" title="maximise benefit to the enterprise最大化企业的利益"></a>maximise benefit to the enterprise最大化企业的利益</h4><p> <strong>原则：</strong>信息管理的决定是为了最大化企业的利益。<br><br> <strong>原因：</strong>这个原则内嵌了“服务高于个人”的意思。从企业的角度做决定永远比从组织的角度出发对企业有更长远的价值。<br><br> <strong>言下之意：</strong>达到最大化企业的利益需要我们修正计划和管理信息的方式。技术不能完全解决这个改变。所以组织可能需要做一些牺牲来满足企业利益， 比如调整开发的优先级，改变一些喜欢的工具等等。<br></p>
+<h4 id="Reliability可靠性"><a href="#Reliability可靠性" class="headerlink" title="Reliability可靠性"></a>Reliability可靠性</h4><p> <strong>原则：</strong>信息系统需要可靠，准确，及时。<br></p>
+<h4 id="Reuse-and-Improve复用与提高"><a href="#Reuse-and-Improve复用与提高" class="headerlink" title="Reuse and Improve复用与提高"></a>Reuse and Improve复用与提高</h4><p> <strong>原则：</strong>复用与提高 <br><br> <strong>原因：</strong>避免资源浪费，只有在不满足需求的时候才升级原有的解决方案。<br><br> <strong>言下之意：</strong> <br></p>
+<ul>
+<li>尽可能使用、修改、扩展现有工具，平台和框架。</li>
+<li>开发模块化的软件是提倡的方式。</li>
+</ul>
+<h4 id="Reuse-before-buy-buy-before-build"><a href="#Reuse-before-buy-buy-before-build" class="headerlink" title="Reuse before buy, buy before build"></a>Reuse before buy, buy before build</h4><p><strong>原则：</strong>尽可能复内部it资产，不满足的情况下才考虑买外部IP, 最后才是定制化构建新的产品。<br><br><strong>原因：</strong> <br></p>
+<ul>
+<li>购买标准的IT解决方案只要它们不是快要淘汰都比自定制化便宜， 并且享有后续维护。</li>
+<li>定制化的产品后续的维护可能是否昂贵。<br><br><strong>言下之意：</strong> <br></li>
+<li>为了保证IT资产能够尽可能复用，业务单元必须保证治理部门不认为业务实践与行业标准实践有重大的不一致。</li>
+<li>有些商业化的软件是可以配置的，需要评估配置功能的复杂度是否和自己定制的复杂度相近。</li>
+<li>license合规性也是需要考虑的。</li>
+</ul>
+<h4 id="User-Experience-Continuity"><a href="#User-Experience-Continuity" class="headerlink" title="User Experience Continuity"></a>User Experience Continuity</h4><p><strong>原则：</strong>我们交付的产品要尽可能保持体验的延续性。<br><br><strong>原因：</strong>用户不管在公司内部还是外部都会使用不同应用，有不同的使用体验, 我们不想让用户使用自己的产品有使用20年前产品的感觉。<br><br><strong>言下之意：</strong> <br></p>
+<ul>
+<li>主动关注身边发生的新技术和新方法。</li>
+<li>保持好奇心，敢于尝试新鲜事物，积极听取他人意见或建议。</li>
+<li>积极采用新颖的方式来处理问题及机会。</li>
+<li>不断对现状提出问题，挑战传统的工作方法和思维方式。</li>
+<li>敢于为制定新政策、采取新措施或尝试新方法承担可控风险。</li>
+</ul>
+<h4 id="Routine-Tasks-are-automated-where-appropriate-尽可能自动化日常活动"><a href="#Routine-Tasks-are-automated-where-appropriate-尽可能自动化日常活动" class="headerlink" title="Routine Tasks are automated where appropriate 尽可能自动化日常活动"></a>Routine Tasks are automated where appropriate 尽可能自动化日常活动</h4><p> <strong>原则：</strong>尽可能自动化日常活动 <br><br> <strong>原因：</strong>自动化节约人力，提高效率和有更高的容错。<br><br> <strong>言下之意：</strong> <br></p>
+<ul>
+<li>需要专业知识去分析可以自动化流程的过程。</li>
+<li>不是日常的任务不需要自动化。</li>
+<li>自动化流程可以是一个流程接着另一个流程， 业务单元需要集成到整个工作流当中。</li>
+</ul>
+<h4 id="Give-before-receiving"><a href="#Give-before-receiving" class="headerlink" title="Give before receiving"></a>Give before receiving</h4><p> <strong>原则：</strong>先于奉献 <br><br> <strong>原因：</strong>奉献是建立一段关系的真正方式。仅仅关注于从联系中可以得到什么是不能构建相互共赢和可持续关系的。<br><br> <strong>言下之意：</strong>维护和利益相关者的关系是十分必要的。<br></p>
+<h4 id="Everyone-matters-in-Information-management-信息管理和所有人有关"><a href="#Everyone-matters-in-Information-management-信息管理和所有人有关" class="headerlink" title="Everyone matters in Information management 信息管理和所有人有关"></a>Everyone matters in Information management 信息管理和所有人有关</h4><p> <strong>原则：</strong>组织中所有参与信息管理决策的人都需要参与完成业务指标 <br><br> <strong>原因：</strong>信息系统的用户是关键利益相关者，是实际使用技术解决业务需求的人。为了保障信息系统和业务对齐，所有企业中的组织都需要参与到信息系统环境中的各方面。<br><br> <strong>言下之意：</strong>为了整体上作为一个团队，利益相关者需要接受开发信息系统环境的责任。保障必要的资源来完成这条原则。<br></p>
+<h4 id="Be-Collaborative"><a href="#Be-Collaborative" class="headerlink" title="Be Collaborative"></a>Be Collaborative</h4><p> <strong>原则：</strong>相互协助 <br><br> <strong>原因：</strong>If you want to go fast, go alone. If you want to go far, go together.<br><br> <strong>言下之意：</strong> <br></p>
+<ul>
+<li>让各个不同领域的专家参与项目</li>
+<li>跨部门合作</li>
+<li>把好的工作经验，结果，进展记录下来，并且分享它们。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>architecture</category>
+      </categories>
+      <tags>
+        <tag>architecture</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>企业架构师 vs 解决方案架构师 vs 技术架构师</title>
     <url>/2020/11/14/architecture-2020-11-15-%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E4%B8%8E%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E5%B8%88/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文主要简介一下企业架构师EA, 技术架构师TA, 解决方案架构师SA的区别, 同时探讨各自需要具备的能力和挑战.</p>
@@ -3163,77 +3234,6 @@
                      data-src="/images/2020-12/samm.png"
                      
                 ></p>
-]]></content>
-      <categories>
-        <category>architecture</category>
-      </categories>
-      <tags>
-        <tag>architecture</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>业务架构与设计原则</title>
-    <url>/2020/12/27/architecture-2020-12-08-bussiness-architecture/</url>
-    <content><![CDATA[<h2 id="企业业务架构"><a href="#企业业务架构" class="headerlink" title="企业业务架构"></a>企业业务架构</h2><p>企业的业务架构定义了企业的结构，这个结构包含了企业的治理结构，业务流程，服务和产品，业务信息和利益相关者。业务架构为实现企业战略目标勾画出一个可行的、方向性的系统。所以简单地可以认为企业业务架构是一个组织工作的蓝图。通过使用组织架构，企业可以以较小的代价和时间来面对挑战和处理问题，这是因为我们已经知道业务中所有重要的依赖，关系和信息流。企业不管大小都应该有业务架构。 业务架构不一定需要全放面描述或者按照一定的标准创建。设计和描述组织的工作是复杂和困难的， 所以我们需要一些工具来帮助加速这一过程。</p>
-<h3 id="开源工具"><a href="#开源工具" class="headerlink" title="开源工具"></a>开源工具</h3><ul>
-<li><strong>Collection</strong> 常见设计原则 <a class="link"   href="https://principles.design/" >https://principles.design/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><strong>Archi</strong> 架构图工具 <a class="link"   href="https://www.archimatetool.com/" >https://www.archimatetool.com/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><strong>Causal Loop Diagram</strong> 流程图工具。 <a class="link"   href="https://nocomplexity.com/causalloopdiagram/" >https://nocomplexity.com/causalloopdiagram/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><strong>Camunda Modeler</strong> 用于编辑BPMN(Business Process Model and Notation)的桌面工具。<a class="link"   href="https://camunda.com/download/modeler/" >https://camunda.com/download/modeler/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><strong>Protege</strong> 用于规划拓扑图 <a class="link"   href="https://protege.stanford.edu/" >https://protege.stanford.edu/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><strong>DrawIO</strong> 是一个线上项目用于创建流程图。类似国内的有processon. <a class="link"   href="https://app.diagrams.net/" >https://app.diagrams.net/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<h2 id="业务架构设计原则"><a href="#业务架构设计原则" class="headerlink" title="业务架构设计原则"></a>业务架构设计原则</h2><p>有一个清晰的业务原则对于成功的企业至关重要。有原则也是在限定的时间和资源下构建好的架构的基础，这些原则需要所有的利益相关者都参与和同意。</p>
-<h3 id="一些常见的原则"><a href="#一些常见的原则" class="headerlink" title="一些常见的原则"></a>一些常见的原则</h3><h4 id="solution-space解决的空间"><a href="#solution-space解决的空间" class="headerlink" title="solution space解决的空间"></a>solution space解决的空间</h4><p><strong>原则：</strong>永不尝试使用技术的手段解决非技术的问题。<br><br><strong>原因：</strong>技术当然可以帮助解决一些问题， 但是技术永远不可能是完备的手段。任何非技术的活动，过程，行为改变等等都可能是解决问题的手段。<br><br><strong>言下之意：</strong>解决问题的时候不要仅仅盯着技术。</p>
-<h4 id="start-simple简单先行"><a href="#start-simple简单先行" class="headerlink" title="start simple简单先行"></a>start simple简单先行</h4><p><strong>原则：</strong>简单先行 <br><br><strong>原因：</strong>简单开发一个产品其实是赢得对于构建下一步产品的权利。<br><br><strong>言下之意：</strong>当投入大量时间和金钱时，复杂性就会出现，简单的调整也会产生更大的影响。当产品变得成熟时，修复向后兼容性的问题将更加复杂。<br></p>
-<h4 id="快速构建MVP（Minimal-Viable-Product"><a href="#快速构建MVP（Minimal-Viable-Product" class="headerlink" title="快速构建MVP（Minimal Viable Product)"></a>快速构建MVP（Minimal Viable Product)</h4><p><strong>原则：</strong>如果你的MVP需要一年的时间构建， 那么这不是MVP <br><br><strong>原因：</strong>最好MVP不要超过一个月构建。<br><br><strong>言下之意：</strong>MVP不是用来贩卖的，而是从后续的阶段中学习如何贩卖。<br></p>
-<h4 id="make-it-easy-first-then-make-it-fast先简单做然后快速做"><a href="#make-it-easy-first-then-make-it-fast先简单做然后快速做" class="headerlink" title="make it easy first then make it fast先简单做然后快速做"></a>make it easy first then make it fast先简单做然后快速做</h4><p><strong>原则：</strong>先简单做， 然后快速做，最后做的漂亮. <br><br><strong>原因：</strong>开发新项目的成本是很高的，做一个优秀的产品更加复杂和昂贵。所以在做MVP的时候，尝试着让产品易用和易改。 <br><br><strong>言下之意：</strong>一些性能之类的问题可以后面再考虑。<br></p>
-<h4 id="use-open-data-open-standards-open-source-and-open-innovation使用公开数据，公开标准，公开源代码，公开创意"><a href="#use-open-data-open-standards-open-source-and-open-innovation使用公开数据，公开标准，公开源代码，公开创意" class="headerlink" title="use open data, open standards, open source and open innovation使用公开数据，公开标准，公开源代码，公开创意"></a>use open data, open standards, open source and open innovation使用公开数据，公开标准，公开源代码，公开创意</h4><p> <strong>原则：</strong>use open data, open standards, open source and open innovation. <br><br> <strong>原因：</strong>这个原则提供了一个框架使用公开的方式去技术赋能开发。<br><br> <strong>言下之意：</strong> <br></p>
-<ul>
-<li>采用并扩展存在的公开标准</li>
-<li>尽量以API的方式开放数据和功能， 越大的社区使用你的产品越好</li>
-<li>把投资软件当做公益</li>
-<li>尽可能的开源代码</li>
-</ul>
-<h4 id="Strategic-focus焦距策略"><a href="#Strategic-focus焦距策略" class="headerlink" title="Strategic focus焦距策略"></a>Strategic focus焦距策略</h4><p> <strong>原则：</strong>投资决策受业务需求驱动。<br><br> <strong>原因：</strong>一个业务领头和面向业务的架构在满足战术目标，不断改变的需求和客户期待上更可能成功。<br><br> <strong>言下之意：</strong>架构需要完全和整个公司的战略目标对齐。<br></p>
-<h4 id="make-things-open保持分享"><a href="#make-things-open保持分享" class="headerlink" title="make things open保持分享"></a>make things open保持分享</h4><p> <strong>原则：</strong>make things open: it makes things better.<br><br> <strong>原因：</strong>尽可能地分享我们在做的东西。和同事， 和用户，和世界分享代码，分享设计，分享想法，分享创意，分享失败。越多的人关注你越可能你的产品可以成功。<br></p>
-<h4 id="maximise-benefit-to-the-enterprise最大化企业的利益"><a href="#maximise-benefit-to-the-enterprise最大化企业的利益" class="headerlink" title="maximise benefit to the enterprise最大化企业的利益"></a>maximise benefit to the enterprise最大化企业的利益</h4><p> <strong>原则：</strong>信息管理的决定是为了最大化企业的利益。<br><br> <strong>原因：</strong>这个原则内嵌了“服务高于个人”的意思。从企业的角度做决定永远比从组织的角度出发对企业有更长远的价值。<br><br> <strong>言下之意：</strong>达到最大化企业的利益需要我们修正计划和管理信息的方式。技术不能完全解决这个改变。所以组织可能需要做一些牺牲来满足企业利益， 比如调整开发的优先级，改变一些喜欢的工具等等。<br></p>
-<h4 id="Reliability可靠性"><a href="#Reliability可靠性" class="headerlink" title="Reliability可靠性"></a>Reliability可靠性</h4><p> <strong>原则：</strong>信息系统需要可靠，准确，及时。<br></p>
-<h4 id="Reuse-and-Improve复用与提高"><a href="#Reuse-and-Improve复用与提高" class="headerlink" title="Reuse and Improve复用与提高"></a>Reuse and Improve复用与提高</h4><p> <strong>原则：</strong>复用与提高 <br><br> <strong>原因：</strong>避免资源浪费，只有在不满足需求的时候才升级原有的解决方案。<br><br> <strong>言下之意：</strong> <br></p>
-<ul>
-<li>尽可能使用、修改、扩展现有工具，平台和框架。</li>
-<li>开发模块化的软件是提倡的方式。</li>
-</ul>
-<h4 id="Reuse-before-buy-buy-before-build"><a href="#Reuse-before-buy-buy-before-build" class="headerlink" title="Reuse before buy, buy before build"></a>Reuse before buy, buy before build</h4><p><strong>原则：</strong>尽可能复内部it资产，不满足的情况下才考虑买外部IP, 最后才是定制化构建新的产品。<br><br><strong>原因：</strong> <br></p>
-<ul>
-<li>购买标准的IT解决方案只要它们不是快要淘汰都比自定制化便宜， 并且享有后续维护。</li>
-<li>定制化的产品后续的维护可能是否昂贵。<br><br><strong>言下之意：</strong> <br></li>
-<li>为了保证IT资产能够尽可能复用，业务单元必须保证治理部门不认为业务实践与行业标准实践有重大的不一致。</li>
-<li>有些商业化的软件是可以配置的，需要评估配置功能的复杂度是否和自己定制的复杂度相近。</li>
-<li>license合规性也是需要考虑的。</li>
-</ul>
-<h4 id="User-Experience-Continuity"><a href="#User-Experience-Continuity" class="headerlink" title="User Experience Continuity"></a>User Experience Continuity</h4><p><strong>原则：</strong>我们交付的产品要尽可能保持体验的延续性。<br><br><strong>原因：</strong>用户不管在公司内部还是外部都会使用不同应用，有不同的使用体验, 我们不想让用户使用自己的产品有使用20年前产品的感觉。<br><br><strong>言下之意：</strong> <br></p>
-<ul>
-<li>主动关注身边发生的新技术和新方法。</li>
-<li>保持好奇心，敢于尝试新鲜事物，积极听取他人意见或建议。</li>
-<li>积极采用新颖的方式来处理问题及机会。</li>
-<li>不断对现状提出问题，挑战传统的工作方法和思维方式。</li>
-<li>敢于为制定新政策、采取新措施或尝试新方法承担可控风险。</li>
-</ul>
-<h4 id="Routine-Tasks-are-automated-where-appropriate-尽可能自动化日常活动"><a href="#Routine-Tasks-are-automated-where-appropriate-尽可能自动化日常活动" class="headerlink" title="Routine Tasks are automated where appropriate 尽可能自动化日常活动"></a>Routine Tasks are automated where appropriate 尽可能自动化日常活动</h4><p> <strong>原则：</strong>尽可能自动化日常活动 <br><br> <strong>原因：</strong>自动化节约人力，提高效率和有更高的容错。<br><br> <strong>言下之意：</strong> <br></p>
-<ul>
-<li>需要专业知识去分析可以自动化流程的过程。</li>
-<li>不是日常的任务不需要自动化。</li>
-<li>自动化流程可以是一个流程接着另一个流程， 业务单元需要集成到整个工作流当中。</li>
-</ul>
-<h4 id="Give-before-receiving"><a href="#Give-before-receiving" class="headerlink" title="Give before receiving"></a>Give before receiving</h4><p> <strong>原则：</strong>先于奉献 <br><br> <strong>原因：</strong>奉献是建立一段关系的真正方式。仅仅关注于从联系中可以得到什么是不能构建相互共赢和可持续关系的。<br><br> <strong>言下之意：</strong>维护和利益相关者的关系是十分必要的。<br></p>
-<h4 id="Everyone-matters-in-Information-management-信息管理和所有人有关"><a href="#Everyone-matters-in-Information-management-信息管理和所有人有关" class="headerlink" title="Everyone matters in Information management 信息管理和所有人有关"></a>Everyone matters in Information management 信息管理和所有人有关</h4><p> <strong>原则：</strong>组织中所有参与信息管理决策的人都需要参与完成业务指标 <br><br> <strong>原因：</strong>信息系统的用户是关键利益相关者，是实际使用技术解决业务需求的人。为了保障信息系统和业务对齐，所有企业中的组织都需要参与到信息系统环境中的各方面。<br><br> <strong>言下之意：</strong>为了整体上作为一个团队，利益相关者需要接受开发信息系统环境的责任。保障必要的资源来完成这条原则。<br></p>
-<h4 id="Be-Collaborative"><a href="#Be-Collaborative" class="headerlink" title="Be Collaborative"></a>Be Collaborative</h4><p> <strong>原则：</strong>相互协助 <br><br> <strong>原因：</strong>If you want to go fast, go alone. If you want to go far, go together.<br><br> <strong>言下之意：</strong> <br></p>
-<ul>
-<li>让各个不同领域的专家参与项目</li>
-<li>跨部门合作</li>
-<li>把好的工作经验，结果，进展记录下来，并且分享它们。</li>
-</ul>
 ]]></content>
       <categories>
         <category>architecture</category>
@@ -3521,6 +3521,47 @@
       </tags>
   </entry>
   <entry>
+    <title>阿里云和aws的网路特点</title>
+    <url>/2018/05/05/cloud-2018-05-06-aliyun%E5%92%8Caws%E7%9A%84%E7%BD%91%E8%B7%AF/</url>
+    <content><![CDATA[<h2 id="本文主要介绍aws网络产品-并对比阿里云的产品"><a href="#本文主要介绍aws网络产品-并对比阿里云的产品" class="headerlink" title="本文主要介绍aws网络产品, 并对比阿里云的产品"></a>本文主要介绍aws网络产品, 并对比阿里云的产品</h2><h3 id="阿里云高速通道支持不同区域vpc直连，这个比aws的vpc-peering好，-vpc-peering只能用于同一区域，且是不同ip段连接。"><a href="#阿里云高速通道支持不同区域vpc直连，这个比aws的vpc-peering好，-vpc-peering只能用于同一区域，且是不同ip段连接。" class="headerlink" title="阿里云高速通道支持不同区域vpc直连，这个比aws的vpc peering好， vpc peering只能用于同一区域，且是不同ip段连接。"></a>阿里云高速通道支持不同区域vpc直连，这个比aws的vpc peering好， vpc peering只能用于同一区域，且是不同ip段连接。</h3><h3 id="aws每个区域的默认-VPC-数量是5个-每个vpc默认子网有200个-VPC-的网段从-x2F-16-到-x2F-28"><a href="#aws每个区域的默认-VPC-数量是5个-每个vpc默认子网有200个-VPC-的网段从-x2F-16-到-x2F-28" class="headerlink" title="aws每个区域的默认 VPC 数量是5个, 每个vpc默认子网有200个, VPC 的网段从&#x2F;16 到 &#x2F;28."></a>aws每个区域的默认 VPC 数量是5个, 每个vpc默认子网有200个, VPC 的网段从&#x2F;16 到 &#x2F;28.</h3><h3 id="aws的弹性网路接口（ENI-，是一个虚拟网卡，只能用于VPC中的实例。阿里云叫弹性网卡。我们可以在虚机默认的主网卡上额外添加网路接口，由于它是弹性的，所以可以把它从一个实例移除，-然后放到另一个虚机上，并保留原有的网路属性。-那么ENI有哪些网路属性呢？-一个弹性网路接口可以有如下属性："><a href="#aws的弹性网路接口（ENI-，是一个虚拟网卡，只能用于VPC中的实例。阿里云叫弹性网卡。我们可以在虚机默认的主网卡上额外添加网路接口，由于它是弹性的，所以可以把它从一个实例移除，-然后放到另一个虚机上，并保留原有的网路属性。-那么ENI有哪些网路属性呢？-一个弹性网路接口可以有如下属性：" class="headerlink" title="aws的弹性网路接口（ENI)，是一个虚拟网卡，只能用于VPC中的实例。阿里云叫弹性网卡。我们可以在虚机默认的主网卡上额外添加网路接口，由于它是弹性的，所以可以把它从一个实例移除， 然后放到另一个虚机上，并保留原有的网路属性。 那么ENI有哪些网路属性呢？ 一个弹性网路接口可以有如下属性："></a>aws的弹性网路接口（ENI)，是一个虚拟网卡，只能用于VPC中的实例。阿里云叫弹性网卡。我们可以在虚机默认的主网卡上额外添加网路接口，由于它是弹性的，所以可以把它从一个实例移除， 然后放到另一个虚机上，并保留原有的网路属性。 那么ENI有哪些网路属性呢？ 一个弹性网路接口可以有如下属性：</h3><ul>
+<li>有一个主要IPv4私有地址</li>
+<li>一个或多个辅助私有地址</li>
+<li>每一个私有IP可以有一个弹性IP</li>
+<li>一个公有IP(取决于子网是否分配公有IP的属性设置）</li>
+<li>一个或多个IPv6地址</li>
+<li>一个或多个安全组</li>
+<li>一个MAC地址</li>
+<li>一个源&#x2F;目标检查标记</li>
+<li>一个描述</li>
+</ul>
+<h3 id="aws的弹性IP不支持IPv6，-弹性IP地址只能在一个特定区域中使用。一个运行着一个弹性IP的实例是不收取ip费用的，但是闲置的弹性IP-aws将按小时收费。而aliyun总是收取EIP保有费的（除非EIP和VPC中虚机绑定），包年包月还不能释放；后付费可以用按量或者按带宽选择。"><a href="#aws的弹性IP不支持IPv6，-弹性IP地址只能在一个特定区域中使用。一个运行着一个弹性IP的实例是不收取ip费用的，但是闲置的弹性IP-aws将按小时收费。而aliyun总是收取EIP保有费的（除非EIP和VPC中虚机绑定），包年包月还不能释放；后付费可以用按量或者按带宽选择。" class="headerlink" title="aws的弹性IP不支持IPv6， 弹性IP地址只能在一个特定区域中使用。一个运行着一个弹性IP的实例是不收取ip费用的，但是闲置的弹性IP aws将按小时收费。而aliyun总是收取EIP保有费的（除非EIP和VPC中虚机绑定），包年包月还不能释放；后付费可以用按量或者按带宽选择。"></a>aws的弹性IP不支持IPv6， 弹性IP地址只能在一个特定区域中使用。一个运行着一个弹性IP的实例是不收取ip费用的，但是闲置的弹性IP aws将按小时收费。而aliyun总是收取EIP保有费的（除非EIP和VPC中虚机绑定），包年包月还不能释放；后付费可以用按量或者按带宽选择。</h3><h3 id="aws-VPC-flow-logs-flow-log用于捕获有关传入和传出-VPC-中网络接口的-IP-流量的信息。流日志数据使用-Amazon-CloudWatch-Logs-存储。创建流日志后，您可以在-Amazon-CloudWatch-Logs-中查看和检索其数据。可以为-VPC、子网或网络接口创建流日志。如果为子网或-VPC-创建流日志，则会监视-VPC-或子网中的每个网络接口。"><a href="#aws-VPC-flow-logs-flow-log用于捕获有关传入和传出-VPC-中网络接口的-IP-流量的信息。流日志数据使用-Amazon-CloudWatch-Logs-存储。创建流日志后，您可以在-Amazon-CloudWatch-Logs-中查看和检索其数据。可以为-VPC、子网或网络接口创建流日志。如果为子网或-VPC-创建流日志，则会监视-VPC-或子网中的每个网络接口。" class="headerlink" title="aws VPC flow logs. flow log用于捕获有关传入和传出 VPC 中网络接口的 IP 流量的信息。流日志数据使用 Amazon CloudWatch Logs 存储。创建流日志后，您可以在 Amazon CloudWatch Logs 中查看和检索其数据。可以为 VPC、子网或网络接口创建流日志。如果为子网或 VPC 创建流日志，则会监视 VPC 或子网中的每个网络接口。"></a>aws VPC flow logs. flow log用于捕获有关传入和传出 VPC 中网络接口的 IP 流量的信息。流日志数据使用 Amazon CloudWatch Logs 存储。创建流日志后，您可以在 Amazon CloudWatch Logs 中查看和检索其数据。可以为 VPC、子网或网络接口创建流日志。如果为子网或 VPC 创建流日志，则会监视 VPC 或子网中的每个网络接口。</h3><h3 id="使用aws的Direct-Connect除了常规的优势：-减少流量费、网速保证、私有连接外，它比vpn连接最大的优势是，支持10G带宽，而vpn只能到4Gbps-实现direct-connect需要2个组件：物理链路和virtual-interface-VIF-。"><a href="#使用aws的Direct-Connect除了常规的优势：-减少流量费、网速保证、私有连接外，它比vpn连接最大的优势是，支持10G带宽，而vpn只能到4Gbps-实现direct-connect需要2个组件：物理链路和virtual-interface-VIF-。" class="headerlink" title="使用aws的Direct Connect除了常规的优势： 减少流量费、网速保证、私有连接外，它比vpn连接最大的优势是，支持10G带宽，而vpn只能到4Gbps. 实现direct connect需要2个组件：物理链路和virtual interface(VIF)。"></a>使用aws的Direct Connect除了常规的优势： 减少流量费、网速保证、私有连接外，它比vpn连接最大的优势是，支持10G带宽，而vpn只能到4Gbps. 实现direct connect需要2个组件：物理链路和virtual interface(VIF)。</h3><p>想要把流量通过direct connect 路由到VPC, 那么需要在aws这边创建私有VIF；如果需要连接公有的aws服务，那么需要创建公有VIF.每个VIF有如下组件：</p>
+<ul>
+<li>Virtual Local Area Network ID. 这个VLAN id是唯一的</li>
+<li>需要连接的IP地址， 支持IPv6.</li>
+<li>只支持BGP路由协议</li>
+</ul>
+<h3 id="aws-LoadBalancer有三种类型：-Classic-Network-Application-LoadBalancer-见下图："><a href="#aws-LoadBalancer有三种类型：-Classic-Network-Application-LoadBalancer-见下图：" class="headerlink" title="aws LoadBalancer有三种类型： Classic, Network, Application LoadBalancer. 见下图："></a>aws LoadBalancer有三种类型： Classic, Network, Application LoadBalancer. 见下图：</h3><p><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.21.58.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.21.58.png"><br>![<a class="link"   href="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.37.46.png]" >https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.37.46.png] <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>(<a class="link"   href="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95" >https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.37.46.png)</p>
+<h3 id="aws-CloudFront-是一个能加速你的静态和动态内容的web服务-除了能分发静态内容-还能分发动态内容和流内容"><a href="#aws-CloudFront-是一个能加速你的静态和动态内容的web服务-除了能分发静态内容-还能分发动态内容和流内容" class="headerlink" title="aws CloudFront 是一个能加速你的静态和动态内容的web服务.除了能分发静态内容,还能分发动态内容和流内容."></a>aws CloudFront 是一个能加速你的静态和动态内容的web服务.除了能分发静态内容,还能分发动态内容和流内容.</h3><h3 id="aws-Route-53的5中路由方式"><a href="#aws-Route-53的5中路由方式" class="headerlink" title="aws Route 53的5中路由方式:"></a>aws Route 53的5中路由方式:</h3><ul>
+<li>sample routing. 简单匹配dns数据库中的记录, 比如一个域名对应一个IP</li>
+<li>weighted routing. 加权路由是按比例分发流量</li>
+<li>latency-based routing. 基于延迟时间选择延迟低的分发流量</li>
+<li>geolocation routing. 根据用户的IP所在地分发流量, 有时候可能定位用户IP, 那么需要定义一个默认路由, 方式路由出现no answer.</li>
+<li>failover routing. 失效转移路由.作为辅助路由, 当主要路由健康检查失败, 那么切换到这个路由.</li>
+</ul>
+<h3 id="aws有三种提供vpn连接的方式："><a href="#aws有三种提供vpn连接的方式：" class="headerlink" title="aws有三种提供vpn连接的方式："></a>aws有三种提供vpn连接的方式：</h3><ul>
+<li>Virtual Private Gateway。VGW是高可用和可扩展的。 给VPC绑定一个VGW, 就可以通过IPsec建立安全连接。 VGW支持静态路由和BGP方式， 如果是静态路由，那么对方网路的IP段不能和VPC相同。</li>
+<li>AWS VPN CloudHub. CloudHub是高可用和可扩展的。如果有多个站点需要建立安全通信，可以使用CloudHUB, 这样不仅可以访问VPC内资源，还可以在站点间建立通信。</li>
+<li>第三方的software VPN</li>
+</ul>
+]]></content>
+      <categories>
+        <category>cloud</category>
+      </categories>
+      <tags>
+        <tag>cloud</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Data Integration</title>
     <url>/2021/04/09/bigdata-2021-04-10-data-integration-tools/</url>
     <content><![CDATA[<h2 id="数据集成简介"><a href="#数据集成简介" class="headerlink" title="数据集成简介"></a>数据集成简介</h2><p>企业总是有从各个系统里集成数据的需求, 数据集成就是一门技术用来提供企业层面的统一和一致的数据视图. 数据集成的目的是维护数据源整体上的数据一致性, 解决企业数据孤岛问题, 提高信息共享和利用的效率. 数据集成的核心任务是将有关联的异构数据源集成到一起, 使用户能够透明地方式访问这些数据.</p>
@@ -3594,47 +3635,6 @@
       </categories>
       <tags>
         <tag>big data</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>阿里云和aws的网路特点</title>
-    <url>/2018/05/05/cloud-2018-05-06-aliyun%E5%92%8Caws%E7%9A%84%E7%BD%91%E8%B7%AF/</url>
-    <content><![CDATA[<h2 id="本文主要介绍aws网络产品-并对比阿里云的产品"><a href="#本文主要介绍aws网络产品-并对比阿里云的产品" class="headerlink" title="本文主要介绍aws网络产品, 并对比阿里云的产品"></a>本文主要介绍aws网络产品, 并对比阿里云的产品</h2><h3 id="阿里云高速通道支持不同区域vpc直连，这个比aws的vpc-peering好，-vpc-peering只能用于同一区域，且是不同ip段连接。"><a href="#阿里云高速通道支持不同区域vpc直连，这个比aws的vpc-peering好，-vpc-peering只能用于同一区域，且是不同ip段连接。" class="headerlink" title="阿里云高速通道支持不同区域vpc直连，这个比aws的vpc peering好， vpc peering只能用于同一区域，且是不同ip段连接。"></a>阿里云高速通道支持不同区域vpc直连，这个比aws的vpc peering好， vpc peering只能用于同一区域，且是不同ip段连接。</h3><h3 id="aws每个区域的默认-VPC-数量是5个-每个vpc默认子网有200个-VPC-的网段从-x2F-16-到-x2F-28"><a href="#aws每个区域的默认-VPC-数量是5个-每个vpc默认子网有200个-VPC-的网段从-x2F-16-到-x2F-28" class="headerlink" title="aws每个区域的默认 VPC 数量是5个, 每个vpc默认子网有200个, VPC 的网段从&#x2F;16 到 &#x2F;28."></a>aws每个区域的默认 VPC 数量是5个, 每个vpc默认子网有200个, VPC 的网段从&#x2F;16 到 &#x2F;28.</h3><h3 id="aws的弹性网路接口（ENI-，是一个虚拟网卡，只能用于VPC中的实例。阿里云叫弹性网卡。我们可以在虚机默认的主网卡上额外添加网路接口，由于它是弹性的，所以可以把它从一个实例移除，-然后放到另一个虚机上，并保留原有的网路属性。-那么ENI有哪些网路属性呢？-一个弹性网路接口可以有如下属性："><a href="#aws的弹性网路接口（ENI-，是一个虚拟网卡，只能用于VPC中的实例。阿里云叫弹性网卡。我们可以在虚机默认的主网卡上额外添加网路接口，由于它是弹性的，所以可以把它从一个实例移除，-然后放到另一个虚机上，并保留原有的网路属性。-那么ENI有哪些网路属性呢？-一个弹性网路接口可以有如下属性：" class="headerlink" title="aws的弹性网路接口（ENI)，是一个虚拟网卡，只能用于VPC中的实例。阿里云叫弹性网卡。我们可以在虚机默认的主网卡上额外添加网路接口，由于它是弹性的，所以可以把它从一个实例移除， 然后放到另一个虚机上，并保留原有的网路属性。 那么ENI有哪些网路属性呢？ 一个弹性网路接口可以有如下属性："></a>aws的弹性网路接口（ENI)，是一个虚拟网卡，只能用于VPC中的实例。阿里云叫弹性网卡。我们可以在虚机默认的主网卡上额外添加网路接口，由于它是弹性的，所以可以把它从一个实例移除， 然后放到另一个虚机上，并保留原有的网路属性。 那么ENI有哪些网路属性呢？ 一个弹性网路接口可以有如下属性：</h3><ul>
-<li>有一个主要IPv4私有地址</li>
-<li>一个或多个辅助私有地址</li>
-<li>每一个私有IP可以有一个弹性IP</li>
-<li>一个公有IP(取决于子网是否分配公有IP的属性设置）</li>
-<li>一个或多个IPv6地址</li>
-<li>一个或多个安全组</li>
-<li>一个MAC地址</li>
-<li>一个源&#x2F;目标检查标记</li>
-<li>一个描述</li>
-</ul>
-<h3 id="aws的弹性IP不支持IPv6，-弹性IP地址只能在一个特定区域中使用。一个运行着一个弹性IP的实例是不收取ip费用的，但是闲置的弹性IP-aws将按小时收费。而aliyun总是收取EIP保有费的（除非EIP和VPC中虚机绑定），包年包月还不能释放；后付费可以用按量或者按带宽选择。"><a href="#aws的弹性IP不支持IPv6，-弹性IP地址只能在一个特定区域中使用。一个运行着一个弹性IP的实例是不收取ip费用的，但是闲置的弹性IP-aws将按小时收费。而aliyun总是收取EIP保有费的（除非EIP和VPC中虚机绑定），包年包月还不能释放；后付费可以用按量或者按带宽选择。" class="headerlink" title="aws的弹性IP不支持IPv6， 弹性IP地址只能在一个特定区域中使用。一个运行着一个弹性IP的实例是不收取ip费用的，但是闲置的弹性IP aws将按小时收费。而aliyun总是收取EIP保有费的（除非EIP和VPC中虚机绑定），包年包月还不能释放；后付费可以用按量或者按带宽选择。"></a>aws的弹性IP不支持IPv6， 弹性IP地址只能在一个特定区域中使用。一个运行着一个弹性IP的实例是不收取ip费用的，但是闲置的弹性IP aws将按小时收费。而aliyun总是收取EIP保有费的（除非EIP和VPC中虚机绑定），包年包月还不能释放；后付费可以用按量或者按带宽选择。</h3><h3 id="aws-VPC-flow-logs-flow-log用于捕获有关传入和传出-VPC-中网络接口的-IP-流量的信息。流日志数据使用-Amazon-CloudWatch-Logs-存储。创建流日志后，您可以在-Amazon-CloudWatch-Logs-中查看和检索其数据。可以为-VPC、子网或网络接口创建流日志。如果为子网或-VPC-创建流日志，则会监视-VPC-或子网中的每个网络接口。"><a href="#aws-VPC-flow-logs-flow-log用于捕获有关传入和传出-VPC-中网络接口的-IP-流量的信息。流日志数据使用-Amazon-CloudWatch-Logs-存储。创建流日志后，您可以在-Amazon-CloudWatch-Logs-中查看和检索其数据。可以为-VPC、子网或网络接口创建流日志。如果为子网或-VPC-创建流日志，则会监视-VPC-或子网中的每个网络接口。" class="headerlink" title="aws VPC flow logs. flow log用于捕获有关传入和传出 VPC 中网络接口的 IP 流量的信息。流日志数据使用 Amazon CloudWatch Logs 存储。创建流日志后，您可以在 Amazon CloudWatch Logs 中查看和检索其数据。可以为 VPC、子网或网络接口创建流日志。如果为子网或 VPC 创建流日志，则会监视 VPC 或子网中的每个网络接口。"></a>aws VPC flow logs. flow log用于捕获有关传入和传出 VPC 中网络接口的 IP 流量的信息。流日志数据使用 Amazon CloudWatch Logs 存储。创建流日志后，您可以在 Amazon CloudWatch Logs 中查看和检索其数据。可以为 VPC、子网或网络接口创建流日志。如果为子网或 VPC 创建流日志，则会监视 VPC 或子网中的每个网络接口。</h3><h3 id="使用aws的Direct-Connect除了常规的优势：-减少流量费、网速保证、私有连接外，它比vpn连接最大的优势是，支持10G带宽，而vpn只能到4Gbps-实现direct-connect需要2个组件：物理链路和virtual-interface-VIF-。"><a href="#使用aws的Direct-Connect除了常规的优势：-减少流量费、网速保证、私有连接外，它比vpn连接最大的优势是，支持10G带宽，而vpn只能到4Gbps-实现direct-connect需要2个组件：物理链路和virtual-interface-VIF-。" class="headerlink" title="使用aws的Direct Connect除了常规的优势： 减少流量费、网速保证、私有连接外，它比vpn连接最大的优势是，支持10G带宽，而vpn只能到4Gbps. 实现direct connect需要2个组件：物理链路和virtual interface(VIF)。"></a>使用aws的Direct Connect除了常规的优势： 减少流量费、网速保证、私有连接外，它比vpn连接最大的优势是，支持10G带宽，而vpn只能到4Gbps. 实现direct connect需要2个组件：物理链路和virtual interface(VIF)。</h3><p>想要把流量通过direct connect 路由到VPC, 那么需要在aws这边创建私有VIF；如果需要连接公有的aws服务，那么需要创建公有VIF.每个VIF有如下组件：</p>
-<ul>
-<li>Virtual Local Area Network ID. 这个VLAN id是唯一的</li>
-<li>需要连接的IP地址， 支持IPv6.</li>
-<li>只支持BGP路由协议</li>
-</ul>
-<h3 id="aws-LoadBalancer有三种类型：-Classic-Network-Application-LoadBalancer-见下图："><a href="#aws-LoadBalancer有三种类型：-Classic-Network-Application-LoadBalancer-见下图：" class="headerlink" title="aws LoadBalancer有三种类型： Classic, Network, Application LoadBalancer. 见下图："></a>aws LoadBalancer有三种类型： Classic, Network, Application LoadBalancer. 见下图：</h3><p><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.21.58.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.21.58.png"><br>![<a class="link"   href="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.37.46.png]" >https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.37.46.png] <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>(<a class="link"   href="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95" >https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>%E5%BF%AB%E7%85%A7%202018-05-06%20%E4%B8%8B%E5%8D%888.37.46.png)</p>
-<h3 id="aws-CloudFront-是一个能加速你的静态和动态内容的web服务-除了能分发静态内容-还能分发动态内容和流内容"><a href="#aws-CloudFront-是一个能加速你的静态和动态内容的web服务-除了能分发静态内容-还能分发动态内容和流内容" class="headerlink" title="aws CloudFront 是一个能加速你的静态和动态内容的web服务.除了能分发静态内容,还能分发动态内容和流内容."></a>aws CloudFront 是一个能加速你的静态和动态内容的web服务.除了能分发静态内容,还能分发动态内容和流内容.</h3><h3 id="aws-Route-53的5中路由方式"><a href="#aws-Route-53的5中路由方式" class="headerlink" title="aws Route 53的5中路由方式:"></a>aws Route 53的5中路由方式:</h3><ul>
-<li>sample routing. 简单匹配dns数据库中的记录, 比如一个域名对应一个IP</li>
-<li>weighted routing. 加权路由是按比例分发流量</li>
-<li>latency-based routing. 基于延迟时间选择延迟低的分发流量</li>
-<li>geolocation routing. 根据用户的IP所在地分发流量, 有时候可能定位用户IP, 那么需要定义一个默认路由, 方式路由出现no answer.</li>
-<li>failover routing. 失效转移路由.作为辅助路由, 当主要路由健康检查失败, 那么切换到这个路由.</li>
-</ul>
-<h3 id="aws有三种提供vpn连接的方式："><a href="#aws有三种提供vpn连接的方式：" class="headerlink" title="aws有三种提供vpn连接的方式："></a>aws有三种提供vpn连接的方式：</h3><ul>
-<li>Virtual Private Gateway。VGW是高可用和可扩展的。 给VPC绑定一个VGW, 就可以通过IPsec建立安全连接。 VGW支持静态路由和BGP方式， 如果是静态路由，那么对方网路的IP段不能和VPC相同。</li>
-<li>AWS VPN CloudHub. CloudHub是高可用和可扩展的。如果有多个站点需要建立安全通信，可以使用CloudHUB, 这样不仅可以访问VPC内资源，还可以在站点间建立通信。</li>
-<li>第三方的software VPN</li>
-</ul>
-]]></content>
-      <categories>
-        <category>cloud</category>
-      </categories>
-      <tags>
-        <tag>cloud</tag>
       </tags>
   </entry>
   <entry>
@@ -4836,38 +4836,6 @@
       </tags>
   </entry>
   <entry>
-    <title>使用aliyun容器服务搭建mysql</title>
-    <url>/2018/03/09/kubernetes-2018-03-10-k8s-mysql/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文简单介绍用aliyun的Kubernetes容器服务搭建mysql集群。首先确保k8s集群已经创建，并且已经开通了相关服务如NAS、容器镜像仓库等服务。</p>
-<h3 id="第一步-创建数据卷"><a href="#第一步-创建数据卷" class="headerlink" title="第一步 创建数据卷"></a>第一步 创建数据卷</h3><ul>
-<li>k8s有个nodeSelector的功能，如果mysql由于单点故障漂移了node，原来的存储会自动重新挂载到新的node(这一步骤是在转移node之前做的). 这样避免了漂移node导致有状态服务不可用的情况。</li>
-<li>aliyun支持k8s三种存储：网盘, NAS, OSS. 基于性能考虑，我们选择NAS。首先需要在NAS控制台右上角选择<code>创建文件系统</code>, 注意所创建的文件系统所在区域必须和k8s集群所在的区域在同一地域:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.36.40.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.36.40.png"><br>然后在新生成的文件系统选择<code>添加挂载点</code>，如图已经有两个挂载点，还不是很清楚为什么不能再添加新的挂载点了。添加的挂载点必须和k8s集群在同一个VPC! 记住<code>挂载地址</code>后续创建k8s数据卷时用到。<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.38.33.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.38.33.png"><br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.40.44.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.40.44.png"></li>
-<li>然后在k8s控制台右上角选中<code>创建</code>, 填上新创建的挂载点域名，点击确定数据卷就创建了：<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.44.29.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.44.29.png"></li>
-</ul>
-<h3 id="第二步-使用aliyun的镜像创建mysql"><a href="#第二步-使用aliyun的镜像创建mysql" class="headerlink" title="第二步 使用aliyun的镜像创建mysql"></a>第二步 使用aliyun的镜像创建mysql</h3><ul>
-<li>在容器服务控制台点击<code>使用镜像</code>，选择mysql部署应用, 第一步填应用名称和选择命名空间：<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.51.42.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.51.42.png"></li>
-<li>然后设置应用配置，注意在这里的环境变量必须设置MYSQL_ROOT_PASSWORD或MYSQL_ALLOW_EMPTY_PASSWORD或MYSQL_RANDOM_ROOT_PASSWORD之一，否则会创建失败。这个页面暂时没有找到设置k8s secret的地方，所以可能如编排模块那样使用secret。其它的资源和网络按需设置, 注意填上上一步创建的pv<code>mysql-pv</code>, 点击创建，然后在控制台应该能看到绿色的部署成功，若有错误，请点进容器组查看相关log。(插一句，如果使用k8s secret创建私密信息，也不能把Secret模板commit到git, 因为base64不是真的加密啊！)<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%885.04.38.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%885.04.38.png"></li>
-</ul>
-<h3 id="第三部，创建service"><a href="#第三部，创建service" class="headerlink" title="第三部，创建service"></a>第三部，创建service</h3><ul>
-<li>现在创建的mysql还只能通过172docker的网段访问， 想要所有pods通过域名访问，则需要给mysql加一个k8s service.可以通过k8s控制台的<code>服务</code>创建，编排示例如下：</li>
-</ul>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">mysql</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">3306</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">app-mysql</span>  <span class="comment"># 注意，这里是pod的label</span></span><br></pre></td></tr></table></figure></div>
-
-<ul>
-<li>这样，基本上容器集群mysql搭建完成了。登入master, 使用k8s端口映射可以验证一下:</li>
-</ul>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">[root@iZuf626rqqtw2yxzeeeqtoZ ~]<span class="comment"># kubectl port-forward `kubectl get pods|grep -v NAME|cut -d &quot; &quot; -f 1` 3306:3306</span></span><br><span class="line">Forwarding from 127.0.0.1:3306 -&gt; 3306</span><br><span class="line"></span><br><span class="line">[root@iZuf626rqqtw2yxzeeeqtoZ ~]<span class="comment"># mysql -h 127.0.0.1 -u root -P 3306 -p </span></span><br><span class="line">Enter password: </span><br><span class="line">Welcome to the MariaDB monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection <span class="built_in">id</span> is 4</span><br><span class="line">Server version: 5.7.18 MySQL Community Server (GPL)</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.</span><br><span class="line"></span><br><span class="line">Type <span class="string">&#x27;help;&#x27;</span> or <span class="string">&#x27;\h&#x27;</span> <span class="keyword">for</span> <span class="built_in">help</span>. Type <span class="string">&#x27;\c&#x27;</span> to clear the current input statement.</span><br><span class="line"></span><br><span class="line">MySQL [(none)]&gt; </span><br></pre></td></tr></table></figure></div>
-
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>可能对阿里云的容器服务还不是很熟悉，感觉控制台有些细节还能够改进。本文还未涉及mysql的HA方案（可选Galera+StatefulSet) 。当然上生产，我们还需要进一步检验有状态服务到底适不适合容器化。</p>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes, mysql</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Kubernetes的volume</title>
     <url>/2018/03/07/kubernetes-2018-03-08-k8s-volume/</url>
     <content><![CDATA[<h2 id="Volume"><a href="#Volume" class="headerlink" title="Volume"></a>Volume</h2><p>简单的说， 一个volume就是一个在磁盘或容器中的目录，volume里面有pod中容器可以访问的数据。K8S的volume主要解决容器中数据存储和容器间数据共享的问题。k8s的volume和pod有相同的生命周期。一个pod可以同时使用不同的volume类型。如果使用volume, 一个pod需要通过<code>spec.volumes</code>指定volume类型，<code>spec.containers.volumeMounts</code>指定挂载目录。volume不能再挂载到其他volume,</p>
@@ -4907,6 +4875,38 @@
       </categories>
       <tags>
         <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用aliyun容器服务搭建mysql</title>
+    <url>/2018/03/09/kubernetes-2018-03-10-k8s-mysql/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文简单介绍用aliyun的Kubernetes容器服务搭建mysql集群。首先确保k8s集群已经创建，并且已经开通了相关服务如NAS、容器镜像仓库等服务。</p>
+<h3 id="第一步-创建数据卷"><a href="#第一步-创建数据卷" class="headerlink" title="第一步 创建数据卷"></a>第一步 创建数据卷</h3><ul>
+<li>k8s有个nodeSelector的功能，如果mysql由于单点故障漂移了node，原来的存储会自动重新挂载到新的node(这一步骤是在转移node之前做的). 这样避免了漂移node导致有状态服务不可用的情况。</li>
+<li>aliyun支持k8s三种存储：网盘, NAS, OSS. 基于性能考虑，我们选择NAS。首先需要在NAS控制台右上角选择<code>创建文件系统</code>, 注意所创建的文件系统所在区域必须和k8s集群所在的区域在同一地域:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.36.40.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.36.40.png"><br>然后在新生成的文件系统选择<code>添加挂载点</code>，如图已经有两个挂载点，还不是很清楚为什么不能再添加新的挂载点了。添加的挂载点必须和k8s集群在同一个VPC! 记住<code>挂载地址</code>后续创建k8s数据卷时用到。<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.38.33.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.38.33.png"><br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.40.44.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.40.44.png"></li>
+<li>然后在k8s控制台右上角选中<code>创建</code>, 填上新创建的挂载点域名，点击确定数据卷就创建了：<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.44.29.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.44.29.png"></li>
+</ul>
+<h3 id="第二步-使用aliyun的镜像创建mysql"><a href="#第二步-使用aliyun的镜像创建mysql" class="headerlink" title="第二步 使用aliyun的镜像创建mysql"></a>第二步 使用aliyun的镜像创建mysql</h3><ul>
+<li>在容器服务控制台点击<code>使用镜像</code>，选择mysql部署应用, 第一步填应用名称和选择命名空间：<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.51.42.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.51.42.png"></li>
+<li>然后设置应用配置，注意在这里的环境变量必须设置MYSQL_ROOT_PASSWORD或MYSQL_ALLOW_EMPTY_PASSWORD或MYSQL_RANDOM_ROOT_PASSWORD之一，否则会创建失败。这个页面暂时没有找到设置k8s secret的地方，所以可能如编排模块那样使用secret。其它的资源和网络按需设置, 注意填上上一步创建的pv<code>mysql-pv</code>, 点击创建，然后在控制台应该能看到绿色的部署成功，若有错误，请点进容器组查看相关log。(插一句，如果使用k8s secret创建私密信息，也不能把Secret模板commit到git, 因为base64不是真的加密啊！)<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%885.04.38.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%885.04.38.png"></li>
+</ul>
+<h3 id="第三部，创建service"><a href="#第三部，创建service" class="headerlink" title="第三部，创建service"></a>第三部，创建service</h3><ul>
+<li>现在创建的mysql还只能通过172docker的网段访问， 想要所有pods通过域名访问，则需要给mysql加一个k8s service.可以通过k8s控制台的<code>服务</code>创建，编排示例如下：</li>
+</ul>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">mysql</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">3306</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">app-mysql</span>  <span class="comment"># 注意，这里是pod的label</span></span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>这样，基本上容器集群mysql搭建完成了。登入master, 使用k8s端口映射可以验证一下:</li>
+</ul>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">[root@iZuf626rqqtw2yxzeeeqtoZ ~]<span class="comment"># kubectl port-forward `kubectl get pods|grep -v NAME|cut -d &quot; &quot; -f 1` 3306:3306</span></span><br><span class="line">Forwarding from 127.0.0.1:3306 -&gt; 3306</span><br><span class="line"></span><br><span class="line">[root@iZuf626rqqtw2yxzeeeqtoZ ~]<span class="comment"># mysql -h 127.0.0.1 -u root -P 3306 -p </span></span><br><span class="line">Enter password: </span><br><span class="line">Welcome to the MariaDB monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection <span class="built_in">id</span> is 4</span><br><span class="line">Server version: 5.7.18 MySQL Community Server (GPL)</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.</span><br><span class="line"></span><br><span class="line">Type <span class="string">&#x27;help;&#x27;</span> or <span class="string">&#x27;\h&#x27;</span> <span class="keyword">for</span> <span class="built_in">help</span>. Type <span class="string">&#x27;\c&#x27;</span> to clear the current input statement.</span><br><span class="line"></span><br><span class="line">MySQL [(none)]&gt; </span><br></pre></td></tr></table></figure></div>
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>可能对阿里云的容器服务还不是很熟悉，感觉控制台有些细节还能够改进。本文还未涉及mysql的HA方案（可选Galera+StatefulSet) 。当然上生产，我们还需要进一步检验有状态服务到底适不适合容器化。</p>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes, mysql</tag>
       </tags>
   </entry>
   <entry>
@@ -4970,30 +4970,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Kubernetes Deployment</title>
-    <url>/2018/04/06/kubernetes-2018-04-08-k8s-deployments/</url>
-    <content><![CDATA[<h3 id="k8s的部署Deployment"><a href="#k8s的部署Deployment" class="headerlink" title="k8s的部署Deployment"></a>k8s的部署Deployment</h3><p>k8s的<code>Deployment</code>提供了<code>pods</code>和<code>ReplicaSets</code>的更新.<br>只需在Deployment对象声明你想要的部署状态, <code>Deployment</code>控制器就会更新到需要的状态.所以这种方式是声明式的.<br>除非第一次部署,k8s采用的部署方式是rolling update(滚动更新). 大致意思是保证服务可用的情况下, 创建一定量的新pods,然后删除一定量的pods,循环这些步骤直到部署完成.</p>
-<h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apiVersion: apps/v1beta2 # for versions before 1.8.0 use apps/v1beta1</span><br><span class="line">kind: Deployment   # apiVersion, kind, metadata, spec这四个字段必须要</span><br><span class="line">metadata:</span><br><span class="line">  name: appweb</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:  # 多个label做and处理. 部署时会自动加一个hash label, 用于区分部署版本</span><br><span class="line">      app: appweb</span><br><span class="line">      tier: backend</span><br><span class="line">      version: 1.0</span><br><span class="line">  replicas: 2</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: appweb</span><br><span class="line">        tier: backend</span><br><span class="line">        version: 1.0</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: app</span><br><span class="line">        image:  registry-vpc.cn-shanghai.aliyuncs.com/web1.0</span><br><span class="line">        env:</span><br><span class="line">          - name: app_WEB_DATABASE_URL</span><br><span class="line">            valueFrom:</span><br><span class="line">              secretKeyRef:</span><br><span class="line">                name: appsecrets</span><br><span class="line">                key: app_WEB_DATABASE_URL</span><br><span class="line">          - name: WORKER_PROCESSES</span><br><span class="line">            value: &quot;2&quot;</span><br><span class="line">          - name: JOB_WORKER_URL</span><br><span class="line">            value: &quot;redis://redis-master:6379/0&quot;</span><br><span class="line">          - name: RAILS_ENV</span><br><span class="line">            value: &quot;production&quot;</span><br><span class="line">          - name: REDIS_CACHE_URL</span><br><span class="line">            value: &quot;redis://redis-master:6379/1&quot;</span><br><span class="line">        ports:</span><br><span class="line">          - containerPort: 7007</span><br><span class="line">        volumeMounts:</span><br><span class="line">          - name: app-pvc</span><br><span class="line">            mountPath: &quot;/app/public/&quot;</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /login</span><br><span class="line">            port: 7007</span><br><span class="line">          initialDelaySeconds: 30</span><br><span class="line">          periodSeconds: 10</span><br><span class="line">          timeoutSeconds: 3</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /login</span><br><span class="line">            port: 7007</span><br><span class="line">          initialDelaySeconds: 30</span><br><span class="line">          periodSeconds: 10</span><br><span class="line">          timeoutSeconds: 3</span><br><span class="line">      volumes:</span><br><span class="line">        - name: app-pvc</span><br><span class="line">          persistentVolumeClaim:</span><br><span class="line">            claimName: app-pvc</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-<h3 id="部署时需要注意的地方"><a href="#部署时需要注意的地方" class="headerlink" title="部署时需要注意的地方:"></a>部署时需要注意的地方:</h3><ul>
-<li>Deployment的模板使用label来找到对应的容器, 所以不建议修改label.如果必须修改请看<a class="link"   href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#label-selector-updates" >label selector update <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li>在一个deploy过程中如果再进行另一个deploy,那么之前那个deploy的pod会立刻删除.</li>
-<li>每次部署都会创建一个部署版本, 如果部署完后又进行扩展(scale), 那么此时进行rollback将不会回滚扩展的部分.因为rollback只会根据(.spec.template)指定来回滚. 可用在每次更新部署的时候,指定<code>--record</code>把部署命令记录到部署更新版本记录里.</li>
-<li>查看部署历史<code>kubectl rollout history deployment/appweb</code>, 可以指定具体版本号<code>kubectl rollout history deployment/appweb --revision=2</code></li>
-<li>回滚到上一个版本命令<code>kubectl rollout undo deployment/appweb</code></li>
-</ul>
-<h3 id="使用金丝雀-灰度-部署"><a href="#使用金丝雀-灰度-部署" class="headerlink" title="使用金丝雀(灰度)部署"></a>使用金丝雀(灰度)部署</h3><p>k8s的金丝雀部署其实就是在现有的版本上再部署只有一个pod的新deployment,用另一个label来区别两个deployment.<br>并把这个新的pod加入原来的service.代码概要如下:</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apiVersion: apps/v1  # old deployment</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: app-production</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      env: production</span><br><span class="line">      app: web</span><br><span class="line">      .....</span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: app-Service</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    app: web</span><br><span class="line">.....</span><br></pre></td></tr></table></figure></div>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apiVersion: apps/v1 # new deployment</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: app-canary</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: web</span><br><span class="line">      env: canary</span><br><span class="line">      .....</span><br></pre></td></tr></table></figure></div>
-<p>如果发布测试没有问题, 那么可以直接运行<code>kubectl set image deployment/app-production app=registry-vpc.cn-shanghai.aliyuncs.com/web2.0</code>滚动更新, 然后删除金丝雀部署.</p>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>本地rails系统迁移到阿里云容器服务小结</title>
     <url>/2018/04/10/kubernetes-2018-04-11-migrate-k8s-summary/</url>
     <content><![CDATA[<blockquote>
@@ -5029,6 +5005,30 @@
 </ul>
 </li>
 </ul>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Kubernetes Deployment</title>
+    <url>/2018/04/06/kubernetes-2018-04-08-k8s-deployments/</url>
+    <content><![CDATA[<h3 id="k8s的部署Deployment"><a href="#k8s的部署Deployment" class="headerlink" title="k8s的部署Deployment"></a>k8s的部署Deployment</h3><p>k8s的<code>Deployment</code>提供了<code>pods</code>和<code>ReplicaSets</code>的更新.<br>只需在Deployment对象声明你想要的部署状态, <code>Deployment</code>控制器就会更新到需要的状态.所以这种方式是声明式的.<br>除非第一次部署,k8s采用的部署方式是rolling update(滚动更新). 大致意思是保证服务可用的情况下, 创建一定量的新pods,然后删除一定量的pods,循环这些步骤直到部署完成.</p>
+<h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apiVersion: apps/v1beta2 # for versions before 1.8.0 use apps/v1beta1</span><br><span class="line">kind: Deployment   # apiVersion, kind, metadata, spec这四个字段必须要</span><br><span class="line">metadata:</span><br><span class="line">  name: appweb</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:  # 多个label做and处理. 部署时会自动加一个hash label, 用于区分部署版本</span><br><span class="line">      app: appweb</span><br><span class="line">      tier: backend</span><br><span class="line">      version: 1.0</span><br><span class="line">  replicas: 2</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: appweb</span><br><span class="line">        tier: backend</span><br><span class="line">        version: 1.0</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: app</span><br><span class="line">        image:  registry-vpc.cn-shanghai.aliyuncs.com/web1.0</span><br><span class="line">        env:</span><br><span class="line">          - name: app_WEB_DATABASE_URL</span><br><span class="line">            valueFrom:</span><br><span class="line">              secretKeyRef:</span><br><span class="line">                name: appsecrets</span><br><span class="line">                key: app_WEB_DATABASE_URL</span><br><span class="line">          - name: WORKER_PROCESSES</span><br><span class="line">            value: &quot;2&quot;</span><br><span class="line">          - name: JOB_WORKER_URL</span><br><span class="line">            value: &quot;redis://redis-master:6379/0&quot;</span><br><span class="line">          - name: RAILS_ENV</span><br><span class="line">            value: &quot;production&quot;</span><br><span class="line">          - name: REDIS_CACHE_URL</span><br><span class="line">            value: &quot;redis://redis-master:6379/1&quot;</span><br><span class="line">        ports:</span><br><span class="line">          - containerPort: 7007</span><br><span class="line">        volumeMounts:</span><br><span class="line">          - name: app-pvc</span><br><span class="line">            mountPath: &quot;/app/public/&quot;</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /login</span><br><span class="line">            port: 7007</span><br><span class="line">          initialDelaySeconds: 30</span><br><span class="line">          periodSeconds: 10</span><br><span class="line">          timeoutSeconds: 3</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /login</span><br><span class="line">            port: 7007</span><br><span class="line">          initialDelaySeconds: 30</span><br><span class="line">          periodSeconds: 10</span><br><span class="line">          timeoutSeconds: 3</span><br><span class="line">      volumes:</span><br><span class="line">        - name: app-pvc</span><br><span class="line">          persistentVolumeClaim:</span><br><span class="line">            claimName: app-pvc</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<h3 id="部署时需要注意的地方"><a href="#部署时需要注意的地方" class="headerlink" title="部署时需要注意的地方:"></a>部署时需要注意的地方:</h3><ul>
+<li>Deployment的模板使用label来找到对应的容器, 所以不建议修改label.如果必须修改请看<a class="link"   href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#label-selector-updates" >label selector update <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li>在一个deploy过程中如果再进行另一个deploy,那么之前那个deploy的pod会立刻删除.</li>
+<li>每次部署都会创建一个部署版本, 如果部署完后又进行扩展(scale), 那么此时进行rollback将不会回滚扩展的部分.因为rollback只会根据(.spec.template)指定来回滚. 可用在每次更新部署的时候,指定<code>--record</code>把部署命令记录到部署更新版本记录里.</li>
+<li>查看部署历史<code>kubectl rollout history deployment/appweb</code>, 可以指定具体版本号<code>kubectl rollout history deployment/appweb --revision=2</code></li>
+<li>回滚到上一个版本命令<code>kubectl rollout undo deployment/appweb</code></li>
+</ul>
+<h3 id="使用金丝雀-灰度-部署"><a href="#使用金丝雀-灰度-部署" class="headerlink" title="使用金丝雀(灰度)部署"></a>使用金丝雀(灰度)部署</h3><p>k8s的金丝雀部署其实就是在现有的版本上再部署只有一个pod的新deployment,用另一个label来区别两个deployment.<br>并把这个新的pod加入原来的service.代码概要如下:</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apiVersion: apps/v1  # old deployment</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: app-production</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      env: production</span><br><span class="line">      app: web</span><br><span class="line">      .....</span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: app-Service</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    app: web</span><br><span class="line">.....</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">apiVersion: apps/v1 # new deployment</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: app-canary</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: web</span><br><span class="line">      env: canary</span><br><span class="line">      .....</span><br></pre></td></tr></table></figure></div>
+<p>如果发布测试没有问题, 那么可以直接运行<code>kubectl set image deployment/app-production app=registry-vpc.cn-shanghai.aliyuncs.com/web2.0</code>滚动更新, 然后删除金丝雀部署.</p>
 ]]></content>
       <categories>
         <category>kubernetes</category>
@@ -5220,19 +5220,6 @@
       </tags>
   </entry>
   <entry>
-    <title>OpenShift A/B Deployment</title>
-    <url>/2018/01/08/openshift-2018-01-09-openshift-AB-deploy/</url>
-    <content><![CDATA[<h3 id="OpenShift的AB部署"><a href="#OpenShift的AB部署" class="headerlink" title="OpenShift的AB部署"></a>OpenShift的AB部署</h3><p>AB test原理就不讲了。直接上代码</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">oc new-project cotd --display-name=<span class="string">&#x27;A/B Deployment Example&#x27;</span>  --description=<span class="string">&#x27;A/B Deployment Example&#x27;</span></span><br><span class="line">oc new-app --name=<span class="string">&#x27;cats&#x27;</span> -l name=<span class="string">&#x27;cats&#x27;</span>  php:5.6~https://github.com/devops-with-openshift/cotd.git  -e SELECTOR=cats</span><br><span class="line">oc expose service cats --name=cats -l name=<span class="string">&#x27;cats&#x27;</span></span><br><span class="line">oc new-app --name=<span class="string">&#x27;city&#x27;</span> -l name=<span class="string">&#x27;city&#x27;</span>  php:5.6~https://github.com/devops-with-openshift/cotd.git -e SELECTOR=cities </span><br><span class="line">oc expose srv/city --name=city -l name=<span class="string">&#x27;city&#x27;</span></span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>openshift</category>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes, openshift</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>OpenShift Annotation</title>
     <url>/2018/01/08/openshift-2018-01-09-openshift-annotation/</url>
     <content><![CDATA[<h3 id="OpenShift的Annotation"><a href="#OpenShift的Annotation" class="headerlink" title="OpenShift的Annotation"></a>OpenShift的Annotation</h3><p>Openshift的Annotation是一个键值对，用于机器识别等其它用途。它不像label适用于人类识别，所以可以存较大的值。</p>
@@ -5253,6 +5240,19 @@
 
 <h3 id="蓝绿最佳适用场景"><a href="#蓝绿最佳适用场景" class="headerlink" title="蓝绿最佳适用场景"></a>蓝绿最佳适用场景</h3><p>无状态的服务实现蓝绿部署较为轻松， 因为不需要考虑旧实例的长事务和数据的迁移和回滚。</p>
 ]]></content>
+      <categories>
+        <category>openshift</category>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes, openshift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>OpenShift A/B Deployment</title>
+    <url>/2018/01/08/openshift-2018-01-09-openshift-AB-deploy/</url>
+    <content><![CDATA[<h3 id="OpenShift的AB部署"><a href="#OpenShift的AB部署" class="headerlink" title="OpenShift的AB部署"></a>OpenShift的AB部署</h3><p>AB test原理就不讲了。直接上代码</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">oc new-project cotd --display-name=<span class="string">&#x27;A/B Deployment Example&#x27;</span>  --description=<span class="string">&#x27;A/B Deployment Example&#x27;</span></span><br><span class="line">oc new-app --name=<span class="string">&#x27;cats&#x27;</span> -l name=<span class="string">&#x27;cats&#x27;</span>  php:5.6~https://github.com/devops-with-openshift/cotd.git  -e SELECTOR=cats</span><br><span class="line">oc expose service cats --name=cats -l name=<span class="string">&#x27;cats&#x27;</span></span><br><span class="line">oc new-app --name=<span class="string">&#x27;city&#x27;</span> -l name=<span class="string">&#x27;city&#x27;</span>  php:5.6~https://github.com/devops-with-openshift/cotd.git -e SELECTOR=cities </span><br><span class="line">oc expose srv/city --name=city -l name=<span class="string">&#x27;city&#x27;</span></span><br></pre></td></tr></table></figure></div>]]></content>
       <categories>
         <category>openshift</category>
         <category>kubernetes</category>
@@ -5333,6 +5333,43 @@
       </tags>
   </entry>
   <entry>
+    <title>Openshift的网路</title>
+    <url>/2018/02/21/openshift-2018-02-22-openshift-network/</url>
+    <content><![CDATA[<blockquote>
+<p><a class="link"   href="https://docs.openshift.org/latest/architecture/networking/networking.html" >https://docs.openshift.org/latest/architecture/networking/networking.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>openshift的网路架构是建立在kubernetes的service上的。K8S的<a class="link"   href="https://kubernetes.io/docs/concepts/services-networking/service/" >Service <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>是一组pods和访问这些pods的逻辑抽象，service解耦了下游pods的网路变化。但是由于Service也会变化，所以openshift在master运行<a class="link"   href="https://github.com/skynetservices/skydns" >skyDNS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>来解决service网路的变化。</p>
+<h3 id="SDN"><a href="#SDN" class="headerlink" title="SDN"></a>SDN</h3><p>Software Define Networking软件定义集群网络使openshift的pods相互能够通信，SDN使用Open vSwitch(OVS)来管理配置网路。有三种SDN插件可以配置pods网路：</p>
+<ul>
+<li>ovs-subnet, 提供所有的pods直接相互通信</li>
+<li>ovs-multitenant, 能够提供项目级别的pods和service隔离。每一个项目都有一个VNID, 这个网路内项目之间的pods不能相互通信。VNID 0是一个例外，可以和所有pods通信，可以提供负载均衡等服务。Openshift正是使用br0的tag VNID功能，做到网络的隔离。</li>
+<li>ovs-networkpolicy, 这里用户可以自己定义网路规则。</li>
+</ul>
+<p>在master上，Openshift SDN分配网络给运行节点并且注册到etcd, SDN会给新的节点分配新的子网，可以定义的网段有10.128.0.0&#x2F;14, node节点定义在10.128.0.0&#x2F;23。SDN是不会给master配置集群网络访问，所以master节点是不能访问集群网络的，除非它也作为运行节点。</p>
+<p>在运行节点，SDN先在etcd注册，然后会创建三个网络装置: br0,tun0,vxlan_sys_4789</p>
+<ul>
+<li>br0, ovs的网桥，pods会和它连在一起。SDN也会在这个网桥上配置非子网的流量进出规则。</li>
+<li>tun0, ovs的内部端口，在br0的port 2, 是子网的网关，负责pods访问外部网络。SDN会通过配置netfilter和路由规则使集群子网NAT访问外部网络。<br><code>eth0 (in A’s netns) → vethA → br0 → tun0 → (NAT) → eth0 (physical device) → Internet</code></li>
+<li>vxlan_sys_4798, OVS的VXLAN，在br0的port 1, 提供容器访问远程节点。<br><code>eth0 (in A’s netns) → vethA → br0 → vxlan0 → network → vxlan0 → br0 → vethB → eth0 (in B’s netns)</code></li>
+</ul>
+<p>SDN会对每个新的pod作4件事：</p>
+<ul>
+<li>分配子网内的一个新的ip给pod。</li>
+<li>连接宿主机边pod的veth网络接口到OVS的br0。</li>
+<li>在OVS数据库增加一条OpenFlow规则，让到新pod的流量导入正确的OVS端口。</li>
+<li>如果是多租户情况， 给流量打上标记VNID, 并且使其正确流向对应VNID. 没有匹配的VNID将会采用默认规则。</li>
+</ul>
+<p>SDN运行节点也会跟踪master节点对子网的更新, 当新的子网加入，br0会在新增一条Openflow规则，使vxlan0能够访问远程子网。</p>
+]]></content>
+      <categories>
+        <category>openshift</category>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes, openshift</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Openshift中Kubernetes的基础设施</title>
     <url>/2018/03/04/openshift-2018-03-05-kubernetes-infrastrcture/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>主要是从Openshift Origin的<a class="link"   href="https://docs.openshift.org/latest/architecture/infrastructure_components/kubernetes_infrastructure.html#master-components" >Doc <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>看到的, 对应k8s 1.7. 加上官网的Doc. </p>
@@ -5385,43 +5422,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Openshift的网路</title>
-    <url>/2018/02/21/openshift-2018-02-22-openshift-network/</url>
-    <content><![CDATA[<blockquote>
-<p><a class="link"   href="https://docs.openshift.org/latest/architecture/networking/networking.html" >https://docs.openshift.org/latest/architecture/networking/networking.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</blockquote>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>openshift的网路架构是建立在kubernetes的service上的。K8S的<a class="link"   href="https://kubernetes.io/docs/concepts/services-networking/service/" >Service <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>是一组pods和访问这些pods的逻辑抽象，service解耦了下游pods的网路变化。但是由于Service也会变化，所以openshift在master运行<a class="link"   href="https://github.com/skynetservices/skydns" >skyDNS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>来解决service网路的变化。</p>
-<h3 id="SDN"><a href="#SDN" class="headerlink" title="SDN"></a>SDN</h3><p>Software Define Networking软件定义集群网络使openshift的pods相互能够通信，SDN使用Open vSwitch(OVS)来管理配置网路。有三种SDN插件可以配置pods网路：</p>
-<ul>
-<li>ovs-subnet, 提供所有的pods直接相互通信</li>
-<li>ovs-multitenant, 能够提供项目级别的pods和service隔离。每一个项目都有一个VNID, 这个网路内项目之间的pods不能相互通信。VNID 0是一个例外，可以和所有pods通信，可以提供负载均衡等服务。Openshift正是使用br0的tag VNID功能，做到网络的隔离。</li>
-<li>ovs-networkpolicy, 这里用户可以自己定义网路规则。</li>
-</ul>
-<p>在master上，Openshift SDN分配网络给运行节点并且注册到etcd, SDN会给新的节点分配新的子网，可以定义的网段有10.128.0.0&#x2F;14, node节点定义在10.128.0.0&#x2F;23。SDN是不会给master配置集群网络访问，所以master节点是不能访问集群网络的，除非它也作为运行节点。</p>
-<p>在运行节点，SDN先在etcd注册，然后会创建三个网络装置: br0,tun0,vxlan_sys_4789</p>
-<ul>
-<li>br0, ovs的网桥，pods会和它连在一起。SDN也会在这个网桥上配置非子网的流量进出规则。</li>
-<li>tun0, ovs的内部端口，在br0的port 2, 是子网的网关，负责pods访问外部网络。SDN会通过配置netfilter和路由规则使集群子网NAT访问外部网络。<br><code>eth0 (in A’s netns) → vethA → br0 → tun0 → (NAT) → eth0 (physical device) → Internet</code></li>
-<li>vxlan_sys_4798, OVS的VXLAN，在br0的port 1, 提供容器访问远程节点。<br><code>eth0 (in A’s netns) → vethA → br0 → vxlan0 → network → vxlan0 → br0 → vethB → eth0 (in B’s netns)</code></li>
-</ul>
-<p>SDN会对每个新的pod作4件事：</p>
-<ul>
-<li>分配子网内的一个新的ip给pod。</li>
-<li>连接宿主机边pod的veth网络接口到OVS的br0。</li>
-<li>在OVS数据库增加一条OpenFlow规则，让到新pod的流量导入正确的OVS端口。</li>
-<li>如果是多租户情况， 给流量打上标记VNID, 并且使其正确流向对应VNID. 没有匹配的VNID将会采用默认规则。</li>
-</ul>
-<p>SDN运行节点也会跟踪master节点对子网的更新, 当新的子网加入，br0会在新增一条Openflow规则，使vxlan0能够访问远程子网。</p>
-]]></content>
-      <categories>
-        <category>openshift</category>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes, openshift</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Luigi基础概念</title>
     <url>/2018/07/19/python-2018-07-20-luiqi-base/</url>
     <content><![CDATA[<h2 id="基础模块"><a href="#基础模块" class="headerlink" title="基础模块"></a>基础模块</h2><p>想要构建一个基本的Luigi工作流, 需要创建<code>Task</code>和<code>Target</code>类, 还有<code>Parameter</code>类.<br>使用这些类来定义任务的好处是在代码里定义依赖, 而不是使用DSL.</p>
@@ -5459,53 +5459,6 @@
 
 <h3 id="Luigi的执行模型"><a href="#Luigi的执行模型" class="headerlink" title="Luigi的执行模型"></a>Luigi的执行模型</h3><p>luigi的执行模型很简单, 一个worker的进程执行所有tasks, 所以如果有成千上万个tasks, 扩展性将成为问题.</p>
 <h3 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h3><p>luigi的调度由单独的<code>luigid</code>中心化管理, 多个worker执行run()时, 每次都会从依赖树从头向下遍历, 找到需要执行的task运行, 跳过已完成的task. 见<br><a class="link"   href="https://www.arashrouhani.com/luigid-basics-jun-2015/#/" >gif <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Pandas的Groupby</title>
-    <url>/2018/08/30/python-2018-08-31-pandas/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一般需要对数据做分割&#x2F;处理&#x2F;合并的时候会使用<code>groupby</code>, <code>groupby</code>的意思类似sql语句的分组. 对一个<code>DataFrame</code>做分割、处理、合并的过程一般如下图所示， 通过这样的流程能做到聚合数据的能力。<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/groupby-example.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/groupby-example.png"></p>
-<h3 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h3><p>官方叫<code>split</code>, 是把数据依照某种条件分组. 对一个DataFrame使用groupby就达到了<code>split</code>.</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: df = pd.DataFrame(&#123;<span class="string">&#x27;A&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>,<span class="string">&#x27;bar&#x27;</span>,<span class="string">&#x27;foo&#x27;</span>,<span class="string">&#x27;bar&#x27;</span>,<span class="string">&#x27;foo&#x27;</span>,<span class="string">&#x27;bar&#x27;</span>,<span class="string">&#x27;foo&#x27;</span>,<span class="string">&#x27;foo&#x27;</span>], <span class="string">&#x27;B&#x27;</span>:[<span class="string">&#x27;one&#x27;</span>,<span class="string">&#x27;one&#x27;</span>,<span class="string">&#x27;two&#x27;</span>,<span class="string">&#x27;three&#x27;</span>,<span class="string">&#x27;two&#x27;</span>,<span class="string">&#x27;two&#x27;</span>,<span class="string">&#x27;one&#x27;</span>,<span class="string">&#x27;three&#x27;</span>],<span class="string">&#x27;C&#x27;</span>:[<span class="number">332</span>,<span class="number">42</span>,<span class="number">12</span>,<span class="number">31</span>,<span class="number">21</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">14</span>]&#125;)</span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: df</span><br><span class="line">Out[<span class="number">3</span>]: </span><br><span class="line">     A      B    C</span><br><span class="line"><span class="number">0</span>  foo    one  <span class="number">332</span></span><br><span class="line"><span class="number">1</span>  bar    one   <span class="number">42</span></span><br><span class="line"><span class="number">2</span>  foo    two   <span class="number">12</span></span><br><span class="line"><span class="number">3</span>  bar  three   <span class="number">31</span></span><br><span class="line"><span class="number">4</span>  foo    two   <span class="number">21</span></span><br><span class="line"><span class="number">5</span>  bar    two    <span class="number">1</span></span><br><span class="line"><span class="number">6</span>  foo    one    <span class="number">3</span></span><br><span class="line"><span class="number">7</span>  foo  three   <span class="number">14</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: group_a=df.groupby(<span class="string">&#x27;A&#x27;</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: group_a</span><br><span class="line">Out[<span class="number">5</span>]: &lt;pandas.core.groupby.DataFrameGroupBy <span class="built_in">object</span> at <span class="number">0x7f78fb9cfc50</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">52</span>]: grouped.get_group(<span class="string">&#x27;A&#x27;</span>)</span><br><span class="line">Out[<span class="number">52</span>]: </span><br><span class="line">     A      B         C         D</span><br><span class="line"><span class="number">1</span>  bar    one  <span class="number">0.254161</span>  <span class="number">1.511763</span></span><br><span class="line"><span class="number">3</span>  bar  three  <span class="number">0.215897</span> -<span class="number">0.990582</span></span><br><span class="line"><span class="number">5</span>  bar    two -<span class="number">0.077118</span>  <span class="number">1.211526</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="处理"><a href="#处理" class="headerlink" title="处理"></a>处理</h3><p><code>apply</code>对每个分割好的group运行某个(多个)函数. 在这一步我们可能会使用到如下方法:</p>
-<ul>
-<li><code>aggregation</code><br>的作用是统计组里的数据: 如平均值, 求和, 计数. 从下面的例子可以看出来, <code>aggregation</code>后得到一个以<code>groupby</code>参数作为<code>groupname</code>,<br>并且以它为<code>index</code>的<code>DataFrame</code>; 如果是通过多个值<code>groupby</code>的那么结果是以<code>MultiIndex</code>为索引, 当然index是可以通过<code>as_index</code>来设置的(<code>.reset_index()</code><br>也可以得到相同效果). <code>aggregation</code>函数会排除<code>NA</code>值.</li>
-</ul>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">6</span>]: group_a.agg(<span class="built_in">sum</span>)   <span class="comment">## 注意, 这里如果传递[sum]将会对所有column做sum</span></span><br><span class="line">Out[<span class="number">6</span>]: </span><br><span class="line">       C</span><br><span class="line">A       </span><br><span class="line">bar   <span class="number">74</span></span><br><span class="line">foo  <span class="number">382</span></span><br><span class="line">In [<span class="number">8</span>]: group_a[<span class="string">&#x27;C&#x27;</span>].agg(<span class="built_in">sum</span>)  <span class="comment">## 注意, 这里传给agg, 如果是[sum], 返回的是Dataframe, 否则是Series</span></span><br><span class="line">Out[<span class="number">8</span>]: </span><br><span class="line">A</span><br><span class="line">bar     <span class="number">74</span></span><br><span class="line">foo    <span class="number">382</span></span><br><span class="line">Name: C, dtype: int64</span><br><span class="line"></span><br><span class="line">In [<span class="number">9</span>]: group_a_b=df.groupby([<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">10</span>]: group_a_b.agg(<span class="built_in">sum</span>)</span><br><span class="line">Out[<span class="number">10</span>]: </span><br><span class="line">             C</span><br><span class="line">A   B         </span><br><span class="line">bar one     <span class="number">42</span></span><br><span class="line">    three   <span class="number">31</span></span><br><span class="line">    two      <span class="number">1</span></span><br><span class="line">foo one    <span class="number">335</span></span><br><span class="line">    three   <span class="number">14</span></span><br><span class="line">    two     <span class="number">33</span></span><br><span class="line">In [<span class="number">15</span>]: group_a_b=df.groupby([<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>], as_index=<span class="literal">False</span>).agg(<span class="built_in">sum</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">16</span>]: group_a_b</span><br><span class="line">Out[<span class="number">16</span>]: </span><br><span class="line">     A      B    C</span><br><span class="line"><span class="number">0</span>  bar    one   <span class="number">42</span></span><br><span class="line"><span class="number">1</span>  bar  three   <span class="number">31</span></span><br><span class="line"><span class="number">2</span>  bar    two    <span class="number">1</span></span><br><span class="line"><span class="number">3</span>  foo    one  <span class="number">335</span></span><br><span class="line"><span class="number">4</span>  foo  three   <span class="number">14</span></span><br><span class="line"><span class="number">5</span>  foo    two   <span class="number">33</span></span><br></pre></td></tr></table></figure></div>
-<p>所有的<code>Aggregation</code>函数如下表, 它们返回的对象一般会减少维度:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-08-31%20%E4%B8%8B%E5%8D%882.59.31.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-08-31%20%E4%B8%8B%E5%8D%882.59.31.png"></p>
-<p><code>agg()</code>是可以一次运作多个函数的, 注意下面这个函数是对于<code>grouped Series</code>, 即切出了一个<code>series</code>操作的, 返回的是<code>dataframe</code>. </p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">30</span>]: group_a[<span class="string">&#x27;C&#x27;</span>].agg([<span class="built_in">sum</span>, <span class="built_in">min</span>])</span><br><span class="line">Out[<span class="number">30</span>]: </span><br><span class="line">     <span class="built_in">sum</span>  <span class="built_in">min</span></span><br><span class="line">A            </span><br><span class="line">bar   <span class="number">74</span>    <span class="number">1</span></span><br><span class="line">foo  <span class="number">382</span>    <span class="number">3</span></span><br></pre></td></tr></table></figure></div>
-<p>如果对一个<code>groupby</code> <code>Dataframe</code>应用多个函数, 那么每个column都会有各自的聚合函数列:</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">63</span>]: df.groupby(<span class="string">&#x27;A&#x27;</span>).agg([<span class="built_in">sum</span>, <span class="built_in">min</span>,<span class="built_in">max</span>])</span><br><span class="line">Out[<span class="number">63</span>]: </span><br><span class="line">                     B              C         </span><br><span class="line">                   <span class="built_in">sum</span>  <span class="built_in">min</span>  <span class="built_in">max</span>  <span class="built_in">sum</span> <span class="built_in">min</span>  <span class="built_in">max</span></span><br><span class="line">A                                             </span><br><span class="line">bar        onethreetwo  one  two   <span class="number">74</span>   <span class="number">1</span>   <span class="number">42</span></span><br><span class="line">foo  onetwotwoonethree  one  two  <span class="number">382</span>   <span class="number">3</span>  <span class="number">332</span></span><br><span class="line"><span class="comment">###重命名列名</span></span><br><span class="line">In [<span class="number">65</span>]: df.groupby(<span class="string">&#x27;A&#x27;</span>).agg([<span class="built_in">sum</span>, <span class="built_in">min</span>,<span class="built_in">max</span>]).rename(columns=&#123;<span class="string">&#x27;B&#x27;</span>:<span class="string">&#x27;reName&#x27;</span>&#125;)</span><br><span class="line">Out[<span class="number">65</span>]: </span><br><span class="line">                   reName              C         </span><br><span class="line">                   <span class="built_in">sum</span>  <span class="built_in">min</span>  <span class="built_in">max</span>  <span class="built_in">sum</span> <span class="built_in">min</span>  <span class="built_in">max</span></span><br><span class="line">A                                             </span><br><span class="line">bar        onethreetwo  one  two   <span class="number">74</span>   <span class="number">1</span>   <span class="number">42</span></span><br><span class="line">foo  onetwotwoonethree  one  two  <span class="number">382</span>   <span class="number">3</span>  <span class="number">332</span></span><br></pre></td></tr></table></figure></div>
-<p>agg的函数也可以通过<code>lambda</code>把所有列改成标量值:</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">17</span>]: df.groudby(<span class="string">&#x27;A&#x27;</span>).agg(<span class="keyword">lambda</span> x:<span class="number">1</span>)</span><br><span class="line">Out[<span class="number">17</span>]: </span><br><span class="line">     B  C</span><br><span class="line">A        </span><br><span class="line">bar  <span class="number">1</span>  <span class="number">1</span></span><br><span class="line">foo  <span class="number">1</span>  <span class="number">1</span></span><br></pre></td></tr></table></figure></div>
-<p>通过给<code>agg()</code>传递<code>dict</code>可以对Dataframe的不同column应用不同的聚合. 这样得出的column没有顺序的, 想要有顺序需要使用<code>OrderedDict</code></p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">51</span>]: df.groupby(<span class="string">&#x27;A&#x27;</span>).agg(&#123;<span class="string">&#x27;B&#x27;</span>: <span class="built_in">sum</span>, <span class="string">&#x27;C&#x27;</span>: <span class="built_in">min</span>&#125;)</span><br><span class="line">Out[<span class="number">51</span>]: </span><br><span class="line">     C                  B</span><br><span class="line">A                        </span><br><span class="line">bar  <span class="number">1</span>        onethreetwo</span><br><span class="line">foo  <span class="number">3</span>  onetwotwoonethree</span><br></pre></td></tr></table></figure></div>
-
-<ul>
-<li><code>transformation</code><br><code>transform</code>方法把一个groupby对象做转变, 返回一个和grouped对象一样<code>index</code>的对象（这点和<code>agg</code>不同， <code>agg</code>通常返回维度减少的数据）. 这个<code>transform</code>实际传入的函数必须满足:<ul>
-<li>返回和group chunk一样大小的对象, 或者返回的对象大小可以<code>broadcastable</code>到group chunk size(<code>broadcasting</code>是numpy的术语, 描述了numpy对待不同形状阵列时如何计算.)</li>
-<li>在group chunk上做一列一列操作. 实际使用的是chunk.apply</li>
-<li>不能直接(inplace)在group chunk上修改, group chunk需要认为是不可改变的, <code>grouped.transform(lambda x: x.fillna(inplace=True))</code><br>这样的直接修改可能带来意外结果.</li>
-<li>也可以直接对整个chunk做操作</li>
-</ul>
-</li>
-</ul>
-<p>这里有个例子，讲述了如何使用<code>transform</code>减少处理的逻辑<a class="link"   href="http://pbpython.com/pandas_transform.html" >http://pbpython.com/pandas_transform.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<ul>
-<li><code>filteration</code><br>使用<code>filter</code>函数可以返回原来对象的一个子集. <code>filter</code>的参数是个应用到整个组的函数， 其返回为True&#x2F;False.</li>
-</ul>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">115</span>]: sf = pd.Series([<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">116</span>]: sf.groupby(sf).<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: x.<span class="built_in">sum</span>() &gt; <span class="number">2</span>)</span><br><span class="line">Out[<span class="number">116</span>]: </span><br><span class="line"><span class="number">3</span>    <span class="number">3</span></span><br><span class="line"><span class="number">4</span>    <span class="number">3</span></span><br><span class="line"><span class="number">5</span>    <span class="number">3</span></span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [<span class="number">117</span>]: dff = pd.DataFrame(&#123;<span class="string">&#x27;A&#x27;</span>: np.arange(<span class="number">8</span>), <span class="string">&#x27;B&#x27;</span>: <span class="built_in">list</span>(<span class="string">&#x27;aabbbbcc&#x27;</span>)&#125;)</span><br><span class="line"></span><br><span class="line">In [<span class="number">118</span>]: dff.groupby(<span class="string">&#x27;B&#x27;</span>).<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: <span class="built_in">len</span>(x) &gt; <span class="number">2</span>)</span><br><span class="line">Out[<span class="number">118</span>]: </span><br><span class="line">   A  B</span><br><span class="line"><span class="number">2</span>  <span class="number">2</span>  b</span><br><span class="line"><span class="number">3</span>  <span class="number">3</span>  b</span><br><span class="line"><span class="number">4</span>  <span class="number">4</span>  b</span><br><span class="line"><span class="number">5</span>  <span class="number">5</span>  b</span><br><span class="line"></span><br><span class="line">In [<span class="number">119</span>]: dff.groupby(<span class="string">&#x27;B&#x27;</span>).<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: <span class="built_in">len</span>(x) &gt; <span class="number">2</span>, dropna=<span class="literal">False</span>)</span><br><span class="line">Out[<span class="number">119</span>]: </span><br><span class="line">     A    B</span><br><span class="line"><span class="number">0</span>  NaN  NaN</span><br><span class="line"><span class="number">1</span>  NaN  NaN</span><br><span class="line"><span class="number">2</span>  <span class="number">2.0</span>    b</span><br><span class="line"><span class="number">3</span>  <span class="number">3.0</span>    b</span><br><span class="line"><span class="number">4</span>  <span class="number">4.0</span>    b</span><br><span class="line"><span class="number">5</span>  <span class="number">5.0</span>    b</span><br><span class="line"><span class="number">6</span>  NaN  NaN</span><br><span class="line"><span class="number">7</span>  NaN  NaN</span><br><span class="line"></span><br><span class="line">In [<span class="number">120</span>]: dff[<span class="string">&#x27;C&#x27;</span>] = np.arange(<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">121</span>]: dff.groupby(<span class="string">&#x27;B&#x27;</span>).<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: <span class="built_in">len</span>(x[<span class="string">&#x27;C&#x27;</span>]) &gt; <span class="number">2</span>)</span><br><span class="line">Out[<span class="number">121</span>]: </span><br><span class="line">   A  B  C</span><br><span class="line"><span class="number">2</span>  <span class="number">2</span>  b  <span class="number">2</span></span><br><span class="line"><span class="number">3</span>  <span class="number">3</span>  b  <span class="number">3</span></span><br><span class="line"><span class="number">4</span>  <span class="number">4</span>  b  <span class="number">4</span></span><br><span class="line"><span class="number">5</span>  <span class="number">5</span>  b  <span class="number">5</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-
-
-<h3 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h3><p><code>combining</code>是再把处理好的数据组合一起.</p>
 ]]></content>
       <categories>
         <category>python</category>
@@ -5574,6 +5527,53 @@
       </categories>
       <tags>
         <tag>python, pandas</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Pandas的Groupby</title>
+    <url>/2018/08/30/python-2018-08-31-pandas/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一般需要对数据做分割&#x2F;处理&#x2F;合并的时候会使用<code>groupby</code>, <code>groupby</code>的意思类似sql语句的分组. 对一个<code>DataFrame</code>做分割、处理、合并的过程一般如下图所示， 通过这样的流程能做到聚合数据的能力。<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/groupby-example.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/groupby-example.png"></p>
+<h3 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h3><p>官方叫<code>split</code>, 是把数据依照某种条件分组. 对一个DataFrame使用groupby就达到了<code>split</code>.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: df = pd.DataFrame(&#123;<span class="string">&#x27;A&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>,<span class="string">&#x27;bar&#x27;</span>,<span class="string">&#x27;foo&#x27;</span>,<span class="string">&#x27;bar&#x27;</span>,<span class="string">&#x27;foo&#x27;</span>,<span class="string">&#x27;bar&#x27;</span>,<span class="string">&#x27;foo&#x27;</span>,<span class="string">&#x27;foo&#x27;</span>], <span class="string">&#x27;B&#x27;</span>:[<span class="string">&#x27;one&#x27;</span>,<span class="string">&#x27;one&#x27;</span>,<span class="string">&#x27;two&#x27;</span>,<span class="string">&#x27;three&#x27;</span>,<span class="string">&#x27;two&#x27;</span>,<span class="string">&#x27;two&#x27;</span>,<span class="string">&#x27;one&#x27;</span>,<span class="string">&#x27;three&#x27;</span>],<span class="string">&#x27;C&#x27;</span>:[<span class="number">332</span>,<span class="number">42</span>,<span class="number">12</span>,<span class="number">31</span>,<span class="number">21</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">14</span>]&#125;)</span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: df</span><br><span class="line">Out[<span class="number">3</span>]: </span><br><span class="line">     A      B    C</span><br><span class="line"><span class="number">0</span>  foo    one  <span class="number">332</span></span><br><span class="line"><span class="number">1</span>  bar    one   <span class="number">42</span></span><br><span class="line"><span class="number">2</span>  foo    two   <span class="number">12</span></span><br><span class="line"><span class="number">3</span>  bar  three   <span class="number">31</span></span><br><span class="line"><span class="number">4</span>  foo    two   <span class="number">21</span></span><br><span class="line"><span class="number">5</span>  bar    two    <span class="number">1</span></span><br><span class="line"><span class="number">6</span>  foo    one    <span class="number">3</span></span><br><span class="line"><span class="number">7</span>  foo  three   <span class="number">14</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: group_a=df.groupby(<span class="string">&#x27;A&#x27;</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: group_a</span><br><span class="line">Out[<span class="number">5</span>]: &lt;pandas.core.groupby.DataFrameGroupBy <span class="built_in">object</span> at <span class="number">0x7f78fb9cfc50</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">52</span>]: grouped.get_group(<span class="string">&#x27;A&#x27;</span>)</span><br><span class="line">Out[<span class="number">52</span>]: </span><br><span class="line">     A      B         C         D</span><br><span class="line"><span class="number">1</span>  bar    one  <span class="number">0.254161</span>  <span class="number">1.511763</span></span><br><span class="line"><span class="number">3</span>  bar  three  <span class="number">0.215897</span> -<span class="number">0.990582</span></span><br><span class="line"><span class="number">5</span>  bar    two -<span class="number">0.077118</span>  <span class="number">1.211526</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="处理"><a href="#处理" class="headerlink" title="处理"></a>处理</h3><p><code>apply</code>对每个分割好的group运行某个(多个)函数. 在这一步我们可能会使用到如下方法:</p>
+<ul>
+<li><code>aggregation</code><br>的作用是统计组里的数据: 如平均值, 求和, 计数. 从下面的例子可以看出来, <code>aggregation</code>后得到一个以<code>groupby</code>参数作为<code>groupname</code>,<br>并且以它为<code>index</code>的<code>DataFrame</code>; 如果是通过多个值<code>groupby</code>的那么结果是以<code>MultiIndex</code>为索引, 当然index是可以通过<code>as_index</code>来设置的(<code>.reset_index()</code><br>也可以得到相同效果). <code>aggregation</code>函数会排除<code>NA</code>值.</li>
+</ul>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">6</span>]: group_a.agg(<span class="built_in">sum</span>)   <span class="comment">## 注意, 这里如果传递[sum]将会对所有column做sum</span></span><br><span class="line">Out[<span class="number">6</span>]: </span><br><span class="line">       C</span><br><span class="line">A       </span><br><span class="line">bar   <span class="number">74</span></span><br><span class="line">foo  <span class="number">382</span></span><br><span class="line">In [<span class="number">8</span>]: group_a[<span class="string">&#x27;C&#x27;</span>].agg(<span class="built_in">sum</span>)  <span class="comment">## 注意, 这里传给agg, 如果是[sum], 返回的是Dataframe, 否则是Series</span></span><br><span class="line">Out[<span class="number">8</span>]: </span><br><span class="line">A</span><br><span class="line">bar     <span class="number">74</span></span><br><span class="line">foo    <span class="number">382</span></span><br><span class="line">Name: C, dtype: int64</span><br><span class="line"></span><br><span class="line">In [<span class="number">9</span>]: group_a_b=df.groupby([<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">10</span>]: group_a_b.agg(<span class="built_in">sum</span>)</span><br><span class="line">Out[<span class="number">10</span>]: </span><br><span class="line">             C</span><br><span class="line">A   B         </span><br><span class="line">bar one     <span class="number">42</span></span><br><span class="line">    three   <span class="number">31</span></span><br><span class="line">    two      <span class="number">1</span></span><br><span class="line">foo one    <span class="number">335</span></span><br><span class="line">    three   <span class="number">14</span></span><br><span class="line">    two     <span class="number">33</span></span><br><span class="line">In [<span class="number">15</span>]: group_a_b=df.groupby([<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>], as_index=<span class="literal">False</span>).agg(<span class="built_in">sum</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">16</span>]: group_a_b</span><br><span class="line">Out[<span class="number">16</span>]: </span><br><span class="line">     A      B    C</span><br><span class="line"><span class="number">0</span>  bar    one   <span class="number">42</span></span><br><span class="line"><span class="number">1</span>  bar  three   <span class="number">31</span></span><br><span class="line"><span class="number">2</span>  bar    two    <span class="number">1</span></span><br><span class="line"><span class="number">3</span>  foo    one  <span class="number">335</span></span><br><span class="line"><span class="number">4</span>  foo  three   <span class="number">14</span></span><br><span class="line"><span class="number">5</span>  foo    two   <span class="number">33</span></span><br></pre></td></tr></table></figure></div>
+<p>所有的<code>Aggregation</code>函数如下表, 它们返回的对象一般会减少维度:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-08-31%20%E4%B8%8B%E5%8D%882.59.31.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-08-31%20%E4%B8%8B%E5%8D%882.59.31.png"></p>
+<p><code>agg()</code>是可以一次运作多个函数的, 注意下面这个函数是对于<code>grouped Series</code>, 即切出了一个<code>series</code>操作的, 返回的是<code>dataframe</code>. </p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">30</span>]: group_a[<span class="string">&#x27;C&#x27;</span>].agg([<span class="built_in">sum</span>, <span class="built_in">min</span>])</span><br><span class="line">Out[<span class="number">30</span>]: </span><br><span class="line">     <span class="built_in">sum</span>  <span class="built_in">min</span></span><br><span class="line">A            </span><br><span class="line">bar   <span class="number">74</span>    <span class="number">1</span></span><br><span class="line">foo  <span class="number">382</span>    <span class="number">3</span></span><br></pre></td></tr></table></figure></div>
+<p>如果对一个<code>groupby</code> <code>Dataframe</code>应用多个函数, 那么每个column都会有各自的聚合函数列:</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">63</span>]: df.groupby(<span class="string">&#x27;A&#x27;</span>).agg([<span class="built_in">sum</span>, <span class="built_in">min</span>,<span class="built_in">max</span>])</span><br><span class="line">Out[<span class="number">63</span>]: </span><br><span class="line">                     B              C         </span><br><span class="line">                   <span class="built_in">sum</span>  <span class="built_in">min</span>  <span class="built_in">max</span>  <span class="built_in">sum</span> <span class="built_in">min</span>  <span class="built_in">max</span></span><br><span class="line">A                                             </span><br><span class="line">bar        onethreetwo  one  two   <span class="number">74</span>   <span class="number">1</span>   <span class="number">42</span></span><br><span class="line">foo  onetwotwoonethree  one  two  <span class="number">382</span>   <span class="number">3</span>  <span class="number">332</span></span><br><span class="line"><span class="comment">###重命名列名</span></span><br><span class="line">In [<span class="number">65</span>]: df.groupby(<span class="string">&#x27;A&#x27;</span>).agg([<span class="built_in">sum</span>, <span class="built_in">min</span>,<span class="built_in">max</span>]).rename(columns=&#123;<span class="string">&#x27;B&#x27;</span>:<span class="string">&#x27;reName&#x27;</span>&#125;)</span><br><span class="line">Out[<span class="number">65</span>]: </span><br><span class="line">                   reName              C         </span><br><span class="line">                   <span class="built_in">sum</span>  <span class="built_in">min</span>  <span class="built_in">max</span>  <span class="built_in">sum</span> <span class="built_in">min</span>  <span class="built_in">max</span></span><br><span class="line">A                                             </span><br><span class="line">bar        onethreetwo  one  two   <span class="number">74</span>   <span class="number">1</span>   <span class="number">42</span></span><br><span class="line">foo  onetwotwoonethree  one  two  <span class="number">382</span>   <span class="number">3</span>  <span class="number">332</span></span><br></pre></td></tr></table></figure></div>
+<p>agg的函数也可以通过<code>lambda</code>把所有列改成标量值:</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">17</span>]: df.groudby(<span class="string">&#x27;A&#x27;</span>).agg(<span class="keyword">lambda</span> x:<span class="number">1</span>)</span><br><span class="line">Out[<span class="number">17</span>]: </span><br><span class="line">     B  C</span><br><span class="line">A        </span><br><span class="line">bar  <span class="number">1</span>  <span class="number">1</span></span><br><span class="line">foo  <span class="number">1</span>  <span class="number">1</span></span><br></pre></td></tr></table></figure></div>
+<p>通过给<code>agg()</code>传递<code>dict</code>可以对Dataframe的不同column应用不同的聚合. 这样得出的column没有顺序的, 想要有顺序需要使用<code>OrderedDict</code></p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">51</span>]: df.groupby(<span class="string">&#x27;A&#x27;</span>).agg(&#123;<span class="string">&#x27;B&#x27;</span>: <span class="built_in">sum</span>, <span class="string">&#x27;C&#x27;</span>: <span class="built_in">min</span>&#125;)</span><br><span class="line">Out[<span class="number">51</span>]: </span><br><span class="line">     C                  B</span><br><span class="line">A                        </span><br><span class="line">bar  <span class="number">1</span>        onethreetwo</span><br><span class="line">foo  <span class="number">3</span>  onetwotwoonethree</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>transformation</code><br><code>transform</code>方法把一个groupby对象做转变, 返回一个和grouped对象一样<code>index</code>的对象（这点和<code>agg</code>不同， <code>agg</code>通常返回维度减少的数据）. 这个<code>transform</code>实际传入的函数必须满足:<ul>
+<li>返回和group chunk一样大小的对象, 或者返回的对象大小可以<code>broadcastable</code>到group chunk size(<code>broadcasting</code>是numpy的术语, 描述了numpy对待不同形状阵列时如何计算.)</li>
+<li>在group chunk上做一列一列操作. 实际使用的是chunk.apply</li>
+<li>不能直接(inplace)在group chunk上修改, group chunk需要认为是不可改变的, <code>grouped.transform(lambda x: x.fillna(inplace=True))</code><br>这样的直接修改可能带来意外结果.</li>
+<li>也可以直接对整个chunk做操作</li>
+</ul>
+</li>
+</ul>
+<p>这里有个例子，讲述了如何使用<code>transform</code>减少处理的逻辑<a class="link"   href="http://pbpython.com/pandas_transform.html" >http://pbpython.com/pandas_transform.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<ul>
+<li><code>filteration</code><br>使用<code>filter</code>函数可以返回原来对象的一个子集. <code>filter</code>的参数是个应用到整个组的函数， 其返回为True&#x2F;False.</li>
+</ul>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">115</span>]: sf = pd.Series([<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">116</span>]: sf.groupby(sf).<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: x.<span class="built_in">sum</span>() &gt; <span class="number">2</span>)</span><br><span class="line">Out[<span class="number">116</span>]: </span><br><span class="line"><span class="number">3</span>    <span class="number">3</span></span><br><span class="line"><span class="number">4</span>    <span class="number">3</span></span><br><span class="line"><span class="number">5</span>    <span class="number">3</span></span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [<span class="number">117</span>]: dff = pd.DataFrame(&#123;<span class="string">&#x27;A&#x27;</span>: np.arange(<span class="number">8</span>), <span class="string">&#x27;B&#x27;</span>: <span class="built_in">list</span>(<span class="string">&#x27;aabbbbcc&#x27;</span>)&#125;)</span><br><span class="line"></span><br><span class="line">In [<span class="number">118</span>]: dff.groupby(<span class="string">&#x27;B&#x27;</span>).<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: <span class="built_in">len</span>(x) &gt; <span class="number">2</span>)</span><br><span class="line">Out[<span class="number">118</span>]: </span><br><span class="line">   A  B</span><br><span class="line"><span class="number">2</span>  <span class="number">2</span>  b</span><br><span class="line"><span class="number">3</span>  <span class="number">3</span>  b</span><br><span class="line"><span class="number">4</span>  <span class="number">4</span>  b</span><br><span class="line"><span class="number">5</span>  <span class="number">5</span>  b</span><br><span class="line"></span><br><span class="line">In [<span class="number">119</span>]: dff.groupby(<span class="string">&#x27;B&#x27;</span>).<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: <span class="built_in">len</span>(x) &gt; <span class="number">2</span>, dropna=<span class="literal">False</span>)</span><br><span class="line">Out[<span class="number">119</span>]: </span><br><span class="line">     A    B</span><br><span class="line"><span class="number">0</span>  NaN  NaN</span><br><span class="line"><span class="number">1</span>  NaN  NaN</span><br><span class="line"><span class="number">2</span>  <span class="number">2.0</span>    b</span><br><span class="line"><span class="number">3</span>  <span class="number">3.0</span>    b</span><br><span class="line"><span class="number">4</span>  <span class="number">4.0</span>    b</span><br><span class="line"><span class="number">5</span>  <span class="number">5.0</span>    b</span><br><span class="line"><span class="number">6</span>  NaN  NaN</span><br><span class="line"><span class="number">7</span>  NaN  NaN</span><br><span class="line"></span><br><span class="line">In [<span class="number">120</span>]: dff[<span class="string">&#x27;C&#x27;</span>] = np.arange(<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">121</span>]: dff.groupby(<span class="string">&#x27;B&#x27;</span>).<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: <span class="built_in">len</span>(x[<span class="string">&#x27;C&#x27;</span>]) &gt; <span class="number">2</span>)</span><br><span class="line">Out[<span class="number">121</span>]: </span><br><span class="line">   A  B  C</span><br><span class="line"><span class="number">2</span>  <span class="number">2</span>  b  <span class="number">2</span></span><br><span class="line"><span class="number">3</span>  <span class="number">3</span>  b  <span class="number">3</span></span><br><span class="line"><span class="number">4</span>  <span class="number">4</span>  b  <span class="number">4</span></span><br><span class="line"><span class="number">5</span>  <span class="number">5</span>  b  <span class="number">5</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+<h3 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h3><p><code>combining</code>是再把处理好的数据组合一起.</p>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -5954,6 +5954,156 @@
       </tags>
   </entry>
   <entry>
+    <title>InnoDB for Mysql 5.6</title>
+    <url>/2017/12/05/database-mysql-2017-12-06-InnoDB/</url>
+    <content><![CDATA[<h3 id="Mysql-architecture"><a href="#Mysql-architecture" class="headerlink" title="Mysql architecture"></a>Mysql architecture</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/Custom-engine-overview.png"
+                      alt="architecture"
+                ></p>
+<h3 id="InnoDB-High-Level-Overview"><a href="#InnoDB-High-Level-Overview" class="headerlink" title="InnoDB High Level Overview"></a>InnoDB High Level Overview</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/innodbHigh-level%20Overview.png"
+                      alt="high-level-overview"
+                ></p>
+<ul>
+<li><p><strong>what is in the buffer pool</strong></p>
+<ul>
+<li>index page </li>
+<li>data page</li>
+<li>redo page</li>
+<li>insert buffer</li>
+<li>adaptive hash index</li>
+<li>lock info</li>
+<li>data dictionary<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/innodb%20buffer%20pool%202017-12-08%201.46.27.png"
+                      alt="innodb_buffer_pool"
+                ></li>
+</ul>
+</li>
+<li><p>the default page size is 16KB</p>
+</li>
+<li><p>innodb_buffer_pool_size and innodb_buffer_pool_instances</p>
+<ul>
+<li><code>select pool_id, pool_size, free_buffers, database_pages from information_schema.innodb_buffer_pool_stats;</code> #show buffer pool stats.</li>
+<li><strong>innodb_buffer_pool_instances</strong> divides the buffer pool into specified number of separate regions. each with its own LRU list and data structures. <strong>The advantage</strong> is to reduce contention during concurrent memeory.</li>
+<li>buffer instance param will only take effect when <strong>innodb_buffer_pool_size</strong> is larger than 1GB, and recommend use multiple Gigebytes</li>
+</ul>
+</li>
+<li><p>from memory point of view, innodb has three types of page: clean page, dirty page and free page.</p>
+<ul>
+<li>clean page, data in memory and in disk is identical</li>
+<li>dirty page, not identical</li>
+<li>free page, not used page</li>
+</ul>
+</li>
+<li><p>innodb logically has data page type: </p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> page_type <span class="keyword">from</span> information_schema.innodb_buffer_page_lru <span class="keyword">where</span>;</span><br><span class="line"><span class="comment">-------page_type-------------</span></span><br><span class="line"><span class="keyword">SYSTEM</span></span><br><span class="line">INODE</span><br><span class="line">IBUF_INDEX</span><br><span class="line">INDEX</span><br><span class="line">IBUF_BITMAP</span><br><span class="line">TRX_SYSTEM</span><br><span class="line">UNDO_LOG</span><br><span class="line">FILE_SPACE_HEADER</span><br><span class="line"><span class="type">BLOB</span></span><br></pre></td></tr></table></figure></div></li>
+<li><p>LRU list, Free list and Flush list**</p>
+<ul>
+<li>innodb use list to manage different pages.</li>
+<li>LRU list saves already read page. Use midpoint tech to save lastest read page into LRU list. </li>
+<li>free list has all not used free page, when server starts, all the page are in free list, and move to LRU.</li>
+<li>flush list contains all the dirty page. Use checkpoint to flush dirty data into disk. Dirty page may exist both in flush list and LRU list.</li>
+<li>innodb_old_blocks_pct and innodb_old_blocks_time <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><figcaption><span>variables like '%innodb_old_block%'``` # innodb_old_blocks_pct sets percertage of old list, innodb_old_blocks_time sets the midpoint page will be in the hot part of LRU list after certain time.</span></figcaption><table><tr><td class="code"><pre><span class="line">- ```show engine innodb status;``` #show the page info </span><br><span class="line">``` bash</span><br><span class="line">----------------------BUFFER POOL AND MEMORY----------------------</span><br><span class="line">Total large memory allocated 2198863872</span><br><span class="line">Dictionary memory allocated 776332</span><br><span class="line">Buffer pool size   131072</span><br><span class="line">Free buffers       124908</span><br><span class="line">Database pages     5720</span><br><span class="line">Old database pages 2071</span><br><span class="line">Modified db pages  910</span><br><span class="line">Pending reads 0</span><br><span class="line">Pending writes: LRU 0, flush list 0, single page 0</span><br><span class="line">Pages made young 4, not young 0</span><br><span class="line">0.10 youngs/s, 0.00 non-youngs/s</span><br><span class="line">Pages read 197, created 5523, written 5060</span><br><span class="line">0.00 reads/s, 190.89 creates/s, 244.94 writes/s</span><br><span class="line">Buffer pool hit rate 1000 / 1000, young-making rate 0 / 1000 not 0 / 1000</span><br><span class="line">Pages read ahead 0.00/s, evicted without access 0.00/s, Random read ahead 0.00/s</span><br><span class="line">LRU len: 5720, unzip_LRU len: 0 I/O sum[0]:cur[0], unzip sum[0]:cur[0]</span><br></pre></td></tr></table></figure></div>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/mysql%20innodb%20buffer%20pool%20metrics.png"
+                      alt="buffer pool"
+                ></li>
+<li><code>select * from information_schema.innodb_buffer_pool_stats</code> # can also show the buffer pool stats.</li>
+<li><strong>buffer poll hit rate</strong> is the rate hit in memory not in disk, the higher the better</li>
+<li><code>select * from information_schema.innodb_buffer_page_lru where compressed_size &lt;&gt; 0</code> # compressed lru page</li>
+</ul>
+</li>
+<li><p><strong>redo log buffer</strong></p>
+ <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">show variables like <span class="string">&#x27;innodb_log_buffer_size&#x27;</span>;</span><br><span class="line"></span><br><span class="line">innodb_log_buffer_size	16777216</span><br></pre></td></tr></table></figure></div></li>
+<li><p>three conditions that flush data into disk</p>
+<ul>
+<li>every 1s master thread trigger</li>
+<li>every transaction</li>
+<li>redo buffer free page less than 1&#x2F;2</li>
+</ul>
+</li>
+<li><p>Dirty page checkout mechanization</p>
+</li>
+<li><p><strong>write-ahead-log</strong> write to log before write page</p>
+</li>
+<li><p>the problem to solve:</p>
+<ol>
+<li>reduce database recover time</li>
+<li>flush data when buffer pool is full</li>
+<li>refresh dirty page when redo log is out of work</li>
+</ol>
+</li>
+<li><p>Insert buffer</p>
+</li>
+<li><p>primary key is the unique identification of the row, usually application insert rows based on auto-increased primary key.<br>  if we insert primary key that is random, we may not get sequence data in disk</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>database</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>A look at InnoDB for Mysql 5.7</title>
+    <url>/2017/12/11/database-mysql-2017-12-12-InnoDB5-7/</url>
+    <content><![CDATA[<h3 id="InnoDB的优势"><a href="#InnoDB的优势" class="headerlink" title="InnoDB的优势"></a>InnoDB的优势</h3><ul>
+<li>DML 遵循ACID</li>
+<li>行级锁，使用MVCC保证读一致</li>
+<li>使用主键索引管理磁盘上的数据，加快查找速度</li>
+<li>使用外键维持数据的完整性</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/innodbHigh-level+Overview.png"
+                      alt="key-feature"
+                ></p>
+<h3 id="InnoDB表-最佳实践"><a href="#InnoDB表-最佳实践" class="headerlink" title="InnoDB表 最佳实践"></a>InnoDB表 最佳实践</h3><ul>
+<li>主键的设定：把查询用的最多的column， 并且不怎么改动的设成主键；如果没有可以设置自增列为主键。</li>
+<li>如果是基于一个列进行多表联查，使用join. 并且把join的列设置成外键，数据类型也要一致。这么做是因为外键会给列加索引，外键也会把删除和更新传到相关表。</li>
+<li>关闭autocommit(可能是log flush的影响，待查)</li>
+<li>把一系列的DML语句放在一个事务中。</li>
+<li>不要使用<code>lock tables</code>语句。可以使用<code>select .. for update</code> 只针对某些row锁定更新。</li>
+<li>开启<strong>innodb_file_per_table</strong>， 这样表的数据和索引是单独文件存在。</li>
+<li>根据需求，可以使用<code>ROW_FORMAT=COMPRESSED</code>来压缩数据。</li>
+</ul>
+<h3 id="InnoDB-和-ACID-模型"><a href="#InnoDB-和-ACID-模型" class="headerlink" title="InnoDB 和 ACID 模型"></a>InnoDB 和 ACID 模型</h3><ul>
+<li>使用innodb, mysql将十分接近ACID模型，避免软硬件的失效带来的灾难。</li>
+<li>ACID就不说了</li>
+</ul>
+<h3 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h3><ul>
+<li>innodb使用rollback segment的数据结构来管理版本信息。主要服务回退和一致性读。</li>
+<li>innodb 会在每行后面加三个隐藏字段<ul>
+<li>6B DB_TRX_ID 最新事务ID. 这个字段里面有个位标记行是否被删除</li>
+<li>7B DB_ROLL_PTR roll pointer 指向rollback segment的undo log记录。 更新一条记录时，undo log 会记录如何回滚这个更新的记录。</li>
+<li>6B DB_ROW_ID 行ID, 递增。如果聚簇索引是innodb自动生成的，那么索引里包含row id. 否则DB_ROW_ID不会再任何索引里出现。</li>
+</ul>
+</li>
+<li>在rollback segment中的undo log 分为insert和update undo logs. insert undo log 在事务回滚时就不需要了，但是update undo log需要在MVVC保持consistent read后，才能丢弃。    </li>
+<li>在innodb, delete sql不会立即删除物理数据；仅在update undo log被purge的时候才会删除行数据和对应的索引</li>
+<li>purge是一个定时垃圾处理undo log的后台任务，可以有一个或多个线程。purge是滞后操作的，所以批量删除数据太多，可能引起rollback segment过大，这时可以增加线程<code>innodb_max_purge_lag</code></li>
+<li><strong>多版本和二级索引</strong></li>
+</ul>
+]]></content>
+      <categories>
+        <category>database</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>高性能mysql笔记</title>
     <url>/2017/11/14/database-mysql-2017-11-15-high-performance-mysql/</url>
     <content><![CDATA[<h3 id="sql执行大致流程"><a href="#sql执行大致流程" class="headerlink" title="sql执行大致流程"></a>sql执行大致流程</h3><ul>
@@ -6121,156 +6271,6 @@
       </tags>
   </entry>
   <entry>
-    <title>InnoDB for Mysql 5.6</title>
-    <url>/2017/12/05/database-mysql-2017-12-06-InnoDB/</url>
-    <content><![CDATA[<h3 id="Mysql-architecture"><a href="#Mysql-architecture" class="headerlink" title="Mysql architecture"></a>Mysql architecture</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/Custom-engine-overview.png"
-                      alt="architecture"
-                ></p>
-<h3 id="InnoDB-High-Level-Overview"><a href="#InnoDB-High-Level-Overview" class="headerlink" title="InnoDB High Level Overview"></a>InnoDB High Level Overview</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/innodbHigh-level%20Overview.png"
-                      alt="high-level-overview"
-                ></p>
-<ul>
-<li><p><strong>what is in the buffer pool</strong></p>
-<ul>
-<li>index page </li>
-<li>data page</li>
-<li>redo page</li>
-<li>insert buffer</li>
-<li>adaptive hash index</li>
-<li>lock info</li>
-<li>data dictionary<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/innodb%20buffer%20pool%202017-12-08%201.46.27.png"
-                      alt="innodb_buffer_pool"
-                ></li>
-</ul>
-</li>
-<li><p>the default page size is 16KB</p>
-</li>
-<li><p>innodb_buffer_pool_size and innodb_buffer_pool_instances</p>
-<ul>
-<li><code>select pool_id, pool_size, free_buffers, database_pages from information_schema.innodb_buffer_pool_stats;</code> #show buffer pool stats.</li>
-<li><strong>innodb_buffer_pool_instances</strong> divides the buffer pool into specified number of separate regions. each with its own LRU list and data structures. <strong>The advantage</strong> is to reduce contention during concurrent memeory.</li>
-<li>buffer instance param will only take effect when <strong>innodb_buffer_pool_size</strong> is larger than 1GB, and recommend use multiple Gigebytes</li>
-</ul>
-</li>
-<li><p>from memory point of view, innodb has three types of page: clean page, dirty page and free page.</p>
-<ul>
-<li>clean page, data in memory and in disk is identical</li>
-<li>dirty page, not identical</li>
-<li>free page, not used page</li>
-</ul>
-</li>
-<li><p>innodb logically has data page type: </p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> page_type <span class="keyword">from</span> information_schema.innodb_buffer_page_lru <span class="keyword">where</span>;</span><br><span class="line"><span class="comment">-------page_type-------------</span></span><br><span class="line"><span class="keyword">SYSTEM</span></span><br><span class="line">INODE</span><br><span class="line">IBUF_INDEX</span><br><span class="line">INDEX</span><br><span class="line">IBUF_BITMAP</span><br><span class="line">TRX_SYSTEM</span><br><span class="line">UNDO_LOG</span><br><span class="line">FILE_SPACE_HEADER</span><br><span class="line"><span class="type">BLOB</span></span><br></pre></td></tr></table></figure></div></li>
-<li><p>LRU list, Free list and Flush list**</p>
-<ul>
-<li>innodb use list to manage different pages.</li>
-<li>LRU list saves already read page. Use midpoint tech to save lastest read page into LRU list. </li>
-<li>free list has all not used free page, when server starts, all the page are in free list, and move to LRU.</li>
-<li>flush list contains all the dirty page. Use checkpoint to flush dirty data into disk. Dirty page may exist both in flush list and LRU list.</li>
-<li>innodb_old_blocks_pct and innodb_old_blocks_time <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><figcaption><span>variables like '%innodb_old_block%'``` # innodb_old_blocks_pct sets percertage of old list, innodb_old_blocks_time sets the midpoint page will be in the hot part of LRU list after certain time.</span></figcaption><table><tr><td class="code"><pre><span class="line">- ```show engine innodb status;``` #show the page info </span><br><span class="line">``` bash</span><br><span class="line">----------------------BUFFER POOL AND MEMORY----------------------</span><br><span class="line">Total large memory allocated 2198863872</span><br><span class="line">Dictionary memory allocated 776332</span><br><span class="line">Buffer pool size   131072</span><br><span class="line">Free buffers       124908</span><br><span class="line">Database pages     5720</span><br><span class="line">Old database pages 2071</span><br><span class="line">Modified db pages  910</span><br><span class="line">Pending reads 0</span><br><span class="line">Pending writes: LRU 0, flush list 0, single page 0</span><br><span class="line">Pages made young 4, not young 0</span><br><span class="line">0.10 youngs/s, 0.00 non-youngs/s</span><br><span class="line">Pages read 197, created 5523, written 5060</span><br><span class="line">0.00 reads/s, 190.89 creates/s, 244.94 writes/s</span><br><span class="line">Buffer pool hit rate 1000 / 1000, young-making rate 0 / 1000 not 0 / 1000</span><br><span class="line">Pages read ahead 0.00/s, evicted without access 0.00/s, Random read ahead 0.00/s</span><br><span class="line">LRU len: 5720, unzip_LRU len: 0 I/O sum[0]:cur[0], unzip sum[0]:cur[0]</span><br></pre></td></tr></table></figure></div>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/mysql%20innodb%20buffer%20pool%20metrics.png"
-                      alt="buffer pool"
-                ></li>
-<li><code>select * from information_schema.innodb_buffer_pool_stats</code> # can also show the buffer pool stats.</li>
-<li><strong>buffer poll hit rate</strong> is the rate hit in memory not in disk, the higher the better</li>
-<li><code>select * from information_schema.innodb_buffer_page_lru where compressed_size &lt;&gt; 0</code> # compressed lru page</li>
-</ul>
-</li>
-<li><p><strong>redo log buffer</strong></p>
- <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">show variables like <span class="string">&#x27;innodb_log_buffer_size&#x27;</span>;</span><br><span class="line"></span><br><span class="line">innodb_log_buffer_size	16777216</span><br></pre></td></tr></table></figure></div></li>
-<li><p>three conditions that flush data into disk</p>
-<ul>
-<li>every 1s master thread trigger</li>
-<li>every transaction</li>
-<li>redo buffer free page less than 1&#x2F;2</li>
-</ul>
-</li>
-<li><p>Dirty page checkout mechanization</p>
-</li>
-<li><p><strong>write-ahead-log</strong> write to log before write page</p>
-</li>
-<li><p>the problem to solve:</p>
-<ol>
-<li>reduce database recover time</li>
-<li>flush data when buffer pool is full</li>
-<li>refresh dirty page when redo log is out of work</li>
-</ol>
-</li>
-<li><p>Insert buffer</p>
-</li>
-<li><p>primary key is the unique identification of the row, usually application insert rows based on auto-increased primary key.<br>  if we insert primary key that is random, we may not get sequence data in disk</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>database</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>A look at InnoDB for Mysql 5.7</title>
-    <url>/2017/12/11/database-mysql-2017-12-12-InnoDB5-7/</url>
-    <content><![CDATA[<h3 id="InnoDB的优势"><a href="#InnoDB的优势" class="headerlink" title="InnoDB的优势"></a>InnoDB的优势</h3><ul>
-<li>DML 遵循ACID</li>
-<li>行级锁，使用MVCC保证读一致</li>
-<li>使用主键索引管理磁盘上的数据，加快查找速度</li>
-<li>使用外键维持数据的完整性</li>
-</ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/innodbHigh-level+Overview.png"
-                      alt="key-feature"
-                ></p>
-<h3 id="InnoDB表-最佳实践"><a href="#InnoDB表-最佳实践" class="headerlink" title="InnoDB表 最佳实践"></a>InnoDB表 最佳实践</h3><ul>
-<li>主键的设定：把查询用的最多的column， 并且不怎么改动的设成主键；如果没有可以设置自增列为主键。</li>
-<li>如果是基于一个列进行多表联查，使用join. 并且把join的列设置成外键，数据类型也要一致。这么做是因为外键会给列加索引，外键也会把删除和更新传到相关表。</li>
-<li>关闭autocommit(可能是log flush的影响，待查)</li>
-<li>把一系列的DML语句放在一个事务中。</li>
-<li>不要使用<code>lock tables</code>语句。可以使用<code>select .. for update</code> 只针对某些row锁定更新。</li>
-<li>开启<strong>innodb_file_per_table</strong>， 这样表的数据和索引是单独文件存在。</li>
-<li>根据需求，可以使用<code>ROW_FORMAT=COMPRESSED</code>来压缩数据。</li>
-</ul>
-<h3 id="InnoDB-和-ACID-模型"><a href="#InnoDB-和-ACID-模型" class="headerlink" title="InnoDB 和 ACID 模型"></a>InnoDB 和 ACID 模型</h3><ul>
-<li>使用innodb, mysql将十分接近ACID模型，避免软硬件的失效带来的灾难。</li>
-<li>ACID就不说了</li>
-</ul>
-<h3 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h3><ul>
-<li>innodb使用rollback segment的数据结构来管理版本信息。主要服务回退和一致性读。</li>
-<li>innodb 会在每行后面加三个隐藏字段<ul>
-<li>6B DB_TRX_ID 最新事务ID. 这个字段里面有个位标记行是否被删除</li>
-<li>7B DB_ROLL_PTR roll pointer 指向rollback segment的undo log记录。 更新一条记录时，undo log 会记录如何回滚这个更新的记录。</li>
-<li>6B DB_ROW_ID 行ID, 递增。如果聚簇索引是innodb自动生成的，那么索引里包含row id. 否则DB_ROW_ID不会再任何索引里出现。</li>
-</ul>
-</li>
-<li>在rollback segment中的undo log 分为insert和update undo logs. insert undo log 在事务回滚时就不需要了，但是update undo log需要在MVVC保持consistent read后，才能丢弃。    </li>
-<li>在innodb, delete sql不会立即删除物理数据；仅在update undo log被purge的时候才会删除行数据和对应的索引</li>
-<li>purge是一个定时垃圾处理undo log的后台任务，可以有一个或多个线程。purge是滞后操作的，所以批量删除数据太多，可能引起rollback segment过大，这时可以增加线程<code>innodb_max_purge_lag</code></li>
-<li><strong>多版本和二级索引</strong></li>
-</ul>
-]]></content>
-      <categories>
-        <category>database</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>InnoDB Buffer Pool for Mysql 5.7</title>
     <url>/2017/12/15/database-mysql-2017-12-16-innodb-5-7-buffer-pool/</url>
     <content><![CDATA[<h3 id="缓存池"><a href="#缓存池" class="headerlink" title="缓存池"></a>缓存池</h3><ul>
@@ -6298,6 +6298,50 @@ all	The default. Buffer inserts, delete-marking operations, and purges.
 <li>查看IBUF_INDEX和IBUF_BITMAP占全部page的比例  <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> (<span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> INFORMATION_SCHEMA.INNODB_BUFFER_PAGE</span><br><span class="line"><span class="keyword">WHERE</span> PAGE_TYPE <span class="keyword">LIKE</span> <span class="string">&#x27;IBUF%&#x27;</span>) <span class="keyword">AS</span> change_buffer_pages,</span><br><span class="line">(<span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> INFORMATION_SCHEMA.INNODB_BUFFER_PAGE) <span class="keyword">AS</span> total_pages,</span><br><span class="line">(<span class="keyword">SELECT</span> ((change_buffer_pages<span class="operator">/</span>total_pages)<span class="operator">*</span><span class="number">100</span>))</span><br><span class="line"><span class="keyword">AS</span> change_buffer_page_percentage;</span><br></pre></td></tr></table></figure></div>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">change_buffer_pages | total_pages | change_buffer_page_percentage|</span><br><span class="line">--- | --- | ---</span><br><span class="line">21 | 8191 | 0.2564 |</span><br></pre></td></tr></table></figure></div></li>
 </ul>
+]]></content>
+      <categories>
+        <category>database</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mysql 索引总结</title>
+    <url>/2019/06/29/database-mysql-2019-06-29-mysql-index/</url>
+    <content><![CDATA[<h2 id="mysql索引的作用和意义"><a href="#mysql索引的作用和意义" class="headerlink" title="mysql索引的作用和意义"></a>mysql索引的作用和意义</h2><p>当我们使用sql语句查询时往往要加where, 使用索引我们可以快速查找到满足where条件的行. </p>
+<h3 id="mysql如何使用索引"><a href="#mysql如何使用索引" class="headerlink" title="mysql如何使用索引"></a>mysql如何使用索引</h3><p>mysql大部分索引使用B-tree, 例如(PRIMARY KEY, UNIQUE, INDEX, FULLTEXT); 空间数据类型使用R-tree; 内存表还支持hash索引, InnoDB使用反向列表(inverted list)作为FULLTEXT的索引.</p>
+<p>mysql会在做如下操作时用到索引:</p>
+<ul>
+<li>使用索引快速找到满足where条件语句的行.</li>
+<li>如果在查找时有多个索引选择, mysql使用那个能找到最少数据行的索引.</li>
+<li>如果使用多列索引, 最左边的列将被用于优化.</li>
+<li>在执行join其它表的时候</li>
+<li>计算有索引的列min(),max()时</li>
+<li>当使用最左边的索引排序和分组表时</li>
+</ul>
+<h3 id="如何使用主键索引"><a href="#如何使用主键索引" class="headerlink" title="如何使用主键索引"></a>如何使用主键索引</h3><p>作为查询条件使用最多的列可以设置为主键(Primary key). 主键有附属索引, 用于提升查询性能.主键是不能为空的,所以性能也比较好. 如果表比较大, 同时又不知道选哪个列作为索引时, 可以创建一个自增的列作为索引. 用这个列作为其他表的外键方便join.</p>
+<h3 id="如何使用外键优化表查询"><a href="#如何使用外键优化表查询" class="headerlink" title="如何使用外键优化表查询"></a>如何使用外键优化表查询</h3><p>有时候如果有一个张大表, 可以把这张大表分成若干小表, 把不太常用的字段放在一起, 通过外键和主表关联, 这样子表既有主键用于快速查询又可以做join操作. 查询也可能使用更少的内存和IO, 因为相应的数据列都已经物理上在一起了.</p>
+<h3 id="普通列索引"><a href="#普通列索引" class="headerlink" title="普通列索引"></a>普通列索引</h3><p>最常见的索引是单列索引, mysql把列的值复制一份在数据结构, 用于快速查询.大部分数据结构采用B-tree, 可以快速定位到单个值, 一组值或值的范围. 在sql where语句对应<code>=, &gt;, &lt;=, BETWEEN, IN</code>等等.</p>
+<p>每个存储引擎的定义了每张表的索引最大值和最大长度. 基本上, 所有存储引擎至少支持16个索引和单个索引256字节以上.</p>
+<h4 id="TEXT-x2F-BLOB的索引"><a href="#TEXT-x2F-BLOB的索引" class="headerlink" title="TEXT&#x2F;BLOB的索引"></a>TEXT&#x2F;BLOB的索引</h4><p><code>Index Prefixes</code>指在文本类型上创建索引时, 可以指定这个字段的开头一部分N个字节作为索引, 这样索引的长度将被限制, 特别适用于TEXT&#x2F;BLOB这样没有长度的字段上.</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test (blob_col <span class="type">BLOB</span>, index(blob_col(<span class="number">10</span>)))</span><br></pre></td></tr></table></figure></div>
+<p>如果一个查询超出<code>index prefixes</code>的长度, 超出的部分将会被排除.</p>
+<h3 id="多列索引"><a href="#多列索引" class="headerlink" title="多列索引"></a>多列索引</h3><p>mysql可以在多个列上创建索引. 一个索引最多可以有16个列组成. 使用多列索引的好处是你只需要创建一个索引,就可以享受到多个查询条件快速命中的优点.<br>使用多列作为索引查询时, mysql可以检查索引中的所有列, 也可以只检查第一个列, 头二个列, 或头三个列.所以正确的定义复合索引的顺序可以加速好几种情况的查询.<br>一个多列索引可以被当成是一个排序的数组, 索引的值是多个列的值<code>CONCAT</code>后的hash, 等同于没有多列索引时, 自己创建一个hash几个列值的字段, 这样就可以快速查询:</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> hash_col<span class="operator">=</span>MD5(CONCAT(val1, val2))</span><br><span class="line"><span class="keyword">and</span> col1<span class="operator">=</span>val1 <span class="keyword">and</span> col2<span class="operator">=</span>val2;</span><br></pre></td></tr></table></figure></div>
+
+<p>假设有如下表:</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test (</span><br><span class="line">  id <span class="type">int</span> <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">  last_name <span class="type">char</span>(<span class="number">30</span>) <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">  first_name <span class="type">char</span>(<span class="number">30</span>) <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">  <span class="keyword">primary</span> key(id),</span><br><span class="line">  index name (last_name, first_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></div>
+<p><code>name</code>索引是<code>last_name</code>和<code>first_name</code>的组合索引. 所以各种<code>last_name</code>和<code>first_name</code>的组合查询都可以使用到索引. 但是只有<code>last_name</code>可以作为单独查询条件, 因为只有最左边的索引值才能被优化器(<code>optimizer</code>)使用. 索引如下都是会使用到索引:</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">and</span> first_name<span class="operator">=</span><span class="string">&#x27;Micheal&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">and</span> first_name <span class="operator">&gt;=</span> <span class="string">&#x27;M&#x27;</span> <span class="keyword">and</span> first_name <span class="operator">&lt;</span> <span class="string">&#x27;N&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">and</span> (first_name <span class="operator">=</span> <span class="string">&#x27;Micheal&#x27;</span> <span class="keyword">or</span> first_name<span class="operator">=</span><span class="string">&#x27;Monty&#x27;</span>);</span><br></pre></td></tr></table></figure></div>
+<p>但是如下查询是不会使用到<code>name</code>索引的:</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> first_name<span class="operator">=</span><span class="string">&#x27;Micheal&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name<span class="operator">=</span><span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">or</span> first_name <span class="operator">=</span> <span class="string">&#x27;Micheal&#x27;</span>;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="单列索引和多列索引的区别"><a href="#单列索引和多列索引的区别" class="headerlink" title="单列索引和多列索引的区别"></a>单列索引和多列索引的区别</h4><p>假设有如下查询:</p>
+<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table_name <span class="keyword">where</span> col1<span class="operator">=</span>val1 <span class="keyword">and</span> col2<span class="operator">=</span>val2;</span><br></pre></td></tr></table></figure></div>
+<p>如果有一个由col1和col2组成的多列索引, 那么满足条件的行会快速被找到. 那么如果col1和col2分别采用单列索引那么优化器将会尝试合并索引,或者使用单个索引, 具体使用哪个索引取决于哪个索引能够排除更多的行.</p>
+<h4 id="多列索引最左列优化"><a href="#多列索引最左列优化" class="headerlink" title="多列索引最左列优化"></a>多列索引最左列优化</h4><p>多列索引中最左列会被优化器用于快速查找行, 假设有一个三列索引(col1, col2, col3), 那么(col1), (col1, col2)和(col1, col2, col3)这样的查询组合将会使用到索引.</p>
+<h3 id="检查索引的使用正确性"><a href="#检查索引的使用正确性" class="headerlink" title="检查索引的使用正确性"></a>检查索引的使用正确性</h3><p>使用<code>explain</code>查看sql语句的执行计划, 可以了解索引是否被正确使用. 如果怀疑优化器没有按最佳的执行计划执行语句, 可以<code>ANALYZE TABLE</code>更新表的统计.</p>
 ]]></content>
       <categories>
         <category>database</category>
@@ -6359,50 +6403,6 @@ all	The default. Buffer inserts, delete-marking operations, and purges.
 <li>key_cache_age_threshold</li>
 </ul>
 <h3 id="配置Innodb-buffer-pool-size"><a href="#配置Innodb-buffer-pool-size" class="headerlink" title="配置Innodb_buffer_pool_size"></a>配置Innodb_buffer_pool_size</h3>]]></content>
-      <categories>
-        <category>database</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mysql 索引总结</title>
-    <url>/2019/06/29/database-mysql-2019-06-29-mysql-index/</url>
-    <content><![CDATA[<h2 id="mysql索引的作用和意义"><a href="#mysql索引的作用和意义" class="headerlink" title="mysql索引的作用和意义"></a>mysql索引的作用和意义</h2><p>当我们使用sql语句查询时往往要加where, 使用索引我们可以快速查找到满足where条件的行. </p>
-<h3 id="mysql如何使用索引"><a href="#mysql如何使用索引" class="headerlink" title="mysql如何使用索引"></a>mysql如何使用索引</h3><p>mysql大部分索引使用B-tree, 例如(PRIMARY KEY, UNIQUE, INDEX, FULLTEXT); 空间数据类型使用R-tree; 内存表还支持hash索引, InnoDB使用反向列表(inverted list)作为FULLTEXT的索引.</p>
-<p>mysql会在做如下操作时用到索引:</p>
-<ul>
-<li>使用索引快速找到满足where条件语句的行.</li>
-<li>如果在查找时有多个索引选择, mysql使用那个能找到最少数据行的索引.</li>
-<li>如果使用多列索引, 最左边的列将被用于优化.</li>
-<li>在执行join其它表的时候</li>
-<li>计算有索引的列min(),max()时</li>
-<li>当使用最左边的索引排序和分组表时</li>
-</ul>
-<h3 id="如何使用主键索引"><a href="#如何使用主键索引" class="headerlink" title="如何使用主键索引"></a>如何使用主键索引</h3><p>作为查询条件使用最多的列可以设置为主键(Primary key). 主键有附属索引, 用于提升查询性能.主键是不能为空的,所以性能也比较好. 如果表比较大, 同时又不知道选哪个列作为索引时, 可以创建一个自增的列作为索引. 用这个列作为其他表的外键方便join.</p>
-<h3 id="如何使用外键优化表查询"><a href="#如何使用外键优化表查询" class="headerlink" title="如何使用外键优化表查询"></a>如何使用外键优化表查询</h3><p>有时候如果有一个张大表, 可以把这张大表分成若干小表, 把不太常用的字段放在一起, 通过外键和主表关联, 这样子表既有主键用于快速查询又可以做join操作. 查询也可能使用更少的内存和IO, 因为相应的数据列都已经物理上在一起了.</p>
-<h3 id="普通列索引"><a href="#普通列索引" class="headerlink" title="普通列索引"></a>普通列索引</h3><p>最常见的索引是单列索引, mysql把列的值复制一份在数据结构, 用于快速查询.大部分数据结构采用B-tree, 可以快速定位到单个值, 一组值或值的范围. 在sql where语句对应<code>=, &gt;, &lt;=, BETWEEN, IN</code>等等.</p>
-<p>每个存储引擎的定义了每张表的索引最大值和最大长度. 基本上, 所有存储引擎至少支持16个索引和单个索引256字节以上.</p>
-<h4 id="TEXT-x2F-BLOB的索引"><a href="#TEXT-x2F-BLOB的索引" class="headerlink" title="TEXT&#x2F;BLOB的索引"></a>TEXT&#x2F;BLOB的索引</h4><p><code>Index Prefixes</code>指在文本类型上创建索引时, 可以指定这个字段的开头一部分N个字节作为索引, 这样索引的长度将被限制, 特别适用于TEXT&#x2F;BLOB这样没有长度的字段上.</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test (blob_col <span class="type">BLOB</span>, index(blob_col(<span class="number">10</span>)))</span><br></pre></td></tr></table></figure></div>
-<p>如果一个查询超出<code>index prefixes</code>的长度, 超出的部分将会被排除.</p>
-<h3 id="多列索引"><a href="#多列索引" class="headerlink" title="多列索引"></a>多列索引</h3><p>mysql可以在多个列上创建索引. 一个索引最多可以有16个列组成. 使用多列索引的好处是你只需要创建一个索引,就可以享受到多个查询条件快速命中的优点.<br>使用多列作为索引查询时, mysql可以检查索引中的所有列, 也可以只检查第一个列, 头二个列, 或头三个列.所以正确的定义复合索引的顺序可以加速好几种情况的查询.<br>一个多列索引可以被当成是一个排序的数组, 索引的值是多个列的值<code>CONCAT</code>后的hash, 等同于没有多列索引时, 自己创建一个hash几个列值的字段, 这样就可以快速查询:</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> hash_col<span class="operator">=</span>MD5(CONCAT(val1, val2))</span><br><span class="line"><span class="keyword">and</span> col1<span class="operator">=</span>val1 <span class="keyword">and</span> col2<span class="operator">=</span>val2;</span><br></pre></td></tr></table></figure></div>
-
-<p>假设有如下表:</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test (</span><br><span class="line">  id <span class="type">int</span> <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">  last_name <span class="type">char</span>(<span class="number">30</span>) <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">  first_name <span class="type">char</span>(<span class="number">30</span>) <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">  <span class="keyword">primary</span> key(id),</span><br><span class="line">  index name (last_name, first_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></div>
-<p><code>name</code>索引是<code>last_name</code>和<code>first_name</code>的组合索引. 所以各种<code>last_name</code>和<code>first_name</code>的组合查询都可以使用到索引. 但是只有<code>last_name</code>可以作为单独查询条件, 因为只有最左边的索引值才能被优化器(<code>optimizer</code>)使用. 索引如下都是会使用到索引:</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">and</span> first_name<span class="operator">=</span><span class="string">&#x27;Micheal&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">and</span> first_name <span class="operator">&gt;=</span> <span class="string">&#x27;M&#x27;</span> <span class="keyword">and</span> first_name <span class="operator">&lt;</span> <span class="string">&#x27;N&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name <span class="operator">=</span> <span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">and</span> (first_name <span class="operator">=</span> <span class="string">&#x27;Micheal&#x27;</span> <span class="keyword">or</span> first_name<span class="operator">=</span><span class="string">&#x27;Monty&#x27;</span>);</span><br></pre></td></tr></table></figure></div>
-<p>但是如下查询是不会使用到<code>name</code>索引的:</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> first_name<span class="operator">=</span><span class="string">&#x27;Micheal&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test <span class="keyword">where</span> last_name<span class="operator">=</span><span class="string">&#x27;Widenius&#x27;</span> <span class="keyword">or</span> first_name <span class="operator">=</span> <span class="string">&#x27;Micheal&#x27;</span>;</span><br></pre></td></tr></table></figure></div>
-
-<h4 id="单列索引和多列索引的区别"><a href="#单列索引和多列索引的区别" class="headerlink" title="单列索引和多列索引的区别"></a>单列索引和多列索引的区别</h4><p>假设有如下查询:</p>
-<div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> table_name <span class="keyword">where</span> col1<span class="operator">=</span>val1 <span class="keyword">and</span> col2<span class="operator">=</span>val2;</span><br></pre></td></tr></table></figure></div>
-<p>如果有一个由col1和col2组成的多列索引, 那么满足条件的行会快速被找到. 那么如果col1和col2分别采用单列索引那么优化器将会尝试合并索引,或者使用单个索引, 具体使用哪个索引取决于哪个索引能够排除更多的行.</p>
-<h4 id="多列索引最左列优化"><a href="#多列索引最左列优化" class="headerlink" title="多列索引最左列优化"></a>多列索引最左列优化</h4><p>多列索引中最左列会被优化器用于快速查找行, 假设有一个三列索引(col1, col2, col3), 那么(col1), (col1, col2)和(col1, col2, col3)这样的查询组合将会使用到索引.</p>
-<h3 id="检查索引的使用正确性"><a href="#检查索引的使用正确性" class="headerlink" title="检查索引的使用正确性"></a>检查索引的使用正确性</h3><p>使用<code>explain</code>查看sql语句的执行计划, 可以了解索引是否被正确使用. 如果怀疑优化器没有按最佳的执行计划执行语句, 可以<code>ANALYZE TABLE</code>更新表的统计.</p>
-]]></content>
       <categories>
         <category>database</category>
       </categories>
