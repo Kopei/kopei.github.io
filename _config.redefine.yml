@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------------------
 #  Your basic info
 # ---------------------------------------------------------------------------------------
-base_info:
+info:
   title: Kopei's Home # Site title
   author: Kopei # Author name
   url: https://kopei.github.io # Site url
