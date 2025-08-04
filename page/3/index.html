@@ -6,13 +6,125 @@
     <meta name="keywords" content="Hexo Theme Redefine">
     
     <meta name="author" content="Kopei">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
     <!-- preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+
     
         
-            <link rel="preconnect" href="https://npm.elemecdn.com" crossorigin>
+        
+        
+            <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
         
     
     <!--- Seo Part-->
@@ -22,13 +134,20 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta property="og:type" content="website">
+    
+    
+        
+        <meta name="description" content="Kopei&#39;s Home">
+<meta property="og:type" content="website">
 <meta property="og:title" content="Kopei&#39;s Home">
 <meta property="og:url" content="https://kopei.github.io/page/3/index.html">
 <meta property="og:site_name" content="Kopei&#39;s Home">
+<meta property="og:description" content="Kopei&#39;s Home">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kopei.github.io/images/k-favicon.jpeg">
 <meta property="article:author" content="Kopei Nan">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kopei.github.io/images/k-favicon.jpeg">
     
     
     <!--- Icon Part-->
@@ -40,35 +159,45 @@
     
     <title>
         
-        Kopei&#39;s Home
+            Kopei&#39;s Home - Redefine Your Hexo Journey.
+        
     </title>
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Chillax/chillax.css">
+
+    <!--- Inject Part-->
+    
+
     
 <link rel="stylesheet" href="css/style.css">
 
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/fonts.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/Satoshi/satoshi.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/Chillax/chillax.css">
+
+    
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/css/build/tailwind.css">
+    
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Geist/geist.css">
     <!--- Font Part-->
     
     
     
     
-
-    <!--- Inject Part-->
     
+    
+
     <script id="hexo-configurations">
-    let Global = window.Global || {};
-    Global.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
-    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["article"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null},"highlight_theme":{"light":"github","dark":"vs2015"}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]},"pangu_js":false},"colors":{"primary":"#005080","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"200px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":false},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":{"enable":true,"image":"/images/k-favicon.jpeg","description":"Kopei's Home"},"google_analytics":{"enable":false,"id":null},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"一元复始 万物复归","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn","show_author":false},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"kopei.github.io","instagram":null,"zhihu":null,"twitter":null,"email":"ncpbest@gmail.com"},"style":"default","qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true},"width":{"home":"1200px","pages":"1000px"}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null,"show_on_mobile":true},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3},"excerpt_length":200},"footerStart":"2022/8/17 11:45:14"};
-    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
-    Global.data_config = {"masonry":false};
+    window.config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["article"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#005080","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"200px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/k-favicon.jpeg","description":"Kopei's Home"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"一元复始 万物复归","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"kopei.github.io","instagram":null,"zhihu":null,"twitter":null,"email":"ncpbest@gmail.com"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
   </script>
     
     <!--- Fontawesome Part-->
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/fontawesome.min.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/brands.min.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/solid.min.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/regular.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/regular.min.css">
     
     
     
@@ -80,31 +209,64 @@
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
 
 
-<body>
-<div class="progress-bar-container">
-    
-        <span class="scroll-progress-bar"></span>
-    
 
-    
-        <span class="pjax-progress-bar"></span>
-        <span class="pjax-progress-icon">
-            <i class="fa-solid fa-circle-notch fa-spin"></i>
-        </span>
-    
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+	<style>
+    .home-article-item,
+    .sidebar-links,
+    .sidebar-content,
+    a.page-number,
+    a.extend,
+    .sidebar-links .links:hover,
+    .right-bottom-tools,
+    footer.footer {
+        background-color: var(--background-color-transparent-80) !important;
+    }
+    .right-bottom-tools:hover,
+    a.page-number:hover,
+    a.extend:hover {
+        background-color: var(--primary-color) !important;
+    }
+    .site-info,
+    .home-article-sticky-label {
+        background-color: var(--background-color-transparent-15) !important;
+    }
+    .home-article-sticky-label {
+        backdrop-filter: none !important;
+    }
+    .home-banner-background {
+        filter: blur(15px);
+    }
+</style>
+
+<div class="home-banner-background transition-fade fixed top-0 left-0 w-screen h-screen scale-125 sm:scale-110 box-border will-change-transform bg-cover">
+    <img src="../../images/wallhaven-wqery6-light.webp" alt="home-banner-background" class="w-full h-full object-cover dark:hidden">
+    <img src="../../images/wallhaven-wqery6-dark.webp" alt="home-banner-background" class="w-full h-full object-cover hidden dark:block">
 </div>
 
 
-<main class="page-container">
+	
 
-    
-
-    <div class="main-content-container">
-
-        <div class="main-content-header">
-            <header class="navbar-container">
-    
-    <div class="navbar-content">
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
         <div class="left">
             
             <a class="logo-title" href="/">
@@ -120,33 +282,35 @@
                 <ul class="navbar-list">
                     
                         
+                            
+
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="active" 
-                                    href="../../index.html"  >
-                                    
-                                        
-                                            <i class="fa-regular fa-house"></i>
-                                        
-                                        HOME
+                                <a class="active"
+                                   href="../../index.html"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
                                     
                                 </a>
+
                                 <!-- Submenu -->
                                 
                             </li>
                     
                         
+                            
+
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="" 
-                                    href="../../archives"  >
-                                    
-                                        
-                                            <i class="fa-regular fa-archive"></i>
-                                        
-                                        ARCHIVES
+                                <a class=""
+                                   href="../../archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
                                     
                                 </a>
+
                                 <!-- Submenu -->
                                 
                             </li>
@@ -161,7 +325,8 @@
             <!-- Mobile -->
             <div class="mobile">
                 
-                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
                 
                 <div class="icon-item navbar-bar">
                     <div class="navbar-bar-middle"></div>
@@ -170,42 +335,69 @@
         </div>
     </div>
 
-    <!-- Mobile drawer -->
-    <div class="navbar-drawer">
-        <ul class="drawer-navbar-list">
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
             
                 
-                    <li class="drawer-navbar-item flex-center">
-                        <a class="active" 
-                        href="../../index.html"  >
-                             
-                                
-                                    <i class="fa-regular fa-house"></i>
-                                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="../../index.html"
+                        >
+                            <span>
                                 HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
                             
                         </a>
+                        
+
+                        
                     </li>
-                    <!-- Submenu -->
-                    
             
                 
-                    <li class="drawer-navbar-item flex-center">
-                        <a class="" 
-                        href="../../archives"  >
-                             
-                                
-                                    <i class="fa-regular fa-archive"></i>
-                                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="../../archives"
+                        >
+                            <span>
                                 ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
                             
                         </a>
+                        
+
+                        
                     </li>
-                    <!-- Submenu -->
-                    
             
 
+            
+            
         </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">26</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">106</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
     </div>
 
     <div class="window-mask"></div>
@@ -213,51 +405,49 @@
 </header>
 
 
-        </div>
+		</div>
 
-        <div class="main-content-body">
-
-            
-                <div class="home-sidebar-container fade-in-down-animation">
-    <div class="sticky-container">
+		<div class="main-content-body transition-fade-up">
+			
+			<div class="home-sidebar-container">
+    <div class="sticky-container sticky">
+        
         
             
             <div class="sidebar-content" >
-                <div class="avatar">
-                    <img src="../../../../images/kopei-icon.jpeg">
-                </div>
-                <div class="author">
-                    <div class="name">Kopei</div>
-                    
-                        <div class="label">article</div>
-                    
-                </div>
-                <div class="statistics">
-                    <a class="item" href="../../tags">
-                        <div class="number">56</div>
-                        <div class="label">Tags</div>
-                    </a>
-                    <a class="item" href="../../categories">
-                        <div class="number">26</div>
-                        <div class="label">Categories</div>
-                    </a>
-                    <a class="item" href="../../archives">
-                        <div class="number">106</div>
-                        <div class="label">Posts</div>
-                    </a>
-                </div>
+                <div class="avatar flex justify-center">
+    <img src="../../images/kopei-icon.jpeg">
+</div>
+                <div class="author flex flex-col justify-center my-2.5 mx-0">
+    <div class="name">Kopei</div>
+    
+        <div class="label">article</div>
+    
+</div>
+                <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">26</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">106</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
             </div>
         
 
     </div>
 </div>
 
-            
+			
 
-            <div class="main-content">
-
-                
-                    <div class="home-content-container fade-in-down-animation">
+			<div class="main-content">
+				<div class="home-content-container">
     <ul class="home-article-list">
         
             <li class="home-article-item">
@@ -266,19 +456,23 @@
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2022/08/04/Devices-2022-08-05-OCT-basic/">
-                        OCT Basic
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2022/08/04/Devices-2022-08-05-OCT-basic/">
+                            OCT Basic
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        OCT技术原理OCT(光学相干断层扫描)的基本原理是把光束(近红外光800-1500nm)投射到被成像的组织或标本上，光束被不同距离上的显微组织反射，通过测量反射光的延迟时间以及反射光的强度，将不同的位置上测量相干光所获得的反射信息转化为数字信号，经...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            OCT技术原理OCT(光学相干断层扫描)的基本原理是把光束(近红外光800-1500nm)投射到被成像的组织或标本上，光束被不同距离上的显微组织反射，通过测量反射光的延迟时间以及反射光的强度，将不同的位置上测量相干光所获得的反射信息转化为数字信号，经过计算机处理得出二维或三维的图像。
+时域OCT第一台被发明的OCT就是时域OCT，通过调节移动参考镜，使参考光分别与从眼内不同结构反射回来的信号...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Fri Aug 05 2022 00:00:00 GMT+0800">
@@ -288,17 +482,21 @@
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/devices/">devices</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -318,6 +516,7 @@
     <a href="../../2022/08/04/Devices-2022-08-05-OCT-basic/">Read more<span class="seo-reader-text">OCT Basic</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -326,19 +525,22 @@
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2022/08/03/Devices-2022-08-05-eyeball-intro/">
-                        眼球结构简介
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2022/08/03/Devices-2022-08-05-eyeball-intro/">
+                            眼球结构简介
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        眼球简介眼球筋膜鞘（Tenon囊） Fascial sheath (Tenon’s capsule)纤维层 Fibrous layer血管层 （葡萄膜）Vascular layer (Uvea)神经层 （视网膜）Nervous layer (Reti...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            眼球简介眼球筋膜鞘（Tenon囊） Fascial sheath (Tenon’s capsule)纤维层 Fibrous layer血管层 （葡萄膜）Vascular layer (Uvea)神经层 （视网膜）Nervous layer (Retina)眼球的屈光介质 Refractive media of the eyeball临床症状 Clinical conditions
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Thu Aug 04 2022 00:00:00 GMT+0800">
@@ -348,17 +550,21 @@
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/science/">science</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -378,6 +584,7 @@
     <a href="../../2022/08/03/Devices-2022-08-05-eyeball-intro/">Read more<span class="seo-reader-text">眼球结构简介</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -386,25 +593,33 @@
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2022/03/18/frontend-2022-03-19-microfront-intro/">
-                        小探微前端
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2022/03/18/frontend-2022-03-19-microfront-intro/">
+                            小探微前端
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        前言关键好处和缺点 Key Pros&amp;Cons of Micro frontend微前端的好处类似微服务，主要表现在:
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            前言关键好处和缺点 Key Pros&amp;Cons of Micro frontend微前端的好处类似微服务，主要表现在:
 
 分开的前端代码仓库，每个仓库代码量少
 每个小团队有更多的自主权，解耦相互依赖
 重构或更新部分代码的代价更小
 
-微前端的缺...
-                    
-                </div>
+微前端的缺点主要有:
 
-                <div class="home-article-meta-info-container">
+多个前端仓库可能导致依赖包的重复，这样客户端会多下载相关医疗
+高度的自治可能会导致开发的碎片化
+
+
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Sat Mar 19 2022 00:00:00 GMT+0800">
@@ -414,17 +629,21 @@
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/frontend/">frontend</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -444,6 +663,7 @@
     <a href="../../2022/03/18/frontend-2022-03-19-microfront-intro/">Read more<span class="seo-reader-text">小探微前端</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -452,20 +672,23 @@
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2022/01/09/data-warehouse-2022-01-10-%E5%A2%9E%E9%87%8FETL%E6%BA%90%E6%95%B0%E6%8D%AE%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8C%E7%BB%86%E8%8A%82/">
-                        增量ETL源数据的几种方式和细节
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2022/01/09/data-warehouse-2022-01-10-%E5%A2%9E%E9%87%8FETL%E6%BA%90%E6%95%B0%E6%8D%AE%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8C%E7%BB%86%E8%8A%82/">
+                            增量ETL源数据的几种方式和细节
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        Introduction 介绍ETL是常见的把数据从 OLTP 系统导入数据仓库的方式，一般分为全量，增量，固定范围和推送方式。本文主要讲如何增量抽取，和抽取过程中遇到其它一些问题的解决方法。
-增量抽取增量抽取一般可以使用表中列的时间戳，标识符，交易...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            Introduction 介绍ETL是常见的把数据从 OLTP 系统导入数据仓库的方式，一般分为全量，增量，固定范围和推送方式。本文主要讲如何增量抽取，和抽取过程中遇到其它一些问题的解决方法。
+增量抽取增量抽取一般可以使用表中列的时间戳，标识符，交易日期和触发器等组合来判断是否需要增量抽取。使用时间戳，标识符和交易日期的方法大致一样，通过比较元数据中记录的上一次成功etl点和当前时间或位置做...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Mon Jan 10 2022 00:00:00 GMT+0800">
@@ -475,17 +698,21 @@
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/data-warehouse/">data warehouse</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -505,6 +732,7 @@
     <a href="../../2022/01/09/data-warehouse-2022-01-10-%E5%A2%9E%E9%87%8FETL%E6%BA%90%E6%95%B0%E6%8D%AE%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8C%E7%BB%86%E8%8A%82/">Read more<span class="seo-reader-text">增量ETL源数据的几种方式和细节</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -513,19 +741,23 @@
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2021/10/24/data-warehouse-2021-10-25-master-data-governance/">
-                        企业级主数据治理框架
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2021/10/24/data-warehouse-2021-10-25-master-data-governance/">
+                            企业级主数据治理框架
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        1. Introduction 介绍1.1 什么是主数据？主数据是以与业务活动相关的通用和抽象概念形式提供业务活动语境的数据，包括业务活动中涉及内部和外部对象的详细信息(定义与标识符)。一般主数据使用业务实体来表示，如客户、产品、雇员、供应商等数据，...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            1. Introduction 介绍1.1 什么是主数据？主数据是以与业务活动相关的通用和抽象概念形式提供业务活动语境的数据，包括业务活动中涉及内部和外部对象的详细信息(定义与标识符)。一般主数据使用业务实体来表示，如客户、产品、雇员、供应商等数据，实体是客观世界的对象(人、组织、地方或事物等)，实体被实例以数据&#x2F;记录的形式表示。
+1.2 为什么需要管理主数据？常见的主数据管理驱动...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Mon Oct 25 2021 00:00:00 GMT+0800">
@@ -535,17 +767,21 @@
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/data-governance/">data governance</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -565,6 +801,7 @@
     <a href="../../2021/10/24/data-warehouse-2021-10-25-master-data-governance/">Read more<span class="seo-reader-text">企业级主数据治理框架</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -573,26 +810,29 @@
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2021/08/08/data-warehouse-2021-08-09-data-modeling-type/">
-                        Three type of data model
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2021/08/08/data-warehouse-2021-08-09-data-modeling-type/">
+                            Three type of data model
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        Three Types of Data Models一般主要有三种数据模型数据模型定义 :
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            Three Types of Data Models一般主要有三种数据模型数据模型定义:
 
 概念模型
 逻辑模型 
 物理模型
 
-这三种模型可以使用工具来建模工具列表 . 我们通常先创建概念数据模型，然后再做逻辑数据模型。
-概念数据模型概念数据模型用于...
-                    
-                </div>
+这三种模型可以使用工具来建模工具列表. 我们通常先创建概念数据模型，然后再做逻辑数据模型。
+概念数据模型概念数据模型用于定义高层业务抽象和概念。通常是业务所有者绘制，建模时不用考虑具体系统的约束。使用SQL Server的SSMS可以很好地建模，一般使用SSMS创建概...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Mon Aug 09 2021 00:00:00 GMT+0800">
@@ -602,17 +842,21 @@
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/data-warehouse/">data warehouse</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -632,6 +876,7 @@
     <a href="../../2021/08/08/data-warehouse-2021-08-09-data-modeling-type/">Read more<span class="seo-reader-text">Three type of data model</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -640,19 +885,23 @@
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2021/07/12/data-warehouse-2021-07-04-metadata-database/">
-                        Metadata in Data Warehouse
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2021/07/12/data-warehouse-2021-07-04-metadata-database/">
+                            Metadata in Data Warehouse
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        What is metadata?Metadata元数据是描述数据的数据。举个例子，一是原始单反拍摄的照片一般是RAW格式，这个格式的文件会附带一些属性信息，如Etag, 描述照片拍摄的时间，拍摄的相机，曝光ISO, 分辨率等等信息，这些信息就是照片...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            What is metadata?Metadata元数据是描述数据的数据。举个例子，一是原始单反拍摄的照片一般是RAW格式，这个格式的文件会附带一些属性信息，如Etag, 描述照片拍摄的时间，拍摄的相机，曝光ISO, 分辨率等等信息，这些信息就是照片的元数据。
+Why do we need metadata?为什么需要元数据, 主要为了向用户解释数据和数据仓库, 让用户更好地理解数据仓库. ...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Tue Jul 13 2021 00:00:00 GMT+0800">
@@ -662,17 +911,21 @@
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/data-warehouse/">data warehouse</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -692,6 +945,7 @@
     <a href="../../2021/07/12/data-warehouse-2021-07-04-metadata-database/">Read more<span class="seo-reader-text">Metadata in Data Warehouse</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -700,19 +954,23 @@
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2021/06/18/data-warehouse-2021-06-19-Data-Quality/">
-                        Data Quality Overview
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2021/06/18/data-warehouse-2021-06-19-Data-Quality/">
+                            Data Quality Overview
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        The importance of data quality数据质量对于数据报表至关重要, 数据的准确性(Accuracy), 完整性(Completeness), 一致性(Consistency), 精确性(Precision)和时效性(timel...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            The importance of data quality数据质量对于数据报表至关重要, 数据的准确性(Accuracy), 完整性(Completeness), 一致性(Consistency), 精确性(Precision)和时效性(timeliness)这几个指标是评价数据质量的核心指标. 数据没有质量我们将构建数据仓库的意义将不复存在, 没有人相信一个数据不正确的数据仓库.
+Dat...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Sat Jun 19 2021 00:00:00 GMT+0800">
@@ -722,17 +980,21 @@
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/data-warehouse/">data warehouse</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -752,6 +1014,7 @@
     <a href="../../2021/06/18/data-warehouse-2021-06-19-Data-Quality/">Read more<span class="seo-reader-text">Data Quality Overview</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -760,19 +1023,25 @@
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2021/06/17/data-warehouse-2021-06-18-SCD/">
-                        Slow Change Dimension in DW
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2021/06/17/data-warehouse-2021-06-18-SCD/">
+                            Slow Change Dimension in DW
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        What is Slow Change DimensionSCD缓慢变化维是指维度的值会随着时间缓慢变化. 当维度值变化时, 我们可以直接把旧的值覆盖, 也可以存储一行新的值(把旧的记录无效), 还可以加一个字段使用列式存储新的值. 所以基本上SCD...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            What is Slow Change DimensionSCD缓慢变化维是指维度的值会随着时间缓慢变化. 当维度值变化时, 我们可以直接把旧的值覆盖, 也可以存储一行新的值(把旧的记录无效), 还可以加一个字段使用列式存储新的值. 所以基本上SCD有几种类型:
 
-                <div class="home-article-meta-info-container">
+type 1, 覆盖旧的值, 不保留历史信息
+type 2, 保留旧的值, 使用一个字段表示它无效, 插入一行新的维度记录. 每...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Fri Jun 18 2021 00:00:00 GMT+0800">
@@ -782,17 +1051,21 @@
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/data-warehouse/">data warehouse</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -812,6 +1085,7 @@
     <a href="../../2021/06/17/data-warehouse-2021-06-18-SCD/">Read more<span class="seo-reader-text">Slow Change Dimension in DW</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -820,19 +1094,22 @@
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2021/05/06/data-warehouse-2021-05-07-data-governance-guide/">
-                        Data Governance Guide
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2021/05/06/data-warehouse-2021-05-07-data-governance-guide/">
+                            Data Governance Guide
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        What is data governance?根据DGI定义: Data Governance is a system of decision rights and accountabilities for information-related ...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            What is data governance?根据DGI定义: Data Governance is a system of decision rights and accountabilities for information-related processes, executed according to agreed-upon models which describe who c...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Fri May 07 2021 00:00:00 GMT+0800">
@@ -842,17 +1119,21 @@
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/data-warehouse/">data warehouse</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -872,58 +1153,66 @@
     <a href="../../2021/05/06/data-warehouse-2021-05-07-data-governance-guide/">Read more<span class="seo-reader-text">Data Governance Guide</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
     </ul>
 
-    <div class="home-paginator">
+    <div class="home-paginator px-7 py-5">
         <div class="paginator">
-    <a class="extend prev" rel="prev" href="../2/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="../../">1</a><a class="page-number" href="../2/">2</a><span class="page-number current">3</span><a class="page-number" href="../4/">4</a><a class="page-number" href="../5/">5</a><span class="space">&hellip;</span><a class="page-number" href="../11/">11</a><a class="extend next" rel="next" href="../4/"><i class="fa-regular fa-angle-right"></i></a>
+	<a class="extend prev" rel="prev" href="../2/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="../../">1</a><a class="page-number" href="../2/">2</a><span class="page-number current">3</span><a class="page-number" href="../4/">4</a><a class="page-number" href="../5/">5</a><span class="space">&hellip;</span><a class="page-number" href="../11/">11</a><a class="extend next" rel="next" href="../4/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
-
+  
     </div>
 </div>
 
-                
+			</div>
 
-            </div>
-            
-            
+			
+		</div>
 
-        </div>
-
-        <div class="main-content-footer">
-            <footer class="footer">
-    <div class="info-container">
-        <div class="copyright-info">
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
             &copy;
             
               <span>2022</span>
               -
             
             2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Kopei</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        106 posts in total
+                    </span>
+                    
+                </p>
+            
         </div>
         
-            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-            <div class="website-count info-item">
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
                 
-                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
-                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
                     </span>
                 
                 
-                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
-                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
                     </span>
                 
             </div>
         
-        <div class="theme-info info-item">
-            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
-                <br>
-            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
         </div>
-        
         
         
             <div>
@@ -931,8 +1220,7 @@
             </div>
         
         
-        
-            <script async data-pjax>
+            <script data-swup-reload-script>
                 try {
                     function odometer_init() {
                     const elements = document.querySelectorAll('.odometer');
@@ -952,167 +1240,153 @@
         
     </div>  
 </footer>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    
+	
 
-    <div class="right-side-tools-container">
-        <div class="side-tools-container">
-    <ul class="hidden-tools-list">
-        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
-            <i class="fa-regular fa-magnifying-glass-plus"></i>
-        </li>
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
 
-        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
-            <i class="fa-regular fa-magnifying-glass-minus"></i>
-        </li>
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
 
-        <li class="right-bottom-tools tool-expand-width flex-center">
-            <i class="fa-regular fa-expand"></i>
-        </li>
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
 
-        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
-            <i class="fa-regular fa-moon"></i>
-        </li>
+		<!-- rss -->
+		
 
-        <!-- rss -->
-        
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
 
-        
-            <li class="right-bottom-tools tool-scroll-to-top flex-center">
-                <i class="fa-regular fa-arrow-up"></i>
-            </li>
-        
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
 
-        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
-            <i class="fa-regular fa-arrow-down"></i>
-        </li>
-    </ul>
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
 
-    <ul class="visible-tools-list">
-        <li class="right-bottom-tools toggle-tools-list flex-center">
-            <i class="fa-regular fa-cog fa-spin"></i>
-        </li>
-        
-        
-    </ul>
+	<div class="image-viewer-container">
+	<img src="">
 </div>
 
-    </div>
-
-    <div class="image-viewer-container">
-    <img src="">
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
 </div>
-
-
-    
-        <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-          <span class="search-input-field-pre">
-            <i class="fa-solid fa-keyboard"></i>
-          </span>
-            <div class="search-input-container">
-                <input autocomplete="off"
-                       autocorrect="off"
-                       autocapitalize="off"
-                       placeholder="Search..."
-                       spellcheck="false"
-                       type="search"
-                       class="search-input"
-                >
-            </div>
-            <span class="popup-btn-close">
-                <i class="fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div id="search-result">
-            <div id="no-result">
-                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-    
-
+	
 
 </main>
 
 
-
-
-<script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/utils.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/main.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/layouts/navbarShrink.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/scrollTopBottom.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/lightDarkSwitch.js"></script>
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/localSearch.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/codeBlock.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/layouts/lazyload.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/runtime.js"></script>
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/odometer.min.js"></script>
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/assets/odometer-theme-minimal.css">
-
-
-
-  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/Typed.min.js"></script>
-  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/plugins/typed.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/mermaid.min.js"></script>
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/plugins/mermaid.js"></script>
-
-
-
-
-<div class="post-scripts pjax">
-    
-</div>
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/pjax.min.js"></script>
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Swup.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
 <script>
-    window.addEventListener('DOMContentLoaded', () => {
-        window.pjax = new Pjax({
-            selectors: [
-                'head title',
-                '.page-container',
-                '.pjax',
-            ],
-            history: true,
-            debug: false,
-            cacheBust: false,
-            timeout: 0,
-            analytics: false,
-            currentUrlFullReload: false,
-            scrollRestoration: false,
-            // scrollTo: true,
-        });
-
-        document.addEventListener('pjax:send', () => {
-            Global.utils.pjaxProgressBarStart();
-        });
-
-        document.addEventListener('pjax:complete', () => {
-            Global.utils.pjaxProgressBarEnd();
-            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
-            Global.refresh();
-        });
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
     });
 </script>
 
 
 
 
+	<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/utils.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/main.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/categoryList.js" ></script>
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/localSearch.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/codeBlock.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/lazyload.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/typed.js" ></script>
+
+
+
+    
+        <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/mermaid.min.js" ></script>
+    
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/mermaid.js" ></script>
+
+
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/anime.min.js" ></script>
+
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/essays.js" data-swup-reload-script></script>
+
+
+
+
+	
 </body>
+
 </html>

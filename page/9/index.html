@@ -6,13 +6,125 @@
     <meta name="keywords" content="Hexo Theme Redefine">
     
     <meta name="author" content="Kopei">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
     <!-- preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+
     
         
-            <link rel="preconnect" href="https://npm.elemecdn.com" crossorigin>
+        
+        
+            <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
         
     
     <!--- Seo Part-->
@@ -22,13 +134,20 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta property="og:type" content="website">
+    
+    
+        
+        <meta name="description" content="Kopei&#39;s Home">
+<meta property="og:type" content="website">
 <meta property="og:title" content="Kopei&#39;s Home">
 <meta property="og:url" content="https://kopei.github.io/page/9/index.html">
 <meta property="og:site_name" content="Kopei&#39;s Home">
+<meta property="og:description" content="Kopei&#39;s Home">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kopei.github.io/images/k-favicon.jpeg">
 <meta property="article:author" content="Kopei Nan">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kopei.github.io/images/k-favicon.jpeg">
     
     
     <!--- Icon Part-->
@@ -40,35 +159,45 @@
     
     <title>
         
-        Kopei&#39;s Home
+            Kopei&#39;s Home - Redefine Your Hexo Journey.
+        
     </title>
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Chillax/chillax.css">
+
+    <!--- Inject Part-->
+    
+
     
 <link rel="stylesheet" href="css/style.css">
 
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/fonts.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/Satoshi/satoshi.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/Chillax/chillax.css">
+
+    
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/css/build/tailwind.css">
+    
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Geist/geist.css">
     <!--- Font Part-->
     
     
     
     
-
-    <!--- Inject Part-->
     
+    
+
     <script id="hexo-configurations">
-    let Global = window.Global || {};
-    Global.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
-    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["article"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null},"highlight_theme":{"light":"github","dark":"vs2015"}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]},"pangu_js":false},"colors":{"primary":"#005080","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"200px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":false},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":{"enable":true,"image":"/images/k-favicon.jpeg","description":"Kopei's Home"},"google_analytics":{"enable":false,"id":null},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"一元复始 万物复归","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn","show_author":false},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"kopei.github.io","instagram":null,"zhihu":null,"twitter":null,"email":"ncpbest@gmail.com"},"style":"default","qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true},"width":{"home":"1200px","pages":"1000px"}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null,"show_on_mobile":true},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3},"excerpt_length":200},"footerStart":"2022/8/17 11:45:14"};
-    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
-    Global.data_config = {"masonry":false};
+    window.config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["article"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#005080","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"200px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/k-favicon.jpeg","description":"Kopei's Home"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"一元复始 万物复归","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"kopei.github.io","instagram":null,"zhihu":null,"twitter":null,"email":"ncpbest@gmail.com"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
   </script>
     
     <!--- Fontawesome Part-->
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/fontawesome.min.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/brands.min.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/solid.min.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/regular.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/regular.min.css">
     
     
     
@@ -80,31 +209,64 @@
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
 
 
-<body>
-<div class="progress-bar-container">
-    
-        <span class="scroll-progress-bar"></span>
-    
 
-    
-        <span class="pjax-progress-bar"></span>
-        <span class="pjax-progress-icon">
-            <i class="fa-solid fa-circle-notch fa-spin"></i>
-        </span>
-    
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+	<style>
+    .home-article-item,
+    .sidebar-links,
+    .sidebar-content,
+    a.page-number,
+    a.extend,
+    .sidebar-links .links:hover,
+    .right-bottom-tools,
+    footer.footer {
+        background-color: var(--background-color-transparent-80) !important;
+    }
+    .right-bottom-tools:hover,
+    a.page-number:hover,
+    a.extend:hover {
+        background-color: var(--primary-color) !important;
+    }
+    .site-info,
+    .home-article-sticky-label {
+        background-color: var(--background-color-transparent-15) !important;
+    }
+    .home-article-sticky-label {
+        backdrop-filter: none !important;
+    }
+    .home-banner-background {
+        filter: blur(15px);
+    }
+</style>
+
+<div class="home-banner-background transition-fade fixed top-0 left-0 w-screen h-screen scale-125 sm:scale-110 box-border will-change-transform bg-cover">
+    <img src="../../images/wallhaven-wqery6-light.webp" alt="home-banner-background" class="w-full h-full object-cover dark:hidden">
+    <img src="../../images/wallhaven-wqery6-dark.webp" alt="home-banner-background" class="w-full h-full object-cover hidden dark:block">
 </div>
 
 
-<main class="page-container">
+	
 
-    
-
-    <div class="main-content-container">
-
-        <div class="main-content-header">
-            <header class="navbar-container">
-    
-    <div class="navbar-content">
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
         <div class="left">
             
             <a class="logo-title" href="/">
@@ -120,33 +282,35 @@
                 <ul class="navbar-list">
                     
                         
+                            
+
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="active" 
-                                    href="../../index.html"  >
-                                    
-                                        
-                                            <i class="fa-regular fa-house"></i>
-                                        
-                                        HOME
+                                <a class="active"
+                                   href="../../index.html"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
                                     
                                 </a>
+
                                 <!-- Submenu -->
                                 
                             </li>
                     
                         
+                            
+
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="" 
-                                    href="../../archives"  >
-                                    
-                                        
-                                            <i class="fa-regular fa-archive"></i>
-                                        
-                                        ARCHIVES
+                                <a class=""
+                                   href="../../archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
                                     
                                 </a>
+
                                 <!-- Submenu -->
                                 
                             </li>
@@ -161,7 +325,8 @@
             <!-- Mobile -->
             <div class="mobile">
                 
-                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
                 
                 <div class="icon-item navbar-bar">
                     <div class="navbar-bar-middle"></div>
@@ -170,42 +335,69 @@
         </div>
     </div>
 
-    <!-- Mobile drawer -->
-    <div class="navbar-drawer">
-        <ul class="drawer-navbar-list">
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
             
                 
-                    <li class="drawer-navbar-item flex-center">
-                        <a class="active" 
-                        href="../../index.html"  >
-                             
-                                
-                                    <i class="fa-regular fa-house"></i>
-                                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="../../index.html"
+                        >
+                            <span>
                                 HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
                             
                         </a>
+                        
+
+                        
                     </li>
-                    <!-- Submenu -->
-                    
             
                 
-                    <li class="drawer-navbar-item flex-center">
-                        <a class="" 
-                        href="../../archives"  >
-                             
-                                
-                                    <i class="fa-regular fa-archive"></i>
-                                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="../../archives"
+                        >
+                            <span>
                                 ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
                             
                         </a>
+                        
+
+                        
                     </li>
-                    <!-- Submenu -->
-                    
             
 
+            
+            
         </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">26</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">106</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
     </div>
 
     <div class="window-mask"></div>
@@ -213,51 +405,49 @@
 </header>
 
 
-        </div>
+		</div>
 
-        <div class="main-content-body">
-
-            
-                <div class="home-sidebar-container fade-in-down-animation">
-    <div class="sticky-container">
+		<div class="main-content-body transition-fade-up">
+			
+			<div class="home-sidebar-container">
+    <div class="sticky-container sticky">
+        
         
             
             <div class="sidebar-content" >
-                <div class="avatar">
-                    <img src="../../../../images/kopei-icon.jpeg">
-                </div>
-                <div class="author">
-                    <div class="name">Kopei</div>
-                    
-                        <div class="label">article</div>
-                    
-                </div>
-                <div class="statistics">
-                    <a class="item" href="../../tags">
-                        <div class="number">56</div>
-                        <div class="label">Tags</div>
-                    </a>
-                    <a class="item" href="../../categories">
-                        <div class="number">26</div>
-                        <div class="label">Categories</div>
-                    </a>
-                    <a class="item" href="../../archives">
-                        <div class="number">106</div>
-                        <div class="label">Posts</div>
-                    </a>
-                </div>
+                <div class="avatar flex justify-center">
+    <img src="../../images/kopei-icon.jpeg">
+</div>
+                <div class="author flex flex-col justify-center my-2.5 mx-0">
+    <div class="name">Kopei</div>
+    
+        <div class="label">article</div>
+    
+</div>
+                <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">26</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">106</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
             </div>
         
 
     </div>
 </div>
 
-            
+			
 
-            <div class="main-content">
-
-                
-                    <div class="home-content-container fade-in-down-animation">
+			<div class="main-content">
+				<div class="home-content-container">
     <ul class="home-article-list">
         
             <li class="home-article-item">
@@ -266,22 +456,25 @@
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/02/21/kubernetes-2018-02-22-k8s-service/">
-                        Kubernetes的service
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/02/21/kubernetes-2018-02-22-k8s-service/">
+                            Kubernetes的service
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
+                    <div class="home-article-content markdown-body">
                         
-https://kubernetes.io/docs/concepts/services-networking/service/ 
+                            
+                            
+https://kubernetes.io/docs/concepts/services-networking/service/
 
-Service定义简单来说，service是一组pods和访问这些pods规则的逻辑抽象， 它的作用就是代理pod...
-                    
-                </div>
+Service定义简单来说，service是一组pods和访问这些pods规则的逻辑抽象， 它的作用就是代理pods和端口映射（具体的实现似乎是通过复杂的iptable路由NAT）。Service是一个REST对象，这个对象将所有通过某个node端口进来TCP...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Thu Feb 22 2018 00:00:00 GMT+0800">
@@ -291,17 +484,21 @@ Service定义简单来说，service是一组pods和访问这些pods规则的逻�
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/kubernetes/">kubernetes</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -321,6 +518,7 @@ Service定义简单来说，service是一组pods和访问这些pods规则的逻�
     <a href="../../2018/02/21/kubernetes-2018-02-22-k8s-service/">Read more<span class="seo-reader-text">Kubernetes的service</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -329,22 +527,25 @@ Service定义简单来说，service是一组pods和访问这些pods规则的逻�
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/02/21/openshift-2018-02-22-openshift-network/">
-                        Openshift的网路
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/02/21/openshift-2018-02-22-openshift-network/">
+                            Openshift的网路
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
+                    <div class="home-article-content markdown-body">
                         
-https://docs.openshift.org/latest/architecture/networking/networking.html 
+                            
+                            
+https://docs.openshift.org/latest/architecture/networking/networking.html
 
-前言openshift的网路架构是建立在kubernetes的service上的。K8S的Ser...
-                    
-                </div>
+前言openshift的网路架构是建立在kubernetes的service上的。K8S的Service是一组pods和访问这些pods的逻辑抽象，service解耦了下游pods的网路变化。但是由于Service也会变化，所以openshi...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Thu Feb 22 2018 00:00:00 GMT+0800">
@@ -354,23 +555,31 @@ https://docs.openshift.org/latest/architecture/networking/networking.html
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/openshift/">openshift</a>&nbsp;
                         </li>
                     
                     
+                
+                    
+                        
+                            <li>></li>
+                        
                         <li>
-                            &gt; 
                             <a href="../../categories/openshift/kubernetes/">kubernetes</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -390,6 +599,7 @@ https://docs.openshift.org/latest/architecture/networking/networking.html
     <a href="../../2018/02/21/openshift-2018-02-22-openshift-network/">Read more<span class="seo-reader-text">Openshift的网路</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -398,20 +608,24 @@ https://docs.openshift.org/latest/architecture/networking/networking.html
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/02/18/docker-2018-02-19-docker-container-data-persistent/">
-                        三种docker数据持久的方式
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/02/18/docker-2018-02-19-docker-container-data-persistent/">
+                            三种docker数据持久的方式
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        docker提供三种方式把数据挂载到容器
-volumesvolumes是宿主机上docker管理的文件系统， 比如在&#x2F;var&#x2F;lib&#x2F;docker&#x2F;volumes&#x2F;。 一个volume可以同时被多个容...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            docker提供三种方式把数据挂载到容器
+volumesvolumes是宿主机上docker管理的文件系统， 比如在&#x2F;var&#x2F;lib&#x2F;docker&#x2F;volumes&#x2F;。 一个volume可以同时被多个容器挂载。使用docker volume create --driver可以指定远程的文件系统。
+bind mounts宿主机其他任意不是dock...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Mon Feb 19 2018 00:00:00 GMT+0800">
@@ -421,17 +635,21 @@ volumesvolumes是宿主机上docker管理的文件系统， 比如在&#x2F;var&#
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/docker/">docker</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -451,6 +669,7 @@ volumesvolumes是宿主机上docker管理的文件系统， 比如在&#x2F;var&#
     <a href="../../2018/02/18/docker-2018-02-19-docker-container-data-persistent/">Read more<span class="seo-reader-text">三种docker数据持久的方式</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -459,22 +678,25 @@ volumesvolumes是宿主机上docker管理的文件系统， 比如在&#x2F;var&#
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/02/04/openshift-2018-02-05-prerequirement-deploy-a-cluster/">
-                        Openshift Origin cluster部署配置要求和主机准备
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/02/04/openshift-2018-02-05-prerequirement-deploy-a-cluster/">
+                            Openshift Origin cluster部署配置要求和主机准备
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
+                    <div class="home-article-content markdown-body">
                         
-https://github.com/openshift/openshift-ansible 
+                            
+                            
+https://github.com/openshift/openshift-ansible
 
-杂言官方提供的github ansible部署代码还是有一些坑的，首先不能用master分支的代码，master分支是他们的开发分支。所以需要选择某个...
-                    
-                </div>
+杂言官方提供的github ansible部署代码还是有一些坑的，首先不能用master分支的代码，master分支是他们的开发分支。所以需要选择某个release， 以下选择release-3.8作为说明。origin使用的kubernetes是1.7和docker1.12. 先说说配置要求和...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Mon Feb 05 2018 00:00:00 GMT+0800">
@@ -484,23 +706,31 @@ https://github.com/openshift/openshift-ansible
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/openshift/">openshift</a>&nbsp;
                         </li>
                     
                     
+                
+                    
+                        
+                            <li>></li>
+                        
                         <li>
-                            &gt; 
                             <a href="../../categories/openshift/kubernetes/">kubernetes</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -520,6 +750,7 @@ https://github.com/openshift/openshift-ansible
     <a href="../../2018/02/04/openshift-2018-02-05-prerequirement-deploy-a-cluster/">Read more<span class="seo-reader-text">Openshift Origin cluster部署配置要求和主机准备</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -528,20 +759,23 @@ https://github.com/openshift/openshift-ansible
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/02/01/docker-2018-02-02-docker-cloud-autodeploy/">
-                        使用Docker Cloud自动化部署
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/02/01/docker-2018-02-02-docker-cloud-autodeploy/">
+                            使用Docker Cloud自动化部署
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        Docker cloud介绍Docker cloud有点像云上的jenkins docker自动化构建部署工具，可以把云上的git仓库，部署的节点虚机整合在一起，做到提交代码就可以自动构建，测试，部署。
-例子: 设置aliyun作为部署节点docke...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            Docker cloud介绍Docker cloud有点像云上的jenkins docker自动化构建部署工具，可以把云上的git仓库，部署的节点虚机整合在一起，做到提交代码就可以自动构建，测试，部署。
+例子: 设置aliyun作为部署节点docker cloud可以结合github, bitbucket仓库做到每次有新的pull request都进行一次重新构建。但是由于我本地直接用pyc...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Fri Feb 02 2018 00:00:00 GMT+0800">
@@ -551,17 +785,21 @@ https://github.com/openshift/openshift-ansible
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/docker/">docker</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -581,6 +819,7 @@ https://github.com/openshift/openshift-ansible
     <a href="../../2018/02/01/docker-2018-02-02-docker-cloud-autodeploy/">Read more<span class="seo-reader-text">使用Docker Cloud自动化部署</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -589,20 +828,23 @@ https://github.com/openshift/openshift-ansible
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/01/17/docker-2018-01-18-strange-docker-error/">
-                        一次奇怪的Docker Daemon Error
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/01/17/docker-2018-01-18-strange-docker-error/">
+                            一次奇怪的Docker Daemon Error
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        前言环境：
-1234567cat /etc/centos-releaseCentOS Linux release 7.1.1503 (Core) ansible --versionansible 2.3.1.0  config file = /etc...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            前言环境：
+1234567cat /etc/centos-releaseCentOS Linux release 7.1.1503 (Core) ansible --versionansible 2.3.1.0  config file = /etc/ansible/ansible.cfg  configured module search path = Default w/o overri...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Thu Jan 18 2018 00:00:00 GMT+0800">
@@ -612,17 +854,21 @@ https://github.com/openshift/openshift-ansible
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/docker/">docker</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -642,6 +888,7 @@ https://github.com/openshift/openshift-ansible
     <a href="../../2018/01/17/docker-2018-01-18-strange-docker-error/">Read more<span class="seo-reader-text">一次奇怪的Docker Daemon Error</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -650,20 +897,23 @@ https://github.com/openshift/openshift-ansible
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/01/08/openshift-2018-01-09-openshift-AB-deploy/">
-                        OpenShift A/B Deployment
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/01/08/openshift-2018-01-09-openshift-AB-deploy/">
+                            OpenShift A/B Deployment
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        OpenShift的AB部署AB test原理就不讲了。直接上代码
-12345oc new-project cotd --display-name=&#x27;A/B Deployment Example&#x27;  --description=&...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            OpenShift的AB部署AB test原理就不讲了。直接上代码
+12345oc new-project cotd --display-name=&#x27;A/B Deployment Example&#x27;  --description=&#x27;A/B Deployment Example&#x27;oc new-app --name=&#x27;cats&#x27; -l n...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Tue Jan 09 2018 00:00:00 GMT+0800">
@@ -673,23 +923,31 @@ https://github.com/openshift/openshift-ansible
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/openshift/">openshift</a>&nbsp;
                         </li>
                     
                     
+                
+                    
+                        
+                            <li>></li>
+                        
                         <li>
-                            &gt; 
                             <a href="../../categories/openshift/kubernetes/">kubernetes</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -709,6 +967,7 @@ https://github.com/openshift/openshift-ansible
     <a href="../../2018/01/08/openshift-2018-01-09-openshift-AB-deploy/">Read more<span class="seo-reader-text">OpenShift A/B Deployment</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -717,20 +976,23 @@ https://github.com/openshift/openshift-ansible
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/01/08/openshift-2018-01-09-openshift-annotation/">
-                        OpenShift Annotation
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/01/08/openshift-2018-01-09-openshift-annotation/">
+                            OpenShift Annotation
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        OpenShift的AnnotationOpenshift的Annotation是一个键值对，用于机器识别等其它用途。它不像label适用于人类识别，所以可以存较大的值。
-1oc annotate route/ab haproxy.router.op...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            OpenShift的AnnotationOpenshift的Annotation是一个键值对，用于机器识别等其它用途。它不像label适用于人类识别，所以可以存较大的值。
+1oc annotate route/ab haproxy.router.openshift.io/balance=roundrobin
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Tue Jan 09 2018 00:00:00 GMT+0800">
@@ -740,23 +1002,31 @@ https://github.com/openshift/openshift-ansible
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/openshift/">openshift</a>&nbsp;
                         </li>
                     
                     
+                
+                    
+                        
+                            <li>></li>
+                        
                         <li>
-                            &gt; 
                             <a href="../../categories/openshift/kubernetes/">kubernetes</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -776,6 +1046,7 @@ https://github.com/openshift/openshift-ansible
     <a href="../../2018/01/08/openshift-2018-01-09-openshift-annotation/">Read more<span class="seo-reader-text">OpenShift Annotation</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -784,20 +1055,23 @@ https://github.com/openshift/openshift-ansible
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/01/08/openshift-2018-01-09-openshift-bg-deployment/">
-                        OpenShift Blue-Green Deployment
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/01/08/openshift-2018-01-09-openshift-bg-deployment/">
+                            OpenShift Blue-Green Deployment
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        OpenShift的蓝绿部署使用oc patch route切换路由
-123456oc new-project bluegreen --display-name=&quot;Blue Green Deployments&quot;  --descri...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            OpenShift的蓝绿部署使用oc patch route切换路由
+123456oc new-project bluegreen --display-name=&quot;Blue Green Deployments&quot;  --description=&quot;Blue Green Deployments&quot;oc new-app https://github.com/de...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Tue Jan 09 2018 00:00:00 GMT+0800">
@@ -807,23 +1081,31 @@ https://github.com/openshift/openshift-ansible
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/openshift/">openshift</a>&nbsp;
                         </li>
                     
                     
+                
+                    
+                        
+                            <li>></li>
+                        
                         <li>
-                            &gt; 
                             <a href="../../categories/openshift/kubernetes/">kubernetes</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -843,6 +1125,7 @@ https://github.com/openshift/openshift-ansible
     <a href="../../2018/01/08/openshift-2018-01-09-openshift-bg-deployment/">Read more<span class="seo-reader-text">OpenShift Blue-Green Deployment</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -851,22 +1134,25 @@ https://github.com/openshift/openshift-ansible
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/01/07/openshift-2018-01-08-openshift-resource/">
-                        What is OpenShift Resource
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/01/07/openshift-2018-01-08-openshift-resource/">
+                            What is OpenShift Resource
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
+                    <div class="home-article-content markdown-body">
                         
+                            
+                            
 Openshift的资源定义类似Rest的资源
 
-OpenShift中的资源oc get -h 有一行说明Possible resources include builds, buildConfigs, services, pods, etc. T...
-                    
-                </div>
+OpenShift中的资源oc get -h 有一行说明Possible resources include builds, buildConfigs, services, pods, etc. To see a list of common resources, use &#39;oc get&#39;.. 所以任何构建，构建配置，服务，...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Mon Jan 08 2018 00:00:00 GMT+0800">
@@ -876,23 +1162,31 @@ OpenShift中的资源oc get -h 有一行说明Possible resources include builds,
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/openshift/">openshift</a>&nbsp;
                         </li>
                     
                     
+                
+                    
+                        
+                            <li>></li>
+                        
                         <li>
-                            &gt; 
                             <a href="../../categories/openshift/kubernetes/">kubernetes</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -912,58 +1206,66 @@ OpenShift中的资源oc get -h 有一行说明Possible resources include builds,
     <a href="../../2018/01/07/openshift-2018-01-08-openshift-resource/">Read more<span class="seo-reader-text">What is OpenShift Resource</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
     </ul>
 
-    <div class="home-paginator">
+    <div class="home-paginator px-7 py-5">
         <div class="paginator">
-    <a class="extend prev" rel="prev" href="../8/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="../../">1</a><span class="space">&hellip;</span><a class="page-number" href="../7/">7</a><a class="page-number" href="../8/">8</a><span class="page-number current">9</span><a class="page-number" href="../10/">10</a><a class="page-number" href="../11/">11</a><a class="extend next" rel="next" href="../10/"><i class="fa-regular fa-angle-right"></i></a>
+	<a class="extend prev" rel="prev" href="../8/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="../../">1</a><span class="space">&hellip;</span><a class="page-number" href="../7/">7</a><a class="page-number" href="../8/">8</a><span class="page-number current">9</span><a class="page-number" href="../10/">10</a><a class="page-number" href="../11/">11</a><a class="extend next" rel="next" href="../10/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
-
+  
     </div>
 </div>
 
-                
+			</div>
 
-            </div>
-            
-            
+			
+		</div>
 
-        </div>
-
-        <div class="main-content-footer">
-            <footer class="footer">
-    <div class="info-container">
-        <div class="copyright-info">
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
             &copy;
             
               <span>2022</span>
               -
             
             2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Kopei</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        106 posts in total
+                    </span>
+                    
+                </p>
+            
         </div>
         
-            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-            <div class="website-count info-item">
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
                 
-                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
-                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
                     </span>
                 
                 
-                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
-                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
                     </span>
                 
             </div>
         
-        <div class="theme-info info-item">
-            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
-                <br>
-            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
         </div>
-        
         
         
             <div>
@@ -971,8 +1273,7 @@ OpenShift中的资源oc get -h 有一行说明Possible resources include builds,
             </div>
         
         
-        
-            <script async data-pjax>
+            <script data-swup-reload-script>
                 try {
                     function odometer_init() {
                     const elements = document.querySelectorAll('.odometer');
@@ -992,167 +1293,153 @@ OpenShift中的资源oc get -h 有一行说明Possible resources include builds,
         
     </div>  
 </footer>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    
+	
 
-    <div class="right-side-tools-container">
-        <div class="side-tools-container">
-    <ul class="hidden-tools-list">
-        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
-            <i class="fa-regular fa-magnifying-glass-plus"></i>
-        </li>
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
 
-        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
-            <i class="fa-regular fa-magnifying-glass-minus"></i>
-        </li>
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
 
-        <li class="right-bottom-tools tool-expand-width flex-center">
-            <i class="fa-regular fa-expand"></i>
-        </li>
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
 
-        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
-            <i class="fa-regular fa-moon"></i>
-        </li>
+		<!-- rss -->
+		
 
-        <!-- rss -->
-        
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
 
-        
-            <li class="right-bottom-tools tool-scroll-to-top flex-center">
-                <i class="fa-regular fa-arrow-up"></i>
-            </li>
-        
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
 
-        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
-            <i class="fa-regular fa-arrow-down"></i>
-        </li>
-    </ul>
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
 
-    <ul class="visible-tools-list">
-        <li class="right-bottom-tools toggle-tools-list flex-center">
-            <i class="fa-regular fa-cog fa-spin"></i>
-        </li>
-        
-        
-    </ul>
+	<div class="image-viewer-container">
+	<img src="">
 </div>
 
-    </div>
-
-    <div class="image-viewer-container">
-    <img src="">
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
 </div>
-
-
-    
-        <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-          <span class="search-input-field-pre">
-            <i class="fa-solid fa-keyboard"></i>
-          </span>
-            <div class="search-input-container">
-                <input autocomplete="off"
-                       autocorrect="off"
-                       autocapitalize="off"
-                       placeholder="Search..."
-                       spellcheck="false"
-                       type="search"
-                       class="search-input"
-                >
-            </div>
-            <span class="popup-btn-close">
-                <i class="fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div id="search-result">
-            <div id="no-result">
-                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-    
-
+	
 
 </main>
 
 
-
-
-<script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/utils.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/main.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/layouts/navbarShrink.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/scrollTopBottom.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/lightDarkSwitch.js"></script>
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/localSearch.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/codeBlock.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/layouts/lazyload.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/runtime.js"></script>
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/odometer.min.js"></script>
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/assets/odometer-theme-minimal.css">
-
-
-
-  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/Typed.min.js"></script>
-  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/plugins/typed.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/mermaid.min.js"></script>
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/plugins/mermaid.js"></script>
-
-
-
-
-<div class="post-scripts pjax">
-    
-</div>
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/pjax.min.js"></script>
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Swup.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
 <script>
-    window.addEventListener('DOMContentLoaded', () => {
-        window.pjax = new Pjax({
-            selectors: [
-                'head title',
-                '.page-container',
-                '.pjax',
-            ],
-            history: true,
-            debug: false,
-            cacheBust: false,
-            timeout: 0,
-            analytics: false,
-            currentUrlFullReload: false,
-            scrollRestoration: false,
-            // scrollTo: true,
-        });
-
-        document.addEventListener('pjax:send', () => {
-            Global.utils.pjaxProgressBarStart();
-        });
-
-        document.addEventListener('pjax:complete', () => {
-            Global.utils.pjaxProgressBarEnd();
-            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
-            Global.refresh();
-        });
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
     });
 </script>
 
 
 
 
+	<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/utils.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/main.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/categoryList.js" ></script>
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/localSearch.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/codeBlock.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/lazyload.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/typed.js" ></script>
+
+
+
+    
+        <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/mermaid.min.js" ></script>
+    
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/mermaid.js" ></script>
+
+
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/anime.min.js" ></script>
+
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/essays.js" data-swup-reload-script></script>
+
+
+
+
+	
 </body>
+
 </html>

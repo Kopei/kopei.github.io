@@ -6,13 +6,125 @@
     <meta name="keywords" content="Hexo Theme Redefine">
     
     <meta name="author" content="Kopei">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
     <!-- preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+
     
         
-            <link rel="preconnect" href="https://npm.elemecdn.com" crossorigin>
+        
+        
+            <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
         
     
     <!--- Seo Part-->
@@ -22,13 +134,20 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta property="og:type" content="website">
+    
+    
+        
+        <meta name="description" content="Kopei&#39;s Home">
+<meta property="og:type" content="website">
 <meta property="og:title" content="Kopei&#39;s Home">
 <meta property="og:url" content="https://kopei.github.io/page/8/index.html">
 <meta property="og:site_name" content="Kopei&#39;s Home">
+<meta property="og:description" content="Kopei&#39;s Home">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kopei.github.io/images/k-favicon.jpeg">
 <meta property="article:author" content="Kopei Nan">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kopei.github.io/images/k-favicon.jpeg">
     
     
     <!--- Icon Part-->
@@ -40,35 +159,45 @@
     
     <title>
         
-        Kopei&#39;s Home
+            Kopei&#39;s Home - Redefine Your Hexo Journey.
+        
     </title>
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Chillax/chillax.css">
+
+    <!--- Inject Part-->
+    
+
     
 <link rel="stylesheet" href="css/style.css">
 
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/fonts.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/Satoshi/satoshi.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/Chillax/chillax.css">
+
+    
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/css/build/tailwind.css">
+    
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Geist/geist.css">
     <!--- Font Part-->
     
     
     
     
-
-    <!--- Inject Part-->
     
+    
+
     <script id="hexo-configurations">
-    let Global = window.Global || {};
-    Global.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
-    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["article"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null},"highlight_theme":{"light":"github","dark":"vs2015"}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]},"pangu_js":false},"colors":{"primary":"#005080","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"200px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":false},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":{"enable":true,"image":"/images/k-favicon.jpeg","description":"Kopei's Home"},"google_analytics":{"enable":false,"id":null},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"一元复始 万物复归","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn","show_author":false},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"kopei.github.io","instagram":null,"zhihu":null,"twitter":null,"email":"ncpbest@gmail.com"},"style":"default","qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true},"width":{"home":"1200px","pages":"1000px"}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null,"show_on_mobile":true},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3},"excerpt_length":200},"footerStart":"2022/8/17 11:45:14"};
-    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
-    Global.data_config = {"masonry":false};
+    window.config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["article"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#005080","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"200px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/k-favicon.jpeg","description":"Kopei's Home"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"一元复始 万物复归","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"kopei.github.io","instagram":null,"zhihu":null,"twitter":null,"email":"ncpbest@gmail.com"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
   </script>
     
     <!--- Fontawesome Part-->
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/fontawesome.min.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/brands.min.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/solid.min.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/regular.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/regular.min.css">
     
     
     
@@ -80,31 +209,64 @@
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
 
 
-<body>
-<div class="progress-bar-container">
-    
-        <span class="scroll-progress-bar"></span>
-    
 
-    
-        <span class="pjax-progress-bar"></span>
-        <span class="pjax-progress-icon">
-            <i class="fa-solid fa-circle-notch fa-spin"></i>
-        </span>
-    
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+	<style>
+    .home-article-item,
+    .sidebar-links,
+    .sidebar-content,
+    a.page-number,
+    a.extend,
+    .sidebar-links .links:hover,
+    .right-bottom-tools,
+    footer.footer {
+        background-color: var(--background-color-transparent-80) !important;
+    }
+    .right-bottom-tools:hover,
+    a.page-number:hover,
+    a.extend:hover {
+        background-color: var(--primary-color) !important;
+    }
+    .site-info,
+    .home-article-sticky-label {
+        background-color: var(--background-color-transparent-15) !important;
+    }
+    .home-article-sticky-label {
+        backdrop-filter: none !important;
+    }
+    .home-banner-background {
+        filter: blur(15px);
+    }
+</style>
+
+<div class="home-banner-background transition-fade fixed top-0 left-0 w-screen h-screen scale-125 sm:scale-110 box-border will-change-transform bg-cover">
+    <img src="../../images/wallhaven-wqery6-light.webp" alt="home-banner-background" class="w-full h-full object-cover dark:hidden">
+    <img src="../../images/wallhaven-wqery6-dark.webp" alt="home-banner-background" class="w-full h-full object-cover hidden dark:block">
 </div>
 
 
-<main class="page-container">
+	
 
-    
-
-    <div class="main-content-container">
-
-        <div class="main-content-header">
-            <header class="navbar-container">
-    
-    <div class="navbar-content">
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
         <div class="left">
             
             <a class="logo-title" href="/">
@@ -120,33 +282,35 @@
                 <ul class="navbar-list">
                     
                         
+                            
+
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="active" 
-                                    href="../../index.html"  >
-                                    
-                                        
-                                            <i class="fa-regular fa-house"></i>
-                                        
-                                        HOME
+                                <a class="active"
+                                   href="../../index.html"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
                                     
                                 </a>
+
                                 <!-- Submenu -->
                                 
                             </li>
                     
                         
+                            
+
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="" 
-                                    href="../../archives"  >
-                                    
-                                        
-                                            <i class="fa-regular fa-archive"></i>
-                                        
-                                        ARCHIVES
+                                <a class=""
+                                   href="../../archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
                                     
                                 </a>
+
                                 <!-- Submenu -->
                                 
                             </li>
@@ -161,7 +325,8 @@
             <!-- Mobile -->
             <div class="mobile">
                 
-                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
                 
                 <div class="icon-item navbar-bar">
                     <div class="navbar-bar-middle"></div>
@@ -170,42 +335,69 @@
         </div>
     </div>
 
-    <!-- Mobile drawer -->
-    <div class="navbar-drawer">
-        <ul class="drawer-navbar-list">
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
             
                 
-                    <li class="drawer-navbar-item flex-center">
-                        <a class="active" 
-                        href="../../index.html"  >
-                             
-                                
-                                    <i class="fa-regular fa-house"></i>
-                                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="../../index.html"
+                        >
+                            <span>
                                 HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
                             
                         </a>
+                        
+
+                        
                     </li>
-                    <!-- Submenu -->
-                    
             
                 
-                    <li class="drawer-navbar-item flex-center">
-                        <a class="" 
-                        href="../../archives"  >
-                             
-                                
-                                    <i class="fa-regular fa-archive"></i>
-                                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="../../archives"
+                        >
+                            <span>
                                 ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
                             
                         </a>
+                        
+
+                        
                     </li>
-                    <!-- Submenu -->
-                    
             
 
+            
+            
         </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">26</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">106</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
     </div>
 
     <div class="window-mask"></div>
@@ -213,51 +405,49 @@
 </header>
 
 
-        </div>
+		</div>
 
-        <div class="main-content-body">
-
-            
-                <div class="home-sidebar-container fade-in-down-animation">
-    <div class="sticky-container">
+		<div class="main-content-body transition-fade-up">
+			
+			<div class="home-sidebar-container">
+    <div class="sticky-container sticky">
+        
         
             
             <div class="sidebar-content" >
-                <div class="avatar">
-                    <img src="../../../../images/kopei-icon.jpeg">
-                </div>
-                <div class="author">
-                    <div class="name">Kopei</div>
-                    
-                        <div class="label">article</div>
-                    
-                </div>
-                <div class="statistics">
-                    <a class="item" href="../../tags">
-                        <div class="number">56</div>
-                        <div class="label">Tags</div>
-                    </a>
-                    <a class="item" href="../../categories">
-                        <div class="number">26</div>
-                        <div class="label">Categories</div>
-                    </a>
-                    <a class="item" href="../../archives">
-                        <div class="number">106</div>
-                        <div class="label">Posts</div>
-                    </a>
-                </div>
+                <div class="avatar flex justify-center">
+    <img src="../../images/kopei-icon.jpeg">
+</div>
+                <div class="author flex flex-col justify-center my-2.5 mx-0">
+    <div class="name">Kopei</div>
+    
+        <div class="label">article</div>
+    
+</div>
+                <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">26</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">106</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
             </div>
         
 
     </div>
 </div>
 
-            
+			
 
-            <div class="main-content">
-
-                
-                    <div class="home-content-container fade-in-down-animation">
+			<div class="main-content">
+				<div class="home-content-container">
     <ul class="home-article-list">
         
             <li class="home-article-item">
@@ -266,23 +456,29 @@
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/04/10/kubernetes-2018-04-11-migrate-k8s-summary/">
-                        本地rails系统迁移到阿里云容器服务小结
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/04/10/kubernetes-2018-04-11-migrate-k8s-summary/">
+                            本地rails系统迁移到阿里云容器服务小结
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
+                    <div class="home-article-content markdown-body">
                         
+                            
+                            
 实验性迁移小结
 
 迁移目标本文主要记录了将本地rails迁移到云上容器服务的过程, 包括如何部分重构本地应用代码和一些思考. 迁移本地应用的目的主要是为了能够将应用变得高可用和更好的扩展性, 以及为了更好的容器管理.
-原来的系统状况本地的rails...
-                    
-                </div>
+原来的系统状况本地的rails系统是一个典型的数据库-网页应用, 原来采用docker compose构建部署, 用到的技术栈主要有, 结构图如下:
 
-                <div class="home-article-meta-info-container">
+rails5.0
+my...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Wed Apr 11 2018 00:00:00 GMT+0800">
@@ -292,17 +488,21 @@
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/kubernetes/">kubernetes</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -322,6 +522,7 @@
     <a href="../../2018/04/10/kubernetes-2018-04-11-migrate-k8s-summary/">Read more<span class="seo-reader-text">本地rails系统迁移到阿里云容器服务小结</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -330,19 +531,22 @@
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/04/06/kubernetes-2018-04-08-k8s-deployments/">
-                        Kubernetes Deployment
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/04/06/kubernetes-2018-04-08-k8s-deployments/">
+                            Kubernetes Deployment
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        k8s的部署Deploymentk8s的Deployment提供了pods和ReplicaSets的更新.只需在Deployment对象声明你想要的部署状态, Deployment控制器就会更新到需要的状态.所以这种方式是声明式的.除非第一次部署,k...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            k8s的部署Deploymentk8s的Deployment提供了pods和ReplicaSets的更新.只需在Deployment对象声明你想要的部署状态, Deployment控制器就会更新到需要的状态.所以这种方式是声明式的.除非第一次部署,k8s采用的部署方式是rolling update(滚动更新). 大致意思是保证服务可用的情况下, 创建一定量的新pods,然后删除一定量的pod...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Sat Apr 07 2018 00:00:00 GMT+0800">
@@ -352,17 +556,21 @@
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/kubernetes/">kubernetes</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -382,6 +590,7 @@
     <a href="../../2018/04/06/kubernetes-2018-04-08-k8s-deployments/">Read more<span class="seo-reader-text">Kubernetes Deployment</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -390,20 +599,23 @@
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/04/02/sed-and-awk/">
-                        SED and AWK
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/04/02/sed-and-awk/">
+                            SED and AWK
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        前言SED和AWK都是平时会用的Linux命令，正好看到NYU的一个PPT, 觉得不错，做一下总结。
-SEDsed是一个流式、非交互的文本编辑器。类似grep, sed会读取一行文本然后查找一个pattern模板,再根据匹配与否做相应的动作。sed是...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            前言SED和AWK都是平时会用的Linux命令，正好看到NYU的一个PPT, 觉得不错，做一下总结。
+SEDsed是一个流式、非交互的文本编辑器。类似grep, sed会读取一行文本然后查找一个pattern模板,再根据匹配与否做相应的动作。sed是可以改变文件内容的。sed作为非交互文本编辑器需要以脚本执行命令，有一个叫ed的交互式编辑器可以执行相同的命令。sed也可以认为是一个unix过...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Tue Apr 03 2018 00:00:00 GMT+0800">
@@ -413,17 +625,21 @@ SEDsed是一个流式、非交互的文本编辑器。类似grep, sed会读取�
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/linux/">linux</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -443,6 +659,7 @@ SEDsed是一个流式、非交互的文本编辑器。类似grep, sed会读取�
     <a href="../../2018/04/02/sed-and-awk/">Read more<span class="seo-reader-text">SED and AWK</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -451,22 +668,25 @@ SEDsed是一个流式、非交互的文本编辑器。类似grep, sed会读取�
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/03/12/kubernetes-2018-03-13-k8s-manage-resource/">
-                        K8S管理容器的计算资源
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/03/12/kubernetes-2018-03-13-k8s-manage-resource/">
+                            K8S管理容器的计算资源
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
+                    <div class="home-article-content markdown-body">
                         
-https://v1-8.docs.kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ 
+                            
+                            
+https://v1-8.docs.kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
 
-前言k8s可以给pod设置计算资源用量， 当遇到违反...
-                    
-                </div>
+前言k8s可以给pod设置计算资源用量， 当遇到违反某些不满足性能的条件时，k8s会有一套机制来处理。限制资源在编排模拟中使用limits或requests.requests指定资源的最小要求，li...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Tue Mar 13 2018 00:00:00 GMT+0800">
@@ -476,17 +696,21 @@ https://v1-8.docs.kubernetes.io/docs/concepts/configuration/manage-compute-resou
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/kubernetes/">kubernetes</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -506,6 +730,7 @@ https://v1-8.docs.kubernetes.io/docs/concepts/configuration/manage-compute-resou
     <a href="../../2018/03/12/kubernetes-2018-03-13-k8s-manage-resource/">Read more<span class="seo-reader-text">K8S管理容器的计算资源</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -514,22 +739,25 @@ https://v1-8.docs.kubernetes.io/docs/concepts/configuration/manage-compute-resou
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/03/11/kubernetes-2018-03-12-k8s-dynamic-volume-provision/">
-                        在云上使用k8s动态PV
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/03/11/kubernetes-2018-03-12-k8s-dynamic-volume-provision/">
+                            在云上使用k8s动态PV
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
+                    <div class="home-article-content markdown-body">
                         
-https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/ 
+                            
+                            
+https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/
 
-前言动态卷配置允许按需创建存储卷。如果没有动态配置，管理员必须手动配置创建新的存储， 然后创...
-                    
-                </div>
+前言动态卷配置允许按需创建存储卷。如果没有动态配置，管理员必须手动配置创建新的存储， 然后创建PV对象。动态卷配置的功能能让管理员不必预先配置存储。而是当用户需要的时候自动配置存储。它可以按用户需要的用量配置存储空间，不像静态那样可能出现...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Mon Mar 12 2018 00:00:00 GMT+0800">
@@ -539,17 +767,21 @@ https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/kubernetes/">kubernetes</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -569,6 +801,7 @@ https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/
     <a href="../../2018/03/11/kubernetes-2018-03-12-k8s-dynamic-volume-provision/">Read more<span class="seo-reader-text">在云上使用k8s动态PV</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -577,20 +810,25 @@ https://v1-8.docs.kubernetes.io/docs/concepts/storage/dynamic-provisioning/
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/03/11/kubernetes-2018-03-12-k8s-pull-private-image/">
-                        K8S使用私有镜像
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/03/11/kubernetes-2018-03-12-k8s-pull-private-image/">
+                            K8S使用私有镜像
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
+                    <div class="home-article-content markdown-body">
                         
-https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-accoun...
-                    
-                </div>
+                            
+                            
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account
 
-                <div class="home-article-meta-info-container">
+前言如果想要k8s能够拉取使用私有镜像需要创建secret, 然后有两种方法指定secret, 拉取image。 一是在pod的编排模板指...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Mon Mar 12 2018 00:00:00 GMT+0800">
@@ -600,17 +838,21 @@ https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-accou
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/kubernetes/">kubernetes</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -630,6 +872,7 @@ https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-accou
     <a href="../../2018/03/11/kubernetes-2018-03-12-k8s-pull-private-image/">Read more<span class="seo-reader-text">K8S使用私有镜像</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -638,21 +881,24 @@ https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-accou
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/03/09/kubernetes-2018-03-10-k8s-mysql/">
-                        使用aliyun容器服务搭建mysql
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/03/09/kubernetes-2018-03-10-k8s-mysql/">
+                            使用aliyun容器服务搭建mysql
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        前言本文简单介绍用aliyun的Kubernetes容器服务搭建mysql集群。首先确保k8s集群已经创建，并且已经开通了相关服务如NAS、容器镜像仓库等服务。
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            前言本文简单介绍用aliyun的Kubernetes容器服务搭建mysql集群。首先确保k8s集群已经创建，并且已经开通了相关服务如NAS、容器镜像仓库等服务。
 第一步 创建数据卷
-k8s有个nodeSelector的功能，如果mysql由于单点故障...
-                    
-                </div>
+k8s有个nodeSelector的功能，如果mysql由于单点故障漂移了node，原来的存储会自动重新挂载到新的node(这一步骤是在转移node之前做的). 这样避免了漂移node导致有状态服务不可用的情况。...
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Sat Mar 10 2018 00:00:00 GMT+0800">
@@ -662,17 +908,21 @@ k8s有个nodeSelector的功能，如果mysql由于单点故障...
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/kubernetes/">kubernetes</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -692,6 +942,7 @@ k8s有个nodeSelector的功能，如果mysql由于单点故障...
     <a href="../../2018/03/09/kubernetes-2018-03-10-k8s-mysql/">Read more<span class="seo-reader-text">使用aliyun容器服务搭建mysql</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -700,19 +951,22 @@ k8s有个nodeSelector的功能，如果mysql由于单点故障...
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/03/07/kubernetes-2018-03-08-k8s-volume/">
-                        Kubernetes的volume
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/03/07/kubernetes-2018-03-08-k8s-volume/">
+                            Kubernetes的volume
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        Volume简单的说， 一个volume就是一个在磁盘或容器中的目录，volume里面有pod中容器可以访问的数据。K8S的volume主要解决容器中数据存储和容器间数据共享的问题。k8s的volume和pod有相同的生命周期。一个pod可以同时使用...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            Volume简单的说， 一个volume就是一个在磁盘或容器中的目录，volume里面有pod中容器可以访问的数据。K8S的volume主要解决容器中数据存储和容器间数据共享的问题。k8s的volume和pod有相同的生命周期。一个pod可以同时使用不同的volume类型。如果使用volume, 一个pod需要通过spec.volumes指定volume类型，spec.containers....
+                        
+                    </div>
 
-                <div class="home-article-meta-info-container">
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Thu Mar 08 2018 00:00:00 GMT+0800">
@@ -722,17 +976,21 @@ k8s有个nodeSelector的功能，如果mysql由于单点故障...
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/kubernetes/">kubernetes</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -752,6 +1010,7 @@ k8s有个nodeSelector的功能，如果mysql由于单点故障...
     <a href="../../2018/03/07/kubernetes-2018-03-08-k8s-volume/">Read more<span class="seo-reader-text">Kubernetes的volume</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -760,19 +1019,28 @@ k8s有个nodeSelector的功能，如果mysql由于单点故障...
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/03/06/kubernetes-2018-03-07-StatefulSets/">
-                        K8S的StatefulSets
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/03/06/kubernetes-2018-03-07-StatefulSets/">
+                            K8S的StatefulSets
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        前言K8S的StatefulSets是一个负载API对象用于管理有状态的应用。StatefulSets会给每个pod维护一个独特的标记， 所以这些pods是不能交换的。注意，V1.9才是稳定版本， 可以通过apiserver发送--runtime-c...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            前言K8S的StatefulSets是一个负载API对象用于管理有状态的应用。StatefulSets会给每个pod维护一个独特的标记， 所以这些pods是不能交换的。注意，V1.9才是稳定版本， 可以通过apiserver发送--runtime-config禁用这个控制器。
+应用场景StatefulSets适合如下应用场景：
 
-                <div class="home-article-meta-info-container">
+稳定、唯一的网络标识
+稳定、持久的存储
+有序的部署和扩展
+有序...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Wed Mar 07 2018 00:00:00 GMT+0800">
@@ -782,17 +1050,21 @@ k8s有个nodeSelector的功能，如果mysql由于单点故障...
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/kubernetes/">kubernetes</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -812,6 +1084,7 @@ k8s有个nodeSelector的功能，如果mysql由于单点故障...
     <a href="../../2018/03/06/kubernetes-2018-03-07-StatefulSets/">Read more<span class="seo-reader-text">K8S的StatefulSets</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
             <li class="home-article-item">
@@ -820,20 +1093,25 @@ k8s有个nodeSelector的功能，如果mysql由于单点故障...
 
                 
 
-                <h3 class="home-article-title">
-                    <a href="../../2018/03/04/openshift-2018-03-05-kubernetes-infrastrcture/">
-                        Openshift中Kubernetes的基础设施
-                    </a>
-                </h3>
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="../../2018/03/04/openshift-2018-03-05-kubernetes-infrastrcture/">
+                            Openshift中Kubernetes的基础设施
+                        </a>
+                    </h3>
 
-                <div class="home-article-content markdown-body">
-                    
-                        前言主要是从Openshift Origin的Doc 看到的, 对应k8s 1.7. 加上官网的Doc. 
-Mastersmasters上的组件含有API server, controller manager server和etcd(可以单独host...
-                    
-                </div>
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            前言主要是从Openshift Origin的Doc看到的, 对应k8s 1.7. 加上官网的Doc. 
+Mastersmasters上的组件含有API server, controller manager server和etcd(可以单独host)。 master管理k8s集群中的nodes，调度节点上的pods.
 
-                <div class="home-article-meta-info-container">
+API server. 可以是一个独立的进程运行。API server验...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
             <span class="home-article-date" data-date="Mon Mar 05 2018 00:00:00 GMT+0800">
@@ -843,23 +1121,31 @@ Mastersmasters上的组件含有API server, controller manager server和etcd(可
             </span>
         </span>
         
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
                     
+                        
                         <li>
-                            
                             <a href="../../categories/openshift/">openshift</a>&nbsp;
                         </li>
                     
                     
+                
+                    
+                        
+                            <li>></li>
+                        
                         <li>
-                            &gt; 
                             <a href="../../categories/openshift/kubernetes/">kubernetes</a>&nbsp;
                         </li>
                     
                     
-                </ul>
-            </span>
+                
+            </ul>
+        </span>
         
         
             <span class="home-article-tag">
@@ -879,58 +1165,66 @@ Mastersmasters上的组件含有API server, controller manager server和etcd(可
     <a href="../../2018/03/04/openshift-2018-03-05-kubernetes-infrastrcture/">Read more<span class="seo-reader-text">Openshift中Kubernetes的基础设施</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
+                </div>
             </li>
         
     </ul>
 
-    <div class="home-paginator">
+    <div class="home-paginator px-7 py-5">
         <div class="paginator">
-    <a class="extend prev" rel="prev" href="../7/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="../../">1</a><span class="space">&hellip;</span><a class="page-number" href="../6/">6</a><a class="page-number" href="../7/">7</a><span class="page-number current">8</span><a class="page-number" href="../9/">9</a><a class="page-number" href="../10/">10</a><a class="page-number" href="../11/">11</a><a class="extend next" rel="next" href="../9/"><i class="fa-regular fa-angle-right"></i></a>
+	<a class="extend prev" rel="prev" href="../7/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="../../">1</a><span class="space">&hellip;</span><a class="page-number" href="../6/">6</a><a class="page-number" href="../7/">7</a><span class="page-number current">8</span><a class="page-number" href="../9/">9</a><a class="page-number" href="../10/">10</a><a class="page-number" href="../11/">11</a><a class="extend next" rel="next" href="../9/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
-
+  
     </div>
 </div>
 
-                
+			</div>
 
-            </div>
-            
-            
+			
+		</div>
 
-        </div>
-
-        <div class="main-content-footer">
-            <footer class="footer">
-    <div class="info-container">
-        <div class="copyright-info">
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
             &copy;
             
               <span>2022</span>
               -
             
             2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Kopei</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        106 posts in total
+                    </span>
+                    
+                </p>
+            
         </div>
         
-            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-            <div class="website-count info-item">
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
                 
-                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
-                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
                     </span>
                 
                 
-                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
-                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
                     </span>
                 
             </div>
         
-        <div class="theme-info info-item">
-            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
-                <br>
-            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
         </div>
-        
         
         
             <div>
@@ -938,8 +1232,7 @@ Mastersmasters上的组件含有API server, controller manager server和etcd(可
             </div>
         
         
-        
-            <script async data-pjax>
+            <script data-swup-reload-script>
                 try {
                     function odometer_init() {
                     const elements = document.querySelectorAll('.odometer');
@@ -959,167 +1252,153 @@ Mastersmasters上的组件含有API server, controller manager server和etcd(可
         
     </div>  
 </footer>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    
+	
 
-    <div class="right-side-tools-container">
-        <div class="side-tools-container">
-    <ul class="hidden-tools-list">
-        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
-            <i class="fa-regular fa-magnifying-glass-plus"></i>
-        </li>
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
 
-        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
-            <i class="fa-regular fa-magnifying-glass-minus"></i>
-        </li>
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
 
-        <li class="right-bottom-tools tool-expand-width flex-center">
-            <i class="fa-regular fa-expand"></i>
-        </li>
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
 
-        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
-            <i class="fa-regular fa-moon"></i>
-        </li>
+		<!-- rss -->
+		
 
-        <!-- rss -->
-        
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
 
-        
-            <li class="right-bottom-tools tool-scroll-to-top flex-center">
-                <i class="fa-regular fa-arrow-up"></i>
-            </li>
-        
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
 
-        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
-            <i class="fa-regular fa-arrow-down"></i>
-        </li>
-    </ul>
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
 
-    <ul class="visible-tools-list">
-        <li class="right-bottom-tools toggle-tools-list flex-center">
-            <i class="fa-regular fa-cog fa-spin"></i>
-        </li>
-        
-        
-    </ul>
+	<div class="image-viewer-container">
+	<img src="">
 </div>
 
-    </div>
-
-    <div class="image-viewer-container">
-    <img src="">
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
 </div>
-
-
-    
-        <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-          <span class="search-input-field-pre">
-            <i class="fa-solid fa-keyboard"></i>
-          </span>
-            <div class="search-input-container">
-                <input autocomplete="off"
-                       autocorrect="off"
-                       autocapitalize="off"
-                       placeholder="Search..."
-                       spellcheck="false"
-                       type="search"
-                       class="search-input"
-                >
-            </div>
-            <span class="popup-btn-close">
-                <i class="fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div id="search-result">
-            <div id="no-result">
-                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-    
-
+	
 
 </main>
 
 
-
-
-<script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/utils.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/main.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/layouts/navbarShrink.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/scrollTopBottom.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/lightDarkSwitch.js"></script>
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/localSearch.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/codeBlock.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/layouts/lazyload.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/runtime.js"></script>
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/odometer.min.js"></script>
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/assets/odometer-theme-minimal.css">
-
-
-
-  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/Typed.min.js"></script>
-  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/plugins/typed.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/mermaid.min.js"></script>
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/plugins/mermaid.js"></script>
-
-
-
-
-<div class="post-scripts pjax">
-    
-</div>
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/pjax.min.js"></script>
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Swup.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
 <script>
-    window.addEventListener('DOMContentLoaded', () => {
-        window.pjax = new Pjax({
-            selectors: [
-                'head title',
-                '.page-container',
-                '.pjax',
-            ],
-            history: true,
-            debug: false,
-            cacheBust: false,
-            timeout: 0,
-            analytics: false,
-            currentUrlFullReload: false,
-            scrollRestoration: false,
-            // scrollTo: true,
-        });
-
-        document.addEventListener('pjax:send', () => {
-            Global.utils.pjaxProgressBarStart();
-        });
-
-        document.addEventListener('pjax:complete', () => {
-            Global.utils.pjaxProgressBarEnd();
-            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
-            Global.refresh();
-        });
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
     });
 </script>
 
 
 
 
+	<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/utils.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/main.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/categoryList.js" ></script>
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/localSearch.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/codeBlock.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/lazyload.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/typed.js" ></script>
+
+
+
+    
+        <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/mermaid.min.js" ></script>
+    
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/mermaid.js" ></script>
+
+
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/anime.min.js" ></script>
+
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/essays.js" data-swup-reload-script></script>
+
+
+
+
+	
 </body>
+
 </html>

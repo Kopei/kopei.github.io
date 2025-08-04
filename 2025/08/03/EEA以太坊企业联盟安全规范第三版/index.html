@@ -6,13 +6,125 @@
     <meta name="keywords" content="Hexo Theme Redefine">
     
     <meta name="author" content="Kopei">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
     <!-- preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+
     
         
-            <link rel="preconnect" href="https://npm.elemecdn.com" crossorigin>
+        
+        
+            <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
         
     
     <!--- Seo Part-->
@@ -22,18 +134,23 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="EEA EthTrust 安全等级规范 第3版2025年3月 ​​当前版本​​:https:&#x2F;&#x2F;entethalliance.org&#x2F;specs&#x2F;ethtrust-sl&#x2F;v3&#x2F;  ​​本版本检查清单​​:https:&#x2F;&#x2F;entethalliance.org&#x2F;specs&#x2F;ethtrust-sl&#x2F;v3&#x2F;checklist.html  ​​最新编辑草案​​:https:&#x2F;&#x2F;entethalliance.">
+    
+    
+        
+        <meta name="description" content="Kopei&#39;s Home">
 <meta property="og:type" content="article">
 <meta property="og:title" content="EEA以太坊企业联盟安全规范第三版">
 <meta property="og:url" content="https://kopei.github.io/2025/08/03/EEA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%BC%81%E4%B8%9A%E8%81%94%E7%9B%9F%E5%AE%89%E5%85%A8%E8%A7%84%E8%8C%83%E7%AC%AC%E4%B8%89%E7%89%88/index.html">
 <meta property="og:site_name" content="Kopei&#39;s Home">
-<meta property="og:description" content="EEA EthTrust 安全等级规范 第3版2025年3月 ​​当前版本​​:https:&#x2F;&#x2F;entethalliance.org&#x2F;specs&#x2F;ethtrust-sl&#x2F;v3&#x2F;  ​​本版本检查清单​​:https:&#x2F;&#x2F;entethalliance.org&#x2F;specs&#x2F;ethtrust-sl&#x2F;v3&#x2F;checklist.html  ​​最新编辑草案​​:https:&#x2F;&#x2F;entethalliance.">
+<meta property="og:description" content="Kopei&#39;s Home">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kopei.github.io/images/k-favicon.jpeg">
 <meta property="article:published_time" content="2025-08-03T05:01:59.000Z">
-<meta property="article:modified_time" content="2025-08-04T13:13:55.710Z">
+<meta property="article:modified_time" content="2025-08-04T13:18:03.276Z">
 <meta property="article:author" content="Kopei Nan">
 <meta property="article:tag" content="Block, ETH, Security">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kopei.github.io/images/k-favicon.jpeg">
     
     
     <!--- Icon Part-->
@@ -45,37 +162,45 @@
     
     <title>
         
-            EEA以太坊企业联盟安全规范第三版 -
+            EEA以太坊企业联盟安全规范第三版 | Kopei&#39;s Home
         
-        Kopei&#39;s Home
     </title>
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Chillax/chillax.css">
+
+    <!--- Inject Part-->
+    
+
     
 <link rel="stylesheet" href="css/style.css">
 
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/fonts.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/Satoshi/satoshi.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/Chillax/chillax.css">
+
+    
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/css/build/tailwind.css">
+    
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Geist/geist.css">
     <!--- Font Part-->
     
     
     
     
-
-    <!--- Inject Part-->
     
+    
+
     <script id="hexo-configurations">
-    let Global = window.Global || {};
-    Global.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
-    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["article"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null},"highlight_theme":{"light":"github","dark":"vs2015"}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]},"pangu_js":false},"colors":{"primary":"#005080","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"200px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":false},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":{"enable":true,"image":"/images/k-favicon.jpeg","description":"Kopei's Home"},"google_analytics":{"enable":false,"id":null},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"一元复始 万物复归","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn","show_author":false},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"kopei.github.io","instagram":null,"zhihu":null,"twitter":null,"email":"ncpbest@gmail.com"},"style":"default","qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true},"width":{"home":"1200px","pages":"1000px"}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null,"show_on_mobile":true},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3},"excerpt_length":200},"footerStart":"2022/8/17 11:45:14"};
-    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
-    Global.data_config = {"masonry":false};
+    window.config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["article"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#005080","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"200px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/k-favicon.jpeg","description":"Kopei's Home"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"一元复始 万物复归","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"kopei.github.io","instagram":null,"zhihu":null,"twitter":null,"email":"ncpbest@gmail.com"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
   </script>
     
     <!--- Fontawesome Part-->
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/fontawesome.min.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/brands.min.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/solid.min.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/regular.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/regular.min.css">
     
     
     
@@ -87,31 +212,29 @@
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
 
 
-<body>
-<div class="progress-bar-container">
-    
-        <span class="scroll-progress-bar"></span>
-    
 
-    
-        <span class="pjax-progress-bar"></span>
-        <span class="pjax-progress-icon">
-            <i class="fa-solid fa-circle-notch fa-spin"></i>
-        </span>
-    
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
 </div>
 
+<main class="page-container" id="swup">
 
-<main class="page-container">
+	
 
-    
-
-    <div class="main-content-container">
-
-        <div class="main-content-header">
-            <header class="navbar-container">
-    
-    <div class="navbar-content">
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
         <div class="left">
             
             <a class="logo-title" href="/">
@@ -127,33 +250,35 @@
                 <ul class="navbar-list">
                     
                         
+                            
+
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="" 
-                                    href="../../../../index.html"  >
-                                    
-                                        
-                                            <i class="fa-regular fa-house"></i>
-                                        
-                                        HOME
+                                <a class=""
+                                   href="../../../../index.html"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
                                     
                                 </a>
+
                                 <!-- Submenu -->
                                 
                             </li>
                     
                         
+                            
+
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="" 
-                                    href="../../../../archives"  >
-                                    
-                                        
-                                            <i class="fa-regular fa-archive"></i>
-                                        
-                                        ARCHIVES
+                                <a class=""
+                                   href="../../../../archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
                                     
                                 </a>
+
                                 <!-- Submenu -->
                                 
                             </li>
@@ -168,7 +293,8 @@
             <!-- Mobile -->
             <div class="mobile">
                 
-                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
                 
                 <div class="icon-item navbar-bar">
                     <div class="navbar-bar-middle"></div>
@@ -177,42 +303,69 @@
         </div>
     </div>
 
-    <!-- Mobile drawer -->
-    <div class="navbar-drawer">
-        <ul class="drawer-navbar-list">
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
             
                 
-                    <li class="drawer-navbar-item flex-center">
-                        <a class="" 
-                        href="../../../../index.html"  >
-                             
-                                
-                                    <i class="fa-regular fa-house"></i>
-                                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="../../../../index.html"
+                        >
+                            <span>
                                 HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
                             
                         </a>
+                        
+
+                        
                     </li>
-                    <!-- Submenu -->
-                    
             
                 
-                    <li class="drawer-navbar-item flex-center">
-                        <a class="" 
-                        href="../../../../archives"  >
-                             
-                                
-                                    <i class="fa-regular fa-archive"></i>
-                                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="../../../../archives"
+                        >
+                            <span>
                                 ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
                             
                         </a>
+                        
+
+                        
                     </li>
-                    <!-- Submenu -->
-                    
             
 
+            
+            
         </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../../../tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../../../categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">26</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../../../archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">106</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
     </div>
 
     <div class="window-mask"></div>
@@ -220,53 +373,48 @@
 </header>
 
 
-        </div>
+		</div>
 
-        <div class="main-content-body">
+		<div class="main-content-body transition-fade-up">
+			
 
-            
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
 
-            <div class="main-content">
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">EEA以太坊企业联盟安全规范第三版</h1>
+			</div>
+			
+		</div>
 
-                
-                    <div class="fade-in-down-animation">
-    <div class="post-page-container">
-        <div class="article-content-container">
-
-            
-            
-                <div class="article-title">
-                    <h1 class="article-title-regular">EEA以太坊企业联盟安全规范第三版</h1>
-                </div>
-            
-                
-            
-
-            
-                <div class="article-header">
-                    <div class="avatar">
-                        <img src="../../../../../../../../images/kopei-icon.jpeg">
-                    </div>
-                    <div class="info">
-                        <div class="author">
-                            <span class="name">Kopei</span>
-                            
-                                <span class="author-label">article</span>
-                            
-                        </div>
-                        <div class="meta-info">
-                            <div class="article-meta-info">
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="../../../../images/kopei-icon.jpeg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Kopei</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">article</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
         <span class="desktop">2025-08-03 13:01:59</span>
-        <span class="mobile">2025-08-03 13:01</span>
+        <span class="mobile">2025-08-03 13:01:59</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-04 21:13:55</span>
-            <span class="mobile">2025-08-04 21:13</span>
+            <span class="desktop">2025-08-04 21:18:03</span>
+            <span class="mobile">2025-08-04 21:18:03</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -295,18 +443,21 @@
     
 </div>
 
-                        </div>
-                    </div>
-                </div>
-            
+				</div>
+			</div>
+		</div>
+		
 
-            <div class="article-content markdown-body">
-                <h1 id="EEA-EthTrust-安全等级规范-第3版"><a href="#EEA-EthTrust-安全等级规范-第3版" class="headerlink" title="EEA EthTrust 安全等级规范 第3版"></a>EEA EthTrust 安全等级规范 第3版</h1><p>2025年3月</p>
-<h3 id="​​当前版本​​"><a href="#​​当前版本​​" class="headerlink" title="​​当前版本​​:"></a>​​当前版本​​:</h3><p><a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/" >https://entethalliance.org/specs/ethtrust-sl/v3/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h3 id="​​本版本检查清单​​"><a href="#​​本版本检查清单​​" class="headerlink" title="​​本版本检查清单​​:"></a>​​本版本检查清单​​:</h3><p><a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/checklist.html" >https://entethalliance.org/specs/ethtrust-sl/v3/checklist.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h3 id="​​最新编辑草案​​"><a href="#​​最新编辑草案​​" class="headerlink" title="​​最新编辑草案​​:"></a>​​最新编辑草案​​:</h3><p><a class="link"   target="_blank" rel="noopener" href="https://entethalliance.github.io/eta-registry/security-levels-spec.html" >https://entethalliance.github.io/eta-registry/security-levels-spec.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="EEA-EthTrust-安全等级规范-第3版"><a href="#EEA-EthTrust-安全等级规范-第3版" class="headerlink" title="EEA EthTrust 安全等级规范 第3版"></a>EEA EthTrust 安全等级规范 第3版</h1><p>2025年3月</p>
+<h3 id="​​当前版本​​"><a href="#​​当前版本​​" class="headerlink" title="​​当前版本​​:"></a>​​当前版本​​:</h3><p><a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/" >https://entethalliance.org/specs/ethtrust-sl/v3/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h3 id="​​本版本检查清单​​"><a href="#​​本版本检查清单​​" class="headerlink" title="​​本版本检查清单​​:"></a>​​本版本检查清单​​:</h3><p><a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/checklist.html" >https://entethalliance.org/specs/ethtrust-sl/v3/checklist.html<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h3 id="​​最新编辑草案​​"><a href="#​​最新编辑草案​​" class="headerlink" title="​​最新编辑草案​​:"></a>​​最新编辑草案​​:</h3><p><a class="link"   target="_blank" rel="noopener" href="https://entethalliance.github.io/eta-registry/security-levels-spec.html" >https://entethalliance.github.io/eta-registry/security-levels-spec.html<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 <h3 id="​​编辑​​"><a href="#​​编辑​​" class="headerlink" title="​​编辑​​:"></a>​​编辑​​:</h3><p><a href="editor@entethalliance.org">EEA 编辑</a></p>
-<h3 id="​​最新发布版本URL​​"><a href="#​​最新发布版本URL​​" class="headerlink" title="​​最新发布版本URL​​:"></a>​​最新发布版本URL​​:</h3><p><a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/" >https://entethalliance.org/specs/ethtrust-sl/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="​​最新发布版本URL​​"><a href="#​​最新发布版本URL​​" class="headerlink" title="​​最新发布版本URL​​:"></a>​​最新发布版本URL​​:</h3><p><a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/" >https://entethalliance.org/specs/ethtrust-sl/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 <h3 id="​​本版本贡献者​​"><a href="#​​本版本贡献者​​" class="headerlink" title="​​本版本贡献者​​:"></a>​​本版本贡献者​​:</h3><p>除所有为之前版本做出贡献的人员外，以下人员对本版本规范有具体贡献：<br>Chaals Neville、Anish Agrawal (Olympix)、Kenan Bešić (ChainSecurity)、Daniel Burnett、Valerian Callens、Luke Ciattaglia (Hacken)、Christopher Cordi、<br>Ignacio Freire (Olympix)、Aminadav Glickshtein (EY)、Opal Graham (CertiK)、Channi Greenwall (Olympix)、James Harsh、Sebastian Holler、<br>George Kobakhidze (Diligence)、Michael Lewellen (OpenZeppelin)、Luis Lubeck (Hacken)、Dominik Muhs、Anton Permenev (ChainSecurity)、<br>Juliano Rizzo (Coinspect)、Gernot Salzer、Clara Schneidewinde、Tobias Vogel (Diligence)、Morgan Weaver (OpenZeppelin)</p>
 <h3 id="版权声明"><a href="#版权声明" class="headerlink" title="版权声明"></a>版权声明</h3><p>© 2020-2025 企业以太坊联盟 (Enterprise Ethereum Alliance)。</p>
 <h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>本文档定义了EEA EthTrust认证的要求，该认证是一组证明智能合约已通过审查且未包含特定安全漏洞的认证。</p>
@@ -324,16 +475,16 @@
 <li>自上一版本以来的重大变更摘要</li>
 <li>已从早期版本中移除的需求列表<br>​​<strong>参考文献</strong>​​：扩展阅读，包括必要的规范性引用和说明性引用</li>
 </ul>
-<p>本规范附有​​<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/checklist.html" >检查清单 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>​​，以表格形式列出所有要求。熟悉本规范的开发者或审查员可使用该清单快速回顾每个单独要求并跟踪测试状态。如有任何差异，以本规范文档中的规范性文本为准。</p>
+<p>本规范附有​​<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/checklist.html" >检查清单<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>​​，以表格形式列出所有要求。熟悉本规范的开发者或审查员可使用该清单快速回顾每个单独要求并跟踪测试状态。如有任何差异，以本规范文档中的规范性文本为准。</p>
 <h4 id="1-1-2-排版约定"><a href="#1-1-2-排版约定" class="headerlink" title="1.1.2 排版约定"></a>1.1.2 排版约定</h4><p>​​要求​​的结构和格式详见§1.1.3。<br>部分位置提供​​示例​​。这些示例不是要求，也不具有规范性。<br>示例通过带边框的背景和标题进行区分，如下所示：</p>
 <p>​​示例1：示例的示例​​<br>示例中可以包含行内代码如<code>code()</code>，也可以包含代码块：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity 0.8.0;</span><br><span class="line"></span><br><span class="line">contract HelloWorld &#123;</span><br><span class="line">    string public greeting = &quot;Hello World&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity 0.8.0;</span><br><span class="line"></span><br><span class="line">contract HelloWorld &#123;</span><br><span class="line">    string public greeting = &quot;Hello World&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>部分示例展示​​易受攻击的代码​​或​​不应采取的做法​​。<br>将此类示例复制到生产代码中是非常危险的行为。这些示例会标记为警告：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">​​警告​​</span><br><span class="line">​​示例2：问题示例 - 请勿复制​​</span><br><span class="line">部署未经安全审查的代码是危险行为。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">​​警告​​</span><br><span class="line">​​示例2：问题示例 - 请勿复制​​</span><br><span class="line">部署未经安全审查的代码是危险行为。</span><br></pre></td></tr></table></figure></div>
 <p>​​术语定义​​的格式为​<strong>​加粗</strong>​​，后续对已定义术语的引用会以链接形式呈现，如​​术语​​。<br>对其他文档的引用以方括号内链接形式给出，如[CWE]。<br>对要求的引用以安全等级开头：[S]、[M]或[Q]，对推荐实践的引用以[GP]开头。它们会包含要求或实践名称，并以加粗链接形式呈现：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​​示例3​​</span><br><span class="line">示例链接：[M] 记录特殊代码用途。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​​示例3​​</span><br><span class="line">示例链接：[M] 记录特殊代码用途。</span><br></pre></td></tr></table></figure></div>
 <p>在语句或要求中引入并后续描述的​​变量​​格式为<code>var</code>。<br>偶尔出现的说明性注释（如下所示）不具有规范性，不构成正式要求：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​​注意​​：注释用于说明</span><br><span class="line">注释内容旨在提供有用信息，但不构成要求。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">​​注意​​：注释用于说明</span><br><span class="line">注释内容旨在提供有用信息，但不构成要求。</span><br></pre></td></tr></table></figure></div>
 <h4 id="1-1-3-如何阅读要求"><a href="#1-1-3-如何阅读要求" class="headerlink" title="1.1.3 如何阅读要求"></a>1.1.3 如何阅读要求</h4><p>本文档的核心是​​共同定义了EEA EthTrust认证的要求。<br>要求包含：</p>
 <ul>
 <li>安全等级（[S]、[M]或[Q]）</li>
@@ -350,9 +501,9 @@
 <li>其他有用信息的链接<br>除要求外，本文档还包含​​§5.4 推荐良好实践​​，格式类似但安全等级标记为”[GP]”。<br>为符合规范，无需实施这些实践，但若谨慎实施可提高智能合约安全性。</li>
 </ul>
 <p>以下要求示例：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">​​示例4：简单要求​​</span><br><span class="line">[S] 编译器漏洞SOL-2022-5与.push()</span><br><span class="line">🔗🔗</span><br><span class="line">被测代码若：</span><br><span class="line">- 从calldata或内存复制字节数组，且其大小不是32字节的倍数</span><br><span class="line">- 包含对结果数组执行空.push()指令</span><br><span class="line">则​​必须不使用​​早于0.8.15的Solidity编译器版本。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">​​示例4：简单要求​​</span><br><span class="line">[S] 编译器漏洞SOL-2022-5与.push()</span><br><span class="line">🔗🔗</span><br><span class="line">被测代码若：</span><br><span class="line">- 从calldata或内存复制字节数组，且其大小不是32字节的倍数</span><br><span class="line">- 包含对结果数组执行空.push()指令</span><br><span class="line">则​​必须不使用​​早于0.8.15的Solidity编译器版本。</span><br></pre></td></tr></table></figure></div>
 <p>在Solidity编译器0.8.15之前，复制长度非32字节倍数的内存或calldata可能暴露超出复制范围的数据，这些数据可通过assembly{}观察到。<br>另见2022年6月15日安全警报和相关要求[M] assembly{}中的编译器漏洞SOL-2022-5。</p>
-<p>这是一个安全等级[S]要求，”[S]”前缀表示其等级。<br>其名称为”编译器漏洞SOL-2022-5与.push()”。<br>编辑草案中的URL（通过”🔗🔗”链接）为：<br><a class="link"   target="_blank" rel="noopener" href="https://entethalliance.github.io/eta-registry/security-levels-spec.html#req-1-compiler-SOL-2022-5-push" >https://entethalliance.github.io/eta-registry/security-levels-spec.html#req-1-compiler-SOL-2022-5-push <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>这是一个安全等级[S]要求，”[S]”前缀表示其等级。<br>其名称为”编译器漏洞SOL-2022-5与.push()”。<br>编辑草案中的URL（通过”🔗🔗”链接）为：<br><a class="link"   target="_blank" rel="noopener" href="https://entethalliance.github.io/eta-registry/security-levels-spec.html#req-1-compiler-SOL-2022-5-push" >https://entethalliance.github.io/eta-registry/security-levels-spec.html#req-1-compiler-SOL-2022-5-push<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 <p>要求声明为：<br>“被测代码若…必须不使用早于0.8.15的Solidity编译器版本。”<br>要求后是对相关漏洞的简要解释和其他讨论链接。</p>
 <p>​<strong>​注意</strong>​​<br>良好实践的格式与要求相同，但等级标记为[GP]。如§5.4所述，满足这些实践并非必须，也不会单独改变对本规范的符合性。</p>
 <h5 id="1-1-3-1-覆盖要求"><a href="#1-1-3-1-覆盖要求" class="headerlink" title="1.1.3.1 覆盖要求"></a>1.1.3.1 覆盖要求</h5><p>部分要求的声明包含替代条件，由关键词<code>unless</code>引入，标识一个或多个​​覆盖要求​​。<br>这些是更高安全等级的要求，若被测代码不直接满足较低等级要求，可通过满足这些覆盖要求来实现符合性。</p>
@@ -371,11 +522,11 @@
 <ul>
 <li>安全等级为”[S]”</li>
 <li>名称为”禁用tx.origin”</li>
-<li>覆盖要求为”[Q] 验证tx.origin用法”<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​​示例5：带覆盖要求的要求示例​​</span><br><span class="line">[S] 禁用tx.origin</span><br><span class="line">🔗🔗</span><br><span class="line">被测代码​​不得​​包含tx.origin指令，除非满足覆盖要求[Q] 验证tx.origin用法。</span><br></pre></td></tr></table></figure></div>
+<li>覆盖要求为”[Q] 验证tx.origin用法”<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​​示例5：带覆盖要求的要求示例​​</span><br><span class="line">[S] 禁用tx.origin</span><br><span class="line">🔗🔗</span><br><span class="line">被测代码​​不得​​包含tx.origin指令，除非满足覆盖要求[Q] 验证tx.origin用法。</span><br></pre></td></tr></table></figure></div>
 不包含tx.origin指令的要求可通过自动化验证。<br>满足安全等级[Q]覆盖要求[Q] 验证tx.origin用法的被测代码视为符合此安全等级[S]要求。</li>
 </ul>
 <p>作为其他要求的覆盖要求或属于覆盖要求集合的要求会明确说明：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​​示例6：覆盖要求示例​​</span><br><span class="line">[M] 禁用非必要Unicode控制符</span><br><span class="line">🔗🔗</span><br><span class="line">被测代码​​不得​​使用Unicode方向控制字符，除非：</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​​示例6：覆盖要求示例​​</span><br><span class="line">[M] 禁用非必要Unicode控制符</span><br><span class="line">🔗🔗</span><br><span class="line">被测代码​​不得​​使用Unicode方向控制字符，除非：</span><br></pre></td></tr></table></figure></div>
 <p>它们对正确渲染文本是必要的<br>渲染结果不会误导读者<br>这是[S] 禁用Unicode方向控制字符的覆盖要求。</p>
 <h5 id="1-1-3-2-相关要求"><a href="#1-1-3-2-相关要求" class="headerlink" title="1.1.3.2 相关要求"></a>1.1.3.2 相关要求</h5><p>许多要求有​​相关要求​​，即解决主题相关问题的其他要求。<br>提供这些链接作为有用信息。与覆盖要求不同，满足相关要求不能替代满足特定要求来实现符合性。</p>
 <h3 id="1-2-为什么需要认证合约？"><a href="#1-2-为什么需要认证合约？" class="headerlink" title="1.2 为什么需要认证合约？"></a>1.2 为什么需要认证合约？</h3><p><strong>本节为非规范性内容。</strong><br>以太坊上支撑去中心化应用的许多智能合约已被发现存在安全问题，而目前在发起交易前往往难以实际评估某个地址或合约的安全性。特别是在DeFi领域，用户快速批准代币合约交易、兑换代币和为资金池添加流动性的操作中，有时会忽略安全检查。</p>
@@ -393,7 +544,7 @@
 <h3 id="1-4-漏洞反馈与新漏洞"><a href="#1-4-漏洞反馈与新漏洞" class="headerlink" title="1.4 漏洞反馈与新漏洞"></a>1.4 漏洞反馈与新漏洞</h3><p>工作组欢迎对本规范的反馈：实施经验、改进清晰度的建议，或对特定章节或要求难以理解的疑问。</p>
 <p>我们特别希望获得关于使用标准机器可读格式进行有效符合性声明的反馈，包括这种格式是否适合存储在区块链上，以及其他用例。</p>
 <p>EEA成员可通过加入工作组提供反馈。任何人都可通过Ethtrust-public Github仓库或发送邮件至EEA Editor提供反馈，邮件将被转发给工作组。</p>
-<p>我们预计本规范发布后将发现新的安全漏洞。为确保将它们纳入修订版本，我们欢迎相关通知。EEA已创建特定电子邮件地址接收新安全漏洞通知：<a class="link"   href="mailto:&#x73;&#101;&#99;&#117;&#114;&#105;&#116;&#121;&#x2d;&#x6e;&#x6f;&#x74;&#x69;&#x63;&#101;&#115;&#64;&#x65;&#x6e;&#116;&#101;&#116;&#x68;&#97;&#x6c;&#x6c;&#105;&#x61;&#110;&#x63;&#101;&#x2e;&#111;&#114;&#103;" >&#x73;&#101;&#99;&#117;&#114;&#105;&#116;&#121;&#x2d;&#x6e;&#x6f;&#x74;&#x69;&#x63;&#101;&#115;&#64;&#x65;&#x6e;&#116;&#101;&#116;&#x68;&#97;&#x6c;&#x6c;&#105;&#x61;&#110;&#x63;&#101;&#x2e;&#111;&#114;&#103; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
+<p>我们预计本规范发布后将发现新的安全漏洞。为确保将它们纳入修订版本，我们欢迎相关通知。EEA已创建特定电子邮件地址接收新安全漏洞通知：<a class="link"   href="mailto:&#115;&#101;&#x63;&#x75;&#114;&#x69;&#x74;&#x79;&#x2d;&#110;&#111;&#116;&#x69;&#99;&#101;&#115;&#x40;&#101;&#x6e;&#116;&#x65;&#116;&#x68;&#97;&#x6c;&#x6c;&#x69;&#x61;&#x6e;&#x63;&#101;&#x2e;&#111;&#x72;&#103;" >&#115;&#101;&#x63;&#x75;&#114;&#x69;&#x74;&#x79;&#x2d;&#110;&#111;&#116;&#x69;&#99;&#101;&#115;&#x40;&#101;&#x6e;&#116;&#x65;&#116;&#x68;&#97;&#x6c;&#x6c;&#x69;&#x61;&#x6e;&#x63;&#101;&#x2e;&#111;&#x72;&#103;<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
 <p>发送至该地址的信息应足以识别和纠正描述的问题，并应包括对该问题的其他讨论的引用。这些信息将由EEA工作人员评估，然后转发给工作组解决问题。</p>
 <p>当这些漏洞影响Solidity编译器，或建议修改编译器以帮助缓解问题时，还应按照[solidity-reports]中的描述通知Solidity开发社区。</p>
 <h2 id="2-符合性"><a href="#2-符合性" class="headerlink" title="2. 符合性"></a>2. 符合性</h2><h3 id="2-1-符合性声明"><a href="#2-1-符合性声明" class="headerlink" title="2.1 符合性声明"></a>2.1 符合性声明</h3><p>本规范中的关键词”可以(MAY)”、”必须(MUST)”、”不得(MUST NOT)”、”建议(RECOMMENDED)”和”应当(SHOULD)”应按照BCP 14 [RFC2119][RFC8174]中的说明进行解释，且仅当这些词汇以全大写形式出现时才具有此特定含义。</p>
@@ -413,33 +564,33 @@
 <p>使用预言机时的第二个重要考虑因素是优雅的故障场景。如果预言机不再返回数据，或者突然返回一个不太可能的值，会发生什么？至少有一个协议因”挂起”在价格暴跌时很少发生的最低值而不是真正降至零而遭受损失，积累了大量接近零价格资产的交易者能够将其卖回协议。硬编码最小值或最大值可能导致反映现实的问题。</p>
 <h3 id="3-4-外部交互与重入攻击"><a href="#3-4-外部交互与重入攻击" class="headerlink" title="3.4 外部交互与重入攻击"></a>3.4 外部交互与重入攻击</h3><p>依赖外部代码的代码可能引入多个攻击向量。这包括外部依赖包含恶意代码或通过安全漏洞受到恶意操纵的情况。然而，未能充分管理外部调用的可能结果也会引入安全漏洞。</p>
 <p>以太坊智能合约中最常被引用的漏洞之一是重入攻击。这些攻击允许恶意合约在原始合约的函数调用完成之前回调到调用它的合约中。这种效果导致调用合约以意外的方式完成其处理，例如，对状态变量进行意外更改。</p>
-<p>虽然<a class="link"   target="_blank" rel="noopener" href="https://docs.soliditylang.org/en/latest/security-considerations.html#use-the-checks-effects-interactions-pattern" >Check-Effect-Interactions <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>实现模式提供了关键保护，但新兴的跨合约交互模式可能需要额外的保障措施。定期审查交互模式有助于识别新的重入向量。</p>
+<p>虽然<a class="link"   target="_blank" rel="noopener" href="https://docs.soliditylang.org/en/latest/security-considerations.html#use-the-checks-effects-interactions-pattern" >Check-Effect-Interactions<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>实现模式提供了关键保护，但新兴的跨合约交互模式可能需要额外的保障措施。定期审查交互模式有助于识别新的重入向量。</p>
 <p>只读重入攻击发生在视图函数读取随后将被更改的状态时。这些攻击特别危险，因为此类函数通常缺乏保障措施，因为它们不修改合约的状态。然而，如果状态不一致，可能会报告不正确的值。这种欺骗可能导致其他协议读取不准确的状态值，从而可能导致意外操作或结果。这个问题可能影响依赖这些视图函数准确报告状态的其它合约，以及被重入的合约本身。因此，调用智能合约的第三方以及由合约集合组成的协议可能容易受到只读重入的影响。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">示例7：Rari协议只读重入攻击​​</span><br><span class="line">在Rari协议攻击中，攻击者通过大额闪电贷存入资金，在借款调用期间触发Comptroller合约的exitMarket()函数。该函数读取cETH合约状态时发生只读重入。由于cETH合约尚未记录借款状态，攻击者得以赎回初始存款并保留借款资金。详见[certik-rari]分析报告。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">示例7：Rari协议只读重入攻击​​</span><br><span class="line">在Rari协议攻击中，攻击者通过大额闪电贷存入资金，在借款调用期间触发Comptroller合约的exitMarket()函数。该函数读取cETH合约状态时发生只读重入。由于cETH合约尚未记录借款状态，攻击者得以赎回初始存款并保留借款资金。详见[certik-rari]分析报告。</span><br></pre></td></tr></table></figure></div>
 <h3 id="3-5-签名机制"><a href="#3-5-签名机制" class="headerlink" title="3.5 签名机制"></a>3.5 签名机制</h3><p>本规范中的一些要求涉及可延展签名。这些是根据方案创建的签名，给定消息和签名，可以高效计算不同消息的签名 - 通常是以特定方式转换的消息。虽然这种签名方案允许有价值的用例，但如果不谨慎使用可能导致漏洞，这就是为什么本规范试图适当限制其使用。同样，对于使用可延展输入创建的可延展签名消息，哈希冲突可能发生。</p>
 <p>本规范中的其他要求与利用用于创建签名消息的输入中的模糊性进行攻击有关。当签名消息不包括关于其预期使用位置、时间、次数等的足够识别信息时，消息签名可能被用于（或重复用于）非预期功能、合约、链或时间。</p>
-<p>有关此主题的更多信息以及潜在利用，请参见<a class="link"   target="_blank" rel="noopener" href="https://smeiklej.com/files/csf14.pdf" >chase <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
+<p>有关此主题的更多信息以及潜在利用，请参见<a class="link"   target="_blank" rel="noopener" href="https://smeiklej.com/files/csf14.pdf" >chase<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
 <h3 id="3-6-Gas与Gas价格"><a href="#3-6-Gas与Gas价格" class="headerlink" title="3.6 Gas与Gas价格"></a>3.6 Gas与Gas价格</h3><p>Gas攻击是故意滥用以太坊用于调节计算能力消耗的Gas机制，以防范意外或不利结果（如拒绝服务攻击）。由于以太坊设计将Gas机制作为调节功能，仅检查交易是否有足够的Gas是不够的；检查Gas攻击需要考虑被测代码实现的目标和业务逻辑。</p>
 <p>Gas虹吸是另一种滥用以太坊用于调节计算能力消耗的Gas机制的行为，攻击者从易受攻击的合约中窃取Gas，要么拒绝服务，要么为自己谋利（例如铸造Gas代币）。与Gas攻击类似，检查Gas虹吸需要仔细考虑被测代码实现的目标和业务逻辑。</p>
 <p>Gas代币在铸造时使用Gas，在销毁时释放略少的Gas，前提是EVM退还足够数量的Gas以清除状态。当Gas价格低时铸造的Gas代币可以在Gas价格高时燃烧以补贴以太坊交易。在以太坊主链上，随着2021年8月部署[EIP-3529]的伦敦硬分叉，Gas退款被移除，实际上禁用了Gas代币。此外，以太坊网络升级的常见功能是更改特定操作的Gas价格。EEA EthTrust认证仅对指定的EVM版本有效；对其他EVM版本无效。因此，重新检查代码以确保其安全属性在网络升级中保持不变或采取补救措施非常重要。</p>
 <h3 id="3-7-MEV（恶意提取价值）"><a href="#3-7-MEV（恶意提取价值）" class="headerlink" title="3.7 MEV（恶意提取价值）"></a>3.7 MEV（恶意提取价值）</h3><p><code>MEV(Maliciously Extracted Value)</code>在本文档中表示”恶意提取价值”，指的是区块生产者或区块链的其他参与者通过恶意重新排序交易或抑制交易，或通过提出交易或采取其他行动获取非预期利益（即窃取）的可能性。描述为排序攻击的攻击也可用于利用MEV。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">示例8：MEV攻击实例​​</span><br><span class="line">当智能合约承诺奖励首个回答问题的交易时，区块生产者可以窃取其他交易中的答案，并丢弃包含该答案的所有其他交易。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">示例8：MEV攻击实例​​</span><br><span class="line">当智能合约承诺奖励首个回答问题的交易时，区块生产者可以窃取其他交易中的答案，并丢弃包含该答案的所有其他交易。</span><br></pre></td></tr></table></figure></div>
 
 <p>一些MEV攻击可以通过仔细考虑交易中包含的信息（包括合约所需的参数）来防范。其他缓解策略包括针对排序攻击的保护措施。以太坊基金会维护有关MEV的信息资源集[EF-MEV]。</p>
 <h3 id="3-8-排序攻击"><a href="#3-8-排序攻击" class="headerlink" title="3.8 排序攻击"></a>3.8 排序攻击</h3><p>各种攻击与恶意重新排列区块中的交易有关，例如通过重新排序、审查或插入特定交易。虽然这类攻击的主要动机是促进MEV攻击，但它们也可用于为其他类型的攻击创造条件。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**警告**</span><br><span class="line">示例9：排序攻击</span><br><span class="line">投票合约的设置阶段有时可能被恶意抑制或抢跑投票选项提案所利用，以限制投票阶段符合条件的候选人数量。区块提议者可以在知道他们将产生一系列区块时恶意安排此类投票初始化期。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**警告**</span><br><span class="line">示例9：排序攻击</span><br><span class="line">投票合约的设置阶段有时可能被恶意抑制或抢跑投票选项提案所利用，以限制投票阶段符合条件的候选人数量。区块提议者可以在知道他们将产生一系列区块时恶意安排此类投票初始化期。</span><br></pre></td></tr></table></figure></div>
 <p>排序攻击有多种类型：</p>
 <ul>
 <li>审查攻击<br>区块处理器主动抑制提议的交易，为自己谋利。</li>
-<li>抢跑<br>基于在添加到区块之前可见的交易，允许恶意参与者提交替代交易，挫败原始交易的目的。<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">示例10：抢跑攻击策略</span><br><span class="line">在一个旨在认证原创著作权的系统中，恶意参与者利用著作权声明中的信息伪造竞争性声明，并率先将伪造声明加入区块，从而为其虚假主张作者身份提供依据。</span><br><span class="line">若重复实施此类攻击，将成为针对该服务本身的有效拒绝服务(DoS)攻击手段。</span><br></pre></td></tr></table></figure></div></li>
+<li>抢跑<br>基于在添加到区块之前可见的交易，允许恶意参与者提交替代交易，挫败原始交易的目的。<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">示例10：抢跑攻击策略</span><br><span class="line">在一个旨在认证原创著作权的系统中，恶意参与者利用著作权声明中的信息伪造竞争性声明，并率先将伪造声明加入区块，从而为其虚假主张作者身份提供依据。</span><br><span class="line">若重复实施此类攻击，将成为针对该服务本身的有效拒绝服务(DoS)攻击手段。</span><br></pre></td></tr></table></figure></div></li>
 <li>尾随<br>类似于抢跑，但攻击者将他们的交易放在被攻击的交易之后。</li>
-<li>三明治攻击<br>攻击者将受害者的交易不理想地放在另外两个交易之间。<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">示例11：三明治攻击策略​​</span><br><span class="line">攻击者构造代币买入交易插入受害者买单之前推高价格，再在抬高的价位插入对应卖单，通过这种&quot;夹心&quot;操作实现无风险套利。</span><br></pre></td></tr></table></figure></div></li>
+<li>三明治攻击<br>攻击者将受害者的交易不理想地放在另外两个交易之间。<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">示例11：三明治攻击策略​​</span><br><span class="line">攻击者构造代币买入交易插入受害者买单之前推高价格，再在抬高的价位插入对应卖单，通过这种&quot;夹心&quot;操作实现无风险套利。</span><br></pre></td></tr></table></figure></div></li>
 </ul>
 <p>注意<br>与利用MEV一样，区块生产者处于利用任何排序漏洞的最佳位置。如果他们提前知道他们将在未来产生特定区块，这一点尤其成立。例如参见[futureblock]或[postmerge-mev]。</p>
 <p>实现等级[Q]要求[Q]对敏感操作使用时间锁延迟可以防止排序攻击影响敏感操作的执行。其他缓解策略包括使用哈希承诺方案[hash-commit]、批量执行或使用第2层[EEA-L2]链进行处理。</p>
 <p>3.9 源代码、编译指示和编译器<br>本规范版本要求编译的字节码以及构成被测代码的Solidity源代码。Solidity在很大程度上是以太坊智能合约最常用的编程语言，要求Solidity源代码的好处包括简化许多测试，并且有大量针对Solidity源代码的安全研究。</p>
 <p>Solidity允许源代码使用编译指示语句指定使用的Solidity编译器版本。本规范不要求任何特定的Solidity编译器版本，只要其不低于0.3.0，但在安全等级[Q]下，仅允许EEA EthTrust认证用于一组有限的Solidity编译器版本，已知这些版本的Solidity编译器在相同选项下从给定源代码生成相同的字节码。</p>
-<p>要求合约只是Solidity源代码有一些缺点。最明显的是某些代码不是用Solidity编写的。不同的语言有不同的特性，通常支持不同的编码风格。也许更重要的是，这意味着用Solidity编写的已部署合约不能直接测试，除非有人提供源代码。引入源代码读取的另一个重要限制是它容易受到同形文字攻击（<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#dfn-homoglyph-attacks" >Homoglyph Attacks <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>），其中看起来相同但不同的字符（如拉丁字母”p”和西里尔字母”р”）可以欺骗人工阅读源代码的人，掩盖恶意行为。还有相关的攻击使用诸如Unicode方向控制字符之类的功能，或利用组合字符的不一致规范化来实现相同类型的欺骗。</p>
+<p>要求合约只是Solidity源代码有一些缺点。最明显的是某些代码不是用Solidity编写的。不同的语言有不同的特性，通常支持不同的编码风格。也许更重要的是，这意味着用Solidity编写的已部署合约不能直接测试，除非有人提供源代码。引入源代码读取的另一个重要限制是它容易受到同形文字攻击（<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#dfn-homoglyph-attacks" >Homoglyph Attacks<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>），其中看起来相同但不同的字符（如拉丁字母”p”和西里尔字母”р”）可以欺骗人工阅读源代码的人，掩盖恶意行为。还有相关的攻击使用诸如Unicode方向控制字符之类的功能，或利用组合字符的不一致规范化来实现相同类型的欺骗。</p>
 <h3 id="3-10-合约部署"><a href="#3-10-合约部署" class="headerlink" title="3.10 合约部署"></a>3.10 合约部署</h3><p>本规范主要解决智能合约代码中出现的漏洞。然而，需要注意的是，智能合约的部署通常是协议操作的关键要素。智能合约安全的某些方面主要取决于被测代码的部署方式。即使经过审计的协议如果部署不当也可能容易被利用。</p>
 <p>为特定区块链编写的代码可能依赖于该区块链可用的功能。当代码部署到兼容但不同的链时，功能差异可能暴露漏洞。对于部署到使用EVM补丁分叉的区块链或平行链的任何合约，在虚拟机级别可能不再适用常见的安全假设。首先将EEA EthTrust认证的合约部署到每个链的测试网，并进行彻底的渗透测试是有价值的。</p>
 <p>特别令人担忧的是可升级合约的问题，以及部署中具有初始化函数的任何合约。许多协议因意外保留其初始化函数不受保护，或在部署中未在同一交易中调用初始化函数的非原子部署而被黑客攻击。这种情况容易受到抢跑攻击，并可能导致协议被恶意方接管，以及资金被盗或丢失。在与合约部署相同的交易中初始化合约可降低恶意行为者控制合约的风险。</p>
@@ -476,7 +627,7 @@
 <li>记录明确角色和职责的事件响应计划</li>
 <li>基础设施的定期渗透测试</li>
 <li>安全意识培训计划</li>
-<li>访问控制审查和更新<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">示例12：安全运营中心监控项​​</span><br><span class="line">健全的安全运营中心(SOC)应监控：非常规交易模式、可疑管理操作、基础设施安全警报、智能合约异常行为。</span><br></pre></td></tr></table></figure></div>
+<li>访问控制审查和更新<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">示例12：安全运营中心监控项​​</span><br><span class="line">健全的安全运营中心(SOC)应监控：非常规交易模式、可疑管理操作、基础设施安全警报、智能合约异常行为。</span><br></pre></td></tr></table></figure></div>
 3.14 预防链上对抗条件<br>智能合约在高度对抗的环境中运行，其中网络条件、外部数据源和经济激励可能被恶意行为者操纵。在部署前模拟这些攻击场景对于识别在标准测试条件下可能不会显现的漏洞至关重要。<br>需要模拟的关键对抗场景包括：<br><strong>网络操纵：</strong></li>
 <li>极端Gas价格波动</li>
 <li>故意造成网络拥堵</li>
@@ -532,32 +683,32 @@
 <h3 id="4-7-属性与不变量"><a href="#4-7-属性与不变量" class="headerlink" title="4.7 属性与不变量"></a>4.7 属性与不变量</h3><p>基于属性的测试通过定义系统应满足的特性或不变量（在任何情况下都应保持的条件），自动生成测试场景。不变量测试是其子集，专门验证这些不变条件的保持性。</p>
 <h3 id="4-8-测试网部署"><a href="#4-8-测试网部署" class="headerlink" title="4.8 测试网部署"></a>4.8 测试网部署</h3><p>除静态分析外，多数测试方法需要执行被测代码。为避免主网风险，通常将代码部署到专门测试网络。测试网具有以下特点：</p>
 <p>使用无实际价值的测试代币<br>允许包含已知漏洞的合约存在<br>提供与主网相似的环境而不造成真实损失</p>
-<h2 id="5-EEA-EthTrust安全等级"><a href="#5-EEA-EthTrust安全等级" class="headerlink" title="5. EEA EthTrust安全等级"></a>5. EEA EthTrust安全等级</h2><h3 id="5-1-安全等级-S"><a href="#5-1-安全等级-S" class="headerlink" title="5.1 安全等级[S]"></a>5.1 安全等级[S]</h3><p>EEA EthTrust认证在安全等级[S]下，旨在允许未经引导的自动化工具分析大多数合约的字节码和源代码，并确定它们是否符合要求。安全等级[S]的要求设计为可使用自动化静态分析进行测试。截至本规范版本，工作组已开始维护（工具注册表），其中列出了声称覆盖特定要求的工具，以及测试用例和在这些工具中运行它们的结果。更多信息请参见<a class="link"   target="_blank" rel="noopener" href="https://github.com/EntEthAlliance/ethtrust-tool-registry/" >ET-tools <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
+<h2 id="5-EEA-EthTrust安全等级"><a href="#5-EEA-EthTrust安全等级" class="headerlink" title="5. EEA EthTrust安全等级"></a>5. EEA EthTrust安全等级</h2><h3 id="5-1-安全等级-S"><a href="#5-1-安全等级-S" class="headerlink" title="5.1 安全等级[S]"></a>5.1 安全等级[S]</h3><p>EEA EthTrust认证在安全等级[S]下，旨在允许未经引导的自动化工具分析大多数合约的字节码和源代码，并确定它们是否符合要求。安全等级[S]的要求设计为可使用自动化静态分析进行测试。截至本规范版本，工作组已开始维护（工具注册表），其中列出了声称覆盖特定要求的工具，以及测试用例和在这些工具中运行它们的结果。更多信息请参见<a class="link"   target="_blank" rel="noopener" href="https://github.com/EntEthAlliance/ethtrust-tool-registry/" >ET-tools<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
 <p>对于某些难以自动验证的情况，存在更高级别的覆盖要求，可以通过满足这些要求来实现合规性。为了获得EEA EthTrust认证的安全等级[S]，被测代码必须满足所有安全等级[S]的要求，除非它满足适用的覆盖要求中的每一项要求。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">编码哈希时包含chainid</span><br><span class="line">[S] 哈希编码需包含chainid</span><br><span class="line">被测代码必须按照[EIP-155]的建议，在交易哈希中纳入chainid值。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">编码哈希时包含chainid</span><br><span class="line">[S] 哈希编码需包含chainid</span><br><span class="line">被测代码必须按照[EIP-155]的建议，在交易哈希中纳入chainid值。</span><br></pre></td></tr></table></figure></div>
 <p>[EIP-155]描述了一种增强的哈希规则，通过在哈希中纳入链标识符。虽然这仅在存在唯一链标识符时才能防止重放攻击，但使用该机制可以提供一定程度的鲁棒性，并大大增加执行重放攻击的难度。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[S] 禁用CREATE2</span><br><span class="line">被测代码不得包含CREATE2指令，除非满足以下覆盖要求集：</span><br><span class="line"></span><br><span class="line">[M] 保护CREATE2调用</span><br><span class="line">[M] 记录特殊代码用途</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[S] 禁用CREATE2</span><br><span class="line">被测代码不得包含CREATE2指令，除非满足以下覆盖要求集：</span><br><span class="line"></span><br><span class="line">[M] 保护CREATE2调用</span><br><span class="line">[M] 记录特殊代码用途</span><br></pre></td></tr></table></figure></div>
 <p>CREATE2操作码提供了与尚未在链上存在但可能最终包含代码的地址进行交互的能力。虽然这对于部署和与合约的反事实交互很有用，但它允许调用尚未知或可能被修改的代码，这些代码可能由于错误或保护不足而变得恶意或不安全。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[S] 禁用tx.origin</span><br><span class="line">被测代码不得包含tx.origin指令，除非满足覆盖要求[Q]验证tx.origin用法。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[S] 禁用tx.origin</span><br><span class="line">被测代码不得包含tx.origin指令，除非满足覆盖要求[Q]验证tx.origin用法。</span><br></pre></td></tr></table></figure></div>
 <p>tx.origin是Solidity中的一个全局变量，返回发送交易的账户地址。使用tx.origin的合约可能允许授权账户调用恶意合约，使恶意合约能够在非预期情况下通过授权检查。更好的做法是使用msg.sender进行授权。</p>
 <p>参见[swcregistry]中的SWC-115获取示例。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[S] 禁用精确余额检查</span><br><span class="line">被测代码不得测试账户余额是否完全等于（即==）指定金额或变量值，除非满足覆盖要求[M]验证精确余额检查。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[S] 禁用精确余额检查</span><br><span class="line">被测代码不得测试账户余额是否完全等于（即==）指定金额或变量值，除非满足覆盖要求[M]验证精确余额检查。</span><br></pre></td></tr></table></figure></div>
 <p>以账户余额作为某些操作的基础存在风险，包括意外接收以太币或其他代币，包括故意转移代币以使此类测试失败的MEV攻击。</p>
 <p>参见相关要求：<br>[M] 随机性来源<br>[M] 不要滥用区块数据<br>[Q] 防范MEV攻击<br>以及本规范安全考虑中§3.7 MEV（恶意提取价值）小节，[swcregistry]中的SWC-132示例，以及[CWE-667]中描述的不当锁定问题。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[S] 禁止对连续可变长度参数进行哈希</span><br><span class="line">被测代码不得对连续的可变长度参数使用abi.encodePacked()。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[S] 禁止对连续可变长度参数进行哈希</span><br><span class="line">被测代码不得对连续的可变长度参数使用abi.encodePacked()。</span><br></pre></td></tr></table></figure></div>
 <p>在哈希之前，abi.encodePacked()的每个可变长度参数的元素按顺序打包。通过在连续的可变长度参数之间重新排列元素，同时保持它们连接顺序不变，可能导致哈希冲突。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[S] 禁用selfdestruct()</span><br><span class="line">被测代码不得包含selfdestruct()指令或其现已弃用的别名suicide()，除非满足以下覆盖要求集：</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[S] 禁用selfdestruct()</span><br><span class="line">被测代码不得包含selfdestruct()指令或其现已弃用的别名suicide()，除非满足以下覆盖要求集：</span><br></pre></td></tr></table></figure></div>
 <p>[M] 保护自毁操作<br>[M] 记录特殊代码用途<br>如果selfdestruct()指令（或其已弃用的替代项suicide()）未得到妥善保护，恶意代码可以调用它并销毁合约，发送合约持有的任何以太币，从而可能窃取资金。还可以与CREATE2结合使用来更改特定地址的代码。此功能可能破坏不变性和去信任保证，引入众多安全问题。此外，一旦合约被销毁，发送的任何以太币都将丢失，这与禁用合约不同，后者会导致发送以太币的交易回滚。</p>
 <p>自Solidity编译器版本0.8.18[solidity-release-818]起，selfdestruct()已被正式弃用，不鼓励使用。</p>
 <p>参见[swcregistry]中的SWC-106和[EIP-6049]。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[S] 禁用assembly&#123;&#125;</span><br><span class="line">被测代码不得包含assembly&#123;&#125;指令，除非满足以下覆盖要求集：</span><br><span class="line"></span><br><span class="line">[M] 避免常见的assembly&#123;&#125;攻击向量</span><br><span class="line">[M] 记录特殊代码用途</span><br><span class="line">[M] assembly&#123;&#125;中的编译器错误SOL-2022-5</span><br><span class="line">[M] 编译器错误SOL-2022-7</span><br><span class="line">[M] 编译器错误SOL-2022-4</span><br><span class="line">[M] 编译器错误SOL-2021-3</span><br><span class="line">以及如果使用Solidity编译器版本0.5.5或0.5.6，还需满足[EthTrust-sl-v1]中的[M] assembly&#123;&#125;中的编译器错误SOL-2019-2。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[S] 禁用assembly&#123;&#125;</span><br><span class="line">被测代码不得包含assembly&#123;&#125;指令，除非满足以下覆盖要求集：</span><br><span class="line"></span><br><span class="line">[M] 避免常见的assembly&#123;&#125;攻击向量</span><br><span class="line">[M] 记录特殊代码用途</span><br><span class="line">[M] assembly&#123;&#125;中的编译器错误SOL-2022-5</span><br><span class="line">[M] 编译器错误SOL-2022-7</span><br><span class="line">[M] 编译器错误SOL-2022-4</span><br><span class="line">[M] 编译器错误SOL-2021-3</span><br><span class="line">以及如果使用Solidity编译器版本0.5.5或0.5.6，还需满足[EthTrust-sl-v1]中的[M] assembly&#123;&#125;中的编译器错误SOL-2019-2。</span><br></pre></td></tr></table></figure></div>
 <p>assembly{}指令允许包含更低级别的代码。这使作者能够更强烈地控制生成的字节码，例如可用于优化gas使用。然而，它也潜在地暴露了许多漏洞和错误，这些都是额外的攻击面，并且有多种方法可以使用assembly{}引入故意设计的难以检测的恶意代码。</p>
-<h4 id="5-1-1-文本和同形字"><a href="#5-1-1-文本和同形字" class="headerlink" title="5.1.1 文本和同形字"></a>5.1.1 文本和同形字</h4><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[S] 无Unicode方向控制字符  </span><br><span class="line">被测代码不得包含任何Unicode方向控制字符  </span><br><span class="line">U+2066、U+2067、U+2068、U+2029、  </span><br><span class="line">U+202A、U+202B、U+202C、U+202D或U+202E  </span><br><span class="line">除非它满足覆盖要求[M]无不必要的Unicode控制。</span><br></pre></td></tr></table></figure></div>
-<p>使用不可见的Unicode方向控制字符改变字符的显示顺序，可以在查看源代码时掩盖恶意代码，欺骗人工审计员。关于Unicode方向控制字符的更多信息，请参见W3C注释《如何为双向文本使用Unicode控制》<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#bib-unicode-bdo" >unicode-bdo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
+<h4 id="5-1-1-文本和同形字"><a href="#5-1-1-文本和同形字" class="headerlink" title="5.1.1 文本和同形字"></a>5.1.1 文本和同形字</h4><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[S] 无Unicode方向控制字符  </span><br><span class="line">被测代码不得包含任何Unicode方向控制字符  </span><br><span class="line">U+2066、U+2067、U+2068、U+2029、  </span><br><span class="line">U+202A、U+202B、U+202C、U+202D或U+202E  </span><br><span class="line">除非它满足覆盖要求[M]无不必要的Unicode控制。</span><br></pre></td></tr></table></figure></div>
+<p>使用不可见的Unicode方向控制字符改变字符的显示顺序，可以在查看源代码时掩盖恶意代码，欺骗人工审计员。关于Unicode方向控制字符的更多信息，请参见W3C注释《如何为双向文本使用Unicode控制》<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#bib-unicode-bdo" >unicode-bdo<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
 <p>[S] 无同形字式攻击<br>被测代码不得使用同形字、Unicode控制字符、组合字符或多个Unicode区块中的字符，如果其影响具有误导性。</p>
 <p>替换来自不同字母表或难以区分的字符，或使用方向控制字符或组合字符，可用于掩盖恶意代码，例如通过设计变量或函数名称来误导审计员。这些攻击被称为同形字攻击。[Ivanov]中描述了成功利用此问题的几种方法。在极少数情况下，变量名或标签中有效使用来自多个Unicode区块的字符（最可能是混合两种语言的名称），只要它们不误导或混淆读者，本要求允许它们获得EEA EthTrust认证。此级别要求检查同形字攻击，包括在单一字符集中的攻击，例如用”í”代替”i”或”ì”，阿拉伯语中”ت”代替”ث”，或数字”1”代替字母”l”，以及跨字符集的攻击，例如拉丁字母”a”和西里尔字母”а”或数学字符”𝚒𝚒”和拉丁字母”i”。如果审查员认为结果不必要地误导或混淆，则被测代码不符合此要求。另请参见相关要求：<br>[S] 无Unicode方向控制字符。</p>
 <h4 id="5-1-2-外部调用"><a href="#5-1-2-外部调用" class="headerlink" title="5.1.2 外部调用"></a>5.1.2 外部调用</h4><p>另请参见相关要求：<br>[M] 保护外部调用，和<br>[Q] 验证外部调用。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[S] 检查外部调用返回  </span><br><span class="line">使用低级调用函数（即call()、delegatecall()、staticcall()和send()）进行外部调用的被测代码必须检查每次使用的返回值以确定调用是否失败，除非它满足覆盖要求  </span><br><span class="line">[M] 处理外部调用返回。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[S] 检查外部调用返回  </span><br><span class="line">使用低级调用函数（即call()、delegatecall()、staticcall()和send()）进行外部调用的被测代码必须检查每次使用的返回值以确定调用是否失败，除非它满足覆盖要求  </span><br><span class="line">[M] 处理外部调用返回。</span><br></pre></td></tr></table></figure></div>
 <p>通常，调用中的异常会导致回滚。这将”冒泡”传播，除非在try&#x2F;catch中处理。然而，Solidity定义了一组低级调用函数：  </p>
 <ul>
 <li><code>call()</code>  </li>
@@ -566,50 +717,50 @@
 <li><code>send()</code></li>
 </ul>
 <p>使用这些函数进行的调用行为不同。它们在失败时不会回滚，而是返回一个布尔值，指示调用是否成功完成。不显式检查返回值可能导致调用者合约中出现意外行为。依赖这些调用在失败时回滚会导致它们在未成功时出现意外行为。另请参见SWC-104 [swcregistry]，[error-handling]中描述的错误处理，未检查的返回值如[CWE-252]所述，以及相关要求：<br>[S] 使用检查-效果-交互，<br>[M] 处理外部调用返回，和<br>[Q] 验证外部调用。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[S] 使用检查-效果-交互(Check-Effects-Interaction)  </span><br><span class="line">进行外部调用的被测代码必须使用  </span><br><span class="line">检查-效果-交互  </span><br><span class="line">模式来防止重入攻击  </span><br><span class="line">除非它满足以下覆盖要求集</span><br><span class="line">[M] 保护外部调用，和  </span><br><span class="line">[M] 记录特殊代码使用，</span><br><span class="line">或它满足以下覆盖要求集</span><br><span class="line">[Q] 验证外部调用，  </span><br><span class="line">[Q] 记录合约逻辑，  </span><br><span class="line">[Q] 记录系统架构，和  </span><br><span class="line">[Q] 按文档实现。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[S] 使用检查-效果-交互(Check-Effects-Interaction)  </span><br><span class="line">进行外部调用的被测代码必须使用  </span><br><span class="line">检查-效果-交互  </span><br><span class="line">模式来防止重入攻击  </span><br><span class="line">除非它满足以下覆盖要求集</span><br><span class="line">[M] 保护外部调用，和  </span><br><span class="line">[M] 记录特殊代码使用，</span><br><span class="line">或它满足以下覆盖要求集</span><br><span class="line">[Q] 验证外部调用，  </span><br><span class="line">[Q] 记录合约逻辑，  </span><br><span class="line">[Q] 记录系统架构，和  </span><br><span class="line">[Q] 按文档实现。</span><br></pre></td></tr></table></figure></div>
 <p>检查-效果-交互模式是<br>在进行任何状态更改之前验证所有前置条件，然后才在外部交互之前完成所有状态更新，然后才执行外部调用</p>
-<p>以这种方式设计合约可显著减少重入攻击的范围。作为此模式的一部分，除了检查特定合约效果外，还可以测试协议不变量，以进一步确保请求不会产生不安全的结果。另请参见§3.4 外部交互和重入攻击，[c-e-i]中”Solidity安全注意事项”<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#bib-solidity-security" >solidity-security <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>对”检查-效果-交互”的解释，”Solidity模式”[solidity-patterns]中的”检查效果交互”，以及<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#bib-freipi" >freipi <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[S] 无delegatecall()  </span><br><span class="line">被测代码不得包含delegatecall()指令  </span><br><span class="line">除非它满足以下覆盖要求集：</span><br><span class="line">[M] 保护外部调用，和  </span><br><span class="line">[M] 记录特殊代码使用，</span><br><span class="line">或它满足以下覆盖要求集</span><br><span class="line">[Q] 验证外部调用，  </span><br><span class="line">[Q] 记录合约逻辑，  </span><br><span class="line">[Q] 记录系统架构，和  </span><br><span class="line">[Q] 按文档实现。</span><br></pre></td></tr></table></figure></div>
+<p>以这种方式设计合约可显著减少重入攻击的范围。作为此模式的一部分，除了检查特定合约效果外，还可以测试协议不变量，以进一步确保请求不会产生不安全的结果。另请参见§3.4 外部交互和重入攻击，[c-e-i]中”Solidity安全注意事项”<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#bib-solidity-security" >solidity-security<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>对”检查-效果-交互”的解释，”Solidity模式”[solidity-patterns]中的”检查效果交互”，以及<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#bib-freipi" >freipi<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[S] 无delegatecall()  </span><br><span class="line">被测代码不得包含delegatecall()指令  </span><br><span class="line">除非它满足以下覆盖要求集：</span><br><span class="line">[M] 保护外部调用，和  </span><br><span class="line">[M] 记录特殊代码使用，</span><br><span class="line">或它满足以下覆盖要求集</span><br><span class="line">[Q] 验证外部调用，  </span><br><span class="line">[Q] 记录合约逻辑，  </span><br><span class="line">[Q] 记录系统架构，和  </span><br><span class="line">[Q] 按文档实现。</span><br></pre></td></tr></table></figure></div>
 <p>delegatecall()指令使外部合约能够操纵调用它的合约的状态，因为代码以调用者的余额、存储和地址运行。</p>
 <h4 id="5-1-3-编译器错误"><a href="#5-1-3-编译器错误" class="headerlink" title="5.1.3 编译器错误"></a>5.1.3 编译器错误</h4><p>Solidity编译器的不同版本中存在许多已知的安全错误。本小节中的要求确保被测代码不会触发这些错误。要求的名称包括[solidity-bugs-json]中首次记录的错误的uid，作为可用于查找有关该错误的更多信息的关键字。[solidity-bugs]描述了用于JSON格式错误列表的约定。本小节中的要求按照受影响的最新Solidity编译器版本排序。</p>
 <p><strong>注意</strong><br>实施推荐的良好实践<br>[GP] 使用最新编译器意味着被测代码<br>通过本小节中的所有要求。<br>一些与编译器相关的错误在§5.2.5安全等级[M]编译器错误和覆盖要求中<br>作为安全等级[M]要求，要么是因为它们是<br>本小节中要求的覆盖要求，要么是因为它们是<br>安全等级[S]要求的覆盖要求集的一部分，这些要求已经确保<br>错误无法被触发。<br>一些错误是在已知的Solidity编译器版本中引入的，<br>而其他错误已知或假设存在于所有Solidity编译器版本中，直到被修复。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2023-3  </span><br><span class="line">包含Yul代码并使用verbatim指令两次的被测代码，每次周围都有相同的代码，  </span><br><span class="line">在使用Solidity编译器版本0.8.5至0.8.22（含）时必须禁用块重复数据删除器。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2023-3  </span><br><span class="line">包含Yul代码并使用verbatim指令两次的被测代码，每次周围都有相同的代码，  </span><br><span class="line">在使用Solidity编译器版本0.8.5至0.8.22（含）时必须禁用块重复数据删除器。</span><br></pre></td></tr></table></figure></div>
 <p>从Solidity编译器版本0.8.5到修复的0.8.22，块重复数据删除器错误地处理了verbatim项，<br>意味着有时它会根据周围的代码混淆两个项，而不是正确比较它们。<br>另请参见2023年11月8日的安全警报。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2022-6  </span><br><span class="line">ABI编码包含动态组件的元组（包括结构体、返回值或参数列表）的被测代码，  </span><br><span class="line">并且其最后一个元素是基本类型uint或bytes32的calldata静态数组，  </span><br><span class="line">不得使用Solidity编译器版本0.5.8至0.8.15（含）。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2022-6  </span><br><span class="line">ABI编码包含动态组件的元组（包括结构体、返回值或参数列表）的被测代码，  </span><br><span class="line">并且其最后一个元素是基本类型uint或bytes32的calldata静态数组，  </span><br><span class="line">不得使用Solidity编译器版本0.5.8至0.8.15（含）。</span><br></pre></td></tr></table></figure></div>
 <p>从Solidity编译器版本0.5.8到修复的0.8.15，使用ABIEncoderV2对元组进行ABI编码，<br>其最后一个组件是基本类型uint或bytes32的calldata静态数组，<br>可能导致数据损坏。<br>另请参见2022年8月8日的安全警报。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2022-5与.push()  </span><br><span class="line">被测代码  </span><br><span class="line">- 从calldata或内存复制字节数组  </span><br><span class="line">- 其大小不是32字节的倍数，且有一个空的.push()指令写入结果数组，  </span><br><span class="line">不得使用早于0.8.15的Solidity编译器版本。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2022-5与.push()  </span><br><span class="line">被测代码  </span><br><span class="line">- 从calldata或内存复制字节数组  </span><br><span class="line">- 其大小不是32字节的倍数，且有一个空的.push()指令写入结果数组，  </span><br><span class="line">不得使用早于0.8.15的Solidity编译器版本。</span><br></pre></td></tr></table></figure></div>
 <p>直到Solidity编译器版本0.8.15，复制长度不是32字节倍数的内存或calldata<br>可能暴露超出复制的数据，这些数据可以通过<br>assembly{}观察到。<br>另请参见2022年6月15日的安全警报和相关要求<br>[M] assembly{}中的编译器错误SOL-2022-5。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2022-3  </span><br><span class="line">- 对同一函数使用内存和calldata指针，且  </span><br><span class="line">- 在继承期间更改函数的数据位置，且  </span><br><span class="line">- 在仅知道基合约中原始函数签名的位置进行内部调用  </span><br><span class="line"></span><br><span class="line">不得使用Solidity编译器版本0.6.9至0.8.12（含）。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2022-3  </span><br><span class="line">- 对同一函数使用内存和calldata指针，且  </span><br><span class="line">- 在继承期间更改函数的数据位置，且  </span><br><span class="line">- 在仅知道基合约中原始函数签名的位置进行内部调用  </span><br><span class="line"></span><br><span class="line">不得使用Solidity编译器版本0.6.9至0.8.12（含）。</span><br></pre></td></tr></table></figure></div>
 <p>Solidity编译器版本从0.6.9到修复的0.8.13有一个错误，错误地允许<br>内部或公共调用使用仅对外部调用有效的简化，将<br>内存和calldata视为等效指针。<br>另请参见2022年5月17日的安全警报。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2022-2  </span><br><span class="line">具有嵌套数组的被测代码  </span><br><span class="line">- 将其传递给外部函数，或  </span><br><span class="line">- 将其作为输入传递给abi.encode()，或  </span><br><span class="line">- 在事件中使用它  </span><br><span class="line">不得使用Solidity编译器版本0.6.9至0.8.12（含）。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2022-2  </span><br><span class="line">具有嵌套数组的被测代码  </span><br><span class="line">- 将其传递给外部函数，或  </span><br><span class="line">- 将其作为输入传递给abi.encode()，或  </span><br><span class="line">- 在事件中使用它  </span><br><span class="line">不得使用Solidity编译器版本0.6.9至0.8.12（含）。</span><br></pre></td></tr></table></figure></div>
 <p>Solidity编译器版本从0.5.8到修复的0.8.13有一个错误，意味着嵌套数组的<br>单次编码和解码可以读取超出calldatasize()的数据。<br>另请参见2022年5月17日的安全警报。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2022-1  </span><br><span class="line">被测代码  </span><br><span class="line"></span><br><span class="line">对短于32字节的bytesNN类型使用数字字面量，或  </span><br><span class="line">对任何bytesNN类型使用字符串字面量，  </span><br><span class="line"></span><br><span class="line">并将此类字面量作为第一个参数传递给abi.encodeCall()，  </span><br><span class="line">不得使用Solidity编译器版本0.8.11或0.8.12。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2022-1  </span><br><span class="line">被测代码  </span><br><span class="line"></span><br><span class="line">对短于32字节的bytesNN类型使用数字字面量，或  </span><br><span class="line">对任何bytesNN类型使用字符串字面量，  </span><br><span class="line"></span><br><span class="line">并将此类字面量作为第一个参数传递给abi.encodeCall()，  </span><br><span class="line">不得使用Solidity编译器版本0.8.11或0.8.12。</span><br></pre></td></tr></table></figure></div>
 <p>Solidity定义了一组变量类型，统称为<br>bytesNN或固定长度变量类型，<br>指定变量的长度为固定的字节数，遵循模式<br>bytes1<br>bytes2<br>…<br>bytes32</p>
 <p>Solidity编译器版本0.8.11和0.8.12有一个错误，意味着在某些情况下，<br>abi.encodeCall()会错误编码字面量参数。<br>另请参见2022年3月16日的安全警报。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2021-4  </span><br><span class="line">使用短于32字节的自定义值类型的被测代码不得使用Solidity编译器版本0.8.8。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2021-4  </span><br><span class="line">使用短于32字节的自定义值类型的被测代码不得使用Solidity编译器版本0.8.8。</span><br></pre></td></tr></table></figure></div>
 <p>Solidity编译器版本0.8.8有一个错误，为不需要的自定义类型分配了完整的32字节存储空间。<br>这可能被滥用来读取任意存储，<br>如果被测代码包含使用不同Solidity编译器版本编译的代码，也可能导致错误。<br>另请参见2021年9月29日的安全警报。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2021-2  </span><br><span class="line">使用abi.decode()对内存字节数组进行解码的被测代码  </span><br><span class="line">不得在Solidity编译器版本0.4.16至0.8.3（含）中使用ABIEncoderV2。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2021-2  </span><br><span class="line">使用abi.decode()对内存字节数组进行解码的被测代码  </span><br><span class="line">不得在Solidity编译器版本0.4.16至0.8.3（含）中使用ABIEncoderV2。</span><br></pre></td></tr></table></figure></div>
 <p>Solidity编译器版本0.4.16引入了一个错误，在0.8.4中修复，意味着ABIEncoderV2<br>在读取内存字节数组时错误验证了指针，这可能由于指针计算中的溢出错误而导致<br>读取超出数组区域的数据。<br>另请参见2021年4月21日的安全警报。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2021-1  </span><br><span class="line">具有两个或多个指令  </span><br><span class="line">keccak(mem,length)的被测代码，其中  </span><br><span class="line"></span><br><span class="line">mem的值相等，且  </span><br><span class="line">length的值不等，且  </span><br><span class="line">length的值不是32的倍数，  </span><br><span class="line"></span><br><span class="line">不得在早于0.8.3的Solidity编译器版本中使用优化器。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[S] 编译器错误SOL-2021-1  </span><br><span class="line">具有两个或多个指令  </span><br><span class="line">keccak(mem,length)的被测代码，其中  </span><br><span class="line"></span><br><span class="line">mem的值相等，且  </span><br><span class="line">length的值不等，且  </span><br><span class="line">length的值不是32的倍数，  </span><br><span class="line"></span><br><span class="line">不得在早于0.8.3的Solidity编译器版本中使用优化器。</span><br></pre></td></tr></table></figure></div>
 <p>Solidity编译器版本在0.8.3之前有一个优化器错误，意味着keccak哈希，<br>针对相同内容但不同长度（不是32字节的倍数）计算，<br>错误地使用了缓存中的第一个值而不是重新计算。<br>另请参见2021年3月23日的安全警报。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">[S] 使用现代编译器  </span><br><span class="line">被测代码不得使用早于0.8.0的Solidity编译器版本，  </span><br><span class="line">除非它满足EEA EthTrust安全等级规范版本2中的所有以下要求，  </span><br><span class="line">作为覆盖要求：</span><br><span class="line"></span><br><span class="line">[S] 无溢出/下溢  </span><br><span class="line">[S] 编译器错误SOL-2020-11-push  </span><br><span class="line">[S] 编译器错误SOL-2020-10  </span><br><span class="line">[S] 编译器错误SOL-2020-9  </span><br><span class="line">[S] 编译器错误SOL-2020-8  </span><br><span class="line">[S] 编译器错误SOL-2020-6  </span><br><span class="line">[S] 编译器错误SOL-2020-7  </span><br><span class="line">[S] 编译器错误SOL-2020-5  </span><br><span class="line">[S] 编译器错误SOL-2020-4</span><br><span class="line"></span><br><span class="line">并且  </span><br><span class="line">被测代码不得使用早于0.6.0的Solidity编译器版本，  </span><br><span class="line">除非它满足EEA EthTrust安全等级规范版本1中的所有以下要求，  </span><br><span class="line">作为覆盖要求：</span><br><span class="line"></span><br><span class="line">[S] 编译器错误SOL-2020-11-length  </span><br><span class="line">[S] 编译器错误SOL-2019-10  </span><br><span class="line">[S] 编译器错误SOL-2019-3,6,7,9  </span><br><span class="line">[S] 编译器错误SOL-2019-8  </span><br><span class="line">[S] 编译器错误SOL-2019-5</span><br><span class="line">[S] 编译器错误SOL-2019-4</span><br><span class="line">[S] 编译器错误SOL-2019-2</span><br><span class="line">[S] 编译器错误SOL-2019-1</span><br><span class="line">[S] 显式存储（包括通过其覆盖要求  </span><br><span class="line">[M] 如果适用则显式声明存储）</span><br><span class="line">[S] 编译器错误SOL-2018-4</span><br><span class="line">[S] 编译器错误SOL-2018-3</span><br><span class="line">[S] 编译器错误SOL-2018-2</span><br><span class="line">[S] 编译器错误SOL-2018-1</span><br><span class="line">[S] 编译器错误SOL-2017-5</span><br><span class="line">[S] 编译器错误SOL-2017-4</span><br><span class="line">[S] 编译器错误SOL-2017-3</span><br><span class="line">[S] 编译器错误SOL-2017-2</span><br><span class="line">[S] 编译器错误SOL-2017-1</span><br><span class="line">[S] 编译器错误SOL-2016-11</span><br><span class="line">[S] 编译器错误SOL-2016-10</span><br><span class="line">[S] 编译器错误SOL-2016-9</span><br><span class="line">[S] 编译器错误SOL-2016-8</span><br><span class="line">[S] 编译器错误SOL-2016-7</span><br><span class="line">[S] 编译器错误SOL-2016-6</span><br><span class="line">[S] 编译器错误SOL-2016-5</span><br><span class="line">[S] 编译器错误SOL-2016-4</span><br><span class="line">[S] 编译器错误SOL-2016-3</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">[S] 使用现代编译器  </span><br><span class="line">被测代码不得使用早于0.8.0的Solidity编译器版本，  </span><br><span class="line">除非它满足EEA EthTrust安全等级规范版本2中的所有以下要求，  </span><br><span class="line">作为覆盖要求：</span><br><span class="line"></span><br><span class="line">[S] 无溢出/下溢  </span><br><span class="line">[S] 编译器错误SOL-2020-11-push  </span><br><span class="line">[S] 编译器错误SOL-2020-10  </span><br><span class="line">[S] 编译器错误SOL-2020-9  </span><br><span class="line">[S] 编译器错误SOL-2020-8  </span><br><span class="line">[S] 编译器错误SOL-2020-6  </span><br><span class="line">[S] 编译器错误SOL-2020-7  </span><br><span class="line">[S] 编译器错误SOL-2020-5  </span><br><span class="line">[S] 编译器错误SOL-2020-4</span><br><span class="line"></span><br><span class="line">并且  </span><br><span class="line">被测代码不得使用早于0.6.0的Solidity编译器版本，  </span><br><span class="line">除非它满足EEA EthTrust安全等级规范版本1中的所有以下要求，  </span><br><span class="line">作为覆盖要求：</span><br><span class="line"></span><br><span class="line">[S] 编译器错误SOL-2020-11-length  </span><br><span class="line">[S] 编译器错误SOL-2019-10  </span><br><span class="line">[S] 编译器错误SOL-2019-3,6,7,9  </span><br><span class="line">[S] 编译器错误SOL-2019-8  </span><br><span class="line">[S] 编译器错误SOL-2019-5</span><br><span class="line">[S] 编译器错误SOL-2019-4</span><br><span class="line">[S] 编译器错误SOL-2019-2</span><br><span class="line">[S] 编译器错误SOL-2019-1</span><br><span class="line">[S] 显式存储（包括通过其覆盖要求  </span><br><span class="line">[M] 如果适用则显式声明存储）</span><br><span class="line">[S] 编译器错误SOL-2018-4</span><br><span class="line">[S] 编译器错误SOL-2018-3</span><br><span class="line">[S] 编译器错误SOL-2018-2</span><br><span class="line">[S] 编译器错误SOL-2018-1</span><br><span class="line">[S] 编译器错误SOL-2017-5</span><br><span class="line">[S] 编译器错误SOL-2017-4</span><br><span class="line">[S] 编译器错误SOL-2017-3</span><br><span class="line">[S] 编译器错误SOL-2017-2</span><br><span class="line">[S] 编译器错误SOL-2017-1</span><br><span class="line">[S] 编译器错误SOL-2016-11</span><br><span class="line">[S] 编译器错误SOL-2016-10</span><br><span class="line">[S] 编译器错误SOL-2016-9</span><br><span class="line">[S] 编译器错误SOL-2016-8</span><br><span class="line">[S] 编译器错误SOL-2016-7</span><br><span class="line">[S] 编译器错误SOL-2016-6</span><br><span class="line">[S] 编译器错误SOL-2016-5</span><br><span class="line">[S] 编译器错误SOL-2016-4</span><br><span class="line">[S] 编译器错误SOL-2016-3</span><br></pre></td></tr></table></figure></div>
 <p>有许多已知的编译器错误影响早于0.6.0的Solidity编译器版本，<br>但对编译器错误的研究往往集中在影响相对现代Solidity编译器版本的错误上，<br>因此旧Solidity编译器版本中的任何进一步错误很可能只有在被利用后才会被发现并广为人知。<br>使用现代Solidity编译器版本是一个良好的实践。<br>在极少数情况下无法使用晚于0.6.0的Solidity编译器版本时，<br>可以通过符合本规范版本1中定义的相关覆盖要求来实现EEA EthTrust认证。<br>另请参见相关要求<br>[M] 使用现代编译器，<br>涵盖需要安全等级[M]审查的Solidity编译器错误。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[S] 无古老编译器  </span><br><span class="line">被测代码不得使用早于0.3的Solidity编译器版本。</span><br><span class="line">``</span><br><span class="line">未跟踪早于0.3的Solidity编译器版本的编译器错误。  </span><br><span class="line">因此存在未知错误可能导致意外问题的风险。  </span><br><span class="line">另请参见[solidity-bugs-json]中的&quot;SOL-2016-1&quot;。</span><br><span class="line"></span><br><span class="line">### 5.2 安全等级[M]</span><br><span class="line">获得安全等级[M]的EEA EthTrust认证意味着合约经过人类审计或团队的手动分析，并且重要的安全问题均已解决至审计者满意为止。这一级安全要求是对等级[S]的补充，通常用于：</span><br><span class="line">- 合约使用了不常见或高风险特性；</span><br><span class="line">- 出现静态分析难以确认的安全性；</span><br><span class="line">- 审计者需通过逻辑判断确定安全性。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[S] 无古老编译器  </span><br><span class="line">被测代码不得使用早于0.3的Solidity编译器版本。</span><br><span class="line">``</span><br><span class="line">未跟踪早于0.3的Solidity编译器版本的编译器错误。  </span><br><span class="line">因此存在未知错误可能导致意外问题的风险。  </span><br><span class="line">另请参见[solidity-bugs-json]中的&quot;SOL-2016-1&quot;。</span><br><span class="line"></span><br><span class="line">### 5.2 安全等级[M]</span><br><span class="line">获得安全等级[M]的EEA EthTrust认证意味着合约经过人类审计或团队的手动分析，并且重要的安全问题均已解决至审计者满意为止。这一级安全要求是对等级[S]的补充，通常用于：</span><br><span class="line">- 合约使用了不常见或高风险特性；</span><br><span class="line">- 出现静态分析难以确认的安全性；</span><br><span class="line">- 审计者需通过逻辑判断确定安全性。</span><br></pre></td></tr></table></figure></div>
 <p>为满足安全等级[M]，测试代码必须首先满足 § 5.1 的所有等级[S]要求，除非补充满足相应的“Overriding Requirement”来替代部分等级[S]要求</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">[M]显式消除求值顺序歧义</span><br><span class="line">被测代码​​不得​​包含因变量求值顺序不同而导致结果差异的语句。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">[M]显式消除求值顺序歧义</span><br><span class="line">被测代码​​不得​​包含因变量求值顺序不同而导致结果差异的语句。</span><br></pre></td></tr></table></figure></div>
 <p>Solidity 中函数的求值顺序并非完全确定，且不同编译器版本间无法保证一致性。若语句调用的多个函数对共享状态对象产生副作用，求值顺序的差异可能导致不同结果。<br>此外，事件日志及<code>addmod/modmul</code>指令的求值顺序通常不符合常规模式，使用这些功能的被测代码可能产生预期外的结果。</p>
 <p>⚠️ 风险示例</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​​示例13：不确定的求值顺序​​</span><br><span class="line">// 若函数 g() 和 h() 修改了函数 f() 所依赖的状态变量</span><br><span class="line">f(g(x), h(y));  // 无法保证结果一致性</span><br><span class="line">当 g() 和 h() 修改了 f() 依赖的状态变量时，该调用无法保证可复现的结果。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">​​示例13：不确定的求值顺序​​</span><br><span class="line">// 若函数 g() 和 h() 修改了函数 f() 所依赖的状态变量</span><br><span class="line">f(g(x), h(y));  // 无法保证结果一致性</span><br><span class="line">当 g() 和 h() 修改了 f() 依赖的状态变量时，该调用无法保证可复现的结果。</span><br></pre></td></tr></table></figure></div>
 <p>✅ 解决方案<br>通过临时变量显式控制执行顺序：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">​示例 14：使用临时变量强制求值顺序​​</span><br><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity 0.8.18;</span><br><span class="line"></span><br><span class="line">uint256 public myNumber;</span><br><span class="line">uint256 public yourNumber;</span><br><span class="line"></span><br><span class="line">function firstTransform(uint256 someNumber) public returns (uint256) &#123;</span><br><span class="line">    myNumber += 1;                // 副作用：修改状态</span><br><span class="line">    return someNumber * myNumber; // 依赖更新后的 myNumber</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function secondTransform(uint256 someNumber) public returns (uint256) &#123;</span><br><span class="line">    yourNumber += 3;              // 副作用：修改状态</span><br><span class="line">    return someNumber / yourNumber; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function deterministicResult(uint256 someNumber) public returns (uint256) &#123;</span><br><span class="line">    uint256 firstResult = firstTransform(someNumber); // 显式优先执行</span><br><span class="line">    return secondTransform(firstResult);              // 显式后续执行</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>​​关键点​​：<br>使用 firstResult 临时变量分离执行步骤<br>确保 firstTransform 在 secondTransform 前完成<br>消除多函数调用的状态依赖歧义<br>关联参考<br>Solidity 隐蔽漏洞模式 <a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#bib-solidity-underhanded-richards2022" >solidity-underhanded-richards2022 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>Solidity 速查指南 <a class="link"   target="_blank" rel="noopener" href="https://blog.soliditylang.org/2023/07/19/full-inliner-non-expression-split-argument-evaluation-order-bug/" >solidity-cheatsheet <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>Solidity 编译器安全漏洞<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#bib-solidity-bugs-json" >SOL-2023-2 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[M]验证精确余额检查</span><br><span class="line">被测代码若检查账户余额​​严格等于​​（==）指定值或变量时，​​必须​​防范转账操作对余额检查的影响。</span><br><span class="line">此为 [S] 级要求禁用精确余额检查的覆盖要求</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">​示例 14：使用临时变量强制求值顺序​​</span><br><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity 0.8.18;</span><br><span class="line"></span><br><span class="line">uint256 public myNumber;</span><br><span class="line">uint256 public yourNumber;</span><br><span class="line"></span><br><span class="line">function firstTransform(uint256 someNumber) public returns (uint256) &#123;</span><br><span class="line">    myNumber += 1;                // 副作用：修改状态</span><br><span class="line">    return someNumber * myNumber; // 依赖更新后的 myNumber</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function secondTransform(uint256 someNumber) public returns (uint256) &#123;</span><br><span class="line">    yourNumber += 3;              // 副作用：修改状态</span><br><span class="line">    return someNumber / yourNumber; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function deterministicResult(uint256 someNumber) public returns (uint256) &#123;</span><br><span class="line">    uint256 firstResult = firstTransform(someNumber); // 显式优先执行</span><br><span class="line">    return secondTransform(firstResult);              // 显式后续执行</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>​​关键点​​：<br>使用 firstResult 临时变量分离执行步骤<br>确保 firstTransform 在 secondTransform 前完成<br>消除多函数调用的状态依赖歧义<br>关联参考<br>Solidity 隐蔽漏洞模式 <a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#bib-solidity-underhanded-richards2022" >solidity-underhanded-richards2022<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>Solidity 速查指南 <a class="link"   target="_blank" rel="noopener" href="https://blog.soliditylang.org/2023/07/19/full-inliner-non-expression-split-argument-evaluation-order-bug/" >solidity-cheatsheet<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>Solidity 编译器安全漏洞<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#bib-solidity-bugs-json" >SOL-2023-2<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[M]验证精确余额检查</span><br><span class="line">被测代码若检查账户余额​​严格等于​​（==）指定值或变量时，​​必须​​防范转账操作对余额检查的影响。</span><br><span class="line">此为 [S] 级要求禁用精确余额检查的覆盖要求</span><br></pre></td></tr></table></figure></div>
 <p>若智能合约在执行过程中检查账户余额是否等于​​特定精确值​​，则存在潜在风险：攻击者可通过向该账户转账来改变其余额，导致交易意外回滚等非预期结果。若必须使用此类检查，​​必须​​实施防护措施以抵御此类攻击可能性。</p>
-<h4 id="5-2-1-文本与同形字攻击"><a href="#5-2-1-文本与同形字攻击" class="headerlink" title="5.2.1 文本与同形字攻击"></a>5.2.1 文本与同形字攻击</h4><p>本节要求与安全公告<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#bib-cve-2021-42574" >CVE-2021-42574 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>及<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#bib-cwe-94" >CWE-94 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>“代码生成控制不当”（亦称”代码注入”）相关。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[M]禁用非必要Unicode控制符</span><br><span class="line">被测代码​​不得​​使用Unicode方向控制字符，除非对文本正确渲染确有必要, 并且渲染结果不会误导读者</span><br><span class="line">（此为 [S]级要求 禁用 Unicode 方向控制字符 的覆盖要求）</span><br></pre></td></tr></table></figure></div>
+<h4 id="5-2-1-文本与同形字攻击"><a href="#5-2-1-文本与同形字攻击" class="headerlink" title="5.2.1 文本与同形字攻击"></a>5.2.1 文本与同形字攻击</h4><p>本节要求与安全公告<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#bib-cve-2021-42574" >CVE-2021-42574<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>及<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#bib-cwe-94" >CWE-94<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>“代码生成控制不当”（亦称”代码注入”）相关。</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[M]禁用非必要Unicode控制符</span><br><span class="line">被测代码​​不得​​使用Unicode方向控制字符，除非对文本正确渲染确有必要, 并且渲染结果不会误导读者</span><br><span class="line">（此为 [S]级要求 禁用 Unicode 方向控制字符 的覆盖要求）</span><br></pre></td></tr></table></figure></div>
 <p>​​安全等级[M]允许​​在文本字符串中使用Unicode方向控制字符，但需经必要性分析。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[M] 禁止同形字式攻击</span><br><span class="line">被测代码​​不得​​使用同形字、Unicode 控制符、组合字符或多 Unicode 区块字符，若其效果具有误导性。</span><br></pre></td></tr></table></figure></div>
-<p>通过替换不同字母表中视觉相似的字符（如拉丁字母 “a” 与西里尔字母 “а”）、使用方向控制符或组合字符，可构造恶意代码欺骗审计人员。例如：<br>使用 “í” 冒充 “i” 或 “ì”<br>阿拉伯语 “ت” 冒充 “ث”<br>数字 “1” 冒充字母 “l”<br>数学符号 “𝚒” 冒充拉丁字母 “i”<br>此类攻击称为​​同形字攻击​​，具体手法详见 <a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#bib-ivanov" >Ivanov <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。<br>若变量名&#x2F;标签中​​确需混用多Unicode区块字符​​（如双语混合命名），只要不产生误导或混淆，仍可通过EEA EthTrust认证。<br>审计人员判定存在​​非必要误导或混淆​​时，视为不符合要求。<br>​​关联要求​​：[S]<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#req-1-unicode-bdo" >禁用Unicode方向控制字符 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[M] 禁止同形字式攻击</span><br><span class="line">被测代码​​不得​​使用同形字、Unicode 控制符、组合字符或多 Unicode 区块字符，若其效果具有误导性。</span><br></pre></td></tr></table></figure></div>
+<p>通过替换不同字母表中视觉相似的字符（如拉丁字母 “a” 与西里尔字母 “а”）、使用方向控制符或组合字符，可构造恶意代码欺骗审计人员。例如：<br>使用 “í” 冒充 “i” 或 “ì”<br>阿拉伯语 “ت” 冒充 “ث”<br>数字 “1” 冒充字母 “l”<br>数学符号 “𝚒” 冒充拉丁字母 “i”<br>此类攻击称为​​同形字攻击​​，具体手法详见 <a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#bib-ivanov" >Ivanov<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。<br>若变量名&#x2F;标签中​​确需混用多Unicode区块字符​​（如双语混合命名），只要不产生误导或混淆，仍可通过EEA EthTrust认证。<br>审计人员判定存在​​非必要误导或混淆​​时，视为不符合要求。<br>​​关联要求​​：[S]<a class="link"   target="_blank" rel="noopener" href="https://entethalliance.org/specs/ethtrust-sl/v3/#req-1-unicode-bdo" >禁用Unicode方向控制字符<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 <p>5.2.2 [M] 显式消除变量评估顺序不确定性<br>[M] Explicitly Disambiguate Evaluation Order<br>测试代码中不得含有可能因表达式中函数调用顺序不同而产生不同结果的语句。Solidity 的函数评估顺序在多版本间可能不一致，尤其对 addmod, modmul 或事件参数等，可能影响逻辑执行结果<br>Enterprise Ethereum Alliance<br>。</p>
 <p>示例（Example 13 与 Example 14）：</p>
 <p>有如下代码可能导致顺序不确定：</p>
@@ -707,102 +858,105 @@
 <p>[M] Compiler Bug SOL‑2021‑3<br>在 assembly {} 中读取 immutable 但短于 256 位的带符号整数时，Solidity 0.6.5 到 0.8.8 存在错误，不可使用<br>Enterprise Ethereum Alliance<br>。</p>
 <p>[M] Use a Modern Compiler<br>Solidity 编译器不应低于 0.8.0 版本，除非满足版本范围内旧 bug 的 Overriding Requirement（例如从 v2 规范遗留要求）；最低不能低于 0.6.0 除非进一步满足前期版本的多个自定义 Overriding Requirement<br>Enterprise Ethereum Alliance<br>。</p>
 
-            </div>
+		</div>
 
-            
-                <div class="post-copyright-info">
-                    <div class="article-copyright-info-container">
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
     <ul>
         <li><strong>Title:</strong> EEA以太坊企业联盟安全规范第三版</li>
         <li><strong>Author:</strong> Kopei</li>
-        <li><strong>Created at:</strong> 2025-08-03 13:01:59</li>
+        <li><strong>Created at
+                :</strong> 2025-08-03 13:01:59</li>
         
             <li>
-                <strong>Updated at:</strong> 2025-08-04 21:13:55
+                <strong>Updated at
+                    :</strong> 2025-08-04 21:18:03
             </li>
         
         <li>
             <strong>Link:</strong> https://kopei.github.io/2025/08/03/EEA以太坊企业联盟安全规范第三版/
         </li>
         <li>
-            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
         </li>
     </ul>
 </div>
 
-                </div>
-            
+		</div>
+		
 
-            
-                <ul class="post-tags-box">
-                    
-                        <li class="tag-item">
-                            <a href="../../../../tags/Block-ETH-Security/">#Block, ETH, Security</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="../../../../tags/Block-ETH-Security/">#Block, ETH, Security</a>&nbsp;
+			</li>
+			
+		</ul>
+		
 
-            
+		
 
-            
-                <div class="article-nav">
-                    
-                    
-                        <div class="article-next">
-                            <a class="next"
-                            rel="next"
-                            href="../../../../2024/01/14/Finetune-vs-RAG/"
-                            >
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">Finetune vs RAG</span>
-                                    <span class="post-nav-item">Next posts</span>
-                                </span>
-                                <span class="right arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </span>
-                            </a>
-                        </div>
-                    
-                </div>
-            
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="../../../../2024/01/14/Finetune-vs-RAG/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">Finetune vs RAG</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
 
 
-            
-                <div class="comment-container">
-                    <div class="comments-container">
-    <div id="comment-anchor"></div>
-    <div class="comment-area-title">
-        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
     </div>
     
 
         
             
- 
     <div id="waline"></div>
-    <script type="module"  data-pjax>
-        import { init } from 'https://evan.beee.top/js/waline.mjs';
+    <script type="module" data-swup-reload-script>
+      import { init } from '../../../../js/libs/waline.mjs';
 
-        function loadWaline() {
-            init({
-                el: '#waline',
-                serverURL: 'https://kopie-comments-9snhujxxf-kopei.vercel.app',
-                lang: 'zh-CN',
-                dark: 'body[class~="dark-mode"]',
-                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
-            });
-        }
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://kopie-comments-9snhujxxf-kopei.vercel.app',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+                    lang: 'zh-CN',
+        });
+      }
 
-        if ('true') {
-            const loadWalineTimeout = setTimeout(() => {
-                loadWaline();
-                clearTimeout(loadWalineTimeout);
-            }, 1000);
-        } else {
-            window.addEventListener('DOMContentLoaded', loadWaline);
-        }
-        
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
     </script>
 
 
@@ -811,66 +965,70 @@
     
 </div>
 
-                </div>
-            
-        </div>
+		</div>
+		
+	</div>
 
-        
-            <div class="toc-content-container">
-                <div class="post-toc-wrap">
-    <div class="post-toc">
-        <div class="toc-title">On this page</div>
-        <div class="page-title">EEA以太坊企业联盟安全规范第三版</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#EEA-EthTrust-%E5%AE%89%E5%85%A8%E7%AD%89%E7%BA%A7%E8%A7%84%E8%8C%83-%E7%AC%AC3%E7%89%88"><span class="nav-text">EEA EthTrust 安全等级规范 第3版</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%8B%E2%80%8B%E5%BD%93%E5%89%8D%E7%89%88%E6%9C%AC%E2%80%8B%E2%80%8B"><span class="nav-text">​​当前版本​​:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%8B%E2%80%8B%E6%9C%AC%E7%89%88%E6%9C%AC%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95%E2%80%8B%E2%80%8B"><span class="nav-text">​​本版本检查清单​​:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%8B%E2%80%8B%E6%9C%80%E6%96%B0%E7%BC%96%E8%BE%91%E8%8D%89%E6%A1%88%E2%80%8B%E2%80%8B"><span class="nav-text">​​最新编辑草案​​:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%8B%E2%80%8B%E7%BC%96%E8%BE%91%E2%80%8B%E2%80%8B"><span class="nav-text">​​编辑​​:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%8B%E2%80%8B%E6%9C%80%E6%96%B0%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%ACURL%E2%80%8B%E2%80%8B"><span class="nav-text">​​最新发布版本URL​​:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%8B%E2%80%8B%E6%9C%AC%E7%89%88%E6%9C%AC%E8%B4%A1%E7%8C%AE%E8%80%85%E2%80%8B%E2%80%8B"><span class="nav-text">​​本版本贡献者​​:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E"><span class="nav-text">版权声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E7%8A%B6%E6%80%81"><span class="nav-text">文档状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="nav-text">1. 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E6%9C%AC%E8%A7%84%E8%8C%83"><span class="nav-text">1.1 如何阅读本规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E8%AE%A4%E8%AF%81%E5%90%88%E7%BA%A6%EF%BC%9F"><span class="nav-text">1.2 为什么需要认证合约？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E5%BC%80%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6"><span class="nav-text">1.3 开发安全的智能合约</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E6%BC%8F%E6%B4%9E%E5%8F%8D%E9%A6%88%E4%B8%8E%E6%96%B0%E6%BC%8F%E6%B4%9E"><span class="nav-text">1.4 漏洞反馈与新漏洞</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%AC%A6%E5%90%88%E6%80%A7"><span class="nav-text">2. 符合性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%AC%A6%E5%90%88%E6%80%A7%E5%A3%B0%E6%98%8E"><span class="nav-text">2.1 符合性声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E8%B0%81%E5%8F%AF%E4%BB%A5%E6%8F%90%E4%BE%9BEEA-EthTrust%E8%AE%A4%E8%AF%81%EF%BC%9F"><span class="nav-text">2.2 谁可以提供EEA EthTrust认证？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E8%AF%86%E5%88%AB%E8%AE%A4%E8%AF%81%E5%86%85%E5%AE%B9"><span class="nav-text">2.3 识别认证内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%AE%89%E5%85%A8%E8%80%83%E8%99%91"><span class="nav-text">3. 安全考虑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87-%E6%9B%B4%E5%B9%BF%E6%B3%9B%E7%9A%84%E8%80%83%E8%99%91"><span class="nav-text">3.1 智能合约的上下文 - 更广泛的考虑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E5%8F%AF%E5%8D%87%E7%BA%A7%E5%90%88%E7%BA%A6"><span class="nav-text">3.2 可升级合约</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E9%A2%84%E8%A8%80%E6%9C%BA"><span class="nav-text">3.3 预言机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E5%A4%96%E9%83%A8%E4%BA%A4%E4%BA%92%E4%B8%8E%E9%87%8D%E5%85%A5%E6%94%BB%E5%87%BB"><span class="nav-text">3.4 外部交互与重入攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E7%AD%BE%E5%90%8D%E6%9C%BA%E5%88%B6"><span class="nav-text">3.5 签名机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-Gas%E4%B8%8EGas%E4%BB%B7%E6%A0%BC"><span class="nav-text">3.6 Gas与Gas价格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-MEV%EF%BC%88%E6%81%B6%E6%84%8F%E6%8F%90%E5%8F%96%E4%BB%B7%E5%80%BC%EF%BC%89"><span class="nav-text">3.7 MEV（恶意提取价值）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-%E6%8E%92%E5%BA%8F%E6%94%BB%E5%87%BB"><span class="nav-text">3.8 排序攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-%E5%90%88%E7%BA%A6%E9%83%A8%E7%BD%B2"><span class="nav-text">3.10 合约部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-11-%E9%83%A8%E7%BD%B2%E5%90%8E%E7%9B%91%E6%8E%A7"><span class="nav-text">3.11 部署后监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-12-%E7%BD%91%E7%BB%9C%E5%8D%87%E7%BA%A7"><span class="nav-text">3.12 网络升级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-13-%E7%BB%84%E7%BB%87%E4%B8%8E%E9%93%BE%E4%B8%8B%E5%AE%89%E5%85%A8%E6%80%81%E5%8A%BF"><span class="nav-text">3.13 组织与链下安全态势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95"><span class="nav-text">4. 测试方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-text">4.1 单元测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90"><span class="nav-text">4.2 静态分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95"><span class="nav-text">4.3 模糊测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-%E5%8F%98%E5%BC%82%E6%B5%8B%E8%AF%95"><span class="nav-text">4.4 变异测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C"><span class="nav-text">4.5 符号执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-%E5%BD%A2%E5%BC%8F%E5%8C%96%E9%AA%8C%E8%AF%81"><span class="nav-text">4.6 形式化验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-7-%E5%B1%9E%E6%80%A7%E4%B8%8E%E4%B8%8D%E5%8F%98%E9%87%8F"><span class="nav-text">4.7 属性与不变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-8-%E6%B5%8B%E8%AF%95%E7%BD%91%E9%83%A8%E7%BD%B2"><span class="nav-text">4.8 测试网部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-EEA-EthTrust%E5%AE%89%E5%85%A8%E7%AD%89%E7%BA%A7"><span class="nav-text">5. EEA EthTrust安全等级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E5%AE%89%E5%85%A8%E7%AD%89%E7%BA%A7-S"><span class="nav-text">5.1 安全等级[S]</span></a></li></ol></li></ol></li></ol>
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">EEA以太坊企业联盟安全规范第三版</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#EEA-EthTrust-%E5%AE%89%E5%85%A8%E7%AD%89%E7%BA%A7%E8%A7%84%E8%8C%83-%E7%AC%AC3%E7%89%88"><span class="nav-text">EEA EthTrust 安全等级规范 第3版</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%8B%E2%80%8B%E5%BD%93%E5%89%8D%E7%89%88%E6%9C%AC%E2%80%8B%E2%80%8B"><span class="nav-text">​​当前版本​​:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%8B%E2%80%8B%E6%9C%AC%E7%89%88%E6%9C%AC%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95%E2%80%8B%E2%80%8B"><span class="nav-text">​​本版本检查清单​​:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%8B%E2%80%8B%E6%9C%80%E6%96%B0%E7%BC%96%E8%BE%91%E8%8D%89%E6%A1%88%E2%80%8B%E2%80%8B"><span class="nav-text">​​最新编辑草案​​:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%8B%E2%80%8B%E7%BC%96%E8%BE%91%E2%80%8B%E2%80%8B"><span class="nav-text">​​编辑​​:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%8B%E2%80%8B%E6%9C%80%E6%96%B0%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%ACURL%E2%80%8B%E2%80%8B"><span class="nav-text">​​最新发布版本URL​​:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%8B%E2%80%8B%E6%9C%AC%E7%89%88%E6%9C%AC%E8%B4%A1%E7%8C%AE%E8%80%85%E2%80%8B%E2%80%8B"><span class="nav-text">​​本版本贡献者​​:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E"><span class="nav-text">版权声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E7%8A%B6%E6%80%81"><span class="nav-text">文档状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="nav-text">1. 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E6%9C%AC%E8%A7%84%E8%8C%83"><span class="nav-text">1.1 如何阅读本规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E8%AE%A4%E8%AF%81%E5%90%88%E7%BA%A6%EF%BC%9F"><span class="nav-text">1.2 为什么需要认证合约？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E5%BC%80%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6"><span class="nav-text">1.3 开发安全的智能合约</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-%E6%BC%8F%E6%B4%9E%E5%8F%8D%E9%A6%88%E4%B8%8E%E6%96%B0%E6%BC%8F%E6%B4%9E"><span class="nav-text">1.4 漏洞反馈与新漏洞</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%AC%A6%E5%90%88%E6%80%A7"><span class="nav-text">2. 符合性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%AC%A6%E5%90%88%E6%80%A7%E5%A3%B0%E6%98%8E"><span class="nav-text">2.1 符合性声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E8%B0%81%E5%8F%AF%E4%BB%A5%E6%8F%90%E4%BE%9BEEA-EthTrust%E8%AE%A4%E8%AF%81%EF%BC%9F"><span class="nav-text">2.2 谁可以提供EEA EthTrust认证？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E8%AF%86%E5%88%AB%E8%AE%A4%E8%AF%81%E5%86%85%E5%AE%B9"><span class="nav-text">2.3 识别认证内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%AE%89%E5%85%A8%E8%80%83%E8%99%91"><span class="nav-text">3. 安全考虑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87-%E6%9B%B4%E5%B9%BF%E6%B3%9B%E7%9A%84%E8%80%83%E8%99%91"><span class="nav-text">3.1 智能合约的上下文 - 更广泛的考虑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E5%8F%AF%E5%8D%87%E7%BA%A7%E5%90%88%E7%BA%A6"><span class="nav-text">3.2 可升级合约</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E9%A2%84%E8%A8%80%E6%9C%BA"><span class="nav-text">3.3 预言机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E5%A4%96%E9%83%A8%E4%BA%A4%E4%BA%92%E4%B8%8E%E9%87%8D%E5%85%A5%E6%94%BB%E5%87%BB"><span class="nav-text">3.4 外部交互与重入攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E7%AD%BE%E5%90%8D%E6%9C%BA%E5%88%B6"><span class="nav-text">3.5 签名机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-Gas%E4%B8%8EGas%E4%BB%B7%E6%A0%BC"><span class="nav-text">3.6 Gas与Gas价格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-MEV%EF%BC%88%E6%81%B6%E6%84%8F%E6%8F%90%E5%8F%96%E4%BB%B7%E5%80%BC%EF%BC%89"><span class="nav-text">3.7 MEV（恶意提取价值）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-%E6%8E%92%E5%BA%8F%E6%94%BB%E5%87%BB"><span class="nav-text">3.8 排序攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-%E5%90%88%E7%BA%A6%E9%83%A8%E7%BD%B2"><span class="nav-text">3.10 合约部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-11-%E9%83%A8%E7%BD%B2%E5%90%8E%E7%9B%91%E6%8E%A7"><span class="nav-text">3.11 部署后监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-12-%E7%BD%91%E7%BB%9C%E5%8D%87%E7%BA%A7"><span class="nav-text">3.12 网络升级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-13-%E7%BB%84%E7%BB%87%E4%B8%8E%E9%93%BE%E4%B8%8B%E5%AE%89%E5%85%A8%E6%80%81%E5%8A%BF"><span class="nav-text">3.13 组织与链下安全态势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95"><span class="nav-text">4. 测试方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-text">4.1 单元测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90"><span class="nav-text">4.2 静态分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95"><span class="nav-text">4.3 模糊测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-%E5%8F%98%E5%BC%82%E6%B5%8B%E8%AF%95"><span class="nav-text">4.4 变异测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C"><span class="nav-text">4.5 符号执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-%E5%BD%A2%E5%BC%8F%E5%8C%96%E9%AA%8C%E8%AF%81"><span class="nav-text">4.6 形式化验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-7-%E5%B1%9E%E6%80%A7%E4%B8%8E%E4%B8%8D%E5%8F%98%E9%87%8F"><span class="nav-text">4.7 属性与不变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-8-%E6%B5%8B%E8%AF%95%E7%BD%91%E9%83%A8%E7%BD%B2"><span class="nav-text">4.8 测试网部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-EEA-EthTrust%E5%AE%89%E5%85%A8%E7%AD%89%E7%BA%A7"><span class="nav-text">5. EEA EthTrust安全等级</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E5%AE%89%E5%85%A8%E7%AD%89%E7%BA%A7-S"><span class="nav-text">5.1 安全等级[S]</span></a></li></ol></li></ol></li></ol>
 
-    </div>
+	</div>
 </div>
-            </div>
-        
-    </div>
+	</div>
+	
 </div>
+			</div>
 
+			
+		</div>
 
-                
-
-            </div>
-            
-            
-
-        </div>
-
-        <div class="main-content-footer">
-            <footer class="footer">
-    <div class="info-container">
-        <div class="copyright-info">
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
             &copy;
             
               <span>2022</span>
               -
             
             2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Kopei</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        106 posts in total
+                    </span>
+                    
+                </p>
+            
         </div>
         
-            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-            <div class="website-count info-item">
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
                 
-                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
-                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
                     </span>
                 
                 
-                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
-                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
                     </span>
                 
             </div>
         
-        <div class="theme-info info-item">
-            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
-                <br>
-            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
         </div>
-        
         
         
             <div>
@@ -878,8 +1036,7 @@
             </div>
         
         
-        
-            <script async data-pjax>
+            <script data-swup-reload-script>
                 try {
                     function odometer_init() {
                     const elements = document.querySelectorAll('.odometer');
@@ -899,189 +1056,173 @@
         
     </div>  
 </footer>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="article-tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="right-bottom-tools page-aside-toggle">
-                <i class="fa-regular fa-outdent"></i>
-            </li>
-        
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
 
-        <!-- go comment -->
-        
-            <li class="go-comment">
-                <i class="fa-regular fa-comments"></i>
-            </li>
-        
-    </ul>
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
 </div>
 
-        </div>
-    
-
-    <div class="right-side-tools-container">
-        <div class="side-tools-container">
-    <ul class="hidden-tools-list">
-        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
-            <i class="fa-regular fa-magnifying-glass-plus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
-            <i class="fa-regular fa-magnifying-glass-minus"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-expand-width flex-center">
-            <i class="fa-regular fa-expand"></i>
-        </li>
-
-        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
-            <i class="fa-regular fa-moon"></i>
-        </li>
-
-        <!-- rss -->
-        
-
-        
-            <li class="right-bottom-tools tool-scroll-to-top flex-center">
-                <i class="fa-regular fa-arrow-up"></i>
-            </li>
-        
-
-        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
-            <i class="fa-regular fa-arrow-down"></i>
-        </li>
-    </ul>
-
-    <ul class="visible-tools-list">
-        <li class="right-bottom-tools toggle-tools-list flex-center">
-            <i class="fa-regular fa-cog fa-spin"></i>
-        </li>
-        
-        
-    </ul>
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
 </div>
-
-    </div>
-
-    <div class="image-viewer-container">
-    <img src="">
-</div>
-
-
-    
-        <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-          <span class="search-input-field-pre">
-            <i class="fa-solid fa-keyboard"></i>
-          </span>
-            <div class="search-input-container">
-                <input autocomplete="off"
-                       autocorrect="off"
-                       autocapitalize="off"
-                       placeholder="Search..."
-                       spellcheck="false"
-                       type="search"
-                       class="search-input"
-                >
-            </div>
-            <span class="popup-btn-close">
-                <i class="fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div id="search-result">
-            <div id="no-result">
-                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-    
-
+	
 
 </main>
 
 
-
-<script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/utils.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/main.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/layouts/navbarShrink.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/scrollTopBottom.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/lightDarkSwitch.js"></script>
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/localSearch.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/codeBlock.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/layouts/lazyload.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/runtime.js"></script>
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/odometer.min.js"></script>
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/assets/odometer-theme-minimal.css">
-
-
-
-  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/Typed.min.js"></script>
-  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/plugins/typed.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/mermaid.min.js"></script>
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/plugins/mermaid.js"></script>
-
-
-
-
-<div class="post-scripts pjax">
-    
-        <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/tocToggle.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/anime.min.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/layouts/toc.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/plugins/tabs.js"></script>
-    
-</div>
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/pjax.min.js"></script>
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Swup.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
 <script>
-    window.addEventListener('DOMContentLoaded', () => {
-        window.pjax = new Pjax({
-            selectors: [
-                'head title',
-                '.page-container',
-                '.pjax',
-            ],
-            history: true,
-            debug: false,
-            cacheBust: false,
-            timeout: 0,
-            analytics: false,
-            currentUrlFullReload: false,
-            scrollRestoration: false,
-            // scrollTo: true,
-        });
-
-        document.addEventListener('pjax:send', () => {
-            Global.utils.pjaxProgressBarStart();
-        });
-
-        document.addEventListener('pjax:complete', () => {
-            Global.utils.pjaxProgressBarEnd();
-            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
-            Global.refresh();
-        });
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
     });
 </script>
 
 
 
 
+	<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/utils.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/main.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/categoryList.js" ></script>
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/localSearch.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/codeBlock.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/lazyload.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/typed.js" ></script>
+
+
+
+    
+        <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/mermaid.min.js" ></script>
+    
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/mermaid.js" ></script>
+
+
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/anime.min.js" ></script>
+
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/essays.js" data-swup-reload-script></script>
+
+
+
+
+	
 </body>
+
 </html>

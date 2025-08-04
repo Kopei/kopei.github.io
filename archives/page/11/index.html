@@ -6,13 +6,125 @@
     <meta name="keywords" content="Hexo Theme Redefine">
     
     <meta name="author" content="Kopei">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
     <!-- preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+
     
         
-            <link rel="preconnect" href="https://npm.elemecdn.com" crossorigin>
+        
+        
+            <link rel="preconnect" href="https://registry.npmmirror.com" crossorigin>
         
     
     <!--- Seo Part-->
@@ -22,13 +134,20 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta property="og:type" content="website">
+    
+    
+        
+        <meta name="description" content="Kopei&#39;s Home">
+<meta property="og:type" content="website">
 <meta property="og:title" content="Kopei&#39;s Home">
 <meta property="og:url" content="https://kopei.github.io/archives/page/11/index.html">
 <meta property="og:site_name" content="Kopei&#39;s Home">
+<meta property="og:description" content="Kopei&#39;s Home">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kopei.github.io/images/k-favicon.jpeg">
 <meta property="article:author" content="Kopei Nan">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kopei.github.io/images/k-favicon.jpeg">
     
     
     <!--- Icon Part-->
@@ -40,37 +159,45 @@
     
     <title>
         
-            Archive -
+            Archive | Kopei&#39;s Home
         
-        Kopei&#39;s Home
     </title>
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Chillax/chillax.css">
+
+    <!--- Inject Part-->
+    
+
     
 <link rel="stylesheet" href="css/style.css">
 
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/fonts.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/Satoshi/satoshi.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/Chillax/chillax.css">
+
+    
+        <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/css/build/tailwind.css">
+    
+
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fonts/Geist/geist.css">
     <!--- Font Part-->
     
     
     
     
-
-    <!--- Inject Part-->
     
+    
+
     <script id="hexo-configurations">
-    let Global = window.Global || {};
-    Global.hexo_config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
-    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["article"]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null},"highlight_theme":{"light":"github","dark":"vs2015"}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]},"pangu_js":false},"colors":{"primary":"#005080","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"200px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":false},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":{"enable":true,"image":"/images/k-favicon.jpeg","description":"Kopei's Home"},"google_analytics":{"enable":false,"id":null},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"一元复始 万物复归","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn","show_author":false},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"links":{"github":"kopei.github.io","instagram":null,"zhihu":null,"twitter":null,"email":"ncpbest@gmail.com"},"style":"default","qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true},"width":{"home":"1200px","pages":"1000px"}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null,"show_on_mobile":true},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3},"excerpt_length":200},"footerStart":"2022/8/17 11:45:14"};
-    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
-    Global.data_config = {"masonry":false};
+    window.config = {"hostname":"kopei.github.io","root":"/","language":"en","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["article"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#005080","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"200px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":false},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/k-favicon.jpeg","description":"Kopei's Home"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"一元复始 万物复归","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"kopei.github.io","instagram":null,"zhihu":null,"twitter":null,"email":"ncpbest@gmail.com"},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":true,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
   </script>
     
     <!--- Fontawesome Part-->
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/fontawesome.min.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/brands.min.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/solid.min.css">
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/regular.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/fontawesome/regular.min.css">
     
     
     
@@ -82,31 +209,29 @@
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
 
 
-<body>
-<div class="progress-bar-container">
-    
-        <span class="scroll-progress-bar"></span>
-    
 
-    
-        <span class="pjax-progress-bar"></span>
-        <span class="pjax-progress-icon">
-            <i class="fa-solid fa-circle-notch fa-spin"></i>
-        </span>
-    
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
 </div>
 
+<main class="page-container" id="swup">
 
-<main class="page-container">
+	
 
-    
-
-    <div class="main-content-container">
-
-        <div class="main-content-header">
-            <header class="navbar-container">
-    
-    <div class="navbar-content">
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
         <div class="left">
             
             <a class="logo-title" href="/">
@@ -122,33 +247,35 @@
                 <ul class="navbar-list">
                     
                         
+                            
+
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="" 
-                                    href="../../../index.html"  >
-                                    
-                                        
-                                            <i class="fa-regular fa-house"></i>
-                                        
-                                        HOME
+                                <a class=""
+                                   href="../../../index.html"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
                                     
                                 </a>
+
                                 <!-- Submenu -->
                                 
                             </li>
                     
                         
+                            
+
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="active" 
-                                    href="../../../archives"  >
-                                    
-                                        
-                                            <i class="fa-regular fa-archive"></i>
-                                        
-                                        ARCHIVES
+                                <a class="active"
+                                   href="../../../archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    ARCHIVES
                                     
                                 </a>
+
                                 <!-- Submenu -->
                                 
                             </li>
@@ -163,7 +290,8 @@
             <!-- Mobile -->
             <div class="mobile">
                 
-                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
                 
                 <div class="icon-item navbar-bar">
                     <div class="navbar-bar-middle"></div>
@@ -172,42 +300,69 @@
         </div>
     </div>
 
-    <!-- Mobile drawer -->
-    <div class="navbar-drawer">
-        <ul class="drawer-navbar-list">
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
             
                 
-                    <li class="drawer-navbar-item flex-center">
-                        <a class="" 
-                        href="../../../index.html"  >
-                             
-                                
-                                    <i class="fa-regular fa-house"></i>
-                                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="../../../index.html"
+                        >
+                            <span>
                                 HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
                             
                         </a>
+                        
+
+                        
                     </li>
-                    <!-- Submenu -->
-                    
             
                 
-                    <li class="drawer-navbar-item flex-center">
-                        <a class="active" 
-                        href="../../../archives"  >
-                             
-                                
-                                    <i class="fa-regular fa-archive"></i>
-                                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="../../../archives"
+                        >
+                            <span>
                                 ARCHIVES
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
                             
                         </a>
+                        
+
+                        
                     </li>
-                    <!-- Submenu -->
-                    
             
 
+            
+            
         </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../../tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../../../categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">26</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="../..">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">106</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
     </div>
 
     <div class="window-mask"></div>
@@ -215,791 +370,1382 @@
 </header>
 
 
-        </div>
+		</div>
 
-        <div class="main-content-body">
+		<div class="main-content-body transition-fade-up">
+			
 
-            
-
-            <div class="main-content">
-
-                
-                    <div class="fade-in-down-animation">
-    <div class="archive-container ">
-        
+			<div class="main-content">
+				<div class="archive-container shadow-none hover:shadow-none sm:shadow-redefine sm:hover:shadow-redefine-hover">
+	
 <div class="archive-list-container">
     
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2025</span>
-                <span class="archive-year-post-count">[1]</span>
+        <section class="archive-item mb-spacing-unit last:mb-0">
+            <div class="archive-item-header flex flex-row items-center mb-2">
+                <span class="archive-year font-semibold text-3xl mr-2">2025</span>
+                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">1</span>
             </div>
-            <ul class="article-list">
-              
-              <li class="article-item" date-is='08-03'>
-                <a href="../../../2025/08/03/EEA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%BC%81%E4%B8%9A%E8%81%94%E7%9B%9F%E5%AE%89%E5%85%A8%E8%A7%84%E8%8C%83%E7%AC%AC%E4%B8%89%E7%89%88/">
-                  <span class="article-title">EEA以太坊企业联盟安全规范第三版</span>
-                </a>
-              </li>
-              
-            </ul>
-        </section>
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2024</span>
-                <span class="archive-year-post-count">[1]</span>
-            </div>
-            <ul class="article-list">
-              
-              <li class="article-item" date-is='01-14'>
-                <a href="../../../2024/01/14/Finetune-vs-RAG/">
-                  <span class="article-title">Finetune vs RAG</span>
-                </a>
-              </li>
-              
-            </ul>
-        </section>
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2023</span>
-                <span class="archive-year-post-count">[11]</span>
-            </div>
-            <ul class="article-list">
-              
-              <li class="article-item" date-is='12-17'>
-                <a href="../../../2023/12/17/vector-database/">
-                  <span class="article-title">What is vector database?</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='12-13'>
-                <a href="../../../2023/12/13/%E9%9D%9E%E8%B4%A2%E5%8A%A1%E7%BB%8F%E7%90%86%E7%9A%84%E8%B4%A2%E5%8A%A1%E8%AF%BE/">
-                  <span class="article-title">非财务经理的财务课</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='11-25'>
-                <a href="../../../2023/11/25/RAG/">
-                  <span class="article-title">RAG</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='09-30'>
-                <a href="../../../2023/09/30/Use-SDC-to-Create-Qustionnaires/">
-                  <span class="article-title">Use SDC to Create Qustionnaires</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='08-10'>
-                <a href="../../../2023/08/10/FHIR-Terminology-Service/">
-                  <span class="article-title">FHIR Terminology Service</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='06-12'>
-                <a href="../../../2023/06/12/Use-CDS-Authoring/">
-                  <span class="article-title">Use CDS Authoring Tool</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-02'>
-                <a href="../../../2023/04/02/Transformer-Architecture-code/">
-                  <span class="article-title">Transformer Intepretion and Code</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-23'>
-                <a href="../../../2023/02/23/servitization-in-subscription-mode/">
-                  <span class="article-title">Servitization in Subscription Mode</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-21'>
-                <a href="../../../2023/02/21/health-data-security-guide/">
-                  <span class="article-title">Health Data Security Guide</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-20'>
-                <a href="../../../2023/02/20/FHIR-Resource-Definition/">
-                  <span class="article-title">FHIR-Resource-Definition</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-08'>
-                <a href="../../../2023/01/08/Subscription-Mode/">
-                  <span class="article-title">Subscription Mode</span>
-                </a>
-              </li>
-              
-            </ul>
-        </section>
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2022</span>
-                <span class="archive-year-post-count">[11]</span>
-            </div>
-            <ul class="article-list">
-              
-              <li class="article-item" date-is='12-24'>
-                <a href="../../../2022/12/23/Standard-2022-12-24-Eyes-on-FHIR-IG-2/">
-                  <span class="article-title">Eyes on FHIR Implement Guide（2)</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='12-06'>
-                <a href="../../../2022/12/05/Standard-2022-12-06-Eyes-on-FHIR-IG-1/">
-                  <span class="article-title">Eyes on FHIR Implement Guide（1）</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='12-05'>
-                <a href="../../../2022/12/04/Healthcare-2022-12-05-what-is-biomarker/">
-                  <span class="article-title">什么是生物标志物Biomarker?</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='11-20'>
-                <a href="../../../2022/11/19/Standard-2022-11-20-Eyes-on-FHIR/">
-                  <span class="article-title">Eyes on FHIR</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='11-07'>
-                <a href="../../../2022/11/06/AI-2022-11-07-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/">
-                  <span class="article-title">集成学习</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='10-31'>
-                <a href="../../../2022/10/30/AI-2022-10-31-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BA%8C%E6%92%87/">
-                  <span class="article-title">机器学习二撇</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='10-02'>
-                <a href="../../../2022/10/01/BI-2022-10-04-PowerBI-Quickstart/">
-                  <span class="article-title">PowerBI Quickstart</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='08-05'>
-                <a href="../../../2022/08/04/Devices-2022-08-05-OCT-basic/">
-                  <span class="article-title">OCT Basic</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='08-04'>
-                <a href="../../../2022/08/03/Devices-2022-08-05-eyeball-intro/">
-                  <span class="article-title">眼球结构简介</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-19'>
-                <a href="../../../2022/03/18/frontend-2022-03-19-microfront-intro/">
-                  <span class="article-title">小探微前端</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-10'>
-                <a href="../../../2022/01/09/data-warehouse-2022-01-10-%E5%A2%9E%E9%87%8FETL%E6%BA%90%E6%95%B0%E6%8D%AE%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8C%E7%BB%86%E8%8A%82/">
-                  <span class="article-title">增量ETL源数据的几种方式和细节</span>
-                </a>
-              </li>
-              
-            </ul>
-        </section>
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2021</span>
-                <span class="archive-year-post-count">[15]</span>
-            </div>
-            <ul class="article-list">
-              
-              <li class="article-item" date-is='10-25'>
-                <a href="../../../2021/10/24/data-warehouse-2021-10-25-master-data-governance/">
-                  <span class="article-title">企业级主数据治理框架</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='08-09'>
-                <a href="../../../2021/08/08/data-warehouse-2021-08-09-data-modeling-type/">
-                  <span class="article-title">Three type of data model</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='07-13'>
-                <a href="../../../2021/07/12/data-warehouse-2021-07-04-metadata-database/">
-                  <span class="article-title">Metadata in Data Warehouse</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='06-19'>
-                <a href="../../../2021/06/18/data-warehouse-2021-06-19-Data-Quality/">
-                  <span class="article-title">Data Quality Overview</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='06-18'>
-                <a href="../../../2021/06/17/data-warehouse-2021-06-18-SCD/">
-                  <span class="article-title">Slow Change Dimension in DW</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='05-07'>
-                <a href="../../../2021/05/06/data-warehouse-2021-05-07-data-governance-guide/">
-                  <span class="article-title">Data Governance Guide</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-10'>
-                <a href="../../../2021/04/09/bigdata-2021-04-10-data-integration-tools/">
-                  <span class="article-title">Data Integration</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-20'>
-                <a href="../../../2021/03/19/architecture-2021-03-20-%E5%BE%AE%E8%BD%AF%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">
-                  <span class="article-title">微软的软件架构设计原则</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-12'>
-                <a href="../../../2021/03/11/ERP-2021-03-12-SAP-MM/">
-                  <span class="article-title">SAP的主数据模块和物料管理</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-08'>
-                <a href="../../../2021/03/07/database-neo4j-2021-03-08-graph-thinking/">
-                  <span class="article-title">Graph Thinking</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-05'>
-                <a href="../../../2021/02/04/database-SQL-Server-2021-02-05-SQL-SERVER-2019/">
-                  <span class="article-title">SQL Server2019智能查询和性能优化简介</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-01'>
-                <a href="../../../2021/01/31/database-SQL-Server-2021-02-01-SQL-Server-Trigger/">
-                  <span class="article-title">SQL Server的触发器</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-01'>
-                <a href="../../../2021/01/31/database-SQL-Server-2021-2-1-SQL-Server%E7%9A%84%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">
-                  <span class="article-title">SQL Server的存储过程</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-29'>
-                <a href="../../../2021/01/28/database-SQL-Server-2021-01-29-SQL-Server%E7%9A%84MDS/">
-                  <span class="article-title">SQL Server的主数据服务MDS简介</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-02'>
-                <a href="../../../2021/01/01/architecture-2021-01-02-%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%8F%B0%E7%9A%84%E4%BB%B7%E5%80%BC/">
-                  <span class="article-title">数据中台的价值</span>
-                </a>
-              </li>
-              
-            </ul>
-        </section>
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2020</span>
-                <span class="archive-year-post-count">[8]</span>
-            </div>
-            <ul class="article-list">
-              
-              <li class="article-item" date-is='12-28'>
-                <a href="../../../2020/12/27/architecture-2020-12-08-bussiness-architecture/">
-                  <span class="article-title">业务架构与设计原则</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='11-22'>
-                <a href="../../../2020/11/21/data-warehouse-2020-11-22-etl-toolkit/">
-                  <span class="article-title">数据仓库ETL的两个设计主线</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='11-15'>
-                <a href="../../../2020/11/14/architecture-2020-11-15-%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E4%B8%8E%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E5%B8%88/">
-                  <span class="article-title">企业架构师 vs 解决方案架构师 vs 技术架构师</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='08-20'>
-                <a href="../../../2020/08/19/bigdata-2020-08-20-arrow-and-pyarrow/">
-                  <span class="article-title">Arrow and Pyarrow</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='07-24'>
-                <a href="../../../2020/07/23/bigdata-2020-07-24-from-pandas-to-spark/">
-                  <span class="article-title">从Pandas到Spark</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='07-23'>
-                <a href="../../../2020/07/22/bigdata-2020-07-23-pyspark-for-pandas/">
-                  <span class="article-title">Pandas UDF and Function Api in Spark</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='07-11'>
-                <a href="../../../2020/07/10/bigdata-2020-07-11-create-dataframe-from-rdd-in-spark/">
-                  <span class="article-title">Spark RDD转成Dataset的两种方式</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='06-30'>
-                <a href="../../../2020/06/29/AI-2020-06-30-Rough-sets/">
-                  <span class="article-title">Classic Rough sets translation</span>
-                </a>
-              </li>
-              
-            </ul>
-        </section>
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2019</span>
-                <span class="archive-year-post-count">[7]</span>
-            </div>
-            <ul class="article-list">
-              
-              <li class="article-item" date-is='06-29'>
-                <a href="../../../2019/06/29/database-mysql-2019-06-29-mysql-index/">
-                  <span class="article-title">Mysql 索引总结</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-19'>
-                <a href="../../../2019/04/18/frontend-2019-04-19-D3-selection/">
-                  <span class="article-title">D3-selection总结</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-18'>
-                <a href="../../../2019/04/17/frontend-2019-04-18-React-function-component-state/">
-                  <span class="article-title">React函数式组件的状态</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-08'>
-                <a href="../../../2019/04/07/frontend-2019-04-09-apollo-cache/">
-                  <span class="article-title">Apollo client的缓存机制</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-19'>
-                <a href="../../../2019/03/18/frontend-2019-03-19-Grid-and-Flex/">
-                  <span class="article-title">Grid and Flex Design</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-28'>
-                <a href="../../../2019/02/28/middleware-2019-02-28-amqp-model/">
-                  <span class="article-title">AMQP-0-9-1模型总结</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-28'>
-                <a href="../../../2019/02/27/openshift-2018-01-03-openshift-commandline-shortcut/">
-                  <span class="article-title">Openshift Commandline CheatSheet</span>
-                </a>
-              </li>
-              
-            </ul>
-        </section>
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2018</span>
-                <span class="archive-year-post-count">[40]</span>
-            </div>
-            <ul class="article-list">
-              
-              <li class="article-item" date-is='12-11'>
-                <a href="../../../2018/12/10/cloud-2018-12-11-current-genomics-solutions/">
-                  <span class="article-title">现有基因大数据云平台简单比较</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='12-10'>
-                <a href="../../../2018/12/09/cloud-2018-12-10-one-instance-multiple-ip/">
-                  <span class="article-title">一台虚机多个IP</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='11-05'>
-                <a href="../../../2018/11/04/cloud-2018-11-05-aws-internet-gateway/">
-                  <span class="article-title">AWS的VPC组件</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='10-27'>
-                <a href="../../../2018/10/26/cloud-2018-10-27-DNS-and-Route53/">
-                  <span class="article-title">DNS和Route53简介</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='10-14'>
-                <a href="../../../2018/10/13/AI-2018-10-04-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%80%E6%92%87/">
-                  <span class="article-title">机器学习一撇</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='10-13'>
-                <a href="../../../2018/10/12/bigdata-2018-10-13-hadoop-mapreduce-%E5%AE%9E%E7%8E%B0-md/">
-                  <span class="article-title">Hadoop MapReduce 实现</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='10-04'>
-                <a href="../../../2018/10/03/AI-2019-09-21-deeplearning-notes-chap5/">
-                  <span class="article-title">Deep Learning Book Notes--Chapter 5</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='10-03'>
-                <a href="../../../2018/10/02/database-2018-10-03-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%A9%E5%B1%95%E6%80%A7%E4%BA%8B%E9%A1%B9/">
-                  <span class="article-title">扩展数据库注意事项</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='09-24'>
-                <a href="../../../2018/09/23/database-mongodb-2018-09-24-mongo-%E6%9E%B6%E6%9E%84/">
-                  <span class="article-title">MongoDB的架构</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='09-17'>
-                <a href="../../../2018/09/16/python-2018-09-17-pandas-common-methods/">
-                  <span class="article-title">Pandas的常用函数</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='09-16'>
-                <a href="../../../2018/09/15/python-2018-09-16-pandas%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-                  <span class="article-title">Pandas的数据结构</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='08-31'>
-                <a href="../../../2018/08/30/python-2018-08-31-pandas/">
-                  <span class="article-title">Pandas的Groupby</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='07-20'>
-                <a href="../../../2018/07/19/python-2018-07-20-luiqi-base/">
-                  <span class="article-title">Luigi基础概念</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='06-27'>
-                <a href="../../../2018/06/26/database-mysql-2018-06-27-mysql5-7%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/">
-                  <span class="article-title">MySQL 5.7 性能调优</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='05-14'>
-                <a href="../../../2018/05/13/cloud-2018-05-14-aliyun-sge/">
-                  <span class="article-title">使用阿里云的批量计算做SGE</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='05-06'>
-                <a href="../../../2018/05/05/cloud-2018-05-06-aliyun%E5%92%8Caws%E7%9A%84%E7%BD%91%E8%B7%AF/">
-                  <span class="article-title">阿里云和aws的网路特点</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-11'>
-                <a href="../../../2018/04/10/kubernetes-2018-04-11-migrate-k8s-summary/">
-                  <span class="article-title">本地rails系统迁移到阿里云容器服务小结</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-07'>
-                <a href="../../../2018/04/06/kubernetes-2018-04-08-k8s-deployments/">
-                  <span class="article-title">Kubernetes Deployment</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='04-03'>
-                <a href="../../../2018/04/02/sed-and-awk/">
-                  <span class="article-title">SED and AWK</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-13'>
-                <a href="../../../2018/03/12/kubernetes-2018-03-13-k8s-manage-resource/">
-                  <span class="article-title">K8S管理容器的计算资源</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-12'>
-                <a href="../../../2018/03/11/kubernetes-2018-03-12-k8s-dynamic-volume-provision/">
-                  <span class="article-title">在云上使用k8s动态PV</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-12'>
-                <a href="../../../2018/03/11/kubernetes-2018-03-12-k8s-pull-private-image/">
-                  <span class="article-title">K8S使用私有镜像</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-10'>
-                <a href="../../../2018/03/09/kubernetes-2018-03-10-k8s-mysql/">
-                  <span class="article-title">使用aliyun容器服务搭建mysql</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-08'>
-                <a href="../../../2018/03/07/kubernetes-2018-03-08-k8s-volume/">
-                  <span class="article-title">Kubernetes的volume</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-07'>
-                <a href="../../../2018/03/06/kubernetes-2018-03-07-StatefulSets/">
-                  <span class="article-title">K8S的StatefulSets</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='03-05'>
-                <a href="../../../2018/03/04/openshift-2018-03-05-kubernetes-infrastrcture/">
-                  <span class="article-title">Openshift中Kubernetes的基础设施</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-22'>
-                <a href="../../../2018/02/21/kubernetes-2018-02-22-k8s-service/">
-                  <span class="article-title">Kubernetes的service</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-22'>
-                <a href="../../../2018/02/21/openshift-2018-02-22-openshift-network/">
-                  <span class="article-title">Openshift的网路</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-19'>
-                <a href="../../../2018/02/18/docker-2018-02-19-docker-container-data-persistent/">
-                  <span class="article-title">三种docker数据持久的方式</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-05'>
-                <a href="../../../2018/02/04/openshift-2018-02-05-prerequirement-deploy-a-cluster/">
-                  <span class="article-title">Openshift Origin cluster部署配置要求和主机准备</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='02-02'>
-                <a href="../../../2018/02/01/docker-2018-02-02-docker-cloud-autodeploy/">
-                  <span class="article-title">使用Docker Cloud自动化部署</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-18'>
-                <a href="../../../2018/01/17/docker-2018-01-18-strange-docker-error/">
-                  <span class="article-title">一次奇怪的Docker Daemon Error</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-09'>
-                <a href="../../../2018/01/08/openshift-2018-01-09-openshift-AB-deploy/">
-                  <span class="article-title">OpenShift A/B Deployment</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-09'>
-                <a href="../../../2018/01/08/openshift-2018-01-09-openshift-annotation/">
-                  <span class="article-title">OpenShift Annotation</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-09'>
-                <a href="../../../2018/01/08/openshift-2018-01-09-openshift-bg-deployment/">
-                  <span class="article-title">OpenShift Blue-Green Deployment</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-08'>
-                <a href="../../../2018/01/07/openshift-2018-01-08-openshift-resource/">
-                  <span class="article-title">What is OpenShift Resource</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-08'>
-                <a href="../../../2018/01/07/openshift-2018-01-08-openstack-imagestream/">
-                  <span class="article-title">OpenStack ImageStream</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-04'>
-                <a href="../../../2018/01/03/kubernetes-2018-01-04-Kubernetes-pod/">
-                  <span class="article-title">Kubernetes Pod含义</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-04'>
-                <a href="../../../2018/01/03/openshift-2018-01-04-Openshift-template/">
-                  <span class="article-title">Openshift Template</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='01-03'>
-                <a href="../../../2018/01/02/openshift-2018-01-04-openshift-deployment/">
-                  <span class="article-title">Openshift Deployment</span>
-                </a>
-              </li>
-              
-            </ul>
-        </section>
-    
-        <section class="archive-item">
-            <div class="archive-item-header">
-                <span class="archive-year">2017</span>
-                <span class="archive-year-post-count">[12]</span>
-            </div>
-            <ul class="article-list">
-              
-              <li class="article-item" date-is='12-27'>
-                <a href="../../../2017/12/26/%E5%B5%8A%E6%B3%97%E8%A1%8C%E7%A8%8B/">
-                  <span class="article-title">冬季嵊泗3日游行程安排</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='12-16'>
-                <a href="../../../2017/12/15/database-mysql-2017-12-16-innodb-5-7-buffer-pool/">
-                  <span class="article-title">InnoDB Buffer Pool for Mysql 5.7</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='12-15'>
-                <a href="../../../2017/12/14/%E5%90%8C%E6%AD%A5Forked%E4%BB%93%E5%BA%93/">
-                  <span class="article-title">Git如何同步fork的仓库</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='12-12'>
-                <a href="../../../2017/12/11/database-mysql-2017-12-12-InnoDB5-7/">
-                  <span class="article-title">A look at InnoDB for Mysql 5.7</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='12-07'>
-                <a href="../../../2017/12/06/customer-experience/">
-                  <span class="article-title">Customer Experience</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='12-06'>
-                <a href="../../../2017/12/05/database-mysql-2017-12-06-InnoDB/">
-                  <span class="article-title">InnoDB for Mysql 5.6</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='11-29'>
-                <a href="../../../2017/11/28/java-2017-11-29-tomcat-8-5-35-intro/">
-                  <span class="article-title">Tomcat 8.5.35 简介</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='11-15'>
-                <a href="../../../2017/11/14/aliyun-oss/">
-                  <span class="article-title">Aliyun OSS 小结</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='11-15'>
-                <a href="../../../2017/11/14/database-mysql-2017-11-15-high-performance-mysql/">
-                  <span class="article-title">高性能mysql笔记</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='11-14'>
-                <a href="../../../2017/11/13/Aliyun-oceanDB/">
-                  <span class="article-title">OceanDB小结</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='11-13'>
-                <a href="../../../2017/11/12/database-mysql-2017-11-13-Aliyun-Mysql/">
-                  <span class="article-title">Aliyun RDS for Mysql</span>
-                </a>
-              </li>
-              
-              <li class="article-item" date-is='05-09'>
-                <a href="../../../2017/05/08/database-2017-05-09-redis-summary/">
-                  <span class="article-title">Redis使用总结</span>
-                </a>
-              </li>
-              
-            </ul>
-        </section>
-    
-</div>
-
-    </div>
-</div>
-
+            
+            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
                 
-
+                    
+                    
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='08-03'>
+                    
+                    <a href="../../../2025/08/03/EEA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%BC%81%E4%B8%9A%E8%81%94%E7%9B%9F%E5%AE%89%E5%85%A8%E8%A7%84%E8%8C%83%E7%AC%AC%E4%B8%89%E7%89%88/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">EEA以太坊企业联盟安全规范第三版</span>
+                    </a>
+                    
+                
+                </li> <!-- Ensure the last item is properly closed -->
+            </ul>
+        </section>
+    
+        <section class="archive-item mb-spacing-unit last:mb-0">
+            <div class="archive-item-header flex flex-row items-center mb-2">
+                <span class="archive-year font-semibold text-3xl mr-2">2024</span>
+                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">1</span>
             </div>
             
+            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
+                
+                    
+                    
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-14'>
+                    
+                    <a href="../../../2024/01/14/Finetune-vs-RAG/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Finetune vs RAG</span>
+                    </a>
+                    
+                
+                </li> <!-- Ensure the last item is properly closed -->
+            </ul>
+        </section>
+    
+        <section class="archive-item mb-spacing-unit last:mb-0">
+            <div class="archive-item-header flex flex-row items-center mb-2">
+                <span class="archive-year font-semibold text-3xl mr-2">2023</span>
+                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">11</span>
+            </div>
             
+            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
+                
+                    
+                    
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='12-17'>
+                    
+                    <a href="../../../2023/12/17/vector-database/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">What is vector database?</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='12-13'>
+                    
+                    <a href="../../../2023/12/13/%E9%9D%9E%E8%B4%A2%E5%8A%A1%E7%BB%8F%E7%90%86%E7%9A%84%E8%B4%A2%E5%8A%A1%E8%AF%BE/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">非财务经理的财务课</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='11-25'>
+                    
+                    <a href="../../../2023/11/25/RAG/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">RAG</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='09-30'>
+                    
+                    <a href="../../../2023/09/30/Use-SDC-to-Create-Qustionnaires/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Use SDC to Create Qustionnaires</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='08-10'>
+                    
+                    <a href="../../../2023/08/10/FHIR-Terminology-Service/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">FHIR Terminology Service</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='06-12'>
+                    
+                    <a href="../../../2023/06/12/Use-CDS-Authoring/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Use CDS Authoring Tool</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='04-02'>
+                    
+                    <a href="../../../2023/04/02/Transformer-Architecture-code/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Transformer Intepretion and Code</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-23'>
+                    
+                    <a href="../../../2023/02/23/servitization-in-subscription-mode/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Servitization in Subscription Mode</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-21'>
+                    
+                    <a href="../../../2023/02/21/health-data-security-guide/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Health Data Security Guide</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-20'>
+                    
+                    <a href="../../../2023/02/20/FHIR-Resource-Definition/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">FHIR-Resource-Definition</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-08'>
+                    
+                    <a href="../../../2023/01/08/Subscription-Mode/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Subscription Mode</span>
+                    </a>
+                    
+                
+                </li> <!-- Ensure the last item is properly closed -->
+            </ul>
+        </section>
+    
+        <section class="archive-item mb-spacing-unit last:mb-0">
+            <div class="archive-item-header flex flex-row items-center mb-2">
+                <span class="archive-year font-semibold text-3xl mr-2">2022</span>
+                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">11</span>
+            </div>
+            
+            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
+                
+                    
+                    
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='12-24'>
+                    
+                    <a href="../../../2022/12/23/Standard-2022-12-24-Eyes-on-FHIR-IG-2/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Eyes on FHIR Implement Guide（2)</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='12-06'>
+                    
+                    <a href="../../../2022/12/05/Standard-2022-12-06-Eyes-on-FHIR-IG-1/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Eyes on FHIR Implement Guide（1）</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='12-05'>
+                    
+                    <a href="../../../2022/12/04/Healthcare-2022-12-05-what-is-biomarker/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">什么是生物标志物Biomarker?</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='11-20'>
+                    
+                    <a href="../../../2022/11/19/Standard-2022-11-20-Eyes-on-FHIR/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Eyes on FHIR</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='11-07'>
+                    
+                    <a href="../../../2022/11/06/AI-2022-11-07-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">集成学习</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='10-31'>
+                    
+                    <a href="../../../2022/10/30/AI-2022-10-31-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BA%8C%E6%92%87/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">机器学习二撇</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='10-02'>
+                    
+                    <a href="../../../2022/10/01/BI-2022-10-04-PowerBI-Quickstart/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">PowerBI Quickstart</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='08-05'>
+                    
+                    <a href="../../../2022/08/04/Devices-2022-08-05-OCT-basic/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">OCT Basic</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='08-04'>
+                    
+                    <a href="../../../2022/08/03/Devices-2022-08-05-eyeball-intro/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">眼球结构简介</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-19'>
+                    
+                    <a href="../../../2022/03/18/frontend-2022-03-19-microfront-intro/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">小探微前端</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-10'>
+                    
+                    <a href="../../../2022/01/09/data-warehouse-2022-01-10-%E5%A2%9E%E9%87%8FETL%E6%BA%90%E6%95%B0%E6%8D%AE%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8C%E7%BB%86%E8%8A%82/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">增量ETL源数据的几种方式和细节</span>
+                    </a>
+                    
+                
+                </li> <!-- Ensure the last item is properly closed -->
+            </ul>
+        </section>
+    
+        <section class="archive-item mb-spacing-unit last:mb-0">
+            <div class="archive-item-header flex flex-row items-center mb-2">
+                <span class="archive-year font-semibold text-3xl mr-2">2021</span>
+                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">15</span>
+            </div>
+            
+            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
+                
+                    
+                    
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='10-25'>
+                    
+                    <a href="../../../2021/10/24/data-warehouse-2021-10-25-master-data-governance/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">企业级主数据治理框架</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='08-09'>
+                    
+                    <a href="../../../2021/08/08/data-warehouse-2021-08-09-data-modeling-type/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Three type of data model</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='07-13'>
+                    
+                    <a href="../../../2021/07/12/data-warehouse-2021-07-04-metadata-database/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Metadata in Data Warehouse</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='06-19'>
+                    
+                    <a href="../../../2021/06/18/data-warehouse-2021-06-19-Data-Quality/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Data Quality Overview</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='06-18'>
+                    
+                    <a href="../../../2021/06/17/data-warehouse-2021-06-18-SCD/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Slow Change Dimension in DW</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='05-07'>
+                    
+                    <a href="../../../2021/05/06/data-warehouse-2021-05-07-data-governance-guide/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Data Governance Guide</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='04-10'>
+                    
+                    <a href="../../../2021/04/09/bigdata-2021-04-10-data-integration-tools/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Data Integration</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-20'>
+                    
+                    <a href="../../../2021/03/19/architecture-2021-03-20-%E5%BE%AE%E8%BD%AF%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">微软的软件架构设计原则</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-12'>
+                    
+                    <a href="../../../2021/03/11/ERP-2021-03-12-SAP-MM/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">SAP的主数据模块和物料管理</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-08'>
+                    
+                    <a href="../../../2021/03/07/database-neo4j-2021-03-08-graph-thinking/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Graph Thinking</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-05'>
+                    
+                    <a href="../../../2021/02/04/database-SQL-Server-2021-02-05-SQL-SERVER-2019/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">SQL Server2019智能查询和性能优化简介</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-01'>
+                    
+                    <a href="../../../2021/01/31/database-SQL-Server-2021-2-1-SQL-Server%E7%9A%84%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">SQL Server的存储过程</span>
+                    </a>
+                    
+                
+                    
+                    
+                    <a href="../../../2021/01/31/database-SQL-Server-2021-02-01-SQL-Server-Trigger/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">SQL Server的触发器</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-29'>
+                    
+                    <a href="../../../2021/01/28/database-SQL-Server-2021-01-29-SQL-Server%E7%9A%84MDS/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">SQL Server的主数据服务MDS简介</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-02'>
+                    
+                    <a href="../../../2021/01/01/architecture-2021-01-02-%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%8F%B0%E7%9A%84%E4%BB%B7%E5%80%BC/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">数据中台的价值</span>
+                    </a>
+                    
+                
+                </li> <!-- Ensure the last item is properly closed -->
+            </ul>
+        </section>
+    
+        <section class="archive-item mb-spacing-unit last:mb-0">
+            <div class="archive-item-header flex flex-row items-center mb-2">
+                <span class="archive-year font-semibold text-3xl mr-2">2020</span>
+                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">8</span>
+            </div>
+            
+            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
+                
+                    
+                    
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='12-28'>
+                    
+                    <a href="../../../2020/12/27/architecture-2020-12-08-bussiness-architecture/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">业务架构与设计原则</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='11-22'>
+                    
+                    <a href="../../../2020/11/21/data-warehouse-2020-11-22-etl-toolkit/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">数据仓库ETL的两个设计主线</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='11-15'>
+                    
+                    <a href="../../../2020/11/14/architecture-2020-11-15-%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E4%B8%8E%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E5%B8%88/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">企业架构师 vs 解决方案架构师 vs 技术架构师</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='08-20'>
+                    
+                    <a href="../../../2020/08/19/bigdata-2020-08-20-arrow-and-pyarrow/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Arrow and Pyarrow</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='07-24'>
+                    
+                    <a href="../../../2020/07/23/bigdata-2020-07-24-from-pandas-to-spark/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">从Pandas到Spark</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='07-23'>
+                    
+                    <a href="../../../2020/07/22/bigdata-2020-07-23-pyspark-for-pandas/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Pandas UDF and Function Api in Spark</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='07-11'>
+                    
+                    <a href="../../../2020/07/10/bigdata-2020-07-11-create-dataframe-from-rdd-in-spark/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Spark RDD转成Dataset的两种方式</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='06-30'>
+                    
+                    <a href="../../../2020/06/29/AI-2020-06-30-Rough-sets/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Classic Rough sets translation</span>
+                    </a>
+                    
+                
+                </li> <!-- Ensure the last item is properly closed -->
+            </ul>
+        </section>
+    
+        <section class="archive-item mb-spacing-unit last:mb-0">
+            <div class="archive-item-header flex flex-row items-center mb-2">
+                <span class="archive-year font-semibold text-3xl mr-2">2019</span>
+                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">7</span>
+            </div>
+            
+            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
+                
+                    
+                    
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='06-29'>
+                    
+                    <a href="../../../2019/06/29/database-mysql-2019-06-29-mysql-index/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Mysql 索引总结</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='04-19'>
+                    
+                    <a href="../../../2019/04/18/frontend-2019-04-19-D3-selection/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">D3-selection总结</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='04-18'>
+                    
+                    <a href="../../../2019/04/17/frontend-2019-04-18-React-function-component-state/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">React函数式组件的状态</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='04-08'>
+                    
+                    <a href="../../../2019/04/07/frontend-2019-04-09-apollo-cache/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Apollo client的缓存机制</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-19'>
+                    
+                    <a href="../../../2019/03/18/frontend-2019-03-19-Grid-and-Flex/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Grid and Flex Design</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-28'>
+                    
+                    <a href="../../../2019/02/28/middleware-2019-02-28-amqp-model/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">AMQP-0-9-1模型总结</span>
+                    </a>
+                    
+                
+                    
+                    
+                    <a href="../../../2019/02/27/openshift-2018-01-03-openshift-commandline-shortcut/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Openshift Commandline CheatSheet</span>
+                    </a>
+                    
+                
+                </li> <!-- Ensure the last item is properly closed -->
+            </ul>
+        </section>
+    
+        <section class="archive-item mb-spacing-unit last:mb-0">
+            <div class="archive-item-header flex flex-row items-center mb-2">
+                <span class="archive-year font-semibold text-3xl mr-2">2018</span>
+                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">40</span>
+            </div>
+            
+            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
+                
+                    
+                    
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='12-11'>
+                    
+                    <a href="../../../2018/12/10/cloud-2018-12-11-current-genomics-solutions/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">现有基因大数据云平台简单比较</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='12-10'>
+                    
+                    <a href="../../../2018/12/09/cloud-2018-12-10-one-instance-multiple-ip/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">一台虚机多个IP</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='11-05'>
+                    
+                    <a href="../../../2018/11/04/cloud-2018-11-05-aws-internet-gateway/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">AWS的VPC组件</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='10-27'>
+                    
+                    <a href="../../../2018/10/26/cloud-2018-10-27-DNS-and-Route53/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">DNS和Route53简介</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='10-14'>
+                    
+                    <a href="../../../2018/10/13/AI-2018-10-04-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%80%E6%92%87/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">机器学习一撇</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='10-13'>
+                    
+                    <a href="../../../2018/10/12/bigdata-2018-10-13-hadoop-mapreduce-%E5%AE%9E%E7%8E%B0-md/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Hadoop MapReduce 实现</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='10-04'>
+                    
+                    <a href="../../../2018/10/03/AI-2019-09-21-deeplearning-notes-chap5/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Deep Learning Book Notes--Chapter 5</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='10-03'>
+                    
+                    <a href="../../../2018/10/02/database-2018-10-03-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%A9%E5%B1%95%E6%80%A7%E4%BA%8B%E9%A1%B9/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">扩展数据库注意事项</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='09-24'>
+                    
+                    <a href="../../../2018/09/23/database-mongodb-2018-09-24-mongo-%E6%9E%B6%E6%9E%84/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">MongoDB的架构</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='09-17'>
+                    
+                    <a href="../../../2018/09/16/python-2018-09-17-pandas-common-methods/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Pandas的常用函数</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='09-16'>
+                    
+                    <a href="../../../2018/09/15/python-2018-09-16-pandas%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Pandas的数据结构</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='08-31'>
+                    
+                    <a href="../../../2018/08/30/python-2018-08-31-pandas/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Pandas的Groupby</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='07-20'>
+                    
+                    <a href="../../../2018/07/19/python-2018-07-20-luiqi-base/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Luigi基础概念</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='06-27'>
+                    
+                    <a href="../../../2018/06/26/database-mysql-2018-06-27-mysql5-7%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">MySQL 5.7 性能调优</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='05-14'>
+                    
+                    <a href="../../../2018/05/13/cloud-2018-05-14-aliyun-sge/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">使用阿里云的批量计算做SGE</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='05-06'>
+                    
+                    <a href="../../../2018/05/05/cloud-2018-05-06-aliyun%E5%92%8Caws%E7%9A%84%E7%BD%91%E8%B7%AF/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">阿里云和aws的网路特点</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='04-11'>
+                    
+                    <a href="../../../2018/04/10/kubernetes-2018-04-11-migrate-k8s-summary/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">本地rails系统迁移到阿里云容器服务小结</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='04-07'>
+                    
+                    <a href="../../../2018/04/06/kubernetes-2018-04-08-k8s-deployments/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Kubernetes Deployment</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='04-03'>
+                    
+                    <a href="../../../2018/04/02/sed-and-awk/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">SED and AWK</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-13'>
+                    
+                    <a href="../../../2018/03/12/kubernetes-2018-03-13-k8s-manage-resource/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">K8S管理容器的计算资源</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-12'>
+                    
+                    <a href="../../../2018/03/11/kubernetes-2018-03-12-k8s-pull-private-image/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">K8S使用私有镜像</span>
+                    </a>
+                    
+                
+                    
+                    
+                    <a href="../../../2018/03/11/kubernetes-2018-03-12-k8s-dynamic-volume-provision/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">在云上使用k8s动态PV</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-10'>
+                    
+                    <a href="../../../2018/03/09/kubernetes-2018-03-10-k8s-mysql/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">使用aliyun容器服务搭建mysql</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-08'>
+                    
+                    <a href="../../../2018/03/07/kubernetes-2018-03-08-k8s-volume/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Kubernetes的volume</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-07'>
+                    
+                    <a href="../../../2018/03/06/kubernetes-2018-03-07-StatefulSets/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">K8S的StatefulSets</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='03-05'>
+                    
+                    <a href="../../../2018/03/04/openshift-2018-03-05-kubernetes-infrastrcture/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Openshift中Kubernetes的基础设施</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-22'>
+                    
+                    <a href="../../../2018/02/21/kubernetes-2018-02-22-k8s-service/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Kubernetes的service</span>
+                    </a>
+                    
+                
+                    
+                    
+                    <a href="../../../2018/02/21/openshift-2018-02-22-openshift-network/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Openshift的网路</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-19'>
+                    
+                    <a href="../../../2018/02/18/docker-2018-02-19-docker-container-data-persistent/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">三种docker数据持久的方式</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-05'>
+                    
+                    <a href="../../../2018/02/04/openshift-2018-02-05-prerequirement-deploy-a-cluster/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Openshift Origin cluster部署配置要求和主机准备</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='02-02'>
+                    
+                    <a href="../../../2018/02/01/docker-2018-02-02-docker-cloud-autodeploy/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">使用Docker Cloud自动化部署</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-18'>
+                    
+                    <a href="../../../2018/01/17/docker-2018-01-18-strange-docker-error/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">一次奇怪的Docker Daemon Error</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-09'>
+                    
+                    <a href="../../../2018/01/08/openshift-2018-01-09-openshift-AB-deploy/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">OpenShift A/B Deployment</span>
+                    </a>
+                    
+                
+                    
+                    
+                    <a href="../../../2018/01/08/openshift-2018-01-09-openshift-annotation/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">OpenShift Annotation</span>
+                    </a>
+                    
+                
+                    
+                    
+                    <a href="../../../2018/01/08/openshift-2018-01-09-openshift-bg-deployment/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">OpenShift Blue-Green Deployment</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-08'>
+                    
+                    <a href="../../../2018/01/07/openshift-2018-01-08-openstack-imagestream/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">OpenStack ImageStream</span>
+                    </a>
+                    
+                
+                    
+                    
+                    <a href="../../../2018/01/07/openshift-2018-01-08-openshift-resource/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">What is OpenShift Resource</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-04'>
+                    
+                    <a href="../../../2018/01/03/kubernetes-2018-01-04-Kubernetes-pod/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Kubernetes Pod含义</span>
+                    </a>
+                    
+                
+                    
+                    
+                    <a href="../../../2018/01/03/openshift-2018-01-04-Openshift-template/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Openshift Template</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='01-03'>
+                    
+                    <a href="../../../2018/01/02/openshift-2018-01-04-openshift-deployment/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Openshift Deployment</span>
+                    </a>
+                    
+                
+                </li> <!-- Ensure the last item is properly closed -->
+            </ul>
+        </section>
+    
+        <section class="archive-item mb-spacing-unit last:mb-0">
+            <div class="archive-item-header flex flex-row items-center mb-2">
+                <span class="archive-year font-semibold text-3xl mr-2">2017</span>
+                <span class="archive-year-post-count text-xs md:text-sm font-bold rounded-small bg-third-background-color py-[2px] px-[10px] border border-border-color">12</span>
+            </div>
+            
+            <ul class="article-list pl-0 md:pl-8 text-lg leading-[1.5]">
+                
+                    
+                    
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='12-27'>
+                    
+                    <a href="../../../2017/12/26/%E5%B5%8A%E6%B3%97%E8%A1%8C%E7%A8%8B/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">冬季嵊泗3日游行程安排</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='12-16'>
+                    
+                    <a href="../../../2017/12/15/database-mysql-2017-12-16-innodb-5-7-buffer-pool/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">InnoDB Buffer Pool for Mysql 5.7</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='12-15'>
+                    
+                    <a href="../../../2017/12/14/%E5%90%8C%E6%AD%A5Forked%E4%BB%93%E5%BA%93/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Git如何同步fork的仓库</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='12-12'>
+                    
+                    <a href="../../../2017/12/11/database-mysql-2017-12-12-InnoDB5-7/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">A look at InnoDB for Mysql 5.7</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='12-07'>
+                    
+                    <a href="../../../2017/12/06/customer-experience/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Customer Experience</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='12-06'>
+                    
+                    <a href="../../../2017/12/05/database-mysql-2017-12-06-InnoDB/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">InnoDB for Mysql 5.6</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='11-29'>
+                    
+                    <a href="../../../2017/11/28/java-2017-11-29-tomcat-8-5-35-intro/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Tomcat 8.5.35 简介</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='11-15'>
+                    
+                    <a href="../../../2017/11/14/aliyun-oss/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Aliyun OSS 小结</span>
+                    </a>
+                    
+                
+                    
+                    
+                    <a href="../../../2017/11/14/database-mysql-2017-11-15-high-performance-mysql/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">高性能mysql笔记</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='11-14'>
+                    
+                    <a href="../../../2017/11/13/Aliyun-oceanDB/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">OceanDB小结</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='11-13'>
+                    
+                    <a href="../../../2017/11/12/database-mysql-2017-11-13-Aliyun-Mysql/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Aliyun RDS for Mysql</span>
+                    </a>
+                    
+                
+                    
+                    
+                        
+                            </li>
+                         <!-- Close the previous LI if not the first item -->
+                        <li class="article-item space-y-2 px-6 pt-10 pb-2 text-xl relative border-l-2 border-border-color" date-is='05-09'>
+                    
+                    <a href="../../../2017/05/08/database-2017-05-09-redis-summary/" class="block w-fit">
+                        <span class="article-title my-0.5 text-2xl">Redis使用总结</span>
+                    </a>
+                    
+                
+                </li> <!-- Ensure the last item is properly closed -->
+            </ul>
+        </section>
+    
+</div>
+</div>
+			</div>
 
-        </div>
+			
+		</div>
 
-        <div class="main-content-footer">
-            <footer class="footer">
-    <div class="info-container">
-        <div class="copyright-info">
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
             &copy;
             
               <span>2022</span>
               -
             
             2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Kopei</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        106 posts in total
+                    </span>
+                    
+                </p>
+            
         </div>
         
-            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-            <div class="website-count info-item">
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
                 
-                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
-                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
                     </span>
                 
                 
-                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
-                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
                     </span>
                 
             </div>
         
-        <div class="theme-info info-item">
-            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
-                <br>
-            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
         </div>
-        
         
         
             <div>
@@ -1007,8 +1753,7 @@
             </div>
         
         
-        
-            <script async data-pjax>
+            <script data-swup-reload-script>
                 try {
                     function odometer_init() {
                     const elements = document.querySelectorAll('.odometer');
@@ -1028,166 +1773,152 @@
         
     </div>  
 </footer>
-        </div>
-    </div>
+		</div>
+	</div>
 
-    
+	
 
-    <div class="right-side-tools-container">
-        <div class="side-tools-container">
-    <ul class="hidden-tools-list">
-        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
-            <i class="fa-regular fa-magnifying-glass-plus"></i>
-        </li>
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
 
-        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
-            <i class="fa-regular fa-magnifying-glass-minus"></i>
-        </li>
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
 
-        <li class="right-bottom-tools tool-expand-width flex-center">
-            <i class="fa-regular fa-expand"></i>
-        </li>
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
 
-        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
-            <i class="fa-regular fa-moon"></i>
-        </li>
+		<!-- rss -->
+		
 
-        <!-- rss -->
-        
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="fa-regular fa-arrow-up"></i>
+		</li>
+		
 
-        
-            <li class="right-bottom-tools tool-scroll-to-top flex-center">
-                <i class="fa-regular fa-arrow-up"></i>
-            </li>
-        
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
 
-        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
-            <i class="fa-regular fa-arrow-down"></i>
-        </li>
-    </ul>
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
 
-    <ul class="visible-tools-list">
-        <li class="right-bottom-tools toggle-tools-list flex-center">
-            <i class="fa-regular fa-cog fa-spin"></i>
-        </li>
-        
-        
-    </ul>
+	<div class="image-viewer-container">
+	<img src="">
 </div>
 
-    </div>
-
-    <div class="image-viewer-container">
-    <img src="">
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="Search..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
 </div>
-
-
-    
-        <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-          <span class="search-input-field-pre">
-            <i class="fa-solid fa-keyboard"></i>
-          </span>
-            <div class="search-input-container">
-                <input autocomplete="off"
-                       autocorrect="off"
-                       autocapitalize="off"
-                       placeholder="Search..."
-                       spellcheck="false"
-                       type="search"
-                       class="search-input"
-                >
-            </div>
-            <span class="popup-btn-close">
-                <i class="fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div id="search-result">
-            <div id="no-result">
-                <i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-    
-
+	
 
 </main>
 
 
-
-<script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/utils.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/main.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/layouts/navbarShrink.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/scrollTopBottom.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/lightDarkSwitch.js"></script>
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/localSearch.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/codeBlock.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/layouts/lazyload.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/runtime.js"></script>
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/odometer.min.js"></script>
-    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/assets/odometer-theme-minimal.css">
-
-
-
-  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/Typed.min.js"></script>
-  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/plugins/typed.js"></script>
-
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/mermaid.min.js"></script>
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/plugins/mermaid.js"></script>
-
-
-
-
-<div class="post-scripts pjax">
-    
-</div>
-
-
-    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/pjax.min.js"></script>
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Swup.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
 <script>
-    window.addEventListener('DOMContentLoaded', () => {
-        window.pjax = new Pjax({
-            selectors: [
-                'head title',
-                '.page-container',
-                '.pjax',
-            ],
-            history: true,
-            debug: false,
-            cacheBust: false,
-            timeout: 0,
-            analytics: false,
-            currentUrlFullReload: false,
-            scrollRestoration: false,
-            // scrollTo: true,
-        });
-
-        document.addEventListener('pjax:send', () => {
-            Global.utils.pjaxProgressBarStart();
-        });
-
-        document.addEventListener('pjax:complete', () => {
-            Global.utils.pjaxProgressBarEnd();
-            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
-            Global.refresh();
-        });
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
     });
 </script>
 
 
 
+	<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/utils.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/main.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/categoryList.js" ></script>
 
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/localSearch.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/codeBlock.js" ></script>
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/lazyload.js" ></script>
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/typed.js" ></script>
+
+
+
+    
+        <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/mermaid.min.js" ></script>
+    
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/mermaid.js" ></script>
+
+
+
+
+
+    <script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/anime.min.js" ></script>
+
+
+
+
+    <script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
+
+
+<script  src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://registry.npmmirror.com/hexo-theme-redefine/2.8.5/files/source/js/build/layouts/essays.js" data-swup-reload-script></script>
+
+
+
+
+	
 </body>
+
 </html>
