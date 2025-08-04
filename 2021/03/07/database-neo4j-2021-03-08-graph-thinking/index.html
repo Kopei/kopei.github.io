@@ -11,6 +11,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
     
+        
+            <link rel="preconnect" href="https://npm.elemecdn.com" crossorigin>
+        
+    
     <!--- Seo Part-->
     
     <link rel="canonical" href="https://kopei.github.io/2021/03/07/database-neo4j-2021-03-08-graph-thinking/"/>
@@ -26,7 +30,7 @@
 <meta property="og:description" content="When to start use graph?当我们需要使用图数据库时, 需要考虑三个问题:  图数据库是否比关系型数据库更优? 如何把我的数据看做图? 如何给图的原型结构建模?  关系vs图形从存储和数据检索的角度看, 关系型数据库将数据以三范式的形式存储, 将真实世界的实体与表映射; 而图数据库关注存储和检索的关系, 这些关系代表了真实世界实体的连接, 比如: 一个人认识另一个人, 人住在什">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-03-07T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-08-03T14:42:59.290Z">
+<meta property="article:modified_time" content="2025-08-04T13:13:55.713Z">
 <meta property="article:author" content="Kopei Nan">
 <meta property="article:tag" content="graph database">
 <meta name="twitter:card" content="summary">
@@ -48,15 +52,9 @@
     
 <link rel="stylesheet" href="css/style.css">
 
-    
-<link rel="stylesheet" href="fonts/fonts.css">
-
-    
-<link rel="stylesheet" href="fonts/Satoshi/satoshi.css">
-
-    
-<link rel="stylesheet" href="fonts/Chillax/chillax.css">
-
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/fonts.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/Satoshi/satoshi.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fonts/Chillax/chillax.css">
     <!--- Font Part-->
     
     
@@ -74,18 +72,10 @@
   </script>
     
     <!--- Fontawesome Part-->
-    
-<link rel="stylesheet" href="fontawesome/fontawesome.min.css">
-
-    
-<link rel="stylesheet" href="fontawesome/brands.min.css">
-
-    
-<link rel="stylesheet" href="fontawesome/solid.min.css">
-
-    
-<link rel="stylesheet" href="fontawesome/regular.min.css">
-
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/fontawesome/regular.min.css">
     
     
     
@@ -275,8 +265,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-03 22:42:59</span>
-            <span class="mobile">2025-08-03 22:42</span>
+            <span class="desktop">2025-08-04 21:13:55</span>
+            <span class="mobile">2025-08-04 21:13</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -350,7 +340,7 @@
         <li><strong>Created at:</strong> 2021-03-08 00:00:00</li>
         
             <li>
-                <strong>Updated at:</strong> 2025-08-03 22:42:59
+                <strong>Updated at:</strong> 2025-08-04 21:13:55
             </li>
         
         <li>
@@ -657,86 +647,46 @@
 
 
 
+<script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/utils.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/main.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/layouts/navbarShrink.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/scrollTopBottom.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/lightDarkSwitch.js"></script>
 
-<script src="js/utils.js"></script>
 
-<script src="js/main.js"></script>
-
-<script src="js/layouts/navbarShrink.js"></script>
-
-<script src="js/tools/scrollTopBottom.js"></script>
-
-<script src="js/tools/lightDarkSwitch.js"></script>
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/localSearch.js"></script>
 
 
 
-    
-<script src="js/tools/localSearch.js"></script>
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/codeBlock.js"></script>
 
 
 
-
-    
-<script src="js/tools/codeBlock.js"></script>
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/layouts/lazyload.js"></script>
 
 
 
-
-    
-<script src="js/layouts/lazyload.js"></script>
-
-
-
-
-    
-<script src="js/tools/runtime.js"></script>
-
-    
-<script src="js/libs/odometer.min.js"></script>
-
-    
-<link rel="stylesheet" href="assets/odometer-theme-minimal.css">
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/runtime.js"></script>
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/odometer.min.js"></script>
+    <link rel="stylesheet" href="//npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/assets/odometer-theme-minimal.css">
 
 
 
-
-  
-<script src="js/libs/Typed.min.js"></script>
-
-  
-<script src="js/plugins/typed.js"></script>
+  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/Typed.min.js"></script>
+  <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/plugins/typed.js"></script>
 
 
 
-
-    
-<script src="js/libs/mermaid.min.js"></script>
-
-    
-<script src="js/plugins/mermaid.js"></script>
-
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/mermaid.min.js"></script>
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/plugins/mermaid.js"></script>
 
 
 
 
 <div class="post-scripts pjax">
     
-        
-<script src="js/tools/tocToggle.js"></script>
-
-<script src="js/libs/anime.min.js"></script>
-
-<script src="js/layouts/toc.js"></script>
-
-<script src="js/plugins/tabs.js"></script>
-
+        <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/tools/tocToggle.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/anime.min.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/layouts/toc.js"></script><script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/plugins/tabs.js"></script>
     
 </div>
 
 
-    
-<script src="js/libs/pjax.min.js"></script>
-
+    <script src="https://npm.elemecdn.com/hexo-theme-redefine@2.2.1/source/js/libs/pjax.min.js"></script>
 <script>
     window.addEventListener('DOMContentLoaded', () => {
         window.pjax = new Pjax({

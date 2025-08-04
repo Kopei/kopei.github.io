@@ -1587,20 +1587,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Use SDC to Create Qustionnaires</title>
-    <url>/2023/09/30/Use-SDC-to-Create-Qustionnaires/</url>
-    <content><![CDATA[<h1 id="使用SDC-Structure-Data-Capture-创建问卷"><a href="#使用SDC-Structure-Data-Capture-创建问卷" class="headerlink" title="使用SDC(Structure Data Capture)创建问卷"></a>使用SDC(Structure Data Capture)创建问卷</h1><blockquote>
-<p>本文将正对HL7<code>Structure Data Capture</code>的实施指引<code>IG</code>做一个介绍，通过本文可以基本了解如何设计一个流程化、符合FHIR标准的文件表单。</p>
-</blockquote>
-<h2 id="问卷在医疗环境现状"><a href="#问卷在医疗环境现状" class="headerlink" title="问卷在医疗环境现状"></a>问卷在医疗环境现状</h2><p>随着互联网医院的普及，越来越多的大型医院已经逐步将一些问卷调查如: 满意度调查，用药依从性调查等问卷都提上了手机端，患者可以方便地使用微信等生态录入反馈信息。但是还有一些场景的问卷，医院还是会使用纸质问卷，原因是主要为了：</p>
-<ol>
-<li>归档</li>
-<li>临床流程强制性环节，如术前主观知情同意书，或主观意愿征询等。<br>目前的真实世界实践主要存在如下几个问题:</li>
-<li>没有一个标准化，可配置的问卷表单实现方式，即便一些系统声称可以实现灵活可配置，但是这些表单系统涉及的问题和回答</li>
-</ol>
-]]></content>
-  </entry>
-  <entry>
     <title>RAG</title>
     <url>/2023/11/25/RAG/</url>
     <content><![CDATA[<h1 id="什么是检索增强生成RAG"><a href="#什么是检索增强生成RAG" class="headerlink" title="什么是检索增强生成RAG?"></a>什么是检索增强生成RAG?</h1><blockquote>
@@ -1622,6 +1608,20 @@
 <li><a class="link"   href="https://arxiv.org/pdf/2005.11401v4.pdf" >RAG论文 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 <li><a class="link"   href="https://github.com/Azure/GPT-RAG" >微软gpt-rag <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>Use SDC to Create Qustionnaires</title>
+    <url>/2023/09/30/Use-SDC-to-Create-Qustionnaires/</url>
+    <content><![CDATA[<h1 id="使用SDC-Structure-Data-Capture-创建问卷"><a href="#使用SDC-Structure-Data-Capture-创建问卷" class="headerlink" title="使用SDC(Structure Data Capture)创建问卷"></a>使用SDC(Structure Data Capture)创建问卷</h1><blockquote>
+<p>本文将正对HL7<code>Structure Data Capture</code>的实施指引<code>IG</code>做一个介绍，通过本文可以基本了解如何设计一个流程化、符合FHIR标准的文件表单。</p>
+</blockquote>
+<h2 id="问卷在医疗环境现状"><a href="#问卷在医疗环境现状" class="headerlink" title="问卷在医疗环境现状"></a>问卷在医疗环境现状</h2><p>随着互联网医院的普及，越来越多的大型医院已经逐步将一些问卷调查如: 满意度调查，用药依从性调查等问卷都提上了手机端，患者可以方便地使用微信等生态录入反馈信息。但是还有一些场景的问卷，医院还是会使用纸质问卷，原因是主要为了：</p>
+<ol>
+<li>归档</li>
+<li>临床流程强制性环节，如术前主观知情同意书，或主观意愿征询等。<br>目前的真实世界实践主要存在如下几个问题:</li>
+<li>没有一个标准化，可配置的问卷表单实现方式，即便一些系统声称可以实现灵活可配置，但是这些表单系统涉及的问题和回答</li>
+</ol>
 ]]></content>
   </entry>
   <entry>
@@ -2134,7 +2134,7 @@
 <h3 id="1-4-漏洞反馈与新漏洞"><a href="#1-4-漏洞反馈与新漏洞" class="headerlink" title="1.4 漏洞反馈与新漏洞"></a>1.4 漏洞反馈与新漏洞</h3><p>工作组欢迎对本规范的反馈：实施经验、改进清晰度的建议，或对特定章节或要求难以理解的疑问。</p>
 <p>我们特别希望获得关于使用标准机器可读格式进行有效符合性声明的反馈，包括这种格式是否适合存储在区块链上，以及其他用例。</p>
 <p>EEA成员可通过加入工作组提供反馈。任何人都可通过Ethtrust-public Github仓库或发送邮件至EEA Editor提供反馈，邮件将被转发给工作组。</p>
-<p>我们预计本规范发布后将发现新的安全漏洞。为确保将它们纳入修订版本，我们欢迎相关通知。EEA已创建特定电子邮件地址接收新安全漏洞通知：<a class="link"   href="mailto:&#x73;&#101;&#x63;&#117;&#114;&#x69;&#x74;&#x79;&#45;&#x6e;&#111;&#116;&#105;&#x63;&#101;&#115;&#x40;&#x65;&#x6e;&#x74;&#101;&#116;&#x68;&#97;&#x6c;&#x6c;&#105;&#x61;&#110;&#99;&#x65;&#x2e;&#111;&#114;&#x67;" >&#x73;&#101;&#x63;&#117;&#114;&#x69;&#x74;&#x79;&#45;&#x6e;&#111;&#116;&#105;&#x63;&#101;&#115;&#x40;&#x65;&#x6e;&#x74;&#101;&#116;&#x68;&#97;&#x6c;&#x6c;&#105;&#x61;&#110;&#99;&#x65;&#x2e;&#111;&#114;&#x67; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
+<p>我们预计本规范发布后将发现新的安全漏洞。为确保将它们纳入修订版本，我们欢迎相关通知。EEA已创建特定电子邮件地址接收新安全漏洞通知：<a class="link"   href="mailto:&#x73;&#101;&#99;&#117;&#114;&#105;&#116;&#121;&#x2d;&#x6e;&#x6f;&#x74;&#x69;&#x63;&#101;&#115;&#64;&#x65;&#x6e;&#116;&#101;&#116;&#x68;&#97;&#x6c;&#x6c;&#105;&#x61;&#110;&#x63;&#101;&#x2e;&#111;&#114;&#103;" >&#x73;&#101;&#99;&#117;&#114;&#105;&#116;&#121;&#x2d;&#x6e;&#x6f;&#x74;&#x69;&#x63;&#101;&#115;&#64;&#x65;&#x6e;&#116;&#101;&#116;&#x68;&#97;&#x6c;&#x6c;&#105;&#x61;&#110;&#x63;&#101;&#x2e;&#111;&#114;&#103; <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
 <p>发送至该地址的信息应足以识别和纠正描述的问题，并应包括对该问题的其他讨论的引用。这些信息将由EEA工作人员评估，然后转发给工作组解决问题。</p>
 <p>当这些漏洞影响Solidity编译器，或建议修改编译器以帮助缓解问题时，还应按照[solidity-reports]中的描述通知Solidity开发社区。</p>
 <h2 id="2-符合性"><a href="#2-符合性" class="headerlink" title="2. 符合性"></a>2. 符合性</h2><h3 id="2-1-符合性声明"><a href="#2-1-符合性声明" class="headerlink" title="2.1 符合性声明"></a>2.1 符合性声明</h3><p>本规范中的关键词”可以(MAY)”、”必须(MUST)”、”不得(MUST NOT)”、”建议(RECOMMENDED)”和”应当(SHOULD)”应按照BCP 14 [RFC2119][RFC8174]中的说明进行解释，且仅当这些词汇以全大写形式出现时才具有此特定含义。</p>
@@ -3489,6 +3489,102 @@
       </tags>
   </entry>
   <entry>
+    <title>企业架构师 vs 解决方案架构师 vs 技术架构师</title>
+    <url>/2020/11/14/architecture-2020-11-15-%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E4%B8%8E%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E5%B8%88/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文主要简介一下企业架构师EA, 技术架构师TA, 解决方案架构师SA的区别, 同时探讨各自需要具备的能力和挑战.</p>
+<h2 id="企业架构师-vs-技术架构师-vs-解决方案架构师"><a href="#企业架构师-vs-技术架构师-vs-解决方案架构师" class="headerlink" title="企业架构师 vs 技术架构师 vs 解决方案架构师"></a>企业架构师 vs 技术架构师 vs 解决方案架构师</h2><p>简单来说, 企业架构师从企业全局的角度出发发现和定义问题, 解决方案架构师把问题转化为一个解决方案, 技术架构师实现具体的解决方案.<br>网上有一张图描述了EA, TA, SA三者的区别:<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/2020-11/architects.png"
+                     
+                ></p>
+<p>上图从软件的生命周期, 细节的涉及度, 关注的程度这三维来度量和区别三者.</p>
+<p>**技术架构师Technical Architect(TA)**主要关注在某个技术实现.TA可能在企业中同时负责多个项目, 一般不会关注整个软件生命周期. TA需要有实际的编码能力, 为开发团队提供技术指导, 定义标准和最佳实际.TA的技术能力是考核他的一个关键指标, 所以大部分TA的技术栈比较专注,比如Java架构师, .NET架构师, IT基础架构师. 这些可以从上图的虚线可以看出.</p>
+<p>**解决方案架构师Solutions Architect(SA)**一般被分配到企业中的某个项目中, 以确保项目在每个生命周期中保持技术完整性, 目标和方案的一致性. SA一般不写代码, 因为协调各个技术活动是他的主要工作. SA需要参与计划(initiative)的所有方面和活动: 从概念定义, 到需求分析, 到实现, 再到把系统交付到运营和业务单元. 所以SA一般是一个通才, 为所有这些活动做出明智的贡献。 当然, 大部分项目不需要单独配备一名SA, 因为如果技术栈唯一, 那么一般只需要TA就能够解决问题. 但是如果和技术相关的风险是巨大的,那么配备一名SA是明智的. 这种情况具体可以被分为: 不确定的需求, 未被验证的技术实现或存在多个技术实现, 外包项目给离场开发团队等. </p>
+<p>**企业架构师Enterprise Architect(EA)**负责整个企业。她严格地描述企业的业务实体，它们的属性以及它们与外部环境之间的关系(竞争对手)。EA关心整个生命周期，以及每一项已采用或预期采用的实施技术。同样，她也研究各个项目，以确保整个企业具有完整性和一致性。但是，EA可能需要考虑的详细程度还很低而且很肤浅，因此她必须将除策略级别的决策之外的所有决策委派给特定工作的专家。EA的一个特例是企业IT架构师（EITA），他关注企业内部信息和技术的整体观点。但是，上面提到的有关EA角色的所有内容也适用于EITA角色。请注意，该框架未能在EA和EITA之间做出明显的区分。添加第四维会有所帮助，但是该图将变得混乱。</p>
+<h2 id="SA的角色与职责"><a href="#SA的角色与职责" class="headerlink" title="SA的角色与职责"></a>SA的角色与职责</h2><p>由于TA, SA, EA的职责不同, 这里主要挑一下介于中间的SA的角色责任.</p>
+<h3 id="技术领导"><a href="#技术领导" class="headerlink" title="技术领导"></a>技术领导</h3><p>SA需要时一名技术领导, 他需要在如下方面担任职责:</p>
+<ul>
+<li>架构设计</li>
+<li>开发支持</li>
+<li>监督与指导</li>
+<li>技术开荒</li>
+<li>需求管理</li>
+</ul>
+<h3 id="技术顾问"><a href="#技术顾问" class="headerlink" title="技术顾问"></a>技术顾问</h3><p>在业务层面, SA还需要作为技术顾问支持不同的业务单元:</p>
+<ul>
+<li>管理stakeholders</li>
+<li>参与售前</li>
+<li>参与架构评估</li>
+<li>面试候选人</li>
+<li>参与新架构发现</li>
+<li>提供高阶成本估算</li>
+<li>诊断测试阶段的问题</li>
+</ul>
+<h3 id="业务分析-x2F-产品Owner"><a href="#业务分析-x2F-产品Owner" class="headerlink" title="业务分析&#x2F;产品Owner"></a>业务分析&#x2F;产品Owner</h3><p>SA还需要担任一部分BA的工作, 根据领域不同, 可能还需要一些行业知识:</p>
+<ul>
+<li>行业市场的知识, 如竞争对手, 法务法规的知识</li>
+<li>产品知识, 有产品和解决方案路线图, 懂产品策略</li>
+<li>懂用户</li>
+<li>backlog管理</li>
+<li>给BA或PO提供其他建议</li>
+</ul>
+<h3 id="部分开发职责"><a href="#部分开发职责" class="headerlink" title="部分开发职责"></a>部分开发职责</h3><p>SA的开发属性主要是为了做POC和code review.</p>
+<h2 id="SA所需技能"><a href="#SA所需技能" class="headerlink" title="SA所需技能"></a>SA所需技能</h2><p>SA所需要的技能比较全面和高标准, 对个人的综合素质有较高的要求.</p>
+<h3 id="展示能力"><a href="#展示能力" class="headerlink" title="展示能力"></a>展示能力</h3><ul>
+<li>公共演讲能力</li>
+<li>白板技能</li>
+</ul>
+<h3 id="沟通能力"><a href="#沟通能力" class="headerlink" title="沟通能力"></a>沟通能力</h3><ul>
+<li>stakeholder管理</li>
+<li>解释能力</li>
+<li>协商能力</li>
+<li>冲突管理</li>
+<li>社交</li>
+</ul>
+<h3 id="时间管理"><a href="#时间管理" class="headerlink" title="时间管理"></a>时间管理</h3><ul>
+<li>优先级管理</li>
+<li>时间管理</li>
+</ul>
+<h3 id="思维能力"><a href="#思维能力" class="headerlink" title="思维能力"></a>思维能力</h3><ul>
+<li>抽象思维</li>
+<li>战术与策略</li>
+<li>做决定</li>
+<li>评判思维</li>
+<li>抗压能力</li>
+</ul>
+<h3 id="自我开发"><a href="#自我开发" class="headerlink" title="自我开发"></a>自我开发</h3><ul>
+<li>持续学习</li>
+<li>自律</li>
+<li>个人成长计划</li>
+<li>快速学习能力</li>
+</ul>
+<h3 id="关系管理"><a href="#关系管理" class="headerlink" title="关系管理"></a>关系管理</h3><ul>
+<li>同理心</li>
+<li>情商</li>
+</ul>
+<h3 id="编码能力"><a href="#编码能力" class="headerlink" title="编码能力"></a>编码能力</h3><ul>
+<li>POC</li>
+<li>熟悉各个技术栈</li>
+</ul>
+<h3 id="分析与设计"><a href="#分析与设计" class="headerlink" title="分析与设计"></a>分析与设计</h3><ul>
+<li>能用不同设计解决不同的问题</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/2020-12/samm.png"
+                     
+                ></p>
+]]></content>
+      <categories>
+        <category>architecture</category>
+      </categories>
+      <tags>
+        <tag>architecture</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>业务架构与设计原则</title>
     <url>/2020/12/27/architecture-2020-12-08-bussiness-architecture/</url>
     <content><![CDATA[<h2 id="企业业务架构"><a href="#企业业务架构" class="headerlink" title="企业业务架构"></a>企业业务架构</h2><p>企业的业务架构定义了企业的结构，这个结构包含了企业的治理结构，业务流程，服务和产品，业务信息和利益相关者。业务架构为实现企业战略目标勾画出一个可行的、方向性的系统。所以简单地可以认为企业业务架构是一个组织工作的蓝图。通过使用组织架构，企业可以以较小的代价和时间来面对挑战和处理问题，这是因为我们已经知道业务中所有重要的依赖，关系和信息流。企业不管大小都应该有业务架构。 业务架构不一定需要全放面描述或者按照一定的标准创建。设计和描述组织的工作是复杂和困难的， 所以我们需要一些工具来帮助加速这一过程。</p>
@@ -3577,102 +3673,6 @@
 <p>从提供服务的出发点角度, 数据中台以业务需要什么服务为出发点, 而数据湖则是提供我有什么数据.</p>
 <p>从不同度量来衡量各个服务的不同, 数据中台关注于用户对数据服务的满意度, 而数据平台关注于数据的质量.</p>
 <h3 id="客观事实-市场的变化远远快于数据的采集速度"><a href="#客观事实-市场的变化远远快于数据的采集速度" class="headerlink" title="客观事实: 市场的变化远远快于数据的采集速度"></a>客观事实: 市场的变化远远快于数据的采集速度</h3><h3 id="业务数据化-gt-数据业务化"><a href="#业务数据化-gt-数据业务化" class="headerlink" title="业务数据化-&gt;数据业务化"></a>业务数据化-&gt;数据业务化</h3><h3 id="组织架构的调整"><a href="#组织架构的调整" class="headerlink" title="组织架构的调整"></a>组织架构的调整</h3><p>中台架构的提出对企业的组织架构产生了巨大的影响，有了与中台相适应的组织架构，企业才能很好地完成中台建设并从中受益。中台架构有一很鲜明的特点，那就是它彻底破除了应用系统的边界，从企业的全业务领域着手，切分出业务中心，每一个业务中心所支撑的不是一个孤立的应用系统，而是企业在该领域的全部核心业务，所以每一个业务中心都需要非常专业的团队来负责，团队必须对这部分业务非常了解，而且必须站在企业的全局去支撑和把控这一业务领域。</p>
-]]></content>
-      <categories>
-        <category>architecture</category>
-      </categories>
-      <tags>
-        <tag>architecture</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>企业架构师 vs 解决方案架构师 vs 技术架构师</title>
-    <url>/2020/11/14/architecture-2020-11-15-%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E4%B8%8E%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E5%B8%88/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文主要简介一下企业架构师EA, 技术架构师TA, 解决方案架构师SA的区别, 同时探讨各自需要具备的能力和挑战.</p>
-<h2 id="企业架构师-vs-技术架构师-vs-解决方案架构师"><a href="#企业架构师-vs-技术架构师-vs-解决方案架构师" class="headerlink" title="企业架构师 vs 技术架构师 vs 解决方案架构师"></a>企业架构师 vs 技术架构师 vs 解决方案架构师</h2><p>简单来说, 企业架构师从企业全局的角度出发发现和定义问题, 解决方案架构师把问题转化为一个解决方案, 技术架构师实现具体的解决方案.<br>网上有一张图描述了EA, TA, SA三者的区别:<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/2020-11/architects.png"
-                     
-                ></p>
-<p>上图从软件的生命周期, 细节的涉及度, 关注的程度这三维来度量和区别三者.</p>
-<p>**技术架构师Technical Architect(TA)**主要关注在某个技术实现.TA可能在企业中同时负责多个项目, 一般不会关注整个软件生命周期. TA需要有实际的编码能力, 为开发团队提供技术指导, 定义标准和最佳实际.TA的技术能力是考核他的一个关键指标, 所以大部分TA的技术栈比较专注,比如Java架构师, .NET架构师, IT基础架构师. 这些可以从上图的虚线可以看出.</p>
-<p>**解决方案架构师Solutions Architect(SA)**一般被分配到企业中的某个项目中, 以确保项目在每个生命周期中保持技术完整性, 目标和方案的一致性. SA一般不写代码, 因为协调各个技术活动是他的主要工作. SA需要参与计划(initiative)的所有方面和活动: 从概念定义, 到需求分析, 到实现, 再到把系统交付到运营和业务单元. 所以SA一般是一个通才, 为所有这些活动做出明智的贡献。 当然, 大部分项目不需要单独配备一名SA, 因为如果技术栈唯一, 那么一般只需要TA就能够解决问题. 但是如果和技术相关的风险是巨大的,那么配备一名SA是明智的. 这种情况具体可以被分为: 不确定的需求, 未被验证的技术实现或存在多个技术实现, 外包项目给离场开发团队等. </p>
-<p>**企业架构师Enterprise Architect(EA)**负责整个企业。她严格地描述企业的业务实体，它们的属性以及它们与外部环境之间的关系(竞争对手)。EA关心整个生命周期，以及每一项已采用或预期采用的实施技术。同样，她也研究各个项目，以确保整个企业具有完整性和一致性。但是，EA可能需要考虑的详细程度还很低而且很肤浅，因此她必须将除策略级别的决策之外的所有决策委派给特定工作的专家。EA的一个特例是企业IT架构师（EITA），他关注企业内部信息和技术的整体观点。但是，上面提到的有关EA角色的所有内容也适用于EITA角色。请注意，该框架未能在EA和EITA之间做出明显的区分。添加第四维会有所帮助，但是该图将变得混乱。</p>
-<h2 id="SA的角色与职责"><a href="#SA的角色与职责" class="headerlink" title="SA的角色与职责"></a>SA的角色与职责</h2><p>由于TA, SA, EA的职责不同, 这里主要挑一下介于中间的SA的角色责任.</p>
-<h3 id="技术领导"><a href="#技术领导" class="headerlink" title="技术领导"></a>技术领导</h3><p>SA需要时一名技术领导, 他需要在如下方面担任职责:</p>
-<ul>
-<li>架构设计</li>
-<li>开发支持</li>
-<li>监督与指导</li>
-<li>技术开荒</li>
-<li>需求管理</li>
-</ul>
-<h3 id="技术顾问"><a href="#技术顾问" class="headerlink" title="技术顾问"></a>技术顾问</h3><p>在业务层面, SA还需要作为技术顾问支持不同的业务单元:</p>
-<ul>
-<li>管理stakeholders</li>
-<li>参与售前</li>
-<li>参与架构评估</li>
-<li>面试候选人</li>
-<li>参与新架构发现</li>
-<li>提供高阶成本估算</li>
-<li>诊断测试阶段的问题</li>
-</ul>
-<h3 id="业务分析-x2F-产品Owner"><a href="#业务分析-x2F-产品Owner" class="headerlink" title="业务分析&#x2F;产品Owner"></a>业务分析&#x2F;产品Owner</h3><p>SA还需要担任一部分BA的工作, 根据领域不同, 可能还需要一些行业知识:</p>
-<ul>
-<li>行业市场的知识, 如竞争对手, 法务法规的知识</li>
-<li>产品知识, 有产品和解决方案路线图, 懂产品策略</li>
-<li>懂用户</li>
-<li>backlog管理</li>
-<li>给BA或PO提供其他建议</li>
-</ul>
-<h3 id="部分开发职责"><a href="#部分开发职责" class="headerlink" title="部分开发职责"></a>部分开发职责</h3><p>SA的开发属性主要是为了做POC和code review.</p>
-<h2 id="SA所需技能"><a href="#SA所需技能" class="headerlink" title="SA所需技能"></a>SA所需技能</h2><p>SA所需要的技能比较全面和高标准, 对个人的综合素质有较高的要求.</p>
-<h3 id="展示能力"><a href="#展示能力" class="headerlink" title="展示能力"></a>展示能力</h3><ul>
-<li>公共演讲能力</li>
-<li>白板技能</li>
-</ul>
-<h3 id="沟通能力"><a href="#沟通能力" class="headerlink" title="沟通能力"></a>沟通能力</h3><ul>
-<li>stakeholder管理</li>
-<li>解释能力</li>
-<li>协商能力</li>
-<li>冲突管理</li>
-<li>社交</li>
-</ul>
-<h3 id="时间管理"><a href="#时间管理" class="headerlink" title="时间管理"></a>时间管理</h3><ul>
-<li>优先级管理</li>
-<li>时间管理</li>
-</ul>
-<h3 id="思维能力"><a href="#思维能力" class="headerlink" title="思维能力"></a>思维能力</h3><ul>
-<li>抽象思维</li>
-<li>战术与策略</li>
-<li>做决定</li>
-<li>评判思维</li>
-<li>抗压能力</li>
-</ul>
-<h3 id="自我开发"><a href="#自我开发" class="headerlink" title="自我开发"></a>自我开发</h3><ul>
-<li>持续学习</li>
-<li>自律</li>
-<li>个人成长计划</li>
-<li>快速学习能力</li>
-</ul>
-<h3 id="关系管理"><a href="#关系管理" class="headerlink" title="关系管理"></a>关系管理</h3><ul>
-<li>同理心</li>
-<li>情商</li>
-</ul>
-<h3 id="编码能力"><a href="#编码能力" class="headerlink" title="编码能力"></a>编码能力</h3><ul>
-<li>POC</li>
-<li>熟悉各个技术栈</li>
-</ul>
-<h3 id="分析与设计"><a href="#分析与设计" class="headerlink" title="分析与设计"></a>分析与设计</h3><ul>
-<li>能用不同设计解决不同的问题</li>
-</ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/2020-12/samm.png"
-                     
-                ></p>
 ]]></content>
       <categories>
         <category>architecture</category>
@@ -5153,6 +5153,22 @@
       </tags>
   </entry>
   <entry>
+    <title>Kubernetes Pod含义</title>
+    <url>/2018/01/03/kubernetes-2018-01-04-Kubernetes-pod/</url>
+    <content><![CDATA[<blockquote>
+<p>官网文档 <a class="link"   href="https://kubernetes.io/docs/concepts/workloads/pods/pod/" >https://kubernetes.io/docs/concepts/workloads/pods/pod/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<h3 id="什么是Pod？"><a href="#什么是Pod？" class="headerlink" title="什么是Pod？"></a>什么是Pod？</h3><p>Pod的本身含义是<strong>一群鲸鱼</strong>的意思, 而Docker的Logo刚好是🐳。所以简单说pod就是一组容器。（不一定是docker container) pod里的容器共享存储，网络和运行的容器环境。共享的东西包括cgroup, 命名空间, Ip, 端口和其他隔离方面的东西</p>
+<h3 id="pod内部通讯"><a href="#pod内部通讯" class="headerlink" title="pod内部通讯"></a>pod内部通讯</h3><p>由于pod里面的容器共享ip, 容器间的通讯可以通过内部进程通信（SystemV semaphores， POSIX shared memory）或localhost.</p>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Kubernetes的service</title>
     <url>/2018/02/21/kubernetes-2018-02-22-k8s-service/</url>
     <content><![CDATA[<blockquote>
@@ -5181,22 +5197,6 @@
 </ul>
 </li>
 </ul>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kubernetes Pod含义</title>
-    <url>/2018/01/03/kubernetes-2018-01-04-Kubernetes-pod/</url>
-    <content><![CDATA[<blockquote>
-<p>官网文档 <a class="link"   href="https://kubernetes.io/docs/concepts/workloads/pods/pod/" >https://kubernetes.io/docs/concepts/workloads/pods/pod/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</blockquote>
-<h3 id="什么是Pod？"><a href="#什么是Pod？" class="headerlink" title="什么是Pod？"></a>什么是Pod？</h3><p>Pod的本身含义是<strong>一群鲸鱼</strong>的意思, 而Docker的Logo刚好是🐳。所以简单说pod就是一组容器。（不一定是docker container) pod里的容器共享存储，网络和运行的容器环境。共享的东西包括cgroup, 命名空间, Ip, 端口和其他隔离方面的东西</p>
-<h3 id="pod内部通讯"><a href="#pod内部通讯" class="headerlink" title="pod内部通讯"></a>pod内部通讯</h3><p>由于pod里面的容器共享ip, 容器间的通讯可以通过内部进程通信（SystemV semaphores， POSIX shared memory）或localhost.</p>
 ]]></content>
       <categories>
         <category>kubernetes</category>
@@ -5249,38 +5249,6 @@
       </tags>
   </entry>
   <entry>
-    <title>使用aliyun容器服务搭建mysql</title>
-    <url>/2018/03/09/kubernetes-2018-03-10-k8s-mysql/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文简单介绍用aliyun的Kubernetes容器服务搭建mysql集群。首先确保k8s集群已经创建，并且已经开通了相关服务如NAS、容器镜像仓库等服务。</p>
-<h3 id="第一步-创建数据卷"><a href="#第一步-创建数据卷" class="headerlink" title="第一步 创建数据卷"></a>第一步 创建数据卷</h3><ul>
-<li>k8s有个nodeSelector的功能，如果mysql由于单点故障漂移了node，原来的存储会自动重新挂载到新的node(这一步骤是在转移node之前做的). 这样避免了漂移node导致有状态服务不可用的情况。</li>
-<li>aliyun支持k8s三种存储：网盘, NAS, OSS. 基于性能考虑，我们选择NAS。首先需要在NAS控制台右上角选择<code>创建文件系统</code>, 注意所创建的文件系统所在区域必须和k8s集群所在的区域在同一地域:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.36.40.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.36.40.png"><br>然后在新生成的文件系统选择<code>添加挂载点</code>，如图已经有两个挂载点，还不是很清楚为什么不能再添加新的挂载点了。添加的挂载点必须和k8s集群在同一个VPC! 记住<code>挂载地址</code>后续创建k8s数据卷时用到。<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.38.33.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.38.33.png"><br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.40.44.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.40.44.png"></li>
-<li>然后在k8s控制台右上角选中<code>创建</code>, 填上新创建的挂载点域名，点击确定数据卷就创建了：<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.44.29.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.44.29.png"></li>
-</ul>
-<h3 id="第二步-使用aliyun的镜像创建mysql"><a href="#第二步-使用aliyun的镜像创建mysql" class="headerlink" title="第二步 使用aliyun的镜像创建mysql"></a>第二步 使用aliyun的镜像创建mysql</h3><ul>
-<li>在容器服务控制台点击<code>使用镜像</code>，选择mysql部署应用, 第一步填应用名称和选择命名空间：<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.51.42.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.51.42.png"></li>
-<li>然后设置应用配置，注意在这里的环境变量必须设置MYSQL_ROOT_PASSWORD或MYSQL_ALLOW_EMPTY_PASSWORD或MYSQL_RANDOM_ROOT_PASSWORD之一，否则会创建失败。这个页面暂时没有找到设置k8s secret的地方，所以可能如编排模块那样使用secret。其它的资源和网络按需设置, 注意填上上一步创建的pv<code>mysql-pv</code>, 点击创建，然后在控制台应该能看到绿色的部署成功，若有错误，请点进容器组查看相关log。(插一句，如果使用k8s secret创建私密信息，也不能把Secret模板commit到git, 因为base64不是真的加密啊！)<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%885.04.38.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%885.04.38.png"></li>
-</ul>
-<h3 id="第三部，创建service"><a href="#第三部，创建service" class="headerlink" title="第三部，创建service"></a>第三部，创建service</h3><ul>
-<li>现在创建的mysql还只能通过172docker的网段访问， 想要所有pods通过域名访问，则需要给mysql加一个k8s service.可以通过k8s控制台的<code>服务</code>创建，编排示例如下：</li>
-</ul>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">mysql</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">3306</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">app-mysql</span>  <span class="comment"># 注意，这里是pod的label</span></span><br></pre></td></tr></table></figure></div>
-
-<ul>
-<li>这样，基本上容器集群mysql搭建完成了。登入master, 使用k8s端口映射可以验证一下:</li>
-</ul>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">[root@iZuf626rqqtw2yxzeeeqtoZ ~]<span class="comment"># kubectl port-forward `kubectl get pods|grep -v NAME|cut -d &quot; &quot; -f 1` 3306:3306</span></span><br><span class="line">Forwarding from 127.0.0.1:3306 -&gt; 3306</span><br><span class="line"></span><br><span class="line">[root@iZuf626rqqtw2yxzeeeqtoZ ~]<span class="comment"># mysql -h 127.0.0.1 -u root -P 3306 -p </span></span><br><span class="line">Enter password: </span><br><span class="line">Welcome to the MariaDB monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection <span class="built_in">id</span> is 4</span><br><span class="line">Server version: 5.7.18 MySQL Community Server (GPL)</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.</span><br><span class="line"></span><br><span class="line">Type <span class="string">&#x27;help;&#x27;</span> or <span class="string">&#x27;\h&#x27;</span> <span class="keyword">for</span> <span class="built_in">help</span>. Type <span class="string">&#x27;\c&#x27;</span> to clear the current input statement.</span><br><span class="line"></span><br><span class="line">MySQL [(none)]&gt; </span><br></pre></td></tr></table></figure></div>
-
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>可能对阿里云的容器服务还不是很熟悉，感觉控制台有些细节还能够改进。本文还未涉及mysql的HA方案（可选Galera+StatefulSet) 。当然上生产，我们还需要进一步检验有状态服务到底适不适合容器化。</p>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes, mysql</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Kubernetes的volume</title>
     <url>/2018/03/07/kubernetes-2018-03-08-k8s-volume/</url>
     <content><![CDATA[<h2 id="Volume"><a href="#Volume" class="headerlink" title="Volume"></a>Volume</h2><p>简单的说， 一个volume就是一个在磁盘或容器中的目录，volume里面有pod中容器可以访问的数据。K8S的volume主要解决容器中数据存储和容器间数据共享的问题。k8s的volume和pod有相同的生命周期。一个pod可以同时使用不同的volume类型。如果使用volume, 一个pod需要通过<code>spec.volumes</code>指定volume类型，<code>spec.containers.volumeMounts</code>指定挂载目录。volume不能再挂载到其他volume,</p>
@@ -5320,6 +5288,38 @@
       </categories>
       <tags>
         <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用aliyun容器服务搭建mysql</title>
+    <url>/2018/03/09/kubernetes-2018-03-10-k8s-mysql/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文简单介绍用aliyun的Kubernetes容器服务搭建mysql集群。首先确保k8s集群已经创建，并且已经开通了相关服务如NAS、容器镜像仓库等服务。</p>
+<h3 id="第一步-创建数据卷"><a href="#第一步-创建数据卷" class="headerlink" title="第一步 创建数据卷"></a>第一步 创建数据卷</h3><ul>
+<li>k8s有个nodeSelector的功能，如果mysql由于单点故障漂移了node，原来的存储会自动重新挂载到新的node(这一步骤是在转移node之前做的). 这样避免了漂移node导致有状态服务不可用的情况。</li>
+<li>aliyun支持k8s三种存储：网盘, NAS, OSS. 基于性能考虑，我们选择NAS。首先需要在NAS控制台右上角选择<code>创建文件系统</code>, 注意所创建的文件系统所在区域必须和k8s集群所在的区域在同一地域:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.36.40.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.36.40.png"><br>然后在新生成的文件系统选择<code>添加挂载点</code>，如图已经有两个挂载点，还不是很清楚为什么不能再添加新的挂载点了。添加的挂载点必须和k8s集群在同一个VPC! 记住<code>挂载地址</code>后续创建k8s数据卷时用到。<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.38.33.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.38.33.png"><br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.40.44.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.40.44.png"></li>
+<li>然后在k8s控制台右上角选中<code>创建</code>, 填上新创建的挂载点域名，点击确定数据卷就创建了：<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.44.29.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.44.29.png"></li>
+</ul>
+<h3 id="第二步-使用aliyun的镜像创建mysql"><a href="#第二步-使用aliyun的镜像创建mysql" class="headerlink" title="第二步 使用aliyun的镜像创建mysql"></a>第二步 使用aliyun的镜像创建mysql</h3><ul>
+<li>在容器服务控制台点击<code>使用镜像</code>，选择mysql部署应用, 第一步填应用名称和选择命名空间：<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.51.42.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.51.42.png"></li>
+<li>然后设置应用配置，注意在这里的环境变量必须设置MYSQL_ROOT_PASSWORD或MYSQL_ALLOW_EMPTY_PASSWORD或MYSQL_RANDOM_ROOT_PASSWORD之一，否则会创建失败。这个页面暂时没有找到设置k8s secret的地方，所以可能如编排模块那样使用secret。其它的资源和网络按需设置, 注意填上上一步创建的pv<code>mysql-pv</code>, 点击创建，然后在控制台应该能看到绿色的部署成功，若有错误，请点进容器组查看相关log。(插一句，如果使用k8s secret创建私密信息，也不能把Secret模板commit到git, 因为base64不是真的加密啊！)<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%885.04.38.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%885.04.38.png"></li>
+</ul>
+<h3 id="第三部，创建service"><a href="#第三部，创建service" class="headerlink" title="第三部，创建service"></a>第三部，创建service</h3><ul>
+<li>现在创建的mysql还只能通过172docker的网段访问， 想要所有pods通过域名访问，则需要给mysql加一个k8s service.可以通过k8s控制台的<code>服务</code>创建，编排示例如下：</li>
+</ul>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">mysql</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">3306</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">app-mysql</span>  <span class="comment"># 注意，这里是pod的label</span></span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>这样，基本上容器集群mysql搭建完成了。登入master, 使用k8s端口映射可以验证一下:</li>
+</ul>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">[root@iZuf626rqqtw2yxzeeeqtoZ ~]<span class="comment"># kubectl port-forward `kubectl get pods|grep -v NAME|cut -d &quot; &quot; -f 1` 3306:3306</span></span><br><span class="line">Forwarding from 127.0.0.1:3306 -&gt; 3306</span><br><span class="line"></span><br><span class="line">[root@iZuf626rqqtw2yxzeeeqtoZ ~]<span class="comment"># mysql -h 127.0.0.1 -u root -P 3306 -p </span></span><br><span class="line">Enter password: </span><br><span class="line">Welcome to the MariaDB monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection <span class="built_in">id</span> is 4</span><br><span class="line">Server version: 5.7.18 MySQL Community Server (GPL)</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.</span><br><span class="line"></span><br><span class="line">Type <span class="string">&#x27;help;&#x27;</span> or <span class="string">&#x27;\h&#x27;</span> <span class="keyword">for</span> <span class="built_in">help</span>. Type <span class="string">&#x27;\c&#x27;</span> to clear the current input statement.</span><br><span class="line"></span><br><span class="line">MySQL [(none)]&gt; </span><br></pre></td></tr></table></figure></div>
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>可能对阿里云的容器服务还不是很熟悉，感觉控制台有些细节还能够改进。本文还未涉及mysql的HA方案（可选Galera+StatefulSet) 。当然上生产，我们还需要进一步检验有状态服务到底适不适合容器化。</p>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes, mysql</tag>
       </tags>
   </entry>
   <entry>
@@ -5615,6 +5615,24 @@
       </tags>
   </entry>
   <entry>
+    <title>OpenStack ImageStream</title>
+    <url>/2018/01/07/openshift-2018-01-08-openstack-imagestream/</url>
+    <content><![CDATA[<h3 id="OpenShift的Image-Stream"><a href="#OpenShift的Image-Stream" class="headerlink" title="OpenShift的Image Stream"></a>OpenShift的Image Stream</h3><p>按照官方的解释<a class="link"   href="https://docs.openshift.com/enterprise/3.1/architecture/core_concepts/builds_and_image_streams.html#image-streams" >mage stream <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>一个镜像流是一组tag的镜像. 这些镜像可以是来自：</p>
+<ul>
+<li>openshift的私有镜像</li>
+<li>其它镜像流</li>
+<li>外部镜像仓库<br>OpenShift的build,deployment组件可以监控image stream. 用于触发新的build或者deploy</li>
+</ul>
+]]></content>
+      <categories>
+        <category>openshift</category>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes, openshift</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>OpenShift A/B Deployment</title>
     <url>/2018/01/08/openshift-2018-01-09-openshift-AB-deploy/</url>
     <content><![CDATA[<h3 id="OpenShift的AB部署"><a href="#OpenShift的AB部署" class="headerlink" title="OpenShift的AB部署"></a>OpenShift的AB部署</h3><p>AB test原理就不讲了。直接上代码</p>
@@ -5632,24 +5650,6 @@
     <url>/2018/01/08/openshift-2018-01-09-openshift-annotation/</url>
     <content><![CDATA[<h3 id="OpenShift的Annotation"><a href="#OpenShift的Annotation" class="headerlink" title="OpenShift的Annotation"></a>OpenShift的Annotation</h3><p>Openshift的Annotation是一个键值对，用于机器识别等其它用途。它不像label适用于人类识别，所以可以存较大的值。</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">oc annotate route/ab haproxy.router.openshift.io/balance=roundrobin</span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>openshift</category>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes, openshift</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>OpenStack ImageStream</title>
-    <url>/2018/01/07/openshift-2018-01-08-openstack-imagestream/</url>
-    <content><![CDATA[<h3 id="OpenShift的Image-Stream"><a href="#OpenShift的Image-Stream" class="headerlink" title="OpenShift的Image Stream"></a>OpenShift的Image Stream</h3><p>按照官方的解释<a class="link"   href="https://docs.openshift.com/enterprise/3.1/architecture/core_concepts/builds_and_image_streams.html#image-streams" >mage stream <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>一个镜像流是一组tag的镜像. 这些镜像可以是来自：</p>
-<ul>
-<li>openshift的私有镜像</li>
-<li>其它镜像流</li>
-<li>外部镜像仓库<br>OpenShift的build,deployment组件可以监控image stream. 用于触发新的build或者deploy</li>
-</ul>
-]]></content>
       <categories>
         <category>openshift</category>
         <category>kubernetes</category>
@@ -5928,6 +5928,23 @@
       </tags>
   </entry>
   <entry>
+    <title>Pandas的常用函数</title>
+    <url>/2018/09/16/python-2018-09-17-pandas-common-methods/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>Pandas</code>有一些常用方法, 可以作为回调函数用于其它函数.</p>
+<h3 id="pandas-DataFrame-reindex"><a href="#pandas-DataFrame-reindex" class="headerlink" title="pandas.DataFrame.reindex"></a>pandas.DataFrame.reindex</h3><p><code>reindex</code>方法用于把<code>DataFrame</code>按新的索引转化, 同时可选填充空值或者其他方法(如<code>ffill</code>, 按前项填充). 默认情况下, 重新索引过的<code>DataFrame</code>会复制原来<code>DataFrame</code>, 除非索引没有变或者设置<code>copy=False</code>.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5 = pd.DataFrame(np.arange(<span class="number">9</span>).reshape((<span class="number">3</span>,<span class="number">3</span>)), index=[<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>], columns=[<span class="string">&#x27;Ohio&#x27;</span>,<span class="string">&#x27;Texas&#x27;</span>,<span class="string">&#x27;California&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     <span class="number">0</span>      <span class="number">1</span>           <span class="number">2</span></span><br><span class="line">b     <span class="number">3</span>      <span class="number">4</span>           <span class="number">5</span></span><br><span class="line">c     <span class="number">6</span>      <span class="number">7</span>           <span class="number">8</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5 = frame5.reindex([<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,<span class="string">&#x27;d&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a   <span class="number">0.0</span>    <span class="number">1.0</span>         <span class="number">2.0</span></span><br><span class="line">b   <span class="number">3.0</span>    <span class="number">4.0</span>         <span class="number">5.0</span></span><br><span class="line">c   <span class="number">6.0</span>    <span class="number">7.0</span>         <span class="number">8.0</span></span><br><span class="line">d   NaN    NaN         NaN</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="丢弃某些行或列"><a href="#丢弃某些行或列" class="headerlink" title="丢弃某些行或列"></a>丢弃某些行或列</h3><p>对于<code>DataFrame</code>, 想要删除某行或列是很方便的, 直接通过<code>drop([])</code>方法可以实现, 默认删除行, 如果需要删除列, 可以设置参数<code>axis=1</code>.</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a   <span class="number">0.0</span>    <span class="number">1.0</span>         <span class="number">2.0</span></span><br><span class="line">b   <span class="number">3.0</span>    <span class="number">4.0</span>         <span class="number">5.0</span></span><br><span class="line">c   <span class="number">6.0</span>    <span class="number">7.0</span>         <span class="number">8.0</span></span><br><span class="line">d   NaN    NaN         NaN</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5.drop([<span class="string">&#x27;a&#x27;</span>])</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">b   <span class="number">3.0</span>    <span class="number">4.0</span>         <span class="number">5.0</span></span><br><span class="line">c   <span class="number">6.0</span>    <span class="number">7.0</span>         <span class="number">8.0</span></span><br><span class="line">d   NaN    NaN         NaN</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5.drop([<span class="string">&#x27;Ohio&#x27;</span>], axis=<span class="number">1</span>)</span><br><span class="line">   Texas  California</span><br><span class="line">a    <span class="number">1.0</span>         <span class="number">2.0</span></span><br><span class="line">b    <span class="number">4.0</span>         <span class="number">5.0</span></span><br><span class="line">c    <span class="number">7.0</span>         <span class="number">8.0</span></span><br><span class="line">d    NaN         NaN</span><br></pre></td></tr></table></figure></div>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python, pandas</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Pandas的数据结构</title>
     <url>/2018/09/15/python-2018-09-16-pandas%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>基本上, <code>Pandas</code>的<code>Series</code>沿袭了<code>Numpy</code>的设计, 是一维数组和数组的索引, 和<code>Numpy</code>不同的一点是这个一维数组可以是异构的,比如数字int和字符串混在一起, 这个时候数组的类型是<code>object</code>. 而<code>DataFrame</code>是为了处理表格和异构多维的数据.</p>
@@ -5964,23 +5981,6 @@
 <p><code>pandas</code>的索引对象是不可变的, 既可以把<code>index</code>当成数组, 可以当成集合, <strong>注意</strong>这个集合不同于python的<code>set</code>, 集合是可以重复的.</p>
 <div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>dup_index = pd.Index([<span class="string">&#x27;foo&#x27;</span>,<span class="string">&#x27;foo&#x27;</span>,<span class="string">&#x27;bar&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dup_index</span><br><span class="line">Index([<span class="string">u&#x27;foo&#x27;</span>, <span class="string">u&#x27;foo&#x27;</span>, <span class="string">u&#x27;bar&#x27;</span>], dtype=<span class="string">&#x27;object&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
 <p><code>Index</code>对象的一些常用方法:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-17%20%E4%B8%8B%E5%8D%882.40.46.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-17%20%E4%B8%8B%E5%8D%882.40.46.png"></p>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python, pandas</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Pandas的常用函数</title>
-    <url>/2018/09/16/python-2018-09-17-pandas-common-methods/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>Pandas</code>有一些常用方法, 可以作为回调函数用于其它函数.</p>
-<h3 id="pandas-DataFrame-reindex"><a href="#pandas-DataFrame-reindex" class="headerlink" title="pandas.DataFrame.reindex"></a>pandas.DataFrame.reindex</h3><p><code>reindex</code>方法用于把<code>DataFrame</code>按新的索引转化, 同时可选填充空值或者其他方法(如<code>ffill</code>, 按前项填充). 默认情况下, 重新索引过的<code>DataFrame</code>会复制原来<code>DataFrame</code>, 除非索引没有变或者设置<code>copy=False</code>.</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5 = pd.DataFrame(np.arange(<span class="number">9</span>).reshape((<span class="number">3</span>,<span class="number">3</span>)), index=[<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>], columns=[<span class="string">&#x27;Ohio&#x27;</span>,<span class="string">&#x27;Texas&#x27;</span>,<span class="string">&#x27;California&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     <span class="number">0</span>      <span class="number">1</span>           <span class="number">2</span></span><br><span class="line">b     <span class="number">3</span>      <span class="number">4</span>           <span class="number">5</span></span><br><span class="line">c     <span class="number">6</span>      <span class="number">7</span>           <span class="number">8</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5 = frame5.reindex([<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,<span class="string">&#x27;d&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a   <span class="number">0.0</span>    <span class="number">1.0</span>         <span class="number">2.0</span></span><br><span class="line">b   <span class="number">3.0</span>    <span class="number">4.0</span>         <span class="number">5.0</span></span><br><span class="line">c   <span class="number">6.0</span>    <span class="number">7.0</span>         <span class="number">8.0</span></span><br><span class="line">d   NaN    NaN         NaN</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="丢弃某些行或列"><a href="#丢弃某些行或列" class="headerlink" title="丢弃某些行或列"></a>丢弃某些行或列</h3><p>对于<code>DataFrame</code>, 想要删除某行或列是很方便的, 直接通过<code>drop([])</code>方法可以实现, 默认删除行, 如果需要删除列, 可以设置参数<code>axis=1</code>.</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a   <span class="number">0.0</span>    <span class="number">1.0</span>         <span class="number">2.0</span></span><br><span class="line">b   <span class="number">3.0</span>    <span class="number">4.0</span>         <span class="number">5.0</span></span><br><span class="line">c   <span class="number">6.0</span>    <span class="number">7.0</span>         <span class="number">8.0</span></span><br><span class="line">d   NaN    NaN         NaN</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5.drop([<span class="string">&#x27;a&#x27;</span>])</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">b   <span class="number">3.0</span>    <span class="number">4.0</span>         <span class="number">5.0</span></span><br><span class="line">c   <span class="number">6.0</span>    <span class="number">7.0</span>         <span class="number">8.0</span></span><br><span class="line">d   NaN    NaN         NaN</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5.drop([<span class="string">&#x27;Ohio&#x27;</span>], axis=<span class="number">1</span>)</span><br><span class="line">   Texas  California</span><br><span class="line">a    <span class="number">1.0</span>         <span class="number">2.0</span></span><br><span class="line">b    <span class="number">4.0</span>         <span class="number">5.0</span></span><br><span class="line">c    <span class="number">7.0</span>         <span class="number">8.0</span></span><br><span class="line">d    NaN         NaN</span><br></pre></td></tr></table></figure></div>
 ]]></content>
       <categories>
         <category>python</category>
@@ -6161,36 +6161,6 @@
       </tags>
   </entry>
   <entry>
-    <title>SQL Server的存储过程</title>
-    <url>/2021/01/31/database-SQL-Server-2021-2-1-SQL-Server%E7%9A%84%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>SQL Server 的存储过程是微软基于 ANSI SQL 的扩展，和其他数据库的过程类似是一组或多组事务性 SQL 语句。它的特点是：</p>
-<ul>
-<li>接受多个输入参数，可以返回多个值。</li>
-<li>包含编程语句用于操作数据库，包括调用其他存储过程。</li>
-<li>返回调用成功与否的状态。</li>
-</ul>
-<h3 id="使用存储过程的好处"><a href="#使用存储过程的好处" class="headerlink" title="使用存储过程的好处"></a>使用存储过程的好处</h3><ul>
-<li><strong>减少服务端、客户端的网络流量</strong>， 存储过程的代码是一次性批量传输给服务端，不像普通语句是一行一次传输给客户端，这样减少了网络流量。</li>
-<li><strong>更安全</strong>， 不同的用户和客户端可以运行存储过程操作底层的数据库对象，即便这个用户没有底层对象的权限。（减少了单独对用户的授权的便捷性，但是更安全了？）<code>EXECUTE AS</code>语句用来作为执行过程用户。存储过程是可以被加密的。</li>
-<li><strong>复用代码</strong></li>
-<li><strong>更容易维护</strong></li>
-<li><strong>更好的性能</strong>，因为第一次运行后执行计划会被保留。</li>
-</ul>
-<h3 id="存储过程的类型"><a href="#存储过程的类型" class="headerlink" title="存储过程的类型"></a>存储过程的类型</h3><ul>
-<li><strong>自定义</strong> 用户自定义的存储过程可以用于所有数据库(除了 Resource 数据库).</li>
-<li><strong>临时</strong> 临时存储过程也是一种用户自定义过程，存储在<code>tempdb</code>库中，它的生命周期就是连接的时间。临时存储过程又分为<code>local</code>和<code>global</code>, 它们的区别在于名字、可见性和可用性。<code>local</code>存储过程以<code>#</code>开头命名，只对当前连接用户可见，连接关闭将删除过程。<code>global</code>存储过程以<code>##</code>命名开头，这个过程创建后对所有用户可见，当最后一个会话关闭后将删除过程。</li>
-<li><strong>系统</strong> 系统存储过程存储在<code>Resource</code>数据库，逻辑上以<code>sys</code>表出现。另外<code>msdb</code>数据库也有系统存储过程存在<code>dbo</code>表中，用于调度警告和任务。一般系统存储过程以<code>sp_</code>命名开头。用户可以扩展系统存储过程，一般以<code>xp_</code>命名开头，见官网资料 [<a class="link"   href="https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/general-extended-stored-procedures-transact-sql?view=sql-server-2017%5D" >https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/general-extended-stored-procedures-transact-sql?view=sql-server-2017] <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>(General Extended Stored Procedures)</li>
-<li><strong>扩展自定义</strong> 用户可以使用 C 语言来创建外部 DLL,不过为了将来的兼容性不建议使用。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>database</category>
-      </categories>
-      <tags>
-        <tag>database, stored procedures</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MongoDB的架构</title>
     <url>/2018/09/23/database-mongodb-2018-09-24-mongo-%E6%9E%B6%E6%9E%84/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近尝试用MongoDB替换Mysql， 由于Mysql的写能力限制， 32C128G的实例同时写入1M的数据CPU飙升， 更不用说如果是并发的情况。MongoDB通过<code>sharding</code>能够很好地解决写能力扩展的问题, 故作一篇网上大神博客的小结. MongoDB的架构大致如下图所示(v3.2):<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8A%E5%8D%8811.19.05.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8A%E5%8D%8811.19.05.png"></p>
@@ -6227,6 +6197,36 @@
       </categories>
       <tags>
         <tag>mongo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL Server的存储过程</title>
+    <url>/2021/01/31/database-SQL-Server-2021-2-1-SQL-Server%E7%9A%84%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>SQL Server 的存储过程是微软基于 ANSI SQL 的扩展，和其他数据库的过程类似是一组或多组事务性 SQL 语句。它的特点是：</p>
+<ul>
+<li>接受多个输入参数，可以返回多个值。</li>
+<li>包含编程语句用于操作数据库，包括调用其他存储过程。</li>
+<li>返回调用成功与否的状态。</li>
+</ul>
+<h3 id="使用存储过程的好处"><a href="#使用存储过程的好处" class="headerlink" title="使用存储过程的好处"></a>使用存储过程的好处</h3><ul>
+<li><strong>减少服务端、客户端的网络流量</strong>， 存储过程的代码是一次性批量传输给服务端，不像普通语句是一行一次传输给客户端，这样减少了网络流量。</li>
+<li><strong>更安全</strong>， 不同的用户和客户端可以运行存储过程操作底层的数据库对象，即便这个用户没有底层对象的权限。（减少了单独对用户的授权的便捷性，但是更安全了？）<code>EXECUTE AS</code>语句用来作为执行过程用户。存储过程是可以被加密的。</li>
+<li><strong>复用代码</strong></li>
+<li><strong>更容易维护</strong></li>
+<li><strong>更好的性能</strong>，因为第一次运行后执行计划会被保留。</li>
+</ul>
+<h3 id="存储过程的类型"><a href="#存储过程的类型" class="headerlink" title="存储过程的类型"></a>存储过程的类型</h3><ul>
+<li><strong>自定义</strong> 用户自定义的存储过程可以用于所有数据库(除了 Resource 数据库).</li>
+<li><strong>临时</strong> 临时存储过程也是一种用户自定义过程，存储在<code>tempdb</code>库中，它的生命周期就是连接的时间。临时存储过程又分为<code>local</code>和<code>global</code>, 它们的区别在于名字、可见性和可用性。<code>local</code>存储过程以<code>#</code>开头命名，只对当前连接用户可见，连接关闭将删除过程。<code>global</code>存储过程以<code>##</code>命名开头，这个过程创建后对所有用户可见，当最后一个会话关闭后将删除过程。</li>
+<li><strong>系统</strong> 系统存储过程存储在<code>Resource</code>数据库，逻辑上以<code>sys</code>表出现。另外<code>msdb</code>数据库也有系统存储过程存在<code>dbo</code>表中，用于调度警告和任务。一般系统存储过程以<code>sp_</code>命名开头。用户可以扩展系统存储过程，一般以<code>xp_</code>命名开头，见官网资料 [<a class="link"   href="https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/general-extended-stored-procedures-transact-sql?view=sql-server-2017%5D" >https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/general-extended-stored-procedures-transact-sql?view=sql-server-2017] <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>(General Extended Stored Procedures)</li>
+<li><strong>扩展自定义</strong> 用户可以使用 C 语言来创建外部 DLL,不过为了将来的兼容性不建议使用。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>database</category>
+      </categories>
+      <tags>
+        <tag>database, stored procedures</tag>
       </tags>
   </entry>
   <entry>
@@ -6684,6 +6684,42 @@
       </tags>
   </entry>
   <entry>
+    <title>InnoDB Buffer Pool for Mysql 5.7</title>
+    <url>/2017/12/15/database-mysql-2017-12-16-innodb-5-7-buffer-pool/</url>
+    <content><![CDATA[<h3 id="缓存池"><a href="#缓存池" class="headerlink" title="缓存池"></a>缓存池</h3><ul>
+<li>内存池用page来分割，pages会连接成链表，方便管理。</li>
+<li>内存池最小单位是page， 一个page默认是16KB. 一个page可以有一行以上数据， 如果只有一行，而且没有填满page，innodb会用指针类型的数据结构填满page。可以压缩数据让page包含更多行数据，对于Blob或者text类型的大column, 使用压缩技术innodb会单独存储这一列的数据，以便减少不必要的查询开销。</li>
+<li>一般缓存池最多会占80%的物理内存，InnoDB使用变异的LRU算法，维持缓存中数据的热度。</li>
+<li><code>select * from information_schema.innodb_buffer_page</code> 可以查看所有缓冲池的元信息，这个查询可能影响性能。</li>
+</ul>
+<h3 id="change-buffer"><a href="#change-buffer" class="headerlink" title="change buffer"></a>change buffer</h3><ul>
+<li>change buffer 是一个特殊的数据结构，用于缓存那些辅助索引页的修改，而这些页又不在buffer pool中。由于辅助索引非唯一，insert,delete,update更改辅助索引页并不是按序进行的。所以需要先把他们缓存起来，当辅助索引读入buffer的时候，一并merge到buffer,这样减少了随机访问磁盘I&#x2F;O.</li>
+<li>change buffer 包含insert buffer, delete buffer, purge buffer</li>
+<li>change buffer 既是缓存，又是tablespace的一部分。</li>
+<li><code>show variables like innodb_change_buffering</code> 这个变量可以设置inserts, deletes, purges,all,none.<ul>
+<li><pre><code class="bash">none	Do not buffer any operations.
+inserts	Buffer insert operations.
+deletes	Buffer delete marking operations; strictly speaking, the writes that mark           index records for later deletion during a purge operation.
+changes	Buffer inserts and delete-marking operations.
+purges	Buffer the physical deletion operations that happen in the background.
+all	The default. Buffer inserts, delete-marking operations, and purges.
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">- 下面这个状态可以看到具体change buffer操作次数，insert表示insert buffer, delete mark表示delete buffer, delete表示purge buffer;</span><br><span class="line">    ```sql</span><br><span class="line">  show engine innodb status;</span><br><span class="line">  -------------------------------------</span><br><span class="line">  INSERT BUFFER AND ADAPTIVE HASH INDEX</span><br><span class="line">  -------------------------------------</span><br><span class="line">  Ibuf: size 1, free list len 0, seg size 2, 0 merges</span><br><span class="line">  merged operations:</span><br><span class="line">   insert 0, delete mark 0, delete 0</span><br><span class="line">  discarded operations:</span><br><span class="line">   insert 0, delete mark 0, delete 0</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 1 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  0.00 hash searches/s, 0.00 non-hash searches/s</span><br></pre></td></tr></table></figure></div>
+</code></pre>
+</li>
+</ul>
+</li>
+<li>查看IBUF_INDEX和IBUF_BITMAP占全部page的比例  <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> (<span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> INFORMATION_SCHEMA.INNODB_BUFFER_PAGE</span><br><span class="line"><span class="keyword">WHERE</span> PAGE_TYPE <span class="keyword">LIKE</span> <span class="string">&#x27;IBUF%&#x27;</span>) <span class="keyword">AS</span> change_buffer_pages,</span><br><span class="line">(<span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> INFORMATION_SCHEMA.INNODB_BUFFER_PAGE) <span class="keyword">AS</span> total_pages,</span><br><span class="line">(<span class="keyword">SELECT</span> ((change_buffer_pages<span class="operator">/</span>total_pages)<span class="operator">*</span><span class="number">100</span>))</span><br><span class="line"><span class="keyword">AS</span> change_buffer_page_percentage;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">change_buffer_pages | total_pages | change_buffer_page_percentage|</span><br><span class="line">--- | --- | ---</span><br><span class="line">21 | 8191 | 0.2564 |</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+]]></content>
+      <categories>
+        <category>database</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MySQL 5.7 性能调优</title>
     <url>/2018/06/26/database-mysql-2018-06-27-mysql5-7%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在使用<code>new relic</code>监控发现有个sql update花了30s, 于是开启了数据库优化的路径…</p>
@@ -6736,42 +6772,6 @@
 <li>key_cache_age_threshold</li>
 </ul>
 <h3 id="配置Innodb-buffer-pool-size"><a href="#配置Innodb-buffer-pool-size" class="headerlink" title="配置Innodb_buffer_pool_size"></a>配置Innodb_buffer_pool_size</h3>]]></content>
-      <categories>
-        <category>database</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>InnoDB Buffer Pool for Mysql 5.7</title>
-    <url>/2017/12/15/database-mysql-2017-12-16-innodb-5-7-buffer-pool/</url>
-    <content><![CDATA[<h3 id="缓存池"><a href="#缓存池" class="headerlink" title="缓存池"></a>缓存池</h3><ul>
-<li>内存池用page来分割，pages会连接成链表，方便管理。</li>
-<li>内存池最小单位是page， 一个page默认是16KB. 一个page可以有一行以上数据， 如果只有一行，而且没有填满page，innodb会用指针类型的数据结构填满page。可以压缩数据让page包含更多行数据，对于Blob或者text类型的大column, 使用压缩技术innodb会单独存储这一列的数据，以便减少不必要的查询开销。</li>
-<li>一般缓存池最多会占80%的物理内存，InnoDB使用变异的LRU算法，维持缓存中数据的热度。</li>
-<li><code>select * from information_schema.innodb_buffer_page</code> 可以查看所有缓冲池的元信息，这个查询可能影响性能。</li>
-</ul>
-<h3 id="change-buffer"><a href="#change-buffer" class="headerlink" title="change buffer"></a>change buffer</h3><ul>
-<li>change buffer 是一个特殊的数据结构，用于缓存那些辅助索引页的修改，而这些页又不在buffer pool中。由于辅助索引非唯一，insert,delete,update更改辅助索引页并不是按序进行的。所以需要先把他们缓存起来，当辅助索引读入buffer的时候，一并merge到buffer,这样减少了随机访问磁盘I&#x2F;O.</li>
-<li>change buffer 包含insert buffer, delete buffer, purge buffer</li>
-<li>change buffer 既是缓存，又是tablespace的一部分。</li>
-<li><code>show variables like innodb_change_buffering</code> 这个变量可以设置inserts, deletes, purges,all,none.<ul>
-<li><pre><code class="bash">none	Do not buffer any operations.
-inserts	Buffer insert operations.
-deletes	Buffer delete marking operations; strictly speaking, the writes that mark           index records for later deletion during a purge operation.
-changes	Buffer inserts and delete-marking operations.
-purges	Buffer the physical deletion operations that happen in the background.
-all	The default. Buffer inserts, delete-marking operations, and purges.
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">- 下面这个状态可以看到具体change buffer操作次数，insert表示insert buffer, delete mark表示delete buffer, delete表示purge buffer;</span><br><span class="line">    ```sql</span><br><span class="line">  show engine innodb status;</span><br><span class="line">  -------------------------------------</span><br><span class="line">  INSERT BUFFER AND ADAPTIVE HASH INDEX</span><br><span class="line">  -------------------------------------</span><br><span class="line">  Ibuf: size 1, free list len 0, seg size 2, 0 merges</span><br><span class="line">  merged operations:</span><br><span class="line">   insert 0, delete mark 0, delete 0</span><br><span class="line">  discarded operations:</span><br><span class="line">   insert 0, delete mark 0, delete 0</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 1 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  0.00 hash searches/s, 0.00 non-hash searches/s</span><br></pre></td></tr></table></figure></div>
-</code></pre>
-</li>
-</ul>
-</li>
-<li>查看IBUF_INDEX和IBUF_BITMAP占全部page的比例  <div class="highlight-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> (<span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> INFORMATION_SCHEMA.INNODB_BUFFER_PAGE</span><br><span class="line"><span class="keyword">WHERE</span> PAGE_TYPE <span class="keyword">LIKE</span> <span class="string">&#x27;IBUF%&#x27;</span>) <span class="keyword">AS</span> change_buffer_pages,</span><br><span class="line">(<span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">FROM</span> INFORMATION_SCHEMA.INNODB_BUFFER_PAGE) <span class="keyword">AS</span> total_pages,</span><br><span class="line">(<span class="keyword">SELECT</span> ((change_buffer_pages<span class="operator">/</span>total_pages)<span class="operator">*</span><span class="number">100</span>))</span><br><span class="line"><span class="keyword">AS</span> change_buffer_page_percentage;</span><br></pre></td></tr></table></figure></div>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">change_buffer_pages | total_pages | change_buffer_page_percentage|</span><br><span class="line">--- | --- | ---</span><br><span class="line">21 | 8191 | 0.2564 |</span><br></pre></td></tr></table></figure></div></li>
-</ul>
-]]></content>
       <categories>
         <category>database</category>
       </categories>
