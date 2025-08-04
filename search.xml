@@ -588,16 +588,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Servitization in Subscription Mode</title>
-    <url>/2023/02/23/servitization-in-subscription-mode/</url>
-    <content><![CDATA[<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Servitization is shift from a product only focus to a strategy where products<br>and services are bundled in various combinations. The shift could also be the focus from goods, technology and manufacturing to services, intangible resources, co-creation of value and relationships. Some scholars call it Prodcut Service System aka PSS. Nowadays more and more tranditional companies increase the influence of services in their traditional business to secure their competitive position.<br>It is driven by the growing complexity of products and the demand for individualization. Nowadays the extended target is to enhance the performance of products through the integration of services and digital components.</p>
-<h2 id="Servitization-Process"><a href="#Servitization-Process" class="headerlink" title="Servitization Process"></a>Servitization Process</h2><p>General speaking, there are serveral steps to take so as a company transfers from product-centric to customer-centric </p>
-<h2 id="Key-Characterics-of-subscription-model"><a href="#Key-Characterics-of-subscription-model" class="headerlink" title="Key Characterics of subscription model"></a>Key Characterics of subscription model</h2><h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2>]]></content>
-      <tags>
-        <tag>subscription model, Servitization</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Health Data Security Guide</title>
     <url>/2023/02/21/health-data-security-guide/</url>
     <content><![CDATA[<blockquote>
@@ -1005,6 +995,16 @@
 <h2 id="11-Data-Security-on-Typical-Scenarios-Skip"><a href="#11-Data-Security-on-Typical-Scenarios-Skip" class="headerlink" title="11 Data Security on Typical Scenarios(Skip)"></a>11 Data Security on Typical Scenarios(Skip)</h2>]]></content>
       <tags>
         <tag>Data security</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Servitization in Subscription Mode</title>
+    <url>/2023/02/23/servitization-in-subscription-mode/</url>
+    <content><![CDATA[<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Servitization is shift from a product only focus to a strategy where products<br>and services are bundled in various combinations. The shift could also be the focus from goods, technology and manufacturing to services, intangible resources, co-creation of value and relationships. Some scholars call it Prodcut Service System aka PSS. Nowadays more and more tranditional companies increase the influence of services in their traditional business to secure their competitive position.<br>It is driven by the growing complexity of products and the demand for individualization. Nowadays the extended target is to enhance the performance of products through the integration of services and digital components.</p>
+<h2 id="Servitization-Process"><a href="#Servitization-Process" class="headerlink" title="Servitization Process"></a>Servitization Process</h2><p>General speaking, there are serveral steps to take so as a company transfers from product-centric to customer-centric </p>
+<h2 id="Key-Characterics-of-subscription-model"><a href="#Key-Characterics-of-subscription-model" class="headerlink" title="Key Characterics of subscription model"></a>Key Characterics of subscription model</h2><h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2>]]></content>
+      <tags>
+        <tag>subscription model, Servitization</tag>
       </tags>
   </entry>
   <entry>
@@ -1601,30 +1601,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>RAG</title>
-    <url>/2023/11/25/RAG/</url>
-    <content><![CDATA[<h1 id="什么是检索增强生成RAG"><a href="#什么是检索增强生成RAG" class="headerlink" title="什么是检索增强生成RAG?"></a>什么是检索增强生成RAG?</h1><blockquote>
-<p>本文将为您简要介绍RAG（Retrieval-Augmented Generation）的发展历程。通过仔细阅读以下内容，您将初步了解RAG，并通过实际应用案例找到适合您的应用场景。</p>
-</blockquote>
-<h2 id="定义与用处"><a href="#定义与用处" class="headerlink" title="定义与用处"></a>定义与用处</h2><p>检索增强生成（RAG）是一种人工智能框架，通过基于外部知识源对模型进行信息补充，以增强大型语言模型内部对信息的表示，从而提高模型生成的响应质量。</p>
-<p>RAG是用于从外部知识库中检索事实，在大型语言模型（LLMs）上建立基础的人工智能框架，旨在提供最准确、最新的信息，并使用户深入了解LLMs的生成过程。大型语言模型可能存在不一致性，有时它们能够准确回答问题，而其他时候则可能随机地重复训练数据中的事实。如果它们偶尔听起来好像不知道自己在说什么，那是因为它们确实不知道。大型语言模型知道词语在统计上的关联，但不知道它们的含义。</p>
-<h2 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h2><p>在基于大型语言模型的问答系统中实施RAG有两个主要好处：它确保模型能够访问最新、可靠的事实，用户可以访问模型的信息源，以确保其响应可以进行准确性检查，最终保证可信度。</p>
-<p>RAG还具有额外的好处，那就是敏感信息不用计入预训练。通过基于一组外部可验证的事实来基础LLM，模型减少了将信息嵌入其参数的机会。这降低了LLM泄漏敏感数据或产生不正确或误导性信息的可能性。</p>
-<p>RAG还减少了用户不断对模型进行新数据训练和参数更新的需求。通过这种方式，RAG可以降低在企业环境中运行以LLM为动力的聊天机器人的计算和财务成本。</p>
-<h2 id="大模型微调的一种方式"><a href="#大模型微调的一种方式" class="headerlink" title="大模型微调的一种方式"></a>大模型微调的一种方式</h2><p>支撑所有基础大模型的底层架构是一种被称为transformer的人工智能架构。它将大量原始数据转化为其基本结构的压缩表示。从这个基础架构表示开始，基础模型可以通过对标记的领域特定知识进行一些额外的微调来适应各种任务。</p>
-<p>但仅仅通过微调很少能够使模型获得在不断变化的背景下回答高度特定问题所需的全部知识广度。在一篇2020年的论文中，Meta（当时称为Facebook）提出了一个名为检索增强生成的框架，以使LLMs能够访问其训练数据之外的信息。RAG允许LLMs基于专业知识体系以更准确的方式回答问题。</p>
-<p>正如其名所示，RAG有两个阶段：检索和内容生成。在检索阶段，算法搜索并检索与用户提示或问题相关的信息片段。在开放领域的消费者设置中，这些事实可以来自互联网上索引的文档；在封闭领域的企业设置中，通常使用更窄范围的来源以增加安全性和可靠性。</p>
-<p>这些外部知识的集合被追加到用户的提示中，并传递给语言模型。在生成阶段，LLM从增强提示和其对训练数据的内部表示中获取信息，以合成一个针对用户的引人入胜的答案。然后，可以将答案传递给带有其来源链接的聊天机器人。</p>
-<h2 id="RAG应用场景"><a href="#RAG应用场景" class="headerlink" title="RAG应用场景"></a>RAG应用场景</h2><p><strong>个性化和可验证的响应。</strong><br>如今，由LLM驱动的聊天机器人可以在无需人类编写新脚本的情况下为客户提供更个性化的答案。而RAG允许LLMs更进一步，极大地减少了对模型进行新样本喂养和重新训练的需求。只需上传最新的文档或数据，模型就以开卷考试的方式检索信息以回答问题。并且回答的问题将附带了其信息来源的链接以确认信息的正确性。</p>
-<p><strong>教导模型识别自己不知道的情况。</strong><br>人类的查询并非总是如此直截了当。它们可能措辞模糊、复杂，或需要模型没有或不能轻松解析的知识。在这些条件下，LLMs容易编造事实。通过足够的微调，LLM可以被训练停下来并表示自己不知道如何解答而不是随意回答。但训练它可能需要看到数千个可以回答和无法回答的问题的示例。只有在那之后，模型才能学会识别无法回答的问题，并探索更多细节，直到找到它具备回答的信息的问题。</p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>RAG目前是将LLMs基础在最新的、可验证的信息上的最为知名的工具，同时降低了不断重新训练和更新它们的成本。RAG依赖于丰富提示信息的能力，其中包含在向量中的相关信息，而这些向量是数据的数学表示。向量数据库可以高效地索引、存储和检索诸如推荐引擎和聊天机器人等信息。但RAG并不完美，让RAG正确完成仍然存在许多有趣的挑战。</p>
-<h3 id="Azure-RAG演示"><a href="#Azure-RAG演示" class="headerlink" title="Azure RAG演示"></a>Azure RAG演示</h3><h4 id="推荐阅读"><a href="#推荐阅读" class="headerlink" title="推荐阅读"></a>推荐阅读</h4><ul>
-<li><a class="link"   href="https://arxiv.org/pdf/2005.11401v4.pdf" >RAG论文<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
-<li><a class="link"   href="https://github.com/Azure/GPT-RAG" >微软gpt-rag<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
     <title>非财务经理的财务课</title>
     <url>/2023/12/13/%E9%9D%9E%E8%B4%A2%E5%8A%A1%E7%BB%8F%E7%90%86%E7%9A%84%E8%B4%A2%E5%8A%A1%E8%AF%BE/</url>
     <content><![CDATA[<h2 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h2><p>财务知识对于很多非财务背景的同学看似很陌生，其实必要的财务知识对于我们日常的生活和工作都有着息息相关的帮助。本人曾参加多次参加线上和线下财务和金融知识方面的培训，可惜疏于总结和应用，直到最近开始规划产品的商业化落地才又捡起来。本文将总结自己曾经学习到的知识做个总结，适用于非财务背景的同学食用。</p>
@@ -1774,6 +1750,30 @@
                       alt="income"
                 ></p>
 <h3 id="业财融合，发现问题和机会"><a href="#业财融合，发现问题和机会" class="headerlink" title="业财融合，发现问题和机会"></a>业财融合，发现问题和机会</h3><p>财务数据可以帮助高管做决策，而在决策的过程中，我们不能以看财报的眼光看待财务数据，而要从内部决策的角度看待数据，财务数据是可以支持内部决策的。<br>财务并不是在经营结束后进行总结的滞后性数据，财务往往可以提前涉及，是基于未来的。例如，在编制预算中，我们就可以有针对性的对报表架构进行设计，如用多少倍的杠杆，是否轻资产架构等等。<br>在做决策的过程中，我们往往不用账本上的数据做决策，因为记在账簿的数据是已经发生的沉没成本，沉没成本不能用于做决策，但可以参考这些数据，机会成本，机会业绩，这些可能在未来发生的数据才是用来支持决策。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>RAG</title>
+    <url>/2023/11/25/RAG/</url>
+    <content><![CDATA[<h1 id="什么是检索增强生成RAG"><a href="#什么是检索增强生成RAG" class="headerlink" title="什么是检索增强生成RAG?"></a>什么是检索增强生成RAG?</h1><blockquote>
+<p>本文将为您简要介绍RAG（Retrieval-Augmented Generation）的发展历程。通过仔细阅读以下内容，您将初步了解RAG，并通过实际应用案例找到适合您的应用场景。</p>
+</blockquote>
+<h2 id="定义与用处"><a href="#定义与用处" class="headerlink" title="定义与用处"></a>定义与用处</h2><p>检索增强生成（RAG）是一种人工智能框架，通过基于外部知识源对模型进行信息补充，以增强大型语言模型内部对信息的表示，从而提高模型生成的响应质量。</p>
+<p>RAG是用于从外部知识库中检索事实，在大型语言模型（LLMs）上建立基础的人工智能框架，旨在提供最准确、最新的信息，并使用户深入了解LLMs的生成过程。大型语言模型可能存在不一致性，有时它们能够准确回答问题，而其他时候则可能随机地重复训练数据中的事实。如果它们偶尔听起来好像不知道自己在说什么，那是因为它们确实不知道。大型语言模型知道词语在统计上的关联，但不知道它们的含义。</p>
+<h2 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h2><p>在基于大型语言模型的问答系统中实施RAG有两个主要好处：它确保模型能够访问最新、可靠的事实，用户可以访问模型的信息源，以确保其响应可以进行准确性检查，最终保证可信度。</p>
+<p>RAG还具有额外的好处，那就是敏感信息不用计入预训练。通过基于一组外部可验证的事实来基础LLM，模型减少了将信息嵌入其参数的机会。这降低了LLM泄漏敏感数据或产生不正确或误导性信息的可能性。</p>
+<p>RAG还减少了用户不断对模型进行新数据训练和参数更新的需求。通过这种方式，RAG可以降低在企业环境中运行以LLM为动力的聊天机器人的计算和财务成本。</p>
+<h2 id="大模型微调的一种方式"><a href="#大模型微调的一种方式" class="headerlink" title="大模型微调的一种方式"></a>大模型微调的一种方式</h2><p>支撑所有基础大模型的底层架构是一种被称为transformer的人工智能架构。它将大量原始数据转化为其基本结构的压缩表示。从这个基础架构表示开始，基础模型可以通过对标记的领域特定知识进行一些额外的微调来适应各种任务。</p>
+<p>但仅仅通过微调很少能够使模型获得在不断变化的背景下回答高度特定问题所需的全部知识广度。在一篇2020年的论文中，Meta（当时称为Facebook）提出了一个名为检索增强生成的框架，以使LLMs能够访问其训练数据之外的信息。RAG允许LLMs基于专业知识体系以更准确的方式回答问题。</p>
+<p>正如其名所示，RAG有两个阶段：检索和内容生成。在检索阶段，算法搜索并检索与用户提示或问题相关的信息片段。在开放领域的消费者设置中，这些事实可以来自互联网上索引的文档；在封闭领域的企业设置中，通常使用更窄范围的来源以增加安全性和可靠性。</p>
+<p>这些外部知识的集合被追加到用户的提示中，并传递给语言模型。在生成阶段，LLM从增强提示和其对训练数据的内部表示中获取信息，以合成一个针对用户的引人入胜的答案。然后，可以将答案传递给带有其来源链接的聊天机器人。</p>
+<h2 id="RAG应用场景"><a href="#RAG应用场景" class="headerlink" title="RAG应用场景"></a>RAG应用场景</h2><p><strong>个性化和可验证的响应。</strong><br>如今，由LLM驱动的聊天机器人可以在无需人类编写新脚本的情况下为客户提供更个性化的答案。而RAG允许LLMs更进一步，极大地减少了对模型进行新样本喂养和重新训练的需求。只需上传最新的文档或数据，模型就以开卷考试的方式检索信息以回答问题。并且回答的问题将附带了其信息来源的链接以确认信息的正确性。</p>
+<p><strong>教导模型识别自己不知道的情况。</strong><br>人类的查询并非总是如此直截了当。它们可能措辞模糊、复杂，或需要模型没有或不能轻松解析的知识。在这些条件下，LLMs容易编造事实。通过足够的微调，LLM可以被训练停下来并表示自己不知道如何解答而不是随意回答。但训练它可能需要看到数千个可以回答和无法回答的问题的示例。只有在那之后，模型才能学会识别无法回答的问题，并探索更多细节，直到找到它具备回答的信息的问题。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>RAG目前是将LLMs基础在最新的、可验证的信息上的最为知名的工具，同时降低了不断重新训练和更新它们的成本。RAG依赖于丰富提示信息的能力，其中包含在向量中的相关信息，而这些向量是数据的数学表示。向量数据库可以高效地索引、存储和检索诸如推荐引擎和聊天机器人等信息。但RAG并不完美，让RAG正确完成仍然存在许多有趣的挑战。</p>
+<h3 id="Azure-RAG演示"><a href="#Azure-RAG演示" class="headerlink" title="Azure RAG演示"></a>Azure RAG演示</h3><h4 id="推荐阅读"><a href="#推荐阅读" class="headerlink" title="推荐阅读"></a>推荐阅读</h4><ul>
+<li><a class="link"   href="https://arxiv.org/pdf/2005.11401v4.pdf" >RAG论文<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   href="https://github.com/Azure/GPT-RAG" >微软gpt-rag<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
 ]]></content>
   </entry>
   <entry>
@@ -2040,6 +2040,33 @@
       </tags>
   </entry>
   <entry>
+    <title>Deep Learning Book Notes--Chapter 5</title>
+    <url>/2018/10/03/AI-2019-09-21-deeplearning-notes-chap5/</url>
+    <content><![CDATA[<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><h3 id="Statistical-learning-theory-tells-us"><a href="#Statistical-learning-theory-tells-us" class="headerlink" title="Statistical learning theory tells us:"></a>Statistical learning theory tells us:</h3><p>如果测试集和训练集都是从一个叫<code>data generating process</code>的数据集中产生, 我们可以做一些假设, 测试集和训练集将相互独立并且以相同的概率分布. 有了这个假设我们才能对训练集和测试集误差做数学上研究.</p>
+<h3 id="取决机器学习算法性能的因素是"><a href="#取决机器学习算法性能的因素是" class="headerlink" title="取决机器学习算法性能的因素是:"></a>取决机器学习算法性能的因素是:</h3><ul>
+<li>尽可能的减少训练误差</li>
+<li>使测试误差尽可能接近训练误差</li>
+</ul>
+<h3 id="欠拟合"><a href="#欠拟合" class="headerlink" title="欠拟合"></a>欠拟合</h3><p>模型的训练误差不够小</p>
+<h3 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h3><p>模型的测试误差和训练误差过大</p>
+<h3 id="可以通过调节capacity-容量-来调节拟合"><a href="#可以通过调节capacity-容量-来调节拟合" class="headerlink" title="可以通过调节capacity(容量)来调节拟合"></a>可以通过调节capacity(容量)来调节拟合</h3><ul>
+<li>调节容量的方法之一是: 选择一个<code>hypothesis space</code>(假设空间).这个假设空间是能够表达所有解决方案的函数集.换个角度讲, 就是改变输入集特征的数值, 同时可以增加这些特征的新参数. 比如把一个model从线性空间改成多项式空间, 那么容量将会变大.</li>
+<li>另一调节容量的方式是: 指定模型从某些类别的函数选择. 这叫<code>Representational capacity</code></li>
+</ul>
+<h3 id="VC维度可以来量化容量"><a href="#VC维度可以来量化容量" class="headerlink" title="VC维度可以来量化容量"></a>VC维度可以来量化容量</h3><p>VC维度可以测量一个二元分类器的容量. 定义为: 存在一个最大值m, 分类器使m个样本可以被任意标记.</p>
+<h3 id="统计学习理论中最重要的结论阐述了训练误差和泛化误差之间差异的上界随着模型容量增长而增长，但随着训练样本增多而下降"><a href="#统计学习理论中最重要的结论阐述了训练误差和泛化误差之间差异的上界随着模型容量增长而增长，但随着训练样本增多而下降" class="headerlink" title="统计学习理论中最重要的结论阐述了训练误差和泛化误差之间差异的上界随着模型容量增长而增长，但随着训练样本增多而下降"></a>统计学习理论中最重要的结论阐述了训练误差和泛化误差之间差异的上界随着模型容量增长而增长，但随着训练样本增多而下降</h3><p><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-09-21%20at%2021.28.04.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-09-21%20at%2021.28.04.png"></p>
+<h3 id="随着训练集增加-容量也需要增加-否则将出现欠拟合"><a href="#随着训练集增加-容量也需要增加-否则将出现欠拟合" class="headerlink" title="随着训练集增加, 容量也需要增加, 否则将出现欠拟合"></a>随着训练集增加, 容量也需要增加, 否则将出现欠拟合</h3><p><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-09-21%20at%2021.28.51.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-09-21%20at%2021.28.51.png"></p>
+<h3 id="no-free-lauch-theorem"><a href="#no-free-lauch-theorem" class="headerlink" title="no free lauch theorem"></a>no free lauch theorem</h3><p>在所有可能的数据生成分布上平均之后，每一个分类算法在未事先观测的点上都有相同的错误率.<br>所以我们只需要对特定Task设计最好算法就行.</p>
+<h3 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h3><p>正则化是指我们修改学习算法，使其降低泛化误差而非训练误差.</p>
+]]></content>
+      <categories>
+        <category>AI</category>
+      </categories>
+      <tags>
+        <tag>AI</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习一撇</title>
     <url>/2018/10/13/AI-2018-10-04-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%80%E6%92%87/</url>
     <content><![CDATA[<p>机器学习是建立在大量数据的基础上， 在有意义的大数据上面提取有用的信息， 然后做出预测。</p>
@@ -2077,33 +2104,6 @@
       </categories>
       <tags>
         <tag>ML</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Deep Learning Book Notes--Chapter 5</title>
-    <url>/2018/10/03/AI-2019-09-21-deeplearning-notes-chap5/</url>
-    <content><![CDATA[<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><h3 id="Statistical-learning-theory-tells-us"><a href="#Statistical-learning-theory-tells-us" class="headerlink" title="Statistical learning theory tells us:"></a>Statistical learning theory tells us:</h3><p>如果测试集和训练集都是从一个叫<code>data generating process</code>的数据集中产生, 我们可以做一些假设, 测试集和训练集将相互独立并且以相同的概率分布. 有了这个假设我们才能对训练集和测试集误差做数学上研究.</p>
-<h3 id="取决机器学习算法性能的因素是"><a href="#取决机器学习算法性能的因素是" class="headerlink" title="取决机器学习算法性能的因素是:"></a>取决机器学习算法性能的因素是:</h3><ul>
-<li>尽可能的减少训练误差</li>
-<li>使测试误差尽可能接近训练误差</li>
-</ul>
-<h3 id="欠拟合"><a href="#欠拟合" class="headerlink" title="欠拟合"></a>欠拟合</h3><p>模型的训练误差不够小</p>
-<h3 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h3><p>模型的测试误差和训练误差过大</p>
-<h3 id="可以通过调节capacity-容量-来调节拟合"><a href="#可以通过调节capacity-容量-来调节拟合" class="headerlink" title="可以通过调节capacity(容量)来调节拟合"></a>可以通过调节capacity(容量)来调节拟合</h3><ul>
-<li>调节容量的方法之一是: 选择一个<code>hypothesis space</code>(假设空间).这个假设空间是能够表达所有解决方案的函数集.换个角度讲, 就是改变输入集特征的数值, 同时可以增加这些特征的新参数. 比如把一个model从线性空间改成多项式空间, 那么容量将会变大.</li>
-<li>另一调节容量的方式是: 指定模型从某些类别的函数选择. 这叫<code>Representational capacity</code></li>
-</ul>
-<h3 id="VC维度可以来量化容量"><a href="#VC维度可以来量化容量" class="headerlink" title="VC维度可以来量化容量"></a>VC维度可以来量化容量</h3><p>VC维度可以测量一个二元分类器的容量. 定义为: 存在一个最大值m, 分类器使m个样本可以被任意标记.</p>
-<h3 id="统计学习理论中最重要的结论阐述了训练误差和泛化误差之间差异的上界随着模型容量增长而增长，但随着训练样本增多而下降"><a href="#统计学习理论中最重要的结论阐述了训练误差和泛化误差之间差异的上界随着模型容量增长而增长，但随着训练样本增多而下降" class="headerlink" title="统计学习理论中最重要的结论阐述了训练误差和泛化误差之间差异的上界随着模型容量增长而增长，但随着训练样本增多而下降"></a>统计学习理论中最重要的结论阐述了训练误差和泛化误差之间差异的上界随着模型容量增长而增长，但随着训练样本增多而下降</h3><p><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-09-21%20at%2021.28.04.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-09-21%20at%2021.28.04.png"></p>
-<h3 id="随着训练集增加-容量也需要增加-否则将出现欠拟合"><a href="#随着训练集增加-容量也需要增加-否则将出现欠拟合" class="headerlink" title="随着训练集增加, 容量也需要增加, 否则将出现欠拟合"></a>随着训练集增加, 容量也需要增加, 否则将出现欠拟合</h3><p><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-09-21%20at%2021.28.51.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-09-21%20at%2021.28.51.png"></p>
-<h3 id="no-free-lauch-theorem"><a href="#no-free-lauch-theorem" class="headerlink" title="no free lauch theorem"></a>no free lauch theorem</h3><p>在所有可能的数据生成分布上平均之后，每一个分类算法在未事先观测的点上都有相同的错误率.<br>所以我们只需要对特定Task设计最好算法就行.</p>
-<h3 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h3><p>正则化是指我们修改学习算法，使其降低泛化误差而非训练误差.</p>
-]]></content>
-      <categories>
-        <category>AI</category>
-      </categories>
-      <tags>
-        <tag>AI</tag>
       </tags>
   </entry>
   <entry>
@@ -2229,7 +2229,7 @@
 <h3 id="1-4-漏洞反馈与新漏洞"><a href="#1-4-漏洞反馈与新漏洞" class="headerlink" title="1.4 漏洞反馈与新漏洞"></a>1.4 漏洞反馈与新漏洞</h3><p>工作组欢迎对本规范的反馈：实施经验、改进清晰度的建议，或对特定章节或要求难以理解的疑问。</p>
 <p>我们特别希望获得关于使用标准机器可读格式进行有效符合性声明的反馈，包括这种格式是否适合存储在区块链上，以及其他用例。</p>
 <p>EEA成员可通过加入工作组提供反馈。任何人都可通过Ethtrust-public Github仓库或发送邮件至EEA Editor提供反馈，邮件将被转发给工作组。</p>
-<p>我们预计本规范发布后将发现新的安全漏洞。为确保将它们纳入修订版本，我们欢迎相关通知。EEA已创建特定电子邮件地址接收新安全漏洞通知：<a class="link"   href="mailto:&#115;&#101;&#x63;&#x75;&#114;&#x69;&#x74;&#x79;&#x2d;&#110;&#111;&#116;&#x69;&#99;&#101;&#115;&#x40;&#101;&#x6e;&#116;&#x65;&#116;&#x68;&#97;&#x6c;&#x6c;&#x69;&#x61;&#x6e;&#x63;&#101;&#x2e;&#111;&#x72;&#103;" >&#115;&#101;&#x63;&#x75;&#114;&#x69;&#x74;&#x79;&#x2d;&#110;&#111;&#116;&#x69;&#99;&#101;&#115;&#x40;&#101;&#x6e;&#116;&#x65;&#116;&#x68;&#97;&#x6c;&#x6c;&#x69;&#x61;&#x6e;&#x63;&#101;&#x2e;&#111;&#x72;&#103;<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
+<p>我们预计本规范发布后将发现新的安全漏洞。为确保将它们纳入修订版本，我们欢迎相关通知。EEA已创建特定电子邮件地址接收新安全漏洞通知：<a class="link"   href="mailto:&#x73;&#x65;&#99;&#x75;&#114;&#105;&#x74;&#x79;&#45;&#x6e;&#x6f;&#116;&#x69;&#x63;&#101;&#115;&#x40;&#101;&#110;&#x74;&#x65;&#x74;&#104;&#x61;&#x6c;&#x6c;&#105;&#x61;&#110;&#x63;&#x65;&#46;&#x6f;&#114;&#x67;" >&#x73;&#x65;&#99;&#x75;&#114;&#105;&#x74;&#x79;&#45;&#x6e;&#x6f;&#116;&#x69;&#x63;&#101;&#115;&#x40;&#101;&#110;&#x74;&#x65;&#x74;&#104;&#x61;&#x6c;&#x6c;&#105;&#x61;&#110;&#x63;&#x65;&#46;&#x6f;&#114;&#x67;<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
 <p>发送至该地址的信息应足以识别和纠正描述的问题，并应包括对该问题的其他讨论的引用。这些信息将由EEA工作人员评估，然后转发给工作组解决问题。</p>
 <p>当这些漏洞影响Solidity编译器，或建议修改编译器以帮助缓解问题时，还应按照[solidity-reports]中的描述通知Solidity开发社区。</p>
 <h2 id="2-符合性"><a href="#2-符合性" class="headerlink" title="2. 符合性"></a>2. 符合性</h2><h3 id="2-1-符合性声明"><a href="#2-1-符合性声明" class="headerlink" title="2.1 符合性声明"></a>2.1 符合性声明</h3><p>本规范中的关键词”可以(MAY)”、”必须(MUST)”、”不得(MUST NOT)”、”建议(RECOMMENDED)”和”应当(SHOULD)”应按照BCP 14 [RFC2119][RFC8174]中的说明进行解释，且仅当这些词汇以全大写形式出现时才具有此特定含义。</p>
@@ -2548,6 +2548,20 @@
       </tags>
   </entry>
   <entry>
+    <title>集成学习</title>
+    <url>/2022/11/06/AI-2022-11-07-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h2 id="集成学习的本质"><a href="#集成学习的本质" class="headerlink" title="集成学习的本质"></a>集成学习的本质</h2><p>集成学习的本质是集众之长得出一个更好的结果。专业术语来讲是集成多个单独的<code>classifier</code>(一般是弱学习者<code>weak learner</code>)来获得一个更优的<code>classifier</code>.<br>集成学习最大的好处是可以解决高偏差和方差问题。采用多个分类器可以增加模型的复杂性来解决方差问题，而只要分类器足够不相干，统计规律告诉我们这样可以减少偏差。</p>
+<h3 id="偏差和方差的识别"><a href="#偏差和方差的识别" class="headerlink" title="偏差和方差的识别"></a>偏差和方差的识别</h3><p>一般模型的<code>error = Bias**2 + Variance + inreducible error</code>, 实际应用中我们一般使用学习曲线和验证曲线来评估他们。<code>validation curve</code>是不同超参数下，算法可以达到的性能。在每个超参数下，我们使用<code>K-fold</code>交叉验证，存储样本内的性能和样本外的性能，然后计算并画出样本内和样本外的性能的平均和标准差值。最后通过比较相对和觉得的性能，我们可以计算出偏差和方差的大小。</p>
+<h3 id="集成学习的关键—足够多样的分类器"><a href="#集成学习的关键—足够多样的分类器" class="headerlink" title="集成学习的关键—足够多样的分类器"></a>集成学习的关键—足够多样的分类器</h3><p>基本上有两种方式可以得到足够不同的分类器，一种是使用不同的算法，另一种是使用相同的算法在随机子集。</p>
+<h3 id="Bagging"><a href="#Bagging" class="headerlink" title="Bagging"></a>Bagging</h3>]]></content>
+      <categories>
+        <category>machine learning</category>
+      </categories>
+      <tags>
+        <tag>ML, ensemble</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习二撇</title>
     <url>/2022/10/30/AI-2022-10-31-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BA%8C%E6%92%87/</url>
     <content><![CDATA[<h2 id="机器学习适合解决的场景"><a href="#机器学习适合解决的场景" class="headerlink" title="机器学习适合解决的场景"></a>机器学习适合解决的场景</h2><ul>
@@ -2562,20 +2576,6 @@
       </categories>
       <tags>
         <tag>ML</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>集成学习</title>
-    <url>/2022/11/06/AI-2022-11-07-%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h2 id="集成学习的本质"><a href="#集成学习的本质" class="headerlink" title="集成学习的本质"></a>集成学习的本质</h2><p>集成学习的本质是集众之长得出一个更好的结果。专业术语来讲是集成多个单独的<code>classifier</code>(一般是弱学习者<code>weak learner</code>)来获得一个更优的<code>classifier</code>.<br>集成学习最大的好处是可以解决高偏差和方差问题。采用多个分类器可以增加模型的复杂性来解决方差问题，而只要分类器足够不相干，统计规律告诉我们这样可以减少偏差。</p>
-<h3 id="偏差和方差的识别"><a href="#偏差和方差的识别" class="headerlink" title="偏差和方差的识别"></a>偏差和方差的识别</h3><p>一般模型的<code>error = Bias**2 + Variance + inreducible error</code>, 实际应用中我们一般使用学习曲线和验证曲线来评估他们。<code>validation curve</code>是不同超参数下，算法可以达到的性能。在每个超参数下，我们使用<code>K-fold</code>交叉验证，存储样本内的性能和样本外的性能，然后计算并画出样本内和样本外的性能的平均和标准差值。最后通过比较相对和觉得的性能，我们可以计算出偏差和方差的大小。</p>
-<h3 id="集成学习的关键—足够多样的分类器"><a href="#集成学习的关键—足够多样的分类器" class="headerlink" title="集成学习的关键—足够多样的分类器"></a>集成学习的关键—足够多样的分类器</h3><p>基本上有两种方式可以得到足够不同的分类器，一种是使用不同的算法，另一种是使用相同的算法在随机子集。</p>
-<h3 id="Bagging"><a href="#Bagging" class="headerlink" title="Bagging"></a>Bagging</h3>]]></content>
-      <categories>
-        <category>machine learning</category>
-      </categories>
-      <tags>
-        <tag>ML, ensemble</tag>
       </tags>
   </entry>
   <entry>
@@ -2611,17 +2611,6 @@
       </categories>
       <tags>
         <tag>BI,powerbi</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>眼球结构简介</title>
-    <url>/2022/08/03/Devices-2022-08-05-eyeball-intro/</url>
-    <content><![CDATA[<h3 id="眼球简介"><a href="#眼球简介" class="headerlink" title="眼球简介"></a>眼球简介</h3><h3 id="眼球筋膜鞘（Tenon囊）-Fascial-sheath-Tenon’s-capsule"><a href="#眼球筋膜鞘（Tenon囊）-Fascial-sheath-Tenon’s-capsule" class="headerlink" title="眼球筋膜鞘（Tenon囊） Fascial sheath (Tenon’s capsule)"></a>眼球筋膜鞘（Tenon囊） Fascial sheath (Tenon’s capsule)</h3><h3 id="纤维层-Fibrous-layer"><a href="#纤维层-Fibrous-layer" class="headerlink" title="纤维层 Fibrous layer"></a>纤维层 Fibrous layer</h3><h3 id="血管层-（葡萄膜）Vascular-layer-Uvea"><a href="#血管层-（葡萄膜）Vascular-layer-Uvea" class="headerlink" title="血管层 （葡萄膜）Vascular layer (Uvea)"></a>血管层 （葡萄膜）Vascular layer (Uvea)</h3><h3 id="神经层-（视网膜）Nervous-layer-Retina"><a href="#神经层-（视网膜）Nervous-layer-Retina" class="headerlink" title="神经层 （视网膜）Nervous layer (Retina)"></a>神经层 （视网膜）Nervous layer (Retina)</h3><h3 id="眼球的屈光介质-Refractive-media-of-the-eyeball"><a href="#眼球的屈光介质-Refractive-media-of-the-eyeball" class="headerlink" title="眼球的屈光介质 Refractive media of the eyeball"></a>眼球的屈光介质 Refractive media of the eyeball</h3><h3 id="临床症状-Clinical-conditions"><a href="#临床症状-Clinical-conditions" class="headerlink" title="临床症状 Clinical conditions"></a>临床症状 Clinical conditions</h3>]]></content>
-      <categories>
-        <category>science</category>
-      </categories>
-      <tags>
-        <tag>science, eyeball</tag>
       </tags>
   </entry>
   <entry>
@@ -2671,23 +2660,14 @@
       </tags>
   </entry>
   <entry>
-    <title>SAP的主数据模块和物料管理</title>
-    <url>/2021/03/11/ERP-2021-03-12-SAP-MM/</url>
-    <content><![CDATA[<h3 id="SAP的数据"><a href="#SAP的数据" class="headerlink" title="SAP的数据"></a>SAP的数据</h3><p>SAP把数据分为主数据和事务型数据。SAP的主数据一般有：</p>
-<ul>
-<li>物料主数据</li>
-<li>客户主数据</li>
-<li>供应商主数据</li>
-<li>价格&#x2F;条件主数据</li>
-<li>仓库管理主数据</li>
-</ul>
-<h3 id="Material-Master"><a href="#Material-Master" class="headerlink" title="Material Master"></a>Material Master</h3><p>在SAP中，每个物料都有一个特征叫<code>&quot;material type&quot;</code>, 用于不同的用途。</p>
-]]></content>
+    <title>眼球结构简介</title>
+    <url>/2022/08/03/Devices-2022-08-05-eyeball-intro/</url>
+    <content><![CDATA[<h3 id="眼球简介"><a href="#眼球简介" class="headerlink" title="眼球简介"></a>眼球简介</h3><h3 id="眼球筋膜鞘（Tenon囊）-Fascial-sheath-Tenon’s-capsule"><a href="#眼球筋膜鞘（Tenon囊）-Fascial-sheath-Tenon’s-capsule" class="headerlink" title="眼球筋膜鞘（Tenon囊） Fascial sheath (Tenon’s capsule)"></a>眼球筋膜鞘（Tenon囊） Fascial sheath (Tenon’s capsule)</h3><h3 id="纤维层-Fibrous-layer"><a href="#纤维层-Fibrous-layer" class="headerlink" title="纤维层 Fibrous layer"></a>纤维层 Fibrous layer</h3><h3 id="血管层-（葡萄膜）Vascular-layer-Uvea"><a href="#血管层-（葡萄膜）Vascular-layer-Uvea" class="headerlink" title="血管层 （葡萄膜）Vascular layer (Uvea)"></a>血管层 （葡萄膜）Vascular layer (Uvea)</h3><h3 id="神经层-（视网膜）Nervous-layer-Retina"><a href="#神经层-（视网膜）Nervous-layer-Retina" class="headerlink" title="神经层 （视网膜）Nervous layer (Retina)"></a>神经层 （视网膜）Nervous layer (Retina)</h3><h3 id="眼球的屈光介质-Refractive-media-of-the-eyeball"><a href="#眼球的屈光介质-Refractive-media-of-the-eyeball" class="headerlink" title="眼球的屈光介质 Refractive media of the eyeball"></a>眼球的屈光介质 Refractive media of the eyeball</h3><h3 id="临床症状-Clinical-conditions"><a href="#临床症状-Clinical-conditions" class="headerlink" title="临床症状 Clinical conditions"></a>临床症状 Clinical conditions</h3>]]></content>
       <categories>
-        <category>ERP</category>
+        <category>science</category>
       </categories>
       <tags>
-        <tag>ERP, SAP</tag>
+        <tag>science, eyeball</tag>
       </tags>
   </entry>
   <entry>
@@ -2712,6 +2692,105 @@
       </categories>
       <tags>
         <tag>biomarker, healthcare</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SAP的主数据模块和物料管理</title>
+    <url>/2021/03/11/ERP-2021-03-12-SAP-MM/</url>
+    <content><![CDATA[<h3 id="SAP的数据"><a href="#SAP的数据" class="headerlink" title="SAP的数据"></a>SAP的数据</h3><p>SAP把数据分为主数据和事务型数据。SAP的主数据一般有：</p>
+<ul>
+<li>物料主数据</li>
+<li>客户主数据</li>
+<li>供应商主数据</li>
+<li>价格&#x2F;条件主数据</li>
+<li>仓库管理主数据</li>
+</ul>
+<h3 id="Material-Master"><a href="#Material-Master" class="headerlink" title="Material Master"></a>Material Master</h3><p>在SAP中，每个物料都有一个特征叫<code>&quot;material type&quot;</code>, 用于不同的用途。</p>
+]]></content>
+      <categories>
+        <category>ERP</category>
+      </categories>
+      <tags>
+        <tag>ERP, SAP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Eyes on FHIR Implement Guide（1）</title>
+    <url>/2022/12/05/Standard-2022-12-06-Eyes-on-FHIR-IG-1/</url>
+    <content><![CDATA[<h1 id="FHIR眼科实施指南IG（1）"><a href="#FHIR眼科实施指南IG（1）" class="headerlink" title="FHIR眼科实施指南IG（1）"></a>FHIR眼科实施指南IG（1）</h1><blockquote>
+<p>2021年8月，FHIR patient care小组发布了FHIR眼科实施指南0.1.0版本，此版本只针对眼底相关疾病，并且通过了FHIR connectathon测试，可以双向与真实世界的EMR、诊断设备和PACS通信。</p>
+</blockquote>
+<h2 id="IG主要内容"><a href="#IG主要内容" class="headerlink" title="IG主要内容"></a>IG主要内容</h2><p>实施指南的主要内容可分为：</p>
+<ul>
+<li>患者旅程</li>
+<li>概貌（Profiles）</li>
+<li>15个真实用例</li>
+<li>指引规范</li>
+<li>术语</li>
+<li>贡献者</li>
+<li>产出物</li>
+</ul>
+<h2 id="患者旅程"><a href="#患者旅程" class="headerlink" title="患者旅程"></a>患者旅程</h2><p>本文将详细介绍患者旅程部分。目前0.1版本只涵盖了白内障和青光眼患者旅程，下面将分段介绍。</p>
+<h3 id="白内障用例"><a href="#白内障用例" class="headerlink" title="白内障用例"></a>白内障用例</h3><p><strong>问题声明</strong><br>白内障手术的方法和术后结果的评价目前没有一个统一的标准。手术大夫使用不同的设备、数据集和信息系统来存储数据，造成了数据孤岛。国际上目前也没有一个通用的技术来共享白内障手术的数据。这就阻碍了这个领域的专业从业人员之间的合作，分享和研究等工作。</p>
+<p><strong>用例</strong><br>手术大夫使用眼科管理系统记录患者白内障手术的术前数据、术中数据和术后数据。利益关系人包括手术大夫、患者群体、支付者、权威机构和研究者，他们需要追踪手术结果并评估类似工作，这么做主要的好处是可以分享白内障医疗实践和研究成果给其他眼科医生，并且进一步鉴别问题人群的需求，评估不同手术设备和耗材的差异与技术区别性。针对不同的用户，好处分别是：</p>
+<ul>
+<li><p>眼科大夫</p>
+<ul>
+<li>可以接收随访的数据来进一步观察患者术后的情况</li>
+<li>逐步累计的数据可以帮助医生自我审查手术的结果，提高自身技术</li>
+<li>同事间相互交流对比</li>
+<li>最大限度地减少用于记录、发送、检索和追踪的认知和实践的工作量</li>
+</ul>
+</li>
+<li><p>特检医师（验光师）</p>
+<ul>
+<li>增强在术前和术后对患者的沟通教育，提升服务质量</li>
+<li>更容易和医生建立好合作关系</li>
+<li>标准化和自动化审计和收集信息来提升或改善病患关系</li>
+<li>最小化数据整理的工作</li>
+</ul>
+</li>
+<li><p>患者</p>
+<ul>
+<li>可以收到自己的健康数据</li>
+<li>可以把个人眼科信息集中到各类眼健康应用，比如配镜场景</li>
+<li>最大限度减少个人信息管理的工作</li>
+</ul>
+</li>
+</ul>
+<h3 id="青光眼用例"><a href="#青光眼用例" class="headerlink" title="青光眼用例"></a>青光眼用例</h3><p><strong>患者旅程</strong>一个老年开角型青光眼（condition）患者需要经常性的监控。大部分检测发生在特检科，那里他需要经历一系列的检查，如视敏度，眼压（observation）等，和一系列诊断检查如视野，眼底照片，OCT等，以及风险评估。青光眼作为慢性病，较好的管理方式取决纵向和多模态数据的收集，如examination, testing, imaging(Observation, ImageStudy, DiagnosticReport)。患者复诊的频率一般从3-12个月之间。任何一个指标如果出现恶化，患者一般会被眼科大夫（ServiceRequest, Referral note）重新评估治疗方案或手术激光干预(Procedure)。所以这些过程中记录的数据就十分重要，方便后续随访和慢病管理。对于不同用户，使用这样用例的好处分别是：</p>
+<ul>
+<li>眼科大夫<ul>
+<li>可以远程监控患者的进展情况</li>
+<li>更加方便从患者慢病全流程上做结果评估</li>
+<li>同事间的交流</li>
+<li>最大限度地减少用于记录、发送、检索和追踪的认知和实践的工作量</li>
+</ul>
+</li>
+<li>特检医师（验光师）<ul>
+<li>更加有信心检查患者，并且知道大夫能够访问检查数据和结果</li>
+<li>增强对患者的沟通教育，引导患者随访医生，提升服务质量</li>
+<li>更容易和医生建立好合作关系</li>
+<li>标准化和自动化审计和收集信息来提升或改善病患关系</li>
+<li>最小化数据整理的工作</li>
+</ul>
+</li>
+<li>患者<ul>
+<li>可以收到自己的健康数据</li>
+<li>可以把自己的数据集成到各种健康档案应用，如青光眼药物依从性。也可以使用其它设备如Home Icare家用手持式眼压计来富集个人的监控数据</li>
+<li>最大限度减少个人信息管理的工作</li>
+</ul>
+</li>
+</ul>
+<h4 id="外部链接"><a href="#外部链接" class="headerlink" title="外部链接"></a>外部链接</h4><ul>
+<li><a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/patient_journey.html" >Patient Journey Use Case<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>standard</category>
+      </categories>
+      <tags>
+        <tag>FHIR, Standard,IG</tag>
       </tags>
   </entry>
   <entry>
@@ -2813,85 +2892,6 @@
       </categories>
       <tags>
         <tag>FHIR, Standard</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Eyes on FHIR Implement Guide（1）</title>
-    <url>/2022/12/05/Standard-2022-12-06-Eyes-on-FHIR-IG-1/</url>
-    <content><![CDATA[<h1 id="FHIR眼科实施指南IG（1）"><a href="#FHIR眼科实施指南IG（1）" class="headerlink" title="FHIR眼科实施指南IG（1）"></a>FHIR眼科实施指南IG（1）</h1><blockquote>
-<p>2021年8月，FHIR patient care小组发布了FHIR眼科实施指南0.1.0版本，此版本只针对眼底相关疾病，并且通过了FHIR connectathon测试，可以双向与真实世界的EMR、诊断设备和PACS通信。</p>
-</blockquote>
-<h2 id="IG主要内容"><a href="#IG主要内容" class="headerlink" title="IG主要内容"></a>IG主要内容</h2><p>实施指南的主要内容可分为：</p>
-<ul>
-<li>患者旅程</li>
-<li>概貌（Profiles）</li>
-<li>15个真实用例</li>
-<li>指引规范</li>
-<li>术语</li>
-<li>贡献者</li>
-<li>产出物</li>
-</ul>
-<h2 id="患者旅程"><a href="#患者旅程" class="headerlink" title="患者旅程"></a>患者旅程</h2><p>本文将详细介绍患者旅程部分。目前0.1版本只涵盖了白内障和青光眼患者旅程，下面将分段介绍。</p>
-<h3 id="白内障用例"><a href="#白内障用例" class="headerlink" title="白内障用例"></a>白内障用例</h3><p><strong>问题声明</strong><br>白内障手术的方法和术后结果的评价目前没有一个统一的标准。手术大夫使用不同的设备、数据集和信息系统来存储数据，造成了数据孤岛。国际上目前也没有一个通用的技术来共享白内障手术的数据。这就阻碍了这个领域的专业从业人员之间的合作，分享和研究等工作。</p>
-<p><strong>用例</strong><br>手术大夫使用眼科管理系统记录患者白内障手术的术前数据、术中数据和术后数据。利益关系人包括手术大夫、患者群体、支付者、权威机构和研究者，他们需要追踪手术结果并评估类似工作，这么做主要的好处是可以分享白内障医疗实践和研究成果给其他眼科医生，并且进一步鉴别问题人群的需求，评估不同手术设备和耗材的差异与技术区别性。针对不同的用户，好处分别是：</p>
-<ul>
-<li><p>眼科大夫</p>
-<ul>
-<li>可以接收随访的数据来进一步观察患者术后的情况</li>
-<li>逐步累计的数据可以帮助医生自我审查手术的结果，提高自身技术</li>
-<li>同事间相互交流对比</li>
-<li>最大限度地减少用于记录、发送、检索和追踪的认知和实践的工作量</li>
-</ul>
-</li>
-<li><p>特检医师（验光师）</p>
-<ul>
-<li>增强在术前和术后对患者的沟通教育，提升服务质量</li>
-<li>更容易和医生建立好合作关系</li>
-<li>标准化和自动化审计和收集信息来提升或改善病患关系</li>
-<li>最小化数据整理的工作</li>
-</ul>
-</li>
-<li><p>患者</p>
-<ul>
-<li>可以收到自己的健康数据</li>
-<li>可以把个人眼科信息集中到各类眼健康应用，比如配镜场景</li>
-<li>最大限度减少个人信息管理的工作</li>
-</ul>
-</li>
-</ul>
-<h3 id="青光眼用例"><a href="#青光眼用例" class="headerlink" title="青光眼用例"></a>青光眼用例</h3><p><strong>患者旅程</strong>一个老年开角型青光眼（condition）患者需要经常性的监控。大部分检测发生在特检科，那里他需要经历一系列的检查，如视敏度，眼压（observation）等，和一系列诊断检查如视野，眼底照片，OCT等，以及风险评估。青光眼作为慢性病，较好的管理方式取决纵向和多模态数据的收集，如examination, testing, imaging(Observation, ImageStudy, DiagnosticReport)。患者复诊的频率一般从3-12个月之间。任何一个指标如果出现恶化，患者一般会被眼科大夫（ServiceRequest, Referral note）重新评估治疗方案或手术激光干预(Procedure)。所以这些过程中记录的数据就十分重要，方便后续随访和慢病管理。对于不同用户，使用这样用例的好处分别是：</p>
-<ul>
-<li>眼科大夫<ul>
-<li>可以远程监控患者的进展情况</li>
-<li>更加方便从患者慢病全流程上做结果评估</li>
-<li>同事间的交流</li>
-<li>最大限度地减少用于记录、发送、检索和追踪的认知和实践的工作量</li>
-</ul>
-</li>
-<li>特检医师（验光师）<ul>
-<li>更加有信心检查患者，并且知道大夫能够访问检查数据和结果</li>
-<li>增强对患者的沟通教育，引导患者随访医生，提升服务质量</li>
-<li>更容易和医生建立好合作关系</li>
-<li>标准化和自动化审计和收集信息来提升或改善病患关系</li>
-<li>最小化数据整理的工作</li>
-</ul>
-</li>
-<li>患者<ul>
-<li>可以收到自己的健康数据</li>
-<li>可以把自己的数据集成到各种健康档案应用，如青光眼药物依从性。也可以使用其它设备如Home Icare家用手持式眼压计来富集个人的监控数据</li>
-<li>最大限度减少个人信息管理的工作</li>
-</ul>
-</li>
-</ul>
-<h4 id="外部链接"><a href="#外部链接" class="headerlink" title="外部链接"></a>外部链接</h4><ul>
-<li><a class="link"   href="http://build.fhir.org/ig/HL7/fhir-eyecare-ig/patient_journey.html" >Patient Journey Use Case<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>standard</category>
-      </categories>
-      <tags>
-        <tag>FHIR, Standard,IG</tag>
       </tags>
   </entry>
   <entry>
@@ -3742,6 +3742,54 @@
       </tags>
   </entry>
   <entry>
+    <title>Spark RDD转成Dataset的两种方式</title>
+    <url>/2020/07/10/bigdata-2020-07-11-create-dataframe-from-rdd-in-spark/</url>
+    <content><![CDATA[<h2 id="RDD-to-Datasets"><a href="#RDD-to-Datasets" class="headerlink" title="RDD to Datasets"></a>RDD to Datasets</h2><p><code>Spark SQL</code>支持两种方式把RDD转为Datasets. 第一种是使用反射<code>reflection</code>取得到RDD的schema, 这种方式需要预先知道数据的结构。如果是scala的接口，RDD包含<code>case class</code>(定义了表的结构)可以自动转化RDD到dataframe。<br>第二种方式是通过可编程接口对运行时的RDD进行构建datasets的schema， 这种方法更加动态。当<code>case classes</code>没有预先定义（比如，记录的结构被编码成了字符串）,一个DataFrame可以通过如下三步创建：</p>
+<ul>
+<li>从原RDD创建一个新的RDD Rows;</li>
+<li>通过创建<code>StructType</code>来代表结构和第一步的Rows对应上去.</li>
+<li>通过<code>SparkSession.createDataFrame</code>方法把结构应用到Rows上.</li>
+</ul>
+]]></content>
+      <categories>
+        <category>big data</category>
+      </categories>
+      <tags>
+        <tag>big data</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>从Pandas到Spark</title>
+    <url>/2020/07/23/bigdata-2020-07-24-from-pandas-to-spark/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文主要讨论如何把pandas移植到spark, 他们的dataframe共有一些特性如操作方法和模式。pandas的灵活性比spark强， 但是经过一些改动spark基本上能完成相同的工作。<br>同时又兼具了扩展性的优势，当然他们的语法和用法稍稍有些不同。</p>
+<h2 id="主要不同处："><a href="#主要不同处：" class="headerlink" title="主要不同处："></a>主要不同处：</h2><h3 id="分布式处理"><a href="#分布式处理" class="headerlink" title="分布式处理"></a>分布式处理</h3><p>pandas只能单机处理， 把dataframe放进内存计算。spark是集群分布式地，可以处理的数据可以大大超出集群的内存数。</p>
+<h3 id="懒执行"><a href="#懒执行" class="headerlink" title="懒执行"></a>懒执行</h3><p>spark不执行任何<code>transformation</code>直到需要运行<code>action</code>方法，<code>action</code>一般是存储或者展示数据的操作。这种将<code>transformation</code>延后的做法可以让spark调度知道所有的执行情况，用于优化执行顺序和读取需要的数据。<br>懒执行也是scala的特性之一。通常，在pandas我们总是和数据打交道， 而在spark,我们总是在改变产生数据的执行计划。</p>
+<h3 id="数据不可变"><a href="#数据不可变" class="headerlink" title="数据不可变"></a>数据不可变</h3><p>scala的函数式编程通常倾向使用不可变对象， 每一个spark transformation会返回一个新的dataframe(除了一些meta info会改变）</p>
+<h3 id="没有索引"><a href="#没有索引" class="headerlink" title="没有索引"></a>没有索引</h3><p>spark是没有索引概念的.</p>
+<h3 id="单条数据索引不方便"><a href="#单条数据索引不方便" class="headerlink" title="单条数据索引不方便"></a>单条数据索引不方便</h3><p>pandas可以快速使用索引找到数据，spark没有这个功能，因为在spark主要操作的是执行计划来展示数据， 而不是数据本身。</p>
+<h3 id="spark-sql"><a href="#spark-sql" class="headerlink" title="spark sql"></a>spark sql</h3><p>因为有了SQL功能的支持， spark更接近关系型数据库。</p>
+<h2 id="两者的一些操作例子"><a href="#两者的一些操作例子" class="headerlink" title="两者的一些操作例子"></a>两者的一些操作例子</h2><h3 id="projections"><a href="#projections" class="headerlink" title="projections"></a>projections</h3><p>pandas的投影可以直接通过<code>[]</code>操作</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; person_pd[[&#x27;age&#x27;,&#x27;name&#x27;]]</span><br><span class="line">   age     name</span><br><span class="line">0   23    Alice</span><br><span class="line">1   21      Bob</span><br><span class="line">2   27  Charlie</span><br><span class="line">3   24      Eve</span><br><span class="line">4   19  Frances</span><br><span class="line">5   31   George</span><br></pre></td></tr></table></figure></div>
+
+
+<p>pyspark也可以直接<code>[]</code>来选取投影， 但是这是一个语法糖， 实际是用了<code>select</code>方法</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; res[[&#x27;Quarter&#x27;]].show()</span><br><span class="line">+-------+</span><br><span class="line">|Quarter|</span><br><span class="line">+-------+</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">+-------+</span><br><span class="line">only showing top 20 rows</span><br><span class="line">&gt;&gt;&gt; res.select(&#x27;Quarter&#x27;).show()</span><br><span class="line">+-------+</span><br><span class="line">|Quarter|</span><br><span class="line">+-------+</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">+-------+</span><br><span class="line">only showing top 20 rows</span><br></pre></td></tr></table></figure></div>
+<h3 id="simple-transformations"><a href="#simple-transformations" class="headerlink" title="simple transformations"></a>simple transformations</h3><p><code>select</code>实际上接受任何<code>column</code>对象， 一个<code>column</code>对象概念上是dataframe的一列。一列可以是dataframe的一列输入，也可以是一个计算结果或者多个列的<code>transformation</code>结果。<br>以改变一列为大写为例：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; ret = pd.DataFrame(person_pd[&#x27;name&#x27;].apply(lambda x: x.upper()))</span><br><span class="line">&gt;&gt;&gt; ret</span><br><span class="line">      name</span><br><span class="line">0    ALICE</span><br><span class="line">1      BOB</span><br><span class="line">2  CHARLIE</span><br><span class="line">3      EVE</span><br><span class="line">4  FRANCES</span><br><span class="line">5   GEORGE</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">import pyspark.sql.functions as sf</span><br><span class="line"></span><br><span class="line">result = persons.select(</span><br><span class="line">  sf.upper(persons.name)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<h3 id="增加一列"><a href="#增加一列" class="headerlink" title="增加一列"></a>增加一列</h3><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">def create_salutation(row):</span><br><span class="line">  sex = row[0]</span><br><span class="line">  name = row[1]</span><br><span class="line">  if sex == &#x27;male&#x27;:</span><br><span class="line">    return &#x27;Mr &#x27;+name</span><br><span class="line">  else:</span><br><span class="line">    return &quot;Mrs &quot;+name</span><br><span class="line">   </span><br><span class="line">result = persons_pd.copy()</span><br><span class="line">result[&#x27;salutation&#x27;] = result[[&#x27;sex&#x27;,&#x27;name&#x27;]].apply(create_salutation, axis=1, result_type=&#x27;expand&#x27;)</span><br><span class="line">result</span><br><span class="line">age	height	name	sex	salutation</span><br><span class="line">0	23	156	Alice	female	Mrs Alice</span><br><span class="line">1	21	181	Bob	male	Mr Bob</span><br><span class="line">2	27	176	Charlie	male	Mr Charlie</span><br><span class="line">3	24	167	Eve	female	Mrs Eve</span><br><span class="line">4	19	172	Frances	female	Mrs Frances</span><br><span class="line">5	31	191	George	female	Mrs George</span><br></pre></td></tr></table></figure></div>
+<p>spark sql有个控制流方法<code>when</code>可以使代码更简洁， 配合<code>withColumn</code>增加一列</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">result = persons.withColumn(</span><br><span class="line">    &quot;salutation&quot;,</span><br><span class="line">    sf.concat(sf.when(persons.sex == &#x27;male&#x27;, &quot;Mr &quot;).otherwise(&quot;Mrs &quot;), persons.name).alias(&quot;salutation&quot;)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+]]></content>
+      <categories>
+        <category>big data</category>
+      </categories>
+      <tags>
+        <tag>big data</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Pandas UDF and Function Api in Spark</title>
     <url>/2020/07/22/bigdata-2020-07-23-pyspark-for-pandas/</url>
     <content><![CDATA[<h2 id="Apache-Arrow-in-PySpark"><a href="#Apache-Arrow-in-PySpark" class="headerlink" title="Apache Arrow in PySpark"></a>Apache Arrow in PySpark</h2><p>Spark可以使用<code>Apache Arrow</code>对python和jvm之间的数据进行传输， 这样会比默认传输方式更加高效。<br>为了能高效地利用特性和保障兼容性，使用的时候可能需要一点点修改或者配置。</p>
@@ -3792,130 +3840,6 @@
 
 <h3 id="Co-grouped-Map-api"><a href="#Co-grouped-Map-api" class="headerlink" title="Co-grouped Map api"></a>Co-grouped Map api</h3><p>这个api可以使两个pyspark dataframe组合后使用pandas函数</p>
 <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line"></span><br><span class="line">df1 = spark.createDataFrame(</span><br><span class="line">    [(20000101, 1, 1.0), (20000101, 2, 2.0), (20000102, 1, 3.0), (20000102, 2, 4.0)],</span><br><span class="line">    (&quot;time&quot;, &quot;id&quot;, &quot;v1&quot;))</span><br><span class="line"></span><br><span class="line">df2 = spark.createDataFrame(</span><br><span class="line">    [(20000101, 1, &quot;x&quot;), (20000101, 2, &quot;y&quot;)],</span><br><span class="line">    (&quot;time&quot;, &quot;id&quot;, &quot;v2&quot;))</span><br><span class="line"></span><br><span class="line">def asof_join(l, r):</span><br><span class="line">    return pd.merge_asof(l, r, on=&quot;time&quot;, by=&quot;id&quot;)</span><br><span class="line"></span><br><span class="line">df1.groupby(&quot;id&quot;).cogroup(df2.groupby(&quot;id&quot;)).applyInPandas(</span><br><span class="line">    asof_join, schema=&quot;time int, id int, v1 double, v2 string&quot;).show()</span><br><span class="line"># +--------+---+---+---+</span><br><span class="line"># |    time| id| v1| v2|</span><br><span class="line"># +--------+---+---+---+</span><br><span class="line"># |20000101|  1|1.0|  x|</span><br><span class="line"># |20000102|  1|3.0|  x|</span><br><span class="line"># |20000101|  2|2.0|  y|</span><br><span class="line"># |20000102|  2|4.0|  y|</span><br><span class="line"># +--------+---+---+---+</span><br></pre></td></tr></table></figure></div>
-]]></content>
-      <categories>
-        <category>big data</category>
-      </categories>
-      <tags>
-        <tag>big data</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>从Pandas到Spark</title>
-    <url>/2020/07/23/bigdata-2020-07-24-from-pandas-to-spark/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文主要讨论如何把pandas移植到spark, 他们的dataframe共有一些特性如操作方法和模式。pandas的灵活性比spark强， 但是经过一些改动spark基本上能完成相同的工作。<br>同时又兼具了扩展性的优势，当然他们的语法和用法稍稍有些不同。</p>
-<h2 id="主要不同处："><a href="#主要不同处：" class="headerlink" title="主要不同处："></a>主要不同处：</h2><h3 id="分布式处理"><a href="#分布式处理" class="headerlink" title="分布式处理"></a>分布式处理</h3><p>pandas只能单机处理， 把dataframe放进内存计算。spark是集群分布式地，可以处理的数据可以大大超出集群的内存数。</p>
-<h3 id="懒执行"><a href="#懒执行" class="headerlink" title="懒执行"></a>懒执行</h3><p>spark不执行任何<code>transformation</code>直到需要运行<code>action</code>方法，<code>action</code>一般是存储或者展示数据的操作。这种将<code>transformation</code>延后的做法可以让spark调度知道所有的执行情况，用于优化执行顺序和读取需要的数据。<br>懒执行也是scala的特性之一。通常，在pandas我们总是和数据打交道， 而在spark,我们总是在改变产生数据的执行计划。</p>
-<h3 id="数据不可变"><a href="#数据不可变" class="headerlink" title="数据不可变"></a>数据不可变</h3><p>scala的函数式编程通常倾向使用不可变对象， 每一个spark transformation会返回一个新的dataframe(除了一些meta info会改变）</p>
-<h3 id="没有索引"><a href="#没有索引" class="headerlink" title="没有索引"></a>没有索引</h3><p>spark是没有索引概念的.</p>
-<h3 id="单条数据索引不方便"><a href="#单条数据索引不方便" class="headerlink" title="单条数据索引不方便"></a>单条数据索引不方便</h3><p>pandas可以快速使用索引找到数据，spark没有这个功能，因为在spark主要操作的是执行计划来展示数据， 而不是数据本身。</p>
-<h3 id="spark-sql"><a href="#spark-sql" class="headerlink" title="spark sql"></a>spark sql</h3><p>因为有了SQL功能的支持， spark更接近关系型数据库。</p>
-<h2 id="两者的一些操作例子"><a href="#两者的一些操作例子" class="headerlink" title="两者的一些操作例子"></a>两者的一些操作例子</h2><h3 id="projections"><a href="#projections" class="headerlink" title="projections"></a>projections</h3><p>pandas的投影可以直接通过<code>[]</code>操作</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; person_pd[[&#x27;age&#x27;,&#x27;name&#x27;]]</span><br><span class="line">   age     name</span><br><span class="line">0   23    Alice</span><br><span class="line">1   21      Bob</span><br><span class="line">2   27  Charlie</span><br><span class="line">3   24      Eve</span><br><span class="line">4   19  Frances</span><br><span class="line">5   31   George</span><br></pre></td></tr></table></figure></div>
-
-
-<p>pyspark也可以直接<code>[]</code>来选取投影， 但是这是一个语法糖， 实际是用了<code>select</code>方法</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; res[[&#x27;Quarter&#x27;]].show()</span><br><span class="line">+-------+</span><br><span class="line">|Quarter|</span><br><span class="line">+-------+</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">+-------+</span><br><span class="line">only showing top 20 rows</span><br><span class="line">&gt;&gt;&gt; res.select(&#x27;Quarter&#x27;).show()</span><br><span class="line">+-------+</span><br><span class="line">|Quarter|</span><br><span class="line">+-------+</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">|Q1 2012|</span><br><span class="line">+-------+</span><br><span class="line">only showing top 20 rows</span><br></pre></td></tr></table></figure></div>
-<h3 id="simple-transformations"><a href="#simple-transformations" class="headerlink" title="simple transformations"></a>simple transformations</h3><p><code>select</code>实际上接受任何<code>column</code>对象， 一个<code>column</code>对象概念上是dataframe的一列。一列可以是dataframe的一列输入，也可以是一个计算结果或者多个列的<code>transformation</code>结果。<br>以改变一列为大写为例：</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; ret = pd.DataFrame(person_pd[&#x27;name&#x27;].apply(lambda x: x.upper()))</span><br><span class="line">&gt;&gt;&gt; ret</span><br><span class="line">      name</span><br><span class="line">0    ALICE</span><br><span class="line">1      BOB</span><br><span class="line">2  CHARLIE</span><br><span class="line">3      EVE</span><br><span class="line">4  FRANCES</span><br><span class="line">5   GEORGE</span><br></pre></td></tr></table></figure></div>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">import pyspark.sql.functions as sf</span><br><span class="line"></span><br><span class="line">result = persons.select(</span><br><span class="line">  sf.upper(persons.name)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
-<h3 id="增加一列"><a href="#增加一列" class="headerlink" title="增加一列"></a>增加一列</h3><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">def create_salutation(row):</span><br><span class="line">  sex = row[0]</span><br><span class="line">  name = row[1]</span><br><span class="line">  if sex == &#x27;male&#x27;:</span><br><span class="line">    return &#x27;Mr &#x27;+name</span><br><span class="line">  else:</span><br><span class="line">    return &quot;Mrs &quot;+name</span><br><span class="line">   </span><br><span class="line">result = persons_pd.copy()</span><br><span class="line">result[&#x27;salutation&#x27;] = result[[&#x27;sex&#x27;,&#x27;name&#x27;]].apply(create_salutation, axis=1, result_type=&#x27;expand&#x27;)</span><br><span class="line">result</span><br><span class="line">age	height	name	sex	salutation</span><br><span class="line">0	23	156	Alice	female	Mrs Alice</span><br><span class="line">1	21	181	Bob	male	Mr Bob</span><br><span class="line">2	27	176	Charlie	male	Mr Charlie</span><br><span class="line">3	24	167	Eve	female	Mrs Eve</span><br><span class="line">4	19	172	Frances	female	Mrs Frances</span><br><span class="line">5	31	191	George	female	Mrs George</span><br></pre></td></tr></table></figure></div>
-<p>spark sql有个控制流方法<code>when</code>可以使代码更简洁， 配合<code>withColumn</code>增加一列</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">result = persons.withColumn(</span><br><span class="line">    &quot;salutation&quot;,</span><br><span class="line">    sf.concat(sf.when(persons.sex == &#x27;male&#x27;, &quot;Mr &quot;).otherwise(&quot;Mrs &quot;), persons.name).alias(&quot;salutation&quot;)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
-
-]]></content>
-      <categories>
-        <category>big data</category>
-      </categories>
-      <tags>
-        <tag>big data</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spark RDD转成Dataset的两种方式</title>
-    <url>/2020/07/10/bigdata-2020-07-11-create-dataframe-from-rdd-in-spark/</url>
-    <content><![CDATA[<h2 id="RDD-to-Datasets"><a href="#RDD-to-Datasets" class="headerlink" title="RDD to Datasets"></a>RDD to Datasets</h2><p><code>Spark SQL</code>支持两种方式把RDD转为Datasets. 第一种是使用反射<code>reflection</code>取得到RDD的schema, 这种方式需要预先知道数据的结构。如果是scala的接口，RDD包含<code>case class</code>(定义了表的结构)可以自动转化RDD到dataframe。<br>第二种方式是通过可编程接口对运行时的RDD进行构建datasets的schema， 这种方法更加动态。当<code>case classes</code>没有预先定义（比如，记录的结构被编码成了字符串）,一个DataFrame可以通过如下三步创建：</p>
-<ul>
-<li>从原RDD创建一个新的RDD Rows;</li>
-<li>通过创建<code>StructType</code>来代表结构和第一步的Rows对应上去.</li>
-<li>通过<code>SparkSession.createDataFrame</code>方法把结构应用到Rows上.</li>
-</ul>
-]]></content>
-      <categories>
-        <category>big data</category>
-      </categories>
-      <tags>
-        <tag>big data</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Data Integration</title>
-    <url>/2021/04/09/bigdata-2021-04-10-data-integration-tools/</url>
-    <content><![CDATA[<h2 id="数据集成简介"><a href="#数据集成简介" class="headerlink" title="数据集成简介"></a>数据集成简介</h2><p>企业总是有从各个系统里集成数据的需求, 数据集成就是一门技术用来提供企业层面的统一和一致的数据视图. 数据集成的目的是维护数据源整体上的数据一致性, 解决企业数据孤岛问题, 提高信息共享和利用的效率. 数据集成的核心任务是将有关联的异构数据源集成到一起, 使用户能够透明地方式访问这些数据.</p>
-<h2 id="数据集成的分类"><a href="#数据集成的分类" class="headerlink" title="数据集成的分类"></a>数据集成的分类</h2><p>从集成方式的角度来分, 数据集成可分为:</p>
-<ul>
-<li>点对点集成</li>
-<li>总线式集成</li>
-<li>离线批量集成</li>
-<li>流式数据集成</li>
-</ul>
-<h3 id="点对点数据集成"><a href="#点对点数据集成" class="headerlink" title="点对点数据集成"></a>点对点数据集成</h3><p>点对点一般采用接口方式对接, 适合连接对象比较少的情况, 具有开发周期短, 技术难度低的优势. 问题是当连接对象变多, 连接路径将会指数级增长, 效率和维护成本会变大. 主要的维护成本在于不能集中管理和监控接口服务, 如果交换协议不一致将会遇到开发困难.<br>点对点的集成是紧耦合的，当一个连接变化时，所有与其相关的接口程序都需要重新开发或调试。</p>
-<h3 id="总线式数据集成"><a href="#总线式数据集成" class="headerlink" title="总线式数据集成"></a>总线式数据集成</h3><p>总线式数据集成是通过在中间件上定义和执行集成规则，其拓扑结构不再是点对点集成形成的无规则网状，而主要是中心辐射型的（Hub型）星型结构或总线结构.<br>总线结构通过与点对点集成架构相比，采用总线架构可以显著减少编写的专用集成代码量，提升了集成接口的可管理性。不同连接对象如果连接方式有差异，可以通过总线完全屏蔽掉，做到对连接对象透明，无需各个连接对象关心。通过总线结构，把原来复杂的网状结构变成简单的星形结构，极大提高了硬件的可靠性和可用性。</p>
-<ul>
-<li><p>第一代总线集成工具: EDI电子数据交换系统<br>企业直接按照通用的消息格式发送信息，接收方也需要按统一规定的语法规则，对消息进行处理，并引起其他相关系统的EDI综合处理。一般EDI用于企业间交换交易凭证和发票等数据, 是无纸化办公的实现.</p>
-</li>
-<li><p>第二代总线集成工具: ESB企业服务总线<br>ESB的使用标志着企业的应用集成进入了SOA时代（SOA是一种面向服务的集成架构）。SOA架构的其主要特征是基于一系列Web标准或规范来开发接口程序，包括UDDI、SOAP、WSDL、XML、REST，并采用支持这些规范的中间件产品作为集成平台，从而实现了一种开放而富有弹性的应用集成方式。<br>ESB是对web服务（WebService）的注册、编排和管理。<br>WebService是一种跨编程语言、跨操作系统平台的远程调用技术，是web的一种标准。可以理解为：WebService是一个应用程序向外界暴露了一个能通过Web调用的API接口，我们把调用这个WebService的应用程序称作客户端，把提供这个WebService的应用程序称作服务端。客户端进行服务的远程调用前，需要知道服务的地址与服务有什么方法可以调用。<br>因此，WebService服务端通过一个文件（WSDL）来说明自己家里有啥服务可以对外调用，服务是什么，服务中有哪些方法，方法输入的参数是什么，返回值是什么，服务的网络地址是什么，通过什么方式来调用等。<br>WSDL是一个基于XML的语言，用于描述WebService及其函数、参数和返回值，它是WebService客户端和服务器端都能理解的标准格式。</p>
-</li>
-</ul>
-<h3 id="离线批量数据集成"><a href="#离线批量数据集成" class="headerlink" title="离线批量数据集成"></a>离线批量数据集成</h3><p>在传统数据集成的语境下，离线批量数据集成，通常是指基于ETL工具的离线数据集成，ETL即数据的提取（Extract)、转换(Transform)和加载(Load)。<br>ETL的实现有多种方法，常用的有三种：</p>
-<ul>
-<li>第一种是借助ETL工具：例如：Informatic、IBM CDC、talend、kettle、Nifi等，借助工具可以快速的建立起ETL工程，屏蔽了复杂的编码任务，提高了速度，降低了难度，但是缺少灵活性。</li>
-<li>第二种是SQL编码实现：SQL的方法优点是灵活，提高ETL运行效率，但是编码复杂，对技术要求比较高。</li>
-<li>第三种是ETL工具和SQL组合实现：综合了前面二种的优点，会极大地提高ETL的开发速度和效率。</li>
-</ul>
-<h3 id="流程数据集成"><a href="#流程数据集成" class="headerlink" title="流程数据集成"></a>流程数据集成</h3><p>流式数据集成也叫流式数据实时数据处理，通常是采用Flume、Kafka等流式数据处理工具对数据库进行实时监控和复制，然后根据业务场景做对应的处理（例如去重、去噪、中间计算等），之后再写入到对应的数据存储中。</p>
-<h3 id="网络数据集成"><a href="#网络数据集成" class="headerlink" title="网络数据集成"></a>网络数据集成</h3><p>网络数据集成也叫网络数据采集，指通过网络爬虫或网站公开API等方式从网站上获取数据信息的过程。<br>网页爬虫，即一种按照一定的规则，自动地抓取互联网信息的程序或者脚本，一般分为通用网络爬虫和聚焦网络爬虫两种。网页爬虫从一个或若干初始网页的URL开始，获得初始网页上的URL，在抓取网页的过程中，不断从当前页面上抽取新的URL放入队列，直到满足系统的一定停止条件。<br>聚焦爬虫的工作流程较为复杂，需要根据一定的网页分析算法过滤与主题无关的链接，保留有用的链接并将其放入等待抓取的URL队列。<br>网页爬虫支持文本文件、图片、音频、视频等非结构化数据、半结构化数据从网页中提取出来，存储在本地的存储系统中。<br>目前网络上有许多网页爬虫，Octoparse、WebCopy、HTTrack、Getleft、Scraper等.</p>
-<h3 id="表格总结"><a href="#表格总结" class="headerlink" title="表格总结"></a>表格总结</h3><p>|—————–+————+—————–+—————-|</p>
-<table>
-<thead>
-<tr>
-<th>方式</th>
-<th align="left">优点</th>
-<th>缺点</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>点对点</td>
-<td align="left">1.开发周期短 2.技术难度低</td>
-<td>1.维护成本高 2.紧耦合 3.接口协议局限</td>
-<td>基本不选择</td>
-</tr>
-<tr>
-<td>总线式</td>
-<td align="left">1.集中管理  2.多协议 3. 解耦和结构星型化 4.可声明</td>
-<td>1.存在单点问题,需要高可用 2.开发成本比点对点高</td>
-<td>适合API类型的数据集成</td>
-</tr>
-<tr>
-<td>离线批量</td>
-<td align="left">1.吞吐量大 2.可自定义数据模型 3.可集成数仓</td>
-<td>1.需要一定编码能力 2.数据有延迟 3.ETL一般只支持关系型数据</td>
-<td>适合数仓系统</td>
-</tr>
-<tr>
-<td>流式数据集成</td>
-<td align="left">1.实时 2.吞吐量达每秒百MB 3.支持NoSQL</td>
-<td>1.架构较复杂 2.需要devops能力</td>
-<td>一般使用Kafka</td>
-</tr>
-<tr>
-<td>—————–+————+—————–+—————-</td>
-<td align="left"></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
 ]]></content>
       <categories>
         <category>big data</category>
@@ -4001,6 +3925,82 @@
 <div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PlasmaPandas</span>(<span class="title class_ inherited__">PlasmaClient</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name, location=<span class="string">&quot;plasma&quot;</span></span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__(location)</span><br><span class="line">        self.object_id = self.get_object_id(name)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">dataFrame2recordBatch</span>(<span class="params">self, df</span>):</span><br><span class="line">        <span class="keyword">return</span> pa.RecordBatch.from_pandas(df)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">create_plasma_obj_from_record_batch</span>(<span class="params">self, record_batch</span>):</span><br><span class="line">        <span class="comment"># get the size of record batch and schema</span></span><br><span class="line">        mock_sink = pa.MockOutputStream()</span><br><span class="line">        stream_writer = pa.RecordBatchStreamWriter(mock_sink, record_batch.schema)</span><br><span class="line">        stream_writer.write_batch(record_batch)</span><br><span class="line">        stream_writer.close()</span><br><span class="line">        data_size = mock_sink.size()</span><br><span class="line"></span><br><span class="line">        buf = self.client.create(self.object_id, data_size)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># write dataframe into store</span></span><br><span class="line">        stream = pa.FixedSizeBufferWriter(buf)</span><br><span class="line">        stream_writer = pa.RecordBatchStreamWriter(stream, record_batch.schema)</span><br><span class="line">        stream_writer.write_batch(record_batch)</span><br><span class="line">        stream_writer.close()</span><br><span class="line">        self.seal_buffer(self.object_id)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_df_by_name</span>(<span class="params">self</span>): </span><br><span class="line">        [data] = self.client.get_buffers([self.object_id])</span><br><span class="line">        arrow_buffer = pa.BufferReader(data)</span><br><span class="line">        <span class="comment"># Convert object back into an Arrow RecordBatch</span></span><br><span class="line">        reader = pa.RecordBatchStreamReader(arrow_buffer)</span><br><span class="line">        record_batch = reader.read_next_batch()</span><br><span class="line">        result = record_batch.to_pandas()</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_df_column</span>(<span class="params">self, column</span>): <span class="comment">#可以直接在arrow中取column, 性能比pandas快5-10倍 </span></span><br><span class="line">        [data] = self.client.get_buffers([self.object_id])</span><br><span class="line">        arrow_buffer = pa.BufferReader(data)</span><br><span class="line">        <span class="comment"># Convert object back into an Arrow RecordBatch</span></span><br><span class="line">        reader = pa.RecordBatchStreamReader(arrow_buffer)</span><br><span class="line">        table = reader.read_all()</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            result = table.select([<span class="string">&quot;index&quot;</span>, column]).to_pandas()</span><br><span class="line">        <span class="keyword">except</span> KeyError:</span><br><span class="line">            <span class="keyword">return</span> pd.DataFrame()</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">store_df_in_store</span>(<span class="params">self, df</span>): </span><br><span class="line">        rb = self.dataFrame2recordBatch(df)</span><br><span class="line">        self.create_plasma_obj_from_record_batch(rb)</span><br></pre></td></tr></table></figure></div>
 <p>在应用中使用：</p>
 <div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">pp = PlasmaPandas(<span class="string">&#x27;obj_key&#x27;</span>)</span><br><span class="line">df = pd.read_csv(<span class="string">&#x27;example.csv&#x27;</span>)</span><br><span class="line">pp.store_df_in_store(df)</span><br><span class="line">df = pp.get_df_column(<span class="string">&#x27;col_name&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+]]></content>
+      <categories>
+        <category>big data</category>
+      </categories>
+      <tags>
+        <tag>big data</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Data Integration</title>
+    <url>/2021/04/09/bigdata-2021-04-10-data-integration-tools/</url>
+    <content><![CDATA[<h2 id="数据集成简介"><a href="#数据集成简介" class="headerlink" title="数据集成简介"></a>数据集成简介</h2><p>企业总是有从各个系统里集成数据的需求, 数据集成就是一门技术用来提供企业层面的统一和一致的数据视图. 数据集成的目的是维护数据源整体上的数据一致性, 解决企业数据孤岛问题, 提高信息共享和利用的效率. 数据集成的核心任务是将有关联的异构数据源集成到一起, 使用户能够透明地方式访问这些数据.</p>
+<h2 id="数据集成的分类"><a href="#数据集成的分类" class="headerlink" title="数据集成的分类"></a>数据集成的分类</h2><p>从集成方式的角度来分, 数据集成可分为:</p>
+<ul>
+<li>点对点集成</li>
+<li>总线式集成</li>
+<li>离线批量集成</li>
+<li>流式数据集成</li>
+</ul>
+<h3 id="点对点数据集成"><a href="#点对点数据集成" class="headerlink" title="点对点数据集成"></a>点对点数据集成</h3><p>点对点一般采用接口方式对接, 适合连接对象比较少的情况, 具有开发周期短, 技术难度低的优势. 问题是当连接对象变多, 连接路径将会指数级增长, 效率和维护成本会变大. 主要的维护成本在于不能集中管理和监控接口服务, 如果交换协议不一致将会遇到开发困难.<br>点对点的集成是紧耦合的，当一个连接变化时，所有与其相关的接口程序都需要重新开发或调试。</p>
+<h3 id="总线式数据集成"><a href="#总线式数据集成" class="headerlink" title="总线式数据集成"></a>总线式数据集成</h3><p>总线式数据集成是通过在中间件上定义和执行集成规则，其拓扑结构不再是点对点集成形成的无规则网状，而主要是中心辐射型的（Hub型）星型结构或总线结构.<br>总线结构通过与点对点集成架构相比，采用总线架构可以显著减少编写的专用集成代码量，提升了集成接口的可管理性。不同连接对象如果连接方式有差异，可以通过总线完全屏蔽掉，做到对连接对象透明，无需各个连接对象关心。通过总线结构，把原来复杂的网状结构变成简单的星形结构，极大提高了硬件的可靠性和可用性。</p>
+<ul>
+<li><p>第一代总线集成工具: EDI电子数据交换系统<br>企业直接按照通用的消息格式发送信息，接收方也需要按统一规定的语法规则，对消息进行处理，并引起其他相关系统的EDI综合处理。一般EDI用于企业间交换交易凭证和发票等数据, 是无纸化办公的实现.</p>
+</li>
+<li><p>第二代总线集成工具: ESB企业服务总线<br>ESB的使用标志着企业的应用集成进入了SOA时代（SOA是一种面向服务的集成架构）。SOA架构的其主要特征是基于一系列Web标准或规范来开发接口程序，包括UDDI、SOAP、WSDL、XML、REST，并采用支持这些规范的中间件产品作为集成平台，从而实现了一种开放而富有弹性的应用集成方式。<br>ESB是对web服务（WebService）的注册、编排和管理。<br>WebService是一种跨编程语言、跨操作系统平台的远程调用技术，是web的一种标准。可以理解为：WebService是一个应用程序向外界暴露了一个能通过Web调用的API接口，我们把调用这个WebService的应用程序称作客户端，把提供这个WebService的应用程序称作服务端。客户端进行服务的远程调用前，需要知道服务的地址与服务有什么方法可以调用。<br>因此，WebService服务端通过一个文件（WSDL）来说明自己家里有啥服务可以对外调用，服务是什么，服务中有哪些方法，方法输入的参数是什么，返回值是什么，服务的网络地址是什么，通过什么方式来调用等。<br>WSDL是一个基于XML的语言，用于描述WebService及其函数、参数和返回值，它是WebService客户端和服务器端都能理解的标准格式。</p>
+</li>
+</ul>
+<h3 id="离线批量数据集成"><a href="#离线批量数据集成" class="headerlink" title="离线批量数据集成"></a>离线批量数据集成</h3><p>在传统数据集成的语境下，离线批量数据集成，通常是指基于ETL工具的离线数据集成，ETL即数据的提取（Extract)、转换(Transform)和加载(Load)。<br>ETL的实现有多种方法，常用的有三种：</p>
+<ul>
+<li>第一种是借助ETL工具：例如：Informatic、IBM CDC、talend、kettle、Nifi等，借助工具可以快速的建立起ETL工程，屏蔽了复杂的编码任务，提高了速度，降低了难度，但是缺少灵活性。</li>
+<li>第二种是SQL编码实现：SQL的方法优点是灵活，提高ETL运行效率，但是编码复杂，对技术要求比较高。</li>
+<li>第三种是ETL工具和SQL组合实现：综合了前面二种的优点，会极大地提高ETL的开发速度和效率。</li>
+</ul>
+<h3 id="流程数据集成"><a href="#流程数据集成" class="headerlink" title="流程数据集成"></a>流程数据集成</h3><p>流式数据集成也叫流式数据实时数据处理，通常是采用Flume、Kafka等流式数据处理工具对数据库进行实时监控和复制，然后根据业务场景做对应的处理（例如去重、去噪、中间计算等），之后再写入到对应的数据存储中。</p>
+<h3 id="网络数据集成"><a href="#网络数据集成" class="headerlink" title="网络数据集成"></a>网络数据集成</h3><p>网络数据集成也叫网络数据采集，指通过网络爬虫或网站公开API等方式从网站上获取数据信息的过程。<br>网页爬虫，即一种按照一定的规则，自动地抓取互联网信息的程序或者脚本，一般分为通用网络爬虫和聚焦网络爬虫两种。网页爬虫从一个或若干初始网页的URL开始，获得初始网页上的URL，在抓取网页的过程中，不断从当前页面上抽取新的URL放入队列，直到满足系统的一定停止条件。<br>聚焦爬虫的工作流程较为复杂，需要根据一定的网页分析算法过滤与主题无关的链接，保留有用的链接并将其放入等待抓取的URL队列。<br>网页爬虫支持文本文件、图片、音频、视频等非结构化数据、半结构化数据从网页中提取出来，存储在本地的存储系统中。<br>目前网络上有许多网页爬虫，Octoparse、WebCopy、HTTrack、Getleft、Scraper等.</p>
+<h3 id="表格总结"><a href="#表格总结" class="headerlink" title="表格总结"></a>表格总结</h3><p>|—————–+————+—————–+—————-|</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th align="left">优点</th>
+<th>缺点</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>点对点</td>
+<td align="left">1.开发周期短 2.技术难度低</td>
+<td>1.维护成本高 2.紧耦合 3.接口协议局限</td>
+<td>基本不选择</td>
+</tr>
+<tr>
+<td>总线式</td>
+<td align="left">1.集中管理  2.多协议 3. 解耦和结构星型化 4.可声明</td>
+<td>1.存在单点问题,需要高可用 2.开发成本比点对点高</td>
+<td>适合API类型的数据集成</td>
+</tr>
+<tr>
+<td>离线批量</td>
+<td align="left">1.吞吐量大 2.可自定义数据模型 3.可集成数仓</td>
+<td>1.需要一定编码能力 2.数据有延迟 3.ETL一般只支持关系型数据</td>
+<td>适合数仓系统</td>
+</tr>
+<tr>
+<td>流式数据集成</td>
+<td align="left">1.实时 2.吞吐量达每秒百MB 3.支持NoSQL</td>
+<td>1.架构较复杂 2.需要devops能力</td>
+<td>一般使用Kafka</td>
+</tr>
+<tr>
+<td>—————–+————+—————–+—————-</td>
+<td align="left"></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
 ]]></content>
       <categories>
         <category>big data</category>
@@ -4221,6 +4221,35 @@
       </tags>
   </entry>
   <entry>
+    <title>一台虚机多个IP</title>
+    <url>/2018/12/09/cloud-2018-12-10-one-instance-multiple-ip/</url>
+    <content><![CDATA[<p>一个云主机可以被分配多个IP, 这样做的好处有:</p>
+<ul>
+<li>一台虚机运行多个web应用, 然后每个ip一个应用,每个ip一张ssl证书</li>
+<li>防火墙或者负载均衡器需要多个IP</li>
+<li>如果一台虚机宕机, 那么可以把多个ip的一个转移到另一台备用主机, 做到高可用.<br>下面以AWS为例子介绍一台主机多个IP是怎么工作的.</li>
+</ul>
+<h3 id="多个IP地址是如何工作的"><a href="#多个IP地址是如何工作的" class="headerlink" title="多个IP地址是如何工作的?"></a>多个IP地址是如何工作的?</h3><p>ip需要绑定到网卡, 以下主要以IPv4为例做介绍</p>
+<ul>
+<li>多个IPv4私有地址可以绑定到任何网路接口, 网路接口可以绑定或解绑到主机.</li>
+<li>IPv4的地址必须是在子网的网段内</li>
+<li>网路接口是有安全组的, 所以对应的IP就应该遵循这个安全组规则.</li>
+<li>多个IP地址可以被分配给网路接口, 网路接口可以是绑定到运行着或者非运行着的主机.</li>
+<li>一个已经被分配的ip可以从一个网卡分配到另一个网卡.</li>
+<li>虽然主机的主网卡不能被移走, 但是主网卡的第二个ip可以被移动到另一个网卡.</li>
+<li>每一个IPv4地址可以被分配一个弹性IP, 反之亦然</li>
+<li>当一个Ipv4的私有地址被分配到另一个网卡时, 它对应的弹性IP会跟随移走.</li>
+<li>当一个IPv4私有地址从网卡移走, 那么弹性IP会自动和这个IP解绑.</li>
+</ul>
+]]></content>
+      <categories>
+        <category>cloud</category>
+      </categories>
+      <tags>
+        <tag>cloud</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>AWS的VPC组件</title>
     <url>/2018/11/04/cloud-2018-11-05-aws-internet-gateway/</url>
     <content><![CDATA[<h3 id="IGW"><a href="#IGW" class="headerlink" title="IGW"></a>IGW</h3><p><code>Internet Gateway</code>(IGW)是一个水平扩展, 冗余, 高可用的aws VPC组件. 主要的作用是能让你的VPC和英特网连接. 一个<code>IGW</code>可以作为<code>VPC</code>路由表中的<code>target</code>, 会把虚机的IP地址做NAT(网络地址转换), 以让英特网认为私有的虚机具有公网的IP, 从而做到私有虚机和英特网能够通讯.</p>
@@ -4330,35 +4359,6 @@
       </categories>
       <tags>
         <tag>cloud, big data</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一台虚机多个IP</title>
-    <url>/2018/12/09/cloud-2018-12-10-one-instance-multiple-ip/</url>
-    <content><![CDATA[<p>一个云主机可以被分配多个IP, 这样做的好处有:</p>
-<ul>
-<li>一台虚机运行多个web应用, 然后每个ip一个应用,每个ip一张ssl证书</li>
-<li>防火墙或者负载均衡器需要多个IP</li>
-<li>如果一台虚机宕机, 那么可以把多个ip的一个转移到另一台备用主机, 做到高可用.<br>下面以AWS为例子介绍一台主机多个IP是怎么工作的.</li>
-</ul>
-<h3 id="多个IP地址是如何工作的"><a href="#多个IP地址是如何工作的" class="headerlink" title="多个IP地址是如何工作的?"></a>多个IP地址是如何工作的?</h3><p>ip需要绑定到网卡, 以下主要以IPv4为例做介绍</p>
-<ul>
-<li>多个IPv4私有地址可以绑定到任何网路接口, 网路接口可以绑定或解绑到主机.</li>
-<li>IPv4的地址必须是在子网的网段内</li>
-<li>网路接口是有安全组的, 所以对应的IP就应该遵循这个安全组规则.</li>
-<li>多个IP地址可以被分配给网路接口, 网路接口可以是绑定到运行着或者非运行着的主机.</li>
-<li>一个已经被分配的ip可以从一个网卡分配到另一个网卡.</li>
-<li>虽然主机的主网卡不能被移走, 但是主网卡的第二个ip可以被移动到另一个网卡.</li>
-<li>每一个IPv4地址可以被分配一个弹性IP, 反之亦然</li>
-<li>当一个Ipv4的私有地址被分配到另一个网卡时, 它对应的弹性IP会跟随移走.</li>
-<li>当一个IPv4私有地址从网卡移走, 那么弹性IP会自动和这个IP解绑.</li>
-</ul>
-]]></content>
-      <categories>
-        <category>cloud</category>
-      </categories>
-      <tags>
-        <tag>cloud</tag>
       </tags>
   </entry>
   <entry>
@@ -4553,6 +4553,34 @@
       </categories>
       <tags>
         <tag>data warehouse, data quality</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Three type of data model</title>
+    <url>/2021/08/08/data-warehouse-2021-08-09-data-modeling-type/</url>
+    <content><![CDATA[<h2 id="Three-Types-of-Data-Models"><a href="#Three-Types-of-Data-Models" class="headerlink" title="Three Types of Data Models"></a>Three Types of Data Models</h2><p>一般主要有三种数据模型<a class="link"   href="https://dl.acm.org/doi/book/10.5555/1594814" >数据模型定义<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>:</p>
+<ul>
+<li>概念模型</li>
+<li>逻辑模型 </li>
+<li>物理模型</li>
+</ul>
+<p>这三种模型可以使用工具来建模<a class="link"   href="https://en.wikipedia.org/wiki/Comparison_of_data_modeling_tools" >工具列表<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. 我们通常先创建概念数据模型，然后再做逻辑数据模型。</p>
+<h3 id="概念数据模型"><a href="#概念数据模型" class="headerlink" title="概念数据模型"></a>概念数据模型</h3><p>概念数据模型用于定义高层业务抽象和概念。通常是业务所有者绘制，建模时不用考虑具体系统的约束。使用SQL Server的SSMS可以很好地建模，一般使用SSMS创建概念模型的流程是：</p>
+<ol>
+<li>创建数据库关系图</li>
+<li>在可编程性栏目下， 创建用户定义数据类型(可选)</li>
+<li>在关系图画布下，创建只包含主键的维表和事实表。</li>
+<li>使用拖拉关联事实表和维表外键关系</li>
+<li>自动调整表大小和自动布局</li>
+</ol>
+<h3 id="逻辑数据模型"><a href="#逻辑数据模型" class="headerlink" title="逻辑数据模型"></a>逻辑数据模型</h3><p>逻辑数据模型用于指定实体的所有属性，并且识别实体之间的关系。逻辑模型通常是数据架构师定义的，用于业务分析。</p>
+<h3 id="物理数据模型"><a href="#物理数据模型" class="headerlink" title="物理数据模型"></a>物理数据模型</h3><p>物理数据模型是把具体的逻辑数据模型使用某个数据库去具体实现。数据库开发者通常使用这个物理模型去做具体的开发工作。</p>
+]]></content>
+      <categories>
+        <category>data warehouse</category>
+      </categories>
+      <tags>
+        <tag>data warehouse, data model</tag>
       </tags>
   </entry>
   <entry>
@@ -4761,34 +4789,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Three type of data model</title>
-    <url>/2021/08/08/data-warehouse-2021-08-09-data-modeling-type/</url>
-    <content><![CDATA[<h2 id="Three-Types-of-Data-Models"><a href="#Three-Types-of-Data-Models" class="headerlink" title="Three Types of Data Models"></a>Three Types of Data Models</h2><p>一般主要有三种数据模型<a class="link"   href="https://dl.acm.org/doi/book/10.5555/1594814" >数据模型定义<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>:</p>
-<ul>
-<li>概念模型</li>
-<li>逻辑模型 </li>
-<li>物理模型</li>
-</ul>
-<p>这三种模型可以使用工具来建模<a class="link"   href="https://en.wikipedia.org/wiki/Comparison_of_data_modeling_tools" >工具列表<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. 我们通常先创建概念数据模型，然后再做逻辑数据模型。</p>
-<h3 id="概念数据模型"><a href="#概念数据模型" class="headerlink" title="概念数据模型"></a>概念数据模型</h3><p>概念数据模型用于定义高层业务抽象和概念。通常是业务所有者绘制，建模时不用考虑具体系统的约束。使用SQL Server的SSMS可以很好地建模，一般使用SSMS创建概念模型的流程是：</p>
-<ol>
-<li>创建数据库关系图</li>
-<li>在可编程性栏目下， 创建用户定义数据类型(可选)</li>
-<li>在关系图画布下，创建只包含主键的维表和事实表。</li>
-<li>使用拖拉关联事实表和维表外键关系</li>
-<li>自动调整表大小和自动布局</li>
-</ol>
-<h3 id="逻辑数据模型"><a href="#逻辑数据模型" class="headerlink" title="逻辑数据模型"></a>逻辑数据模型</h3><p>逻辑数据模型用于指定实体的所有属性，并且识别实体之间的关系。逻辑模型通常是数据架构师定义的，用于业务分析。</p>
-<h3 id="物理数据模型"><a href="#物理数据模型" class="headerlink" title="物理数据模型"></a>物理数据模型</h3><p>物理数据模型是把具体的逻辑数据模型使用某个数据库去具体实现。数据库开发者通常使用这个物理模型去做具体的开发工作。</p>
-]]></content>
-      <categories>
-        <category>data warehouse</category>
-      </categories>
-      <tags>
-        <tag>data warehouse, data model</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>增量ETL源数据的几种方式和细节</title>
     <url>/2022/01/09/data-warehouse-2022-01-10-%E5%A2%9E%E9%87%8FETL%E6%BA%90%E6%95%B0%E6%8D%AE%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8C%E7%BB%86%E8%8A%82/</url>
     <content><![CDATA[<h2 id="Introduction-介绍"><a href="#Introduction-介绍" class="headerlink" title="Introduction 介绍"></a>Introduction 介绍</h2><p><code>ETL</code>是常见的把数据从 OLTP 系统导入数据仓库的方式，一般分为全量，增量，固定范围和推送方式。本文主要讲如何增量抽取，和抽取过程中遇到其它一些问题的解决方法。</p>
@@ -4884,6 +4884,34 @@
       </tags>
   </entry>
   <entry>
+    <title>一次奇怪的Docker Daemon Error</title>
+    <url>/2018/01/17/docker-2018-01-18-strange-docker-error/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>环境：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/centos-release</span><br><span class="line">CentOS Linux release 7.1.1503 (Core) </span><br><span class="line">ansible --version</span><br><span class="line">ansible 2.3.1.0</span><br><span class="line">  config file = /etc/ansible/ansible.cfg</span><br><span class="line">  configured module search path = Default w/o overrides</span><br><span class="line">  python version = 2.7.5 (default, Aug  4 2017, 00:39:18) [GCC 4.8.5 20150623 (Red Hat 4.8.5-16)]</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="问题出现"><a href="#问题出现" class="headerlink" title="问题出现"></a>问题出现</h3><p>用ansible安装部署docker时发现有容器一直起不来。安装的docker daemon是按docker官网<a class="link"   href="https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-docker-ce" >https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-docker-ce<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>安装的，然后log发现报错<code>Error response from daemon: OCI runtime create failed: unable to retrieve OCI runtime error</code>。</p>
+<h3 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h3><p>搜索查看<a class="link"   href="https://github.com/moby/moby/issues/35972" >issue<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>,发现是安装的docker-ce版本太新!而centos太旧，Centos7.1选择docker-ce-17.06.3.ce这个版本可用，17.12还是太新！</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">docker info</span><br><span class="line">Server Version: 18.01.0-ce</span><br><span class="line">Storage Driver: devicemapper</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="措施，其他问题再现"><a href="#措施，其他问题再现" class="headerlink" title="措施，其他问题再现"></a>措施，其他问题再现</h3><p>卸载docker-ce, 重新安装。然后发现容器还是起不来！<br>尝试删除&#x2F;var&#x2F;lib&#x2F;docker, 报错</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">error: driver \&quot;devicemapper\&quot; failed to remove root filesystem <span class="keyword">for</span> 6f009dff997d9fe3f19c736d6dd662d7ff55cea2ec04ac5bba287b83684cac5b: remove /var/lib/docker/devicemapper/mnt/0efe8e6bc86a2ff1e1877979275c36d119995043ce231aeed661c15d26873692: device or resource busy</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>看看到底是mount到其它什么地方了</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">find /proc/*/mounts | xargs grep  0efe8e6bc86a2ff1e187797927</span><br><span class="line">grep: /proc/1449/mounts: No such file or directory</span><br><span class="line">/proc/7280/mounts:/dev/mapper/docker-8:6-67114038-0efe8e6bc86a2ff1e1877979275c36d119995043ce231aeed661c15d26873692 /var/lib/docker/devicemapper/mnt/0efe8e6bc86a2ff1e1877979275c36d119995043ce231aeed661c15d26873692 xfs rw,relatime,nouuid,attr2,inode64,logbsize=64k,sunit=128,swidth=128,noquota 0 0</span><br><span class="line"></span><br><span class="line">ps 7280</span><br><span class="line">  PID TTY      STAT   TIME COMMAND</span><br><span class="line">  7280 ?        Ssl    0:03 /usr/libexec/colord</span><br><span class="line"></span><br><span class="line"><span class="built_in">kill</span> -9 7280 </span><br><span class="line">yum install -y docker-ce-17.06.3.ce </span><br><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用Docker Cloud自动化部署</title>
     <url>/2018/02/01/docker-2018-02-02-docker-cloud-autodeploy/</url>
     <content><![CDATA[<h3 id="Docker-cloud介绍"><a href="#Docker-cloud介绍" class="headerlink" title="Docker cloud介绍"></a>Docker cloud介绍</h3><p>Docker cloud有点像云上的jenkins docker自动化构建部署工具，可以把云上的git仓库，部署的节点虚机整合在一起，做到提交代码就可以自动构建，测试，部署。</p>
@@ -4921,34 +4949,6 @@
 </li>
 </ul>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这里只是简单介绍一下docker cloud的应用。还有一些其他功能比如swarm等商业功能没有触及，但是总体感觉docker越来越商业化。</p>
-]]></content>
-      <categories>
-        <category>docker</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一次奇怪的Docker Daemon Error</title>
-    <url>/2018/01/17/docker-2018-01-18-strange-docker-error/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>环境：</p>
-<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/centos-release</span><br><span class="line">CentOS Linux release 7.1.1503 (Core) </span><br><span class="line">ansible --version</span><br><span class="line">ansible 2.3.1.0</span><br><span class="line">  config file = /etc/ansible/ansible.cfg</span><br><span class="line">  configured module search path = Default w/o overrides</span><br><span class="line">  python version = 2.7.5 (default, Aug  4 2017, 00:39:18) [GCC 4.8.5 20150623 (Red Hat 4.8.5-16)]</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="问题出现"><a href="#问题出现" class="headerlink" title="问题出现"></a>问题出现</h3><p>用ansible安装部署docker时发现有容器一直起不来。安装的docker daemon是按docker官网<a class="link"   href="https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-docker-ce" >https://docs.docker.com/engine/installation/linux/docker-ce/centos/#install-docker-ce<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>安装的，然后log发现报错<code>Error response from daemon: OCI runtime create failed: unable to retrieve OCI runtime error</code>。</p>
-<h3 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h3><p>搜索查看<a class="link"   href="https://github.com/moby/moby/issues/35972" >issue<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>,发现是安装的docker-ce版本太新!而centos太旧，Centos7.1选择docker-ce-17.06.3.ce这个版本可用，17.12还是太新！</p>
-<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">docker info</span><br><span class="line">Server Version: 18.01.0-ce</span><br><span class="line">Storage Driver: devicemapper</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="措施，其他问题再现"><a href="#措施，其他问题再现" class="headerlink" title="措施，其他问题再现"></a>措施，其他问题再现</h3><p>卸载docker-ce, 重新安装。然后发现容器还是起不来！<br>尝试删除&#x2F;var&#x2F;lib&#x2F;docker, 报错</p>
-<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">error: driver \&quot;devicemapper\&quot; failed to remove root filesystem <span class="keyword">for</span> 6f009dff997d9fe3f19c736d6dd662d7ff55cea2ec04ac5bba287b83684cac5b: remove /var/lib/docker/devicemapper/mnt/0efe8e6bc86a2ff1e1877979275c36d119995043ce231aeed661c15d26873692: device or resource busy</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>看看到底是mount到其它什么地方了</p>
-<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">find /proc/*/mounts | xargs grep  0efe8e6bc86a2ff1e187797927</span><br><span class="line">grep: /proc/1449/mounts: No such file or directory</span><br><span class="line">/proc/7280/mounts:/dev/mapper/docker-8:6-67114038-0efe8e6bc86a2ff1e1877979275c36d119995043ce231aeed661c15d26873692 /var/lib/docker/devicemapper/mnt/0efe8e6bc86a2ff1e1877979275c36d119995043ce231aeed661c15d26873692 xfs rw,relatime,nouuid,attr2,inode64,logbsize=64k,sunit=128,swidth=128,noquota 0 0</span><br><span class="line"></span><br><span class="line">ps 7280</span><br><span class="line">  PID TTY      STAT   TIME COMMAND</span><br><span class="line">  7280 ?        Ssl    0:03 /usr/libexec/colord</span><br><span class="line"></span><br><span class="line"><span class="built_in">kill</span> -9 7280 </span><br><span class="line">yum install -y docker-ce-17.06.3.ce </span><br><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure></div>
-
-
-
-
-
 ]]></content>
       <categories>
         <category>docker</category>
@@ -5153,6 +5153,22 @@
       </tags>
   </entry>
   <entry>
+    <title>Kubernetes Pod含义</title>
+    <url>/2018/01/03/kubernetes-2018-01-04-Kubernetes-pod/</url>
+    <content><![CDATA[<blockquote>
+<p>官网文档 <a class="link"   href="https://kubernetes.io/docs/concepts/workloads/pods/pod/" >https://kubernetes.io/docs/concepts/workloads/pods/pod/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</blockquote>
+<h3 id="什么是Pod？"><a href="#什么是Pod？" class="headerlink" title="什么是Pod？"></a>什么是Pod？</h3><p>Pod的本身含义是<strong>一群鲸鱼</strong>的意思, 而Docker的Logo刚好是🐳。所以简单说pod就是一组容器。（不一定是docker container) pod里的容器共享存储，网络和运行的容器环境。共享的东西包括cgroup, 命名空间, Ip, 端口和其他隔离方面的东西</p>
+<h3 id="pod内部通讯"><a href="#pod内部通讯" class="headerlink" title="pod内部通讯"></a>pod内部通讯</h3><p>由于pod里面的容器共享ip, 容器间的通讯可以通过内部进程通信（SystemV semaphores， POSIX shared memory）或localhost.</p>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Kubernetes的service</title>
     <url>/2018/02/21/kubernetes-2018-02-22-k8s-service/</url>
     <content><![CDATA[<blockquote>
@@ -5181,64 +5197,6 @@
 </ul>
 </li>
 </ul>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kubernetes Pod含义</title>
-    <url>/2018/01/03/kubernetes-2018-01-04-Kubernetes-pod/</url>
-    <content><![CDATA[<blockquote>
-<p>官网文档 <a class="link"   href="https://kubernetes.io/docs/concepts/workloads/pods/pod/" >https://kubernetes.io/docs/concepts/workloads/pods/pod/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-</blockquote>
-<h3 id="什么是Pod？"><a href="#什么是Pod？" class="headerlink" title="什么是Pod？"></a>什么是Pod？</h3><p>Pod的本身含义是<strong>一群鲸鱼</strong>的意思, 而Docker的Logo刚好是🐳。所以简单说pod就是一组容器。（不一定是docker container) pod里的容器共享存储，网络和运行的容器环境。共享的东西包括cgroup, 命名空间, Ip, 端口和其他隔离方面的东西</p>
-<h3 id="pod内部通讯"><a href="#pod内部通讯" class="headerlink" title="pod内部通讯"></a>pod内部通讯</h3><p>由于pod里面的容器共享ip, 容器间的通讯可以通过内部进程通信（SystemV semaphores， POSIX shared memory）或localhost.</p>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Kubernetes的volume</title>
-    <url>/2018/03/07/kubernetes-2018-03-08-k8s-volume/</url>
-    <content><![CDATA[<h2 id="Volume"><a href="#Volume" class="headerlink" title="Volume"></a>Volume</h2><p>简单的说， 一个volume就是一个在磁盘或容器中的目录，volume里面有pod中容器可以访问的数据。K8S的volume主要解决容器中数据存储和容器间数据共享的问题。k8s的volume和pod有相同的生命周期。一个pod可以同时使用不同的volume类型。如果使用volume, 一个pod需要通过<code>spec.volumes</code>指定volume类型，<code>spec.containers.volumeMounts</code>指定挂载目录。volume不能再挂载到其他volume,</p>
-<h2 id="k8s支持的Volumes类型"><a href="#k8s支持的Volumes类型" class="headerlink" title="k8s支持的Volumes类型"></a>k8s支持的Volumes类型</h2><ul>
-<li>wsElasticBlockStore</li>
-<li>azureDisk</li>
-<li>azureFile</li>
-<li>cephfs</li>
-<li>configMap<br><code>configMap</code>提供了一种往pod里注入配置的方式。如果配置文件能够在Dockerfile中add进去，我建议还是用add，而不是</li>
-<li>csi</li>
-<li>downwardAPI</li>
-<li>emptyDir<br><code>emptyDir</code>这个卷是pod在node创建时生成的空卷，生命周期和pod一致， 存储在pod所在的node，删除pod将删除<code>emptyDir</code>, 存储媒介和node一致，但是可以通过<code>emptyDir.medium: Memory</code>把它mount到内存（docker的tmpfs）。它使用场景可以作为原型或checkpointing点.<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test-pd</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">k8s.gcr.io/test-webserver</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">test-container</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/cache</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">cache-volume</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">cache-volume</span></span><br><span class="line">    <span class="attr">emptyDir:</span> &#123;&#125;</span><br></pre></td></tr></table></figure></div></li>
-<li>fc (fibre channel)</li>
-<li>flocker</li>
-<li>gcePersistentDisk</li>
-<li>gitRepo</li>
-<li>glusterfs</li>
-<li>hostPath<br><code>hostPath</code>把node的目录挂进pod，可以用于：容器访问Docker内部<code>/var/lib/docker</code>; 跑cAdvisor要用到<code>/sys</code>; 或者允许pod运行前检查<code>hostPath</code>是否存在，然后再对pod做操作。<code>path</code>是<code>hostPath</code>必须的参数，还可以通过<code>type</code>来指定volume类型，type的类型如下：<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-08%20%E4%B8%8A%E5%8D%8810.28.01.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-08%20%E4%B8%8A%E5%8D%8810.28.01.png"><br>由于是主机的路径, 所以需要注意权限问题。<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test-pd</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">k8s.gcr.io/test-webserver</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">test-container</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/test-pd</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">test-volume</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test-volume</span></span><br><span class="line">    <span class="attr">hostPath:</span></span><br><span class="line">      <span class="comment"># directory location on host</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/data</span></span><br><span class="line">      <span class="comment"># this field is optional</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">Directory</span></span><br></pre></td></tr></table></figure></div></li>
-<li>iscsi</li>
-<li>local. 1.7以后新特性，需要开启<code>PersistentLocalVolumes</code>, 如果是1.9还需要开启<code>VolumeScheduling</code>。<code>local volume</code>代表了本地挂载的存储设备，可以被用于创建静态PersistentVolume。相比于hostPath, local卷可以被系统通过节点自动地发现PV, 而不用手动把某个pod分配到node. 下面的例子就是使用local来创建PV:<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"> <span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"> <span class="attr">kind:</span> <span class="string">PersistentVolume</span></span><br><span class="line"> <span class="attr">metadata:</span></span><br><span class="line">   <span class="attr">name:</span> <span class="string">example-pv</span></span><br><span class="line">   <span class="attr">annotations:</span></span><br><span class="line">     <span class="attr">&quot;volume.alpha.kubernetes.io/node-affinity&quot;:</span> <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">        &quot;requiredDuringSchedulingIgnoredDuringExecution&quot;: &#123;</span></span><br><span class="line"><span class="string">            &quot;nodeSelectorTerms&quot;: [</span></span><br><span class="line"><span class="string">                &#123; &quot;matchExpressions&quot;: [</span></span><br><span class="line"><span class="string">                    &#123; &quot;key&quot;: &quot;kubernetes.io/hostname&quot;,</span></span><br><span class="line"><span class="string">                      &quot;operator&quot;: &quot;In&quot;,</span></span><br><span class="line"><span class="string">                      &quot;values&quot;: [&quot;example-node&quot;]</span></span><br><span class="line"><span class="string">                    &#125;</span></span><br><span class="line"><span class="string">                ]&#125;</span></span><br><span class="line"><span class="string">             ]&#125;</span></span><br><span class="line"><span class="string">          &#125;&#x27;</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">capacity:</span></span><br><span class="line">    <span class="attr">storage:</span> <span class="string">100Gi</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br><span class="line">  <span class="attr">persistentVolumeReclaimPolicy:</span> <span class="string">Delete</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">local-storage</span></span><br><span class="line">  <span class="attr">local:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">/mnt/disks/ssd1</span></span><br></pre></td></tr></table></figure></div></li>
-<li>nfs. 如果pod的删除， nfs不会删除数据。NFS可以同时被多节点读写。</li>
-<li>persistentVolumeClaim<br><code>persistentVolumeClaim</code>把<code>persistentVolume</code>挂进pod，<code>persistentVolume</code>是一种k8s用户声明持久化存储的方式，好处是用户不需要底层存储环境细节。</li>
-<li>projected， 可以映射多个volume到同一个目录。 可以用于<code>secret</code>, <code>downwardAPI</code>, <code>configMap</code>.<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">volume-test</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">container-test</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">all-in-one</span></span><br><span class="line">      <span class="attr">mountPath:</span> <span class="string">&quot;/projected-volume&quot;</span></span><br><span class="line">      <span class="attr">readOnly:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">all-in-one</span></span><br><span class="line">    <span class="attr">projected:</span></span><br><span class="line">      <span class="attr">sources:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">secret:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">mysecret</span></span><br><span class="line">          <span class="attr">items:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">username</span></span><br><span class="line">              <span class="attr">path:</span> <span class="string">my-group/my-username</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">downwardAPI:</span></span><br><span class="line">          <span class="attr">items:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">&quot;labels&quot;</span></span><br><span class="line">              <span class="attr">fieldRef:</span></span><br><span class="line">                <span class="attr">fieldPath:</span> <span class="string">metadata.labels</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">&quot;cpu_limit&quot;</span></span><br><span class="line">              <span class="attr">resourceFieldRef:</span></span><br><span class="line">                <span class="attr">containerName:</span> <span class="string">container-test</span></span><br><span class="line">                <span class="attr">resource:</span> <span class="string">limits.cpu</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">configMap:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">myconfigmap</span></span><br><span class="line">          <span class="attr">items:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">config</span></span><br><span class="line">              <span class="attr">path:</span> <span class="string">my-group/my-config</span></span><br></pre></td></tr></table></figure></div></li>
-<li>portworxVolume</li>
-<li>quobyte</li>
-<li>rbd</li>
-<li>scaleIO</li>
-<li>secret</li>
-<li>storageos</li>
-<li>vsphereVolume</li>
-</ul>
-<h3 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h3><p><code>emptyDir</code>的存储介质取决于kubelet根目录的存储介质(&#x2F;var&#x2F;lib&#x2F;kubelet)， <code>emptyDir</code>和<code>hostPath</code>目前没有限制用量，也没有在容器间隔离数据。</p>
-<h3 id="Mount-propagation-挂载传递"><a href="#Mount-propagation-挂载传递" class="headerlink" title="Mount propagation 挂载传递"></a>Mount propagation 挂载传递</h3><p>1.8新特性。挂载传递能让同一pod里的容器共享volume, 甚至可以在同一node的pods间共享。</p>
 ]]></content>
       <categories>
         <category>kubernetes</category>
@@ -5291,6 +5249,48 @@
       </tags>
   </entry>
   <entry>
+    <title>Kubernetes的volume</title>
+    <url>/2018/03/07/kubernetes-2018-03-08-k8s-volume/</url>
+    <content><![CDATA[<h2 id="Volume"><a href="#Volume" class="headerlink" title="Volume"></a>Volume</h2><p>简单的说， 一个volume就是一个在磁盘或容器中的目录，volume里面有pod中容器可以访问的数据。K8S的volume主要解决容器中数据存储和容器间数据共享的问题。k8s的volume和pod有相同的生命周期。一个pod可以同时使用不同的volume类型。如果使用volume, 一个pod需要通过<code>spec.volumes</code>指定volume类型，<code>spec.containers.volumeMounts</code>指定挂载目录。volume不能再挂载到其他volume,</p>
+<h2 id="k8s支持的Volumes类型"><a href="#k8s支持的Volumes类型" class="headerlink" title="k8s支持的Volumes类型"></a>k8s支持的Volumes类型</h2><ul>
+<li>wsElasticBlockStore</li>
+<li>azureDisk</li>
+<li>azureFile</li>
+<li>cephfs</li>
+<li>configMap<br><code>configMap</code>提供了一种往pod里注入配置的方式。如果配置文件能够在Dockerfile中add进去，我建议还是用add，而不是</li>
+<li>csi</li>
+<li>downwardAPI</li>
+<li>emptyDir<br><code>emptyDir</code>这个卷是pod在node创建时生成的空卷，生命周期和pod一致， 存储在pod所在的node，删除pod将删除<code>emptyDir</code>, 存储媒介和node一致，但是可以通过<code>emptyDir.medium: Memory</code>把它mount到内存（docker的tmpfs）。它使用场景可以作为原型或checkpointing点.<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test-pd</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">k8s.gcr.io/test-webserver</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">test-container</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/cache</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">cache-volume</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">cache-volume</span></span><br><span class="line">    <span class="attr">emptyDir:</span> &#123;&#125;</span><br></pre></td></tr></table></figure></div></li>
+<li>fc (fibre channel)</li>
+<li>flocker</li>
+<li>gcePersistentDisk</li>
+<li>gitRepo</li>
+<li>glusterfs</li>
+<li>hostPath<br><code>hostPath</code>把node的目录挂进pod，可以用于：容器访问Docker内部<code>/var/lib/docker</code>; 跑cAdvisor要用到<code>/sys</code>; 或者允许pod运行前检查<code>hostPath</code>是否存在，然后再对pod做操作。<code>path</code>是<code>hostPath</code>必须的参数，还可以通过<code>type</code>来指定volume类型，type的类型如下：<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-08%20%E4%B8%8A%E5%8D%8810.28.01.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-08%20%E4%B8%8A%E5%8D%8810.28.01.png"><br>由于是主机的路径, 所以需要注意权限问题。<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">test-pd</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">k8s.gcr.io/test-webserver</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">test-container</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/test-pd</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">test-volume</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">test-volume</span></span><br><span class="line">    <span class="attr">hostPath:</span></span><br><span class="line">      <span class="comment"># directory location on host</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/data</span></span><br><span class="line">      <span class="comment"># this field is optional</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">Directory</span></span><br></pre></td></tr></table></figure></div></li>
+<li>iscsi</li>
+<li>local. 1.7以后新特性，需要开启<code>PersistentLocalVolumes</code>, 如果是1.9还需要开启<code>VolumeScheduling</code>。<code>local volume</code>代表了本地挂载的存储设备，可以被用于创建静态PersistentVolume。相比于hostPath, local卷可以被系统通过节点自动地发现PV, 而不用手动把某个pod分配到node. 下面的例子就是使用local来创建PV:<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"> <span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"> <span class="attr">kind:</span> <span class="string">PersistentVolume</span></span><br><span class="line"> <span class="attr">metadata:</span></span><br><span class="line">   <span class="attr">name:</span> <span class="string">example-pv</span></span><br><span class="line">   <span class="attr">annotations:</span></span><br><span class="line">     <span class="attr">&quot;volume.alpha.kubernetes.io/node-affinity&quot;:</span> <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">        &quot;requiredDuringSchedulingIgnoredDuringExecution&quot;: &#123;</span></span><br><span class="line"><span class="string">            &quot;nodeSelectorTerms&quot;: [</span></span><br><span class="line"><span class="string">                &#123; &quot;matchExpressions&quot;: [</span></span><br><span class="line"><span class="string">                    &#123; &quot;key&quot;: &quot;kubernetes.io/hostname&quot;,</span></span><br><span class="line"><span class="string">                      &quot;operator&quot;: &quot;In&quot;,</span></span><br><span class="line"><span class="string">                      &quot;values&quot;: [&quot;example-node&quot;]</span></span><br><span class="line"><span class="string">                    &#125;</span></span><br><span class="line"><span class="string">                ]&#125;</span></span><br><span class="line"><span class="string">             ]&#125;</span></span><br><span class="line"><span class="string">          &#125;&#x27;</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">capacity:</span></span><br><span class="line">    <span class="attr">storage:</span> <span class="string">100Gi</span></span><br><span class="line">  <span class="attr">accessModes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">ReadWriteOnce</span></span><br><span class="line">  <span class="attr">persistentVolumeReclaimPolicy:</span> <span class="string">Delete</span></span><br><span class="line">  <span class="attr">storageClassName:</span> <span class="string">local-storage</span></span><br><span class="line">  <span class="attr">local:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">/mnt/disks/ssd1</span></span><br></pre></td></tr></table></figure></div></li>
+<li>nfs. 如果pod的删除， nfs不会删除数据。NFS可以同时被多节点读写。</li>
+<li>persistentVolumeClaim<br><code>persistentVolumeClaim</code>把<code>persistentVolume</code>挂进pod，<code>persistentVolume</code>是一种k8s用户声明持久化存储的方式，好处是用户不需要底层存储环境细节。</li>
+<li>projected， 可以映射多个volume到同一个目录。 可以用于<code>secret</code>, <code>downwardAPI</code>, <code>configMap</code>.<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">volume-test</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">container-test</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">all-in-one</span></span><br><span class="line">      <span class="attr">mountPath:</span> <span class="string">&quot;/projected-volume&quot;</span></span><br><span class="line">      <span class="attr">readOnly:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">all-in-one</span></span><br><span class="line">    <span class="attr">projected:</span></span><br><span class="line">      <span class="attr">sources:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">secret:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">mysecret</span></span><br><span class="line">          <span class="attr">items:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">username</span></span><br><span class="line">              <span class="attr">path:</span> <span class="string">my-group/my-username</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">downwardAPI:</span></span><br><span class="line">          <span class="attr">items:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">&quot;labels&quot;</span></span><br><span class="line">              <span class="attr">fieldRef:</span></span><br><span class="line">                <span class="attr">fieldPath:</span> <span class="string">metadata.labels</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">&quot;cpu_limit&quot;</span></span><br><span class="line">              <span class="attr">resourceFieldRef:</span></span><br><span class="line">                <span class="attr">containerName:</span> <span class="string">container-test</span></span><br><span class="line">                <span class="attr">resource:</span> <span class="string">limits.cpu</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">configMap:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">myconfigmap</span></span><br><span class="line">          <span class="attr">items:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">key:</span> <span class="string">config</span></span><br><span class="line">              <span class="attr">path:</span> <span class="string">my-group/my-config</span></span><br></pre></td></tr></table></figure></div></li>
+<li>portworxVolume</li>
+<li>quobyte</li>
+<li>rbd</li>
+<li>scaleIO</li>
+<li>secret</li>
+<li>storageos</li>
+<li>vsphereVolume</li>
+</ul>
+<h3 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h3><p><code>emptyDir</code>的存储介质取决于kubelet根目录的存储介质(&#x2F;var&#x2F;lib&#x2F;kubelet)， <code>emptyDir</code>和<code>hostPath</code>目前没有限制用量，也没有在容器间隔离数据。</p>
+<h3 id="Mount-propagation-挂载传递"><a href="#Mount-propagation-挂载传递" class="headerlink" title="Mount propagation 挂载传递"></a>Mount propagation 挂载传递</h3><p>1.8新特性。挂载传递能让同一pod里的容器共享volume, 甚至可以在同一node的pods间共享。</p>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用aliyun容器服务搭建mysql</title>
     <url>/2018/03/09/kubernetes-2018-03-10-k8s-mysql/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文简单介绍用aliyun的Kubernetes容器服务搭建mysql集群。首先确保k8s集群已经创建，并且已经开通了相关服务如NAS、容器镜像仓库等服务。</p>
@@ -5323,6 +5323,25 @@
       </tags>
   </entry>
   <entry>
+    <title>K8S使用私有镜像</title>
+    <url>/2018/03/11/kubernetes-2018-03-12-k8s-pull-private-image/</url>
+    <content><![CDATA[<blockquote>
+<p><a class="link"   href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account" >https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</blockquote>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如果想要k8s能够拉取使用私有镜像需要创建secret, 然后有两种方法指定secret, 拉取image。 一是在pod的编排模板指定<code>imagePullSecret</code>, 二是修改<code>service account</code>的配置，本文讲述第二种方法。</p>
+<h3 id="第一步-创建imagePullSecret"><a href="#第一步-创建imagePullSecret" class="headerlink" title="第一步 创建imagePullSecret"></a>第一步 创建imagePullSecret</h3><div class="code-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">$</span> <span class="string">kubectl</span> <span class="string">create</span> <span class="string">secret</span> <span class="string">docker-registry</span> <span class="string">myregistrykey</span> <span class="string">--docker-server=DOCKER_REGISTRY_SERVER</span> <span class="string">--docker-username=DOCKER_USER</span> <span class="string">--docker-password=DOCKER_PASSWORD</span> <span class="string">--docker-email=DOCKER_EMAIL</span></span><br><span class="line"><span class="string">secret</span> <span class="string">&quot;myregistrykey&quot;</span> <span class="string">created.</span></span><br><span class="line"></span><br><span class="line"><span class="string">$</span> <span class="string">kubectl</span> <span class="string">get</span> <span class="string">secrets</span> <span class="string">myregistrykey</span></span><br><span class="line"><span class="string">NAME</span>             <span class="string">TYPE</span>                              <span class="string">DATA</span>    <span class="string">AGE</span></span><br><span class="line"><span class="string">myregistrykey</span>    <span class="string">kubernetes.io/.dockerconfigjson</span>   <span class="number">1</span>       <span class="string">1d</span></span><br></pre></td></tr></table></figure></div>
+<p>如果是使用aliyun的私有镜像，<code>docker-server</code>可是设置成vpc的server地址，这样省一点流量。</p>
+<h3 id="第二步-修改serviceaccount"><a href="#第二步-修改serviceaccount" class="headerlink" title="第二步 修改serviceaccount"></a>第二步 修改serviceaccount</h3><div class="code-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">kubectl</span> <span class="string">patch</span> <span class="string">serviceaccount</span> <span class="string">default</span> <span class="string">-p</span> <span class="string">&#x27;&#123;&quot;imagePullSecrets&quot;: [&#123;&quot;name&quot;: &quot;myregistrykey&quot;&#125;]&#125;&#x27;</span></span><br></pre></td></tr></table></figure></div>
+<p>完成！</p>
+]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>在云上使用k8s动态PV</title>
     <url>/2018/03/11/kubernetes-2018-03-12-k8s-dynamic-volume-provision/</url>
     <content><![CDATA[<blockquote>
@@ -5349,17 +5368,13 @@
       </tags>
   </entry>
   <entry>
-    <title>K8S使用私有镜像</title>
-    <url>/2018/03/11/kubernetes-2018-03-12-k8s-pull-private-image/</url>
+    <title>K8S管理容器的计算资源</title>
+    <url>/2018/03/12/kubernetes-2018-03-13-k8s-manage-resource/</url>
     <content><![CDATA[<blockquote>
-<p><a class="link"   href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account" >https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   href="https://v1-8.docs.kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/" >https://v1-8.docs.kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 </blockquote>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如果想要k8s能够拉取使用私有镜像需要创建secret, 然后有两种方法指定secret, 拉取image。 一是在pod的编排模板指定<code>imagePullSecret</code>, 二是修改<code>service account</code>的配置，本文讲述第二种方法。</p>
-<h3 id="第一步-创建imagePullSecret"><a href="#第一步-创建imagePullSecret" class="headerlink" title="第一步 创建imagePullSecret"></a>第一步 创建imagePullSecret</h3><div class="code-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">$</span> <span class="string">kubectl</span> <span class="string">create</span> <span class="string">secret</span> <span class="string">docker-registry</span> <span class="string">myregistrykey</span> <span class="string">--docker-server=DOCKER_REGISTRY_SERVER</span> <span class="string">--docker-username=DOCKER_USER</span> <span class="string">--docker-password=DOCKER_PASSWORD</span> <span class="string">--docker-email=DOCKER_EMAIL</span></span><br><span class="line"><span class="string">secret</span> <span class="string">&quot;myregistrykey&quot;</span> <span class="string">created.</span></span><br><span class="line"></span><br><span class="line"><span class="string">$</span> <span class="string">kubectl</span> <span class="string">get</span> <span class="string">secrets</span> <span class="string">myregistrykey</span></span><br><span class="line"><span class="string">NAME</span>             <span class="string">TYPE</span>                              <span class="string">DATA</span>    <span class="string">AGE</span></span><br><span class="line"><span class="string">myregistrykey</span>    <span class="string">kubernetes.io/.dockerconfigjson</span>   <span class="number">1</span>       <span class="string">1d</span></span><br></pre></td></tr></table></figure></div>
-<p>如果是使用aliyun的私有镜像，<code>docker-server</code>可是设置成vpc的server地址，这样省一点流量。</p>
-<h3 id="第二步-修改serviceaccount"><a href="#第二步-修改serviceaccount" class="headerlink" title="第二步 修改serviceaccount"></a>第二步 修改serviceaccount</h3><div class="code-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">kubectl</span> <span class="string">patch</span> <span class="string">serviceaccount</span> <span class="string">default</span> <span class="string">-p</span> <span class="string">&#x27;&#123;&quot;imagePullSecrets&quot;: [&#123;&quot;name&quot;: &quot;myregistrykey&quot;&#125;]&#125;&#x27;</span></span><br></pre></td></tr></table></figure></div>
-<p>完成！</p>
-]]></content>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>k8s可以给pod设置计算资源用量， 当遇到违反某些不满足性能的条件时，k8s会有一套机制来处理。限制资源在编排模拟中使用<code>limits</code>或<code>requests</code>.<br><code>requests</code>指定资源的最小要求，<code>limits</code>指定最大用量。详细关系是 <code>0 &lt;= request &lt;=Node Allocatable</code>和<code>request &lt;= limit &lt;= Infinity</code>。<br>具体查看<a class="link"   href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/resource-qos.md" >resource-qos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3>]]></content>
       <categories>
         <category>kubernetes</category>
       </categories>
@@ -5368,13 +5383,42 @@
       </tags>
   </entry>
   <entry>
-    <title>K8S管理容器的计算资源</title>
-    <url>/2018/03/12/kubernetes-2018-03-13-k8s-manage-resource/</url>
+    <title>本地rails系统迁移到阿里云容器服务小结</title>
+    <url>/2018/04/10/kubernetes-2018-04-11-migrate-k8s-summary/</url>
     <content><![CDATA[<blockquote>
-<p><a class="link"   href="https://v1-8.docs.kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/" >https://v1-8.docs.kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>实验性迁移小结</p>
 </blockquote>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>k8s可以给pod设置计算资源用量， 当遇到违反某些不满足性能的条件时，k8s会有一套机制来处理。限制资源在编排模拟中使用<code>limits</code>或<code>requests</code>.<br><code>requests</code>指定资源的最小要求，<code>limits</code>指定最大用量。详细关系是 <code>0 &lt;= request &lt;=Node Allocatable</code>和<code>request &lt;= limit &lt;= Infinity</code>。<br>具体查看<a class="link"   href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/resource-qos.md" >resource-qos<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3>]]></content>
+<h2 id="迁移目标"><a href="#迁移目标" class="headerlink" title="迁移目标"></a>迁移目标</h2><p>本文主要记录了将本地rails迁移到云上容器服务的过程, 包括如何部分重构本地应用代码和一些思考. 迁移本地应用的目的主要是为了能够将应用变得高可用和更好的扩展性, 以及为了更好的容器管理.</p>
+<h2 id="原来的系统状况"><a href="#原来的系统状况" class="headerlink" title="原来的系统状况"></a>原来的系统状况</h2><p>本地的rails系统是一个典型的数据库-网页应用, 原来采用docker compose构建部署, 用到的技术栈主要有, 结构图如下:</p>
+<ul>
+<li>rails5.0</li>
+<li>mysql5.7</li>
+<li>sidekiq</li>
+<li>redis</li>
+<li>nginx</li>
+</ul>
+<p><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-04-11%20%E4%B8%8B%E5%8D%883.52.27.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-04-11%20%E4%B8%8B%E5%8D%883.52.27.png"></p>
+<h2 id="迁移后的系统"><a href="#迁移后的系统" class="headerlink" title="迁移后的系统"></a>迁移后的系统</h2><p>迁移k8s后系统, 系统变得更加模块化(当然没有微服务化). 结构如下图:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-04-11%20%E4%B8%8B%E5%8D%883.45.43.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-04-11%20%E4%B8%8B%E5%8D%883.45.43.png"></p>
+<h2 id="一些细节和原来本地的问题"><a href="#一些细节和原来本地的问题" class="headerlink" title="一些细节和原来本地的问题"></a>一些细节和原来本地的问题</h2><p>新的部署主要把原来多个进程从一个容器分离了出来, 用docker提倡的一个进程一个container; 把<code>rake db:migrate</code>等操作做成k8s的job; 把定时任务作为单独的cronJob, 避免重复运行(幂等性);并且把底层的存储用了云上的OSS和NAS. 由于是实验性的部署, 并没有使用managed service, 如rds和redis, 这部分还是自己搭建的, 以后会切换为云上的服务. 大致细节图:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-04-16%20%E4%B8%8B%E5%8D%882.28.53.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-04-16%20%E4%B8%8B%E5%8D%882.28.53.png"></p>
+<ul>
+<li>如上图, sidekiq和rails在同一个pod(还在考虑要不要分出来), 连接的redis使用的是helm部署(没有使用pv), mysql采用的<a class="link"   href="https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/" >官网<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>StatefulSet例子 , 并且在集群前面搭建一个mycat,做读写分离, mysql底层的存储使用k8s的动态pv. mysql集群的问题是mycat不是HA, 动态scale slave需要配置mycat, 所以需要继续改进, 还可以是考虑<code>vitess</code>或<code>galera</code>做更好的mysql HA方案.</li>
+<li><strong>本地问题</strong> assets需要用nginx来处理. 务必做到开发,测试, 生产各个环境一致.必须是用k8s <code>Secret</code>来处理敏感信息,但是不要commit进代码库,可以直接使用的k8s控制台创建. dockerfile里面有些包只要构建的时候需要使用(minor issue).</li>
+<li><strong>其它思考</strong>.<ul>
+<li>google墙的问题</li>
+<li>需要各种正向反向代理, 以便内网用户能够访问应用; 需要反向代理以便使用集团的各种服务,比如邮箱服务.</li>
+<li>由于本地gitlab网络不能出去, 所以需要搭一个自动构建&#x2F;推送镜像上云的流程.(走外网费流量)</li>
+<li>后续集成managed service(non-native k8s service)需要集成进k8s, 这里还没有经验.</li>
+<li>如何给每个开发设置kubectl权限. 现在是采用RBAC+Namespace来控制, 有一些笨拙,网上有推荐使用OpenID.</li>
+<li>部署自动化, 由于有了service, 进行金丝雀,蓝绿部署变得比较方便.不过还是需要手动干预,后续要考虑自动化.</li>
+<li>CI&#x2F;CD. 也是上一条思考相关. k8s集成jenkins看起来比较方便(推荐jenkinsfile), 不过考虑是不是看看其他集成方案.</li>
+<li>日志管理还没有深入研究.</li>
+<li>阿里云的Docker registry和helm仓库有点弱, 我想在控制台删个镜像都要用api.</li>
+<li>有了k8s, pods多了之后, 服务之间的依赖关系难以清晰的看出来. 如果将应用微服务化, 服务的治理会是个问题.</li>
+<li>开发需要使用新的工具, 如telepresence, helm,  Kubeval等. 用<code>helm</code>打包成<code>chart</code>可以方便的部署一整个应用.</li>
+</ul>
+</li>
+</ul>
+]]></content>
       <categories>
         <category>kubernetes</category>
       </categories>
@@ -5432,50 +5476,6 @@
       </tags>
   </entry>
   <entry>
-    <title>本地rails系统迁移到阿里云容器服务小结</title>
-    <url>/2018/04/10/kubernetes-2018-04-11-migrate-k8s-summary/</url>
-    <content><![CDATA[<blockquote>
-<p>实验性迁移小结</p>
-</blockquote>
-<h2 id="迁移目标"><a href="#迁移目标" class="headerlink" title="迁移目标"></a>迁移目标</h2><p>本文主要记录了将本地rails迁移到云上容器服务的过程, 包括如何部分重构本地应用代码和一些思考. 迁移本地应用的目的主要是为了能够将应用变得高可用和更好的扩展性, 以及为了更好的容器管理.</p>
-<h2 id="原来的系统状况"><a href="#原来的系统状况" class="headerlink" title="原来的系统状况"></a>原来的系统状况</h2><p>本地的rails系统是一个典型的数据库-网页应用, 原来采用docker compose构建部署, 用到的技术栈主要有, 结构图如下:</p>
-<ul>
-<li>rails5.0</li>
-<li>mysql5.7</li>
-<li>sidekiq</li>
-<li>redis</li>
-<li>nginx</li>
-</ul>
-<p><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-04-11%20%E4%B8%8B%E5%8D%883.52.27.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-04-11%20%E4%B8%8B%E5%8D%883.52.27.png"></p>
-<h2 id="迁移后的系统"><a href="#迁移后的系统" class="headerlink" title="迁移后的系统"></a>迁移后的系统</h2><p>迁移k8s后系统, 系统变得更加模块化(当然没有微服务化). 结构如下图:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-04-11%20%E4%B8%8B%E5%8D%883.45.43.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-04-11%20%E4%B8%8B%E5%8D%883.45.43.png"></p>
-<h2 id="一些细节和原来本地的问题"><a href="#一些细节和原来本地的问题" class="headerlink" title="一些细节和原来本地的问题"></a>一些细节和原来本地的问题</h2><p>新的部署主要把原来多个进程从一个容器分离了出来, 用docker提倡的一个进程一个container; 把<code>rake db:migrate</code>等操作做成k8s的job; 把定时任务作为单独的cronJob, 避免重复运行(幂等性);并且把底层的存储用了云上的OSS和NAS. 由于是实验性的部署, 并没有使用managed service, 如rds和redis, 这部分还是自己搭建的, 以后会切换为云上的服务. 大致细节图:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-04-16%20%E4%B8%8B%E5%8D%882.28.53.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-04-16%20%E4%B8%8B%E5%8D%882.28.53.png"></p>
-<ul>
-<li>如上图, sidekiq和rails在同一个pod(还在考虑要不要分出来), 连接的redis使用的是helm部署(没有使用pv), mysql采用的<a class="link"   href="https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/" >官网<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>StatefulSet例子 , 并且在集群前面搭建一个mycat,做读写分离, mysql底层的存储使用k8s的动态pv. mysql集群的问题是mycat不是HA, 动态scale slave需要配置mycat, 所以需要继续改进, 还可以是考虑<code>vitess</code>或<code>galera</code>做更好的mysql HA方案.</li>
-<li><strong>本地问题</strong> assets需要用nginx来处理. 务必做到开发,测试, 生产各个环境一致.必须是用k8s <code>Secret</code>来处理敏感信息,但是不要commit进代码库,可以直接使用的k8s控制台创建. dockerfile里面有些包只要构建的时候需要使用(minor issue).</li>
-<li><strong>其它思考</strong>.<ul>
-<li>google墙的问题</li>
-<li>需要各种正向反向代理, 以便内网用户能够访问应用; 需要反向代理以便使用集团的各种服务,比如邮箱服务.</li>
-<li>由于本地gitlab网络不能出去, 所以需要搭一个自动构建&#x2F;推送镜像上云的流程.(走外网费流量)</li>
-<li>后续集成managed service(non-native k8s service)需要集成进k8s, 这里还没有经验.</li>
-<li>如何给每个开发设置kubectl权限. 现在是采用RBAC+Namespace来控制, 有一些笨拙,网上有推荐使用OpenID.</li>
-<li>部署自动化, 由于有了service, 进行金丝雀,蓝绿部署变得比较方便.不过还是需要手动干预,后续要考虑自动化.</li>
-<li>CI&#x2F;CD. 也是上一条思考相关. k8s集成jenkins看起来比较方便(推荐jenkinsfile), 不过考虑是不是看看其他集成方案.</li>
-<li>日志管理还没有深入研究.</li>
-<li>阿里云的Docker registry和helm仓库有点弱, 我想在控制台删个镜像都要用api.</li>
-<li>有了k8s, pods多了之后, 服务之间的依赖关系难以清晰的看出来. 如果将应用微服务化, 服务的治理会是个问题.</li>
-<li>开发需要使用新的工具, 如telepresence, helm,  Kubeval等. 用<code>helm</code>打包成<code>chart</code>可以方便的部署一整个应用.</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Openshift Commandline CheatSheet</title>
     <url>/2019/02/27/openshift-2018-01-03-openshift-commandline-shortcut/</url>
     <content><![CDATA[<h4 id="创建新的project"><a href="#创建新的project" class="headerlink" title="创建新的project"></a>创建新的project</h4><p><code>oc new-project postgres --display-name=&#39;postgres&#39; --description=&#39;postgres&#39;</code></p>
@@ -5502,22 +5502,6 @@
 <h4 id="开启一个容器的shell"><a href="#开启一个容器的shell" class="headerlink" title="开启一个容器的shell"></a>开启一个容器的shell</h4><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">oc get pods</span><br><span class="line">oc rsh mypod</span><br></pre></td></tr></table></figure></div>
 
 <h4 id="简写对应"><a href="#简写对应" class="headerlink" title="简写对应"></a>简写对应</h4><p><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-01-03%20%E4%B8%8B%E5%8D%883.07.32.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-01-03%20%E4%B8%8B%E5%8D%883.07.32.png"></p>
-]]></content>
-      <categories>
-        <category>openshift</category>
-        <category>kubernetes</category>
-      </categories>
-      <tags>
-        <tag>kubernetes, openshift</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>What is OpenShift Resource</title>
-    <url>/2018/01/07/openshift-2018-01-08-openshift-resource/</url>
-    <content><![CDATA[<blockquote>
-<p>Openshift的资源定义类似Rest的资源</p>
-</blockquote>
-<h3 id="OpenShift中的资源"><a href="#OpenShift中的资源" class="headerlink" title="OpenShift中的资源"></a>OpenShift中的资源</h3><p><code>oc get -h</code> 有一行说明<code>Possible resources include builds, buildConfigs, services, pods, etc. To see a list of common resources, use &#39;oc get&#39;.</code>. 所以任何构建，构建配置，服务，pod都是OpenShift的资源。由于Kubernetes采用Restful的架构，所以用rest的角度看待OpenShift资源应该更加合适，一个资源就是一个对象，有对应的类型、数据、和其它资源的关系，一组标准HTTP方法. 资源和OOP的对象类似，但是只有特定GET, PUT,POST等这几个标准HTTP方法。</p>
 ]]></content>
       <categories>
         <category>openshift</category>
@@ -5605,6 +5589,22 @@
 <li>比如： session调整。是服务器session还是无状态，客户端缓存。</li>
 </ul>
 <h3 id="部署的资源利用"><a href="#部署的资源利用" class="headerlink" title="部署的资源利用"></a>部署的资源利用</h3><p>默认情况下，pod可以无限使用节点资源。当然也可以通过项目级别或者通过部署策略限制资源的使用。Openshift强制使用Cgroup控制CPU和内存使用。<br><code>oc patch -n welcome --type=strategic dc myapp -p &#39;&#123;&quot;spec&quot;: &#123;&quot;template&quot;:&#123;&quot;spec&quot;:&#123;&quot;containers&quot;:[&#123;&quot;name&quot;:&quot;myapp&quot;, &quot;resources&quot;:&#123;&quot;limits&quot;:&#123;&quot;cpu&quot;:&quot;100m&quot;,&quot;memory&quot;:&quot;256Mi&quot;&#125;&#125;&#125;]&#125;&#125;&#125;&#125;&#39;</code></p>
+]]></content>
+      <categories>
+        <category>openshift</category>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>kubernetes, openshift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>What is OpenShift Resource</title>
+    <url>/2018/01/07/openshift-2018-01-08-openshift-resource/</url>
+    <content><![CDATA[<blockquote>
+<p>Openshift的资源定义类似Rest的资源</p>
+</blockquote>
+<h3 id="OpenShift中的资源"><a href="#OpenShift中的资源" class="headerlink" title="OpenShift中的资源"></a>OpenShift中的资源</h3><p><code>oc get -h</code> 有一行说明<code>Possible resources include builds, buildConfigs, services, pods, etc. To see a list of common resources, use &#39;oc get&#39;.</code>. 所以任何构建，构建配置，服务，pod都是OpenShift的资源。由于Kubernetes采用Restful的架构，所以用rest的角度看待OpenShift资源应该更加合适，一个资源就是一个对象，有对应的类型、数据、和其它资源的关系，一组标准HTTP方法. 资源和OOP的对象类似，但是只有特定GET, PUT,POST等这几个标准HTTP方法。</p>
 ]]></content>
       <categories>
         <category>openshift</category>
@@ -5973,6 +5973,23 @@
       </tags>
   </entry>
   <entry>
+    <title>Pandas的常用函数</title>
+    <url>/2018/09/16/python-2018-09-17-pandas-common-methods/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>Pandas</code>有一些常用方法, 可以作为回调函数用于其它函数.</p>
+<h3 id="pandas-DataFrame-reindex"><a href="#pandas-DataFrame-reindex" class="headerlink" title="pandas.DataFrame.reindex"></a>pandas.DataFrame.reindex</h3><p><code>reindex</code>方法用于把<code>DataFrame</code>按新的索引转化, 同时可选填充空值或者其他方法(如<code>ffill</code>, 按前项填充). 默认情况下, 重新索引过的<code>DataFrame</code>会复制原来<code>DataFrame</code>, 除非索引没有变或者设置<code>copy=False</code>.</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5 = pd.DataFrame(np.arange(<span class="number">9</span>).reshape((<span class="number">3</span>,<span class="number">3</span>)), index=[<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>], columns=[<span class="string">&#x27;Ohio&#x27;</span>,<span class="string">&#x27;Texas&#x27;</span>,<span class="string">&#x27;California&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     <span class="number">0</span>      <span class="number">1</span>           <span class="number">2</span></span><br><span class="line">b     <span class="number">3</span>      <span class="number">4</span>           <span class="number">5</span></span><br><span class="line">c     <span class="number">6</span>      <span class="number">7</span>           <span class="number">8</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5 = frame5.reindex([<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,<span class="string">&#x27;d&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a   <span class="number">0.0</span>    <span class="number">1.0</span>         <span class="number">2.0</span></span><br><span class="line">b   <span class="number">3.0</span>    <span class="number">4.0</span>         <span class="number">5.0</span></span><br><span class="line">c   <span class="number">6.0</span>    <span class="number">7.0</span>         <span class="number">8.0</span></span><br><span class="line">d   NaN    NaN         NaN</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="丢弃某些行或列"><a href="#丢弃某些行或列" class="headerlink" title="丢弃某些行或列"></a>丢弃某些行或列</h3><p>对于<code>DataFrame</code>, 想要删除某行或列是很方便的, 直接通过<code>drop([])</code>方法可以实现, 默认删除行, 如果需要删除列, 可以设置参数<code>axis=1</code>.</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a   <span class="number">0.0</span>    <span class="number">1.0</span>         <span class="number">2.0</span></span><br><span class="line">b   <span class="number">3.0</span>    <span class="number">4.0</span>         <span class="number">5.0</span></span><br><span class="line">c   <span class="number">6.0</span>    <span class="number">7.0</span>         <span class="number">8.0</span></span><br><span class="line">d   NaN    NaN         NaN</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5.drop([<span class="string">&#x27;a&#x27;</span>])</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">b   <span class="number">3.0</span>    <span class="number">4.0</span>         <span class="number">5.0</span></span><br><span class="line">c   <span class="number">6.0</span>    <span class="number">7.0</span>         <span class="number">8.0</span></span><br><span class="line">d   NaN    NaN         NaN</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5.drop([<span class="string">&#x27;Ohio&#x27;</span>], axis=<span class="number">1</span>)</span><br><span class="line">   Texas  California</span><br><span class="line">a    <span class="number">1.0</span>         <span class="number">2.0</span></span><br><span class="line">b    <span class="number">4.0</span>         <span class="number">5.0</span></span><br><span class="line">c    <span class="number">7.0</span>         <span class="number">8.0</span></span><br><span class="line">d    NaN         NaN</span><br></pre></td></tr></table></figure></div>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python, pandas</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQL Server的主数据服务MDS简介</title>
     <url>/2021/01/28/database-SQL-Server-2021-01-29-SQL-Server%E7%9A%84MDS/</url>
     <content><![CDATA[<h2 id="关于主数据管理系统"><a href="#关于主数据管理系统" class="headerlink" title="关于主数据管理系统"></a>关于主数据管理系统</h2><p>MDM(Master Data Management)是从企业各个数据源采集数据，使用统一的标准和业务流程构建单一数据视图，并且将主数据分发, 作为企业内部其他系统依赖的数据金标准。</p>
@@ -6031,23 +6048,6 @@
       </categories>
       <tags>
         <tag>database, Master data</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Pandas的常用函数</title>
-    <url>/2018/09/16/python-2018-09-17-pandas-common-methods/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>Pandas</code>有一些常用方法, 可以作为回调函数用于其它函数.</p>
-<h3 id="pandas-DataFrame-reindex"><a href="#pandas-DataFrame-reindex" class="headerlink" title="pandas.DataFrame.reindex"></a>pandas.DataFrame.reindex</h3><p><code>reindex</code>方法用于把<code>DataFrame</code>按新的索引转化, 同时可选填充空值或者其他方法(如<code>ffill</code>, 按前项填充). 默认情况下, 重新索引过的<code>DataFrame</code>会复制原来<code>DataFrame</code>, 除非索引没有变或者设置<code>copy=False</code>.</p>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5 = pd.DataFrame(np.arange(<span class="number">9</span>).reshape((<span class="number">3</span>,<span class="number">3</span>)), index=[<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>], columns=[<span class="string">&#x27;Ohio&#x27;</span>,<span class="string">&#x27;Texas&#x27;</span>,<span class="string">&#x27;California&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a     <span class="number">0</span>      <span class="number">1</span>           <span class="number">2</span></span><br><span class="line">b     <span class="number">3</span>      <span class="number">4</span>           <span class="number">5</span></span><br><span class="line">c     <span class="number">6</span>      <span class="number">7</span>           <span class="number">8</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5 = frame5.reindex([<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,<span class="string">&#x27;d&#x27;</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a   <span class="number">0.0</span>    <span class="number">1.0</span>         <span class="number">2.0</span></span><br><span class="line">b   <span class="number">3.0</span>    <span class="number">4.0</span>         <span class="number">5.0</span></span><br><span class="line">c   <span class="number">6.0</span>    <span class="number">7.0</span>         <span class="number">8.0</span></span><br><span class="line">d   NaN    NaN         NaN</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="丢弃某些行或列"><a href="#丢弃某些行或列" class="headerlink" title="丢弃某些行或列"></a>丢弃某些行或列</h3><p>对于<code>DataFrame</code>, 想要删除某行或列是很方便的, 直接通过<code>drop([])</code>方法可以实现, 默认删除行, 如果需要删除列, 可以设置参数<code>axis=1</code>.</p>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">a   <span class="number">0.0</span>    <span class="number">1.0</span>         <span class="number">2.0</span></span><br><span class="line">b   <span class="number">3.0</span>    <span class="number">4.0</span>         <span class="number">5.0</span></span><br><span class="line">c   <span class="number">6.0</span>    <span class="number">7.0</span>         <span class="number">8.0</span></span><br><span class="line">d   NaN    NaN         NaN</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5.drop([<span class="string">&#x27;a&#x27;</span>])</span><br><span class="line">   Ohio  Texas  California</span><br><span class="line">b   <span class="number">3.0</span>    <span class="number">4.0</span>         <span class="number">5.0</span></span><br><span class="line">c   <span class="number">6.0</span>    <span class="number">7.0</span>         <span class="number">8.0</span></span><br><span class="line">d   NaN    NaN         NaN</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>frame5.drop([<span class="string">&#x27;Ohio&#x27;</span>], axis=<span class="number">1</span>)</span><br><span class="line">   Texas  California</span><br><span class="line">a    <span class="number">1.0</span>         <span class="number">2.0</span></span><br><span class="line">b    <span class="number">4.0</span>         <span class="number">5.0</span></span><br><span class="line">c    <span class="number">7.0</span>         <span class="number">8.0</span></span><br><span class="line">d    NaN         NaN</span><br></pre></td></tr></table></figure></div>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python, pandas</tag>
       </tags>
   </entry>
   <entry>
@@ -6188,6 +6188,45 @@
       </categories>
       <tags>
         <tag>database, stored procedures</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MongoDB的架构</title>
+    <url>/2018/09/23/database-mongodb-2018-09-24-mongo-%E6%9E%B6%E6%9E%84/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近尝试用MongoDB替换Mysql， 由于Mysql的写能力限制， 32C128G的实例同时写入1M的数据CPU飙升， 更不用说如果是并发的情况。MongoDB通过<code>sharding</code>能够很好地解决写能力扩展的问题, 故作一篇网上大神博客的小结. MongoDB的架构大致如下图所示(v3.2):<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8A%E5%8D%8811.19.05.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8A%E5%8D%8811.19.05.png"></p>
+<h3 id="与RBDMS的主要区别"><a href="#与RBDMS的主要区别" class="headerlink" title="与RBDMS的主要区别"></a>与RBDMS的主要区别</h3><p>MongoDB和RDBMS的主要区别在于：</p>
+<ul>
+<li>RBDMS的数据记录是<code>平</code>的， 而MongoDB的数据单元<code>Document</code>是可以嵌入的，比如一个CSV文件，一个字段一个值; 但是mongo可以一个字段可以存储多个值如:<code>&#123;&#39;key&#39;: [v1,v2]&#125;</code>, 通过不同组合还可以生成更复杂的数据结构。</li>
+<li>RBDMS所有的数据结构<code>schema</code>必须预定义， MongoDB不需要预定义, <code>Document</code>可以存储任何结构的数据。</li>
+<li>MongoDB是没有<code>join</code>查询操作的。 RBDMS数据库设计的核心讲究<code>Normalization</code>, 数据越结构化，冗余越少越好。 而MongoDB鼓励<code>denormalized</code>, 通过数据冗余做到<code>join</code>查询。</li>
+<li>MongoDB的数据一致性需要客户端来维护， mongo没有<code>ACID</code>的<code>Isolation</code>概念， 一个并发客户端可能读到另一个并发用户修改的数据。</li>
+<li>同样地, <code>transaction</code>事务也是不存在，（<strong>注意， 4.0这个版本支持ACID的事务</strong>）。MongoDB原子性操作只能做到document级别。<br>而正是移除关系型数据库部分特性， mongo才能做到更好的扩展性和轻量级， 这两条正适合用于处理大数据。</li>
+</ul>
+<h3 id="查询处理"><a href="#查询处理" class="headerlink" title="查询处理"></a>查询处理</h3><p>Mongo的<code>Collection</code>可以认为是关系型数据库的<code>table</code>， <code>Document</code>可以认为是关系型数据库的<code>records</code>. 并且不需要预创建数据库和<code>collection</code>, 如下是一些基本操作, </p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> pymongo</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: p = &#123;<span class="string">&#x27;first&#x27;</span>:<span class="string">&quot;Dave&quot;</span>, <span class="string">&#x27;lastname&#x27;</span>: <span class="string">&quot;He&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: client = pymongo.MongoClient()</span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: db = client.test_database</span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: db.person.insert_one(&#123;<span class="string">&#x27;first&#x27;</span>:<span class="string">&#x27;NN&#x27;</span>, <span class="string">&#x27;lastname&#x27;</span>:<span class="string">&#x27;HE&#x27;</span>&#125;)</span><br><span class="line">Out[<span class="number">6</span>]: &lt;pymongo.results.InsertOneResult at <span class="number">0x21f9710</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">7</span>]: db.person.find_one()</span><br><span class="line">Out[<span class="number">7</span>]: </span><br><span class="line">&#123;<span class="string">u&#x27;_id&#x27;</span>: ObjectId(<span class="string">&#x27;5ba858bc91046605e83667dd&#x27;</span>),</span><br><span class="line"> <span class="string">u&#x27;first&#x27;</span>: <span class="string">u&#x27;Dave&#x27;</span>,</span><br><span class="line"> <span class="string">u&#x27;lastname&#x27;</span>: <span class="string">u&#x27;He&#x27;</span>&#125;</span><br></pre></td></tr></table></figure></div>
+<p>可以创建索引加速查询, MongoDB的索引以<code>Btree</code>的数据结构存储, 所以支持范围查询. 由于<code>document</code>本身就是一棵树, 索引可以嵌套到<code>document</code>下层里的某个值. 也可以创建符合索引, 如<code>db.person.ensureIndex(&#123;lastname:1, firstname:1&#125;)</code>. 索引也可以是单键多值array.</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">5</span>]: db.person.index_information()</span><br><span class="line">Out[<span class="number">5</span>]: &#123;<span class="string">u&#x27;_id_&#x27;</span>: &#123;<span class="string">u&#x27;key&#x27;</span>: [(<span class="string">u&#x27;_id&#x27;</span>, <span class="number">1</span>)], <span class="string">u&#x27;ns&#x27;</span>: <span class="string">u&#x27;test_database.person&#x27;</span>, <span class="string">u&#x27;v&#x27;</span>: <span class="number">2</span>&#125;&#125;</span><br></pre></td></tr></table></figure></div>
+<p>mongo默认给<code>_id</code>创建索引, 也可以给一个字段建新的索引, 创建索引可以是前台线下模式或者后台在线模式, 如果是线下模式, 如果是多副本集,需要考虑这些副本索引做到滚动更新.</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">6</span>]: r = db.person.create_index([(<span class="string">&#x27;lastname&#x27;</span>, pymongo.ASCENDING)], unique=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: db.person.index_information()</span><br><span class="line">Out[<span class="number">8</span>]: </span><br><span class="line">&#123;<span class="string">u&#x27;_id_&#x27;</span>: &#123;<span class="string">u&#x27;key&#x27;</span>: [(<span class="string">u&#x27;_id&#x27;</span>, <span class="number">1</span>)], <span class="string">u&#x27;ns&#x27;</span>: <span class="string">u&#x27;test_database.person&#x27;</span>, <span class="string">u&#x27;v&#x27;</span>: <span class="number">2</span>&#125;,</span><br><span class="line"> <span class="string">u&#x27;lastname_1&#x27;</span>: &#123;<span class="string">u&#x27;key&#x27;</span>: [(<span class="string">u&#x27;lastname&#x27;</span>, <span class="number">1</span>)],</span><br><span class="line">  <span class="string">u&#x27;ns&#x27;</span>: <span class="string">u&#x27;test_database.person&#x27;</span>,</span><br><span class="line">  <span class="string">u&#x27;unique&#x27;</span>: <span class="literal">True</span>,</span><br><span class="line">  <span class="string">u&#x27;v&#x27;</span>: <span class="number">2</span>&#125;&#125;</span><br></pre></td></tr></table></figure></div>
+<p>但开始查询时如果有多个查询条件, <code>mongo</code>总是先尝试使用单个最佳索引找到符合的数据集, 然后根据后续的其它条件迭代查询.<br>那么如果一个<code>collection</code>的多索引是如何配合来加速查询的呢?<br>当一个查询执行时, mongo会给每个索引创建一个执行计划, 每个索引轮流执行查询, 直到所有索引执行完查询, mongo记录下最快执行查询的索引,后续就会使用这个索引查询, 直到后续一定量的数据更新, 才会重新执行上述流程.<br>针对执行计划每次查询只用一个索引的特点, 查询时注意查询条件, 并且创建主键以外的复合索引来加速查询至关重要! 同时也要注意索引的开小, 删除不必要的索引.</p>
+<h3 id="存储模型"><a href="#存储模型" class="headerlink" title="存储模型"></a>存储模型</h3><p>MongoDB通过内存mapping文件把存储在磁盘上数据文件直接映射到内存<code>byte array</code>, 数据的访问逻辑是通过<code>指针算法</code>实现的. 每个<code>collection</code>存在单独的一个<code>namespace</code>文件(记录元信息)和多个可扩展(<code>extent</code>)数据文件.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%883.58.50.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%883.58.50.png"><br>每个<code>collection</code>的数据被组织在<code>extent</code>文件中, 每个<code>extent</code>是一段连续的磁盘空间,使用双向链表连接<code>extent</code>. <code>extent</code>包含了多个<code>document</code>, 每一个<code>document</code>也会和其相邻的<code>document</code>相连, 实际数据就以Bson的格式存储在上图中的<code>DocRecord</code>. 一个<code>extent</code>会指向所包含的<code>document</code>链表的头和尾(当然extent和extent之间也是连起来的). </p>
+<p>任何修改数据会直接在原地进行. 为了预防数据修改后大小超过了原来记录的分配的空间, 整条记录会被移动到一个更大的区域(附带一些填充占位的字节, 这些填充的字节当作缓存空间用于将来可以用于放置更大的空间, 那么具体填充多少字节, 这就需要每个collection有一个统计值, 专门记录修改的统计数据), 原来空出来的空间将会被释放, 有一张表会记录<code>free list</code>的大小.<br>基于上述移动空间的设计, 我们可以预见数据会变得片段化, 所以mongo需要周期性地运行<code>compact</code>命令, 会把数据移动到连续的空间内, 以提高IO性能.这个操作通常需要在线下进行, 副本集则需要滚动更新.</p>
+<p>索引是通过Btree实现的, 每个Btree的节点含有一个key数字和指向左边子节点的指针.</p>
+<h3 id="数据的更新和事务"><a href="#数据的更新和事务" class="headerlink" title="数据的更新和事务"></a>数据的更新和事务</h3><p>更新一条记录是在原数据上直接做修改:</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">6</span>]: db.person.update_one(&#123;<span class="string">&#x27;first&#x27;</span>:<span class="string">&#x27;Dave&#x27;</span>&#125;, &#123;<span class="string">&quot;$set&quot;</span>:&#123;<span class="string">&quot;first&quot;</span>:<span class="string">&#x27;David&#x27;</span>&#125;&#125;)</span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: db.person.find_one()</span><br><span class="line">Out[<span class="number">8</span>]: </span><br><span class="line">&#123;<span class="string">u&#x27;_id&#x27;</span>: ObjectId(<span class="string">&#x27;5ba858bc91046605e83667dd&#x27;</span>),</span><br><span class="line"> <span class="string">u&#x27;first&#x27;</span>: <span class="string">u&#x27;David&#x27;</span>,</span><br><span class="line"> <span class="string">u&#x27;lastname&#x27;</span>: <span class="string">u&#x27;He&#x27;</span>&#125;</span><br></pre></td></tr></table></figure></div>
+<p>mongo写的时候可以指定多种方式(policy), 以表示写是否成功了, 如数据已经在磁盘持久化了; 或者数据已经在多个副本集传递(可以通过<code>getLastError</code>拿到执行返回值). 另外, mongo是可以给副本集打<code>tag</code>, 所以可以基于<code>tag</code>制定写策略.</p>
+<p>由于所有从mongo读到的数据都是过去的快照, 读到的数据可能已经被其它客户修改, 所以如果有一致性要求, 每次修改数据前可以先读一次验证数据, 然后再做修改.<br>mongo可以在修改前验证条件, 使用<code>findAndModify</code>api更新数据. 如果是<code>pymongo</code>那么<code>update</code>会帮做验证条件, 不需要额外做这一步.</p>
+<p>mongo没有事务的概念(4.0以前), 对每个<code>document</code>的操作都是原子性的, 但是如果多个<code>document</code>被修改, 原子性是不能保证的.所以客户端需要自行实现多文件更新原子性.一个常见的技术是: 首先创建一个独立的文档(叫做transaction), 把所有需要更新的文档连接起来; 然后把所有需要更新的文档反链到transaction; 接着如下图做二段式提交完成事务.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%885.31.48.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%885.31.48.png"></p>
+<h3 id="复制模型"><a href="#复制模型" class="headerlink" title="复制模型"></a>复制模型</h3><p>Mongdb通过副本集(replica set)做到高可用和读查询的负载均衡(没有做到写负载均衡), 通过把数据复制到多个服务器做到冗余. 具体包括一个主要DB和多个二级DB. 为了数据一致性, 所有修改都会在主DB操作然后异步复制到副本. 副本集之间的节点通过心跳同步状态, 如果有一个节点失去心跳(挂了), 那么就会失去<code>membership</code>. 如果后面恢复了那么这个节点会重新加入集群, 通过和主DB通信,获取<code>changelog</code>恢复到最新的数据. 如果主DB的<code>changelog</code>没有覆盖这个节点挂掉到恢复的全部日志, 那么需要重新导入主DB的所有数据.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%885.39.34.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%885.39.34.png"><br>如果主DB挂掉了, 那么集群将进行选举, 通过节点优先级,运行时间等条件从二级DB中选出新的主DB, 由于二级DB采用异步复制的形式, 这个新选出来的主DB可能不是最新的数据版本.</p>
+<p>客户端驱动库需要实现找到主DB的功能, 在开始连接数据库后, 客户端需要发出<code>isMaster</code>的指令从当前集群中找到主DB和所有副本, 然后客户端会把大部分请求发给主DB, 部分读请求发给二级DB; 这个<code>isMaster</code>的指令会周期性的发送, 以便同步当前集群信息. 所有挂掉的节点, 客户端会强制中断连接.</p>
+<p>MongoDB有一个特殊的二级DB叫<code>Delayed Slave</code>, 它是延迟一段时间同步主数据库. 主要用来恢复短期误删的的数据.<br>在读取查询时, 可以指定从二级DB读取数据, 这样读到的数据可能不是最新的, 但是可以使用这个特性做到查询的负载均衡. 客户端可以ping二级DB, 挑选最快的节点查询数据.</p>
+<h3 id="分片模型"><a href="#分片模型" class="headerlink" title="分片模型"></a>分片模型</h3><p>想要做到写负载均衡, 需要使用MongoDB的<code>sharding</code>. 在<code>sharding</code>配置中, 一个<code>collection</code>可以通过<code>partition key</code>被分割到多个<code>chunks</code>内(一组key的范围), 多个<code>chunks</code>被分配到不同的<code>shards</code>, 每个<code>shards</code>都是副本集(<code>replica set</code>). 通过<code>sharding</code>, mongo可以存储无限量的数据, 这点在大数据应用场景十分重要.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%888.03.33.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%888.03.33.png"><br>在<code>sharding</code>模式下, 客户端需要连接到<code>MongoS</code>, 它是一个路由服务器把客户端的请求发送到合适的分片. 对于<code>insert/delete/update</code>修改操作请求, 如果包含<code>partition key</code>, 那么基于<code>chunk/shard</code>映射表信息(从<code>config server</code>得到,并且本地缓存), 路由服务器可以找到对应chunk的节点服务器. 如果是读查询, 路由服务器会检测<code>partition key</code>是否包含在查询的部分条件中, 如果是那么就可以找到对应的主或二级<code>shard</code>; 但是也有可能查询条件不含有<code>partition key</code>, 那么路由会把请求发给每个<code>shard</code>.如果查询需要排序, 同时<code>partition key</code>在排序的条件中, 那么路由会一次按<code>partition key</code>排序<code>shards</code>; 如果不包含<code>partition key</code>, 路由服务器会把请发给每个<code>shard</code>, 然后做<code>merge-sort</code>.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-01-10%20at%2014.32.27.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-01-10%20at%2014.32.27.png"><br>另一方面, 路由服务器需要保障每个<code>shards</code>中的数据<code>chunks</code>大致一样多. 当不平衡的条件被检测到, 路由器会通知chunk较多的<code>shard</code>触发迁移工作. 这个迁移工作是线上进行的, 数据迁移时进行多次delta检查, 直到最后数据迁移完毕, 目标服务器会通知<code>config server</code>新的<code>shard</code>信息, 通知源服务发送<code>StaleConfigException</code>给路由服务器, 让路由器重新读取配置信息. 后面的某个时间点, 源服务器旧的<code>shard</code>数据将会被删除. 如果在迁移的过程中发生高频率的更新操作, 那么迁移会停止,路由服务器会选择新的<code>chunk</code>去迁移数据.</p>
+]]></content>
+      <categories>
+        <category>database</category>
+      </categories>
+      <tags>
+        <tag>mongo</tag>
       </tags>
   </entry>
   <entry>
@@ -6495,42 +6534,52 @@
       </tags>
   </entry>
   <entry>
-    <title>MongoDB的架构</title>
-    <url>/2018/09/23/database-mongodb-2018-09-24-mongo-%E6%9E%B6%E6%9E%84/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近尝试用MongoDB替换Mysql， 由于Mysql的写能力限制， 32C128G的实例同时写入1M的数据CPU飙升， 更不用说如果是并发的情况。MongoDB通过<code>sharding</code>能够很好地解决写能力扩展的问题, 故作一篇网上大神博客的小结. MongoDB的架构大致如下图所示(v3.2):<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8A%E5%8D%8811.19.05.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8A%E5%8D%8811.19.05.png"></p>
-<h3 id="与RBDMS的主要区别"><a href="#与RBDMS的主要区别" class="headerlink" title="与RBDMS的主要区别"></a>与RBDMS的主要区别</h3><p>MongoDB和RDBMS的主要区别在于：</p>
-<ul>
-<li>RBDMS的数据记录是<code>平</code>的， 而MongoDB的数据单元<code>Document</code>是可以嵌入的，比如一个CSV文件，一个字段一个值; 但是mongo可以一个字段可以存储多个值如:<code>&#123;&#39;key&#39;: [v1,v2]&#125;</code>, 通过不同组合还可以生成更复杂的数据结构。</li>
-<li>RBDMS所有的数据结构<code>schema</code>必须预定义， MongoDB不需要预定义, <code>Document</code>可以存储任何结构的数据。</li>
-<li>MongoDB是没有<code>join</code>查询操作的。 RBDMS数据库设计的核心讲究<code>Normalization</code>, 数据越结构化，冗余越少越好。 而MongoDB鼓励<code>denormalized</code>, 通过数据冗余做到<code>join</code>查询。</li>
-<li>MongoDB的数据一致性需要客户端来维护， mongo没有<code>ACID</code>的<code>Isolation</code>概念， 一个并发客户端可能读到另一个并发用户修改的数据。</li>
-<li>同样地, <code>transaction</code>事务也是不存在，（<strong>注意， 4.0这个版本支持ACID的事务</strong>）。MongoDB原子性操作只能做到document级别。<br>而正是移除关系型数据库部分特性， mongo才能做到更好的扩展性和轻量级， 这两条正适合用于处理大数据。</li>
+    <title>A look at InnoDB for Mysql 5.7</title>
+    <url>/2017/12/11/database-mysql-2017-12-12-InnoDB5-7/</url>
+    <content><![CDATA[<h3 id="InnoDB的优势"><a href="#InnoDB的优势" class="headerlink" title="InnoDB的优势"></a>InnoDB的优势</h3><ul>
+<li>DML 遵循ACID</li>
+<li>行级锁，使用MVCC保证读一致</li>
+<li>使用主键索引管理磁盘上的数据，加快查找速度</li>
+<li>使用外键维持数据的完整性</li>
 </ul>
-<h3 id="查询处理"><a href="#查询处理" class="headerlink" title="查询处理"></a>查询处理</h3><p>Mongo的<code>Collection</code>可以认为是关系型数据库的<code>table</code>， <code>Document</code>可以认为是关系型数据库的<code>records</code>. 并且不需要预创建数据库和<code>collection</code>, 如下是一些基本操作, </p>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">1</span>]: <span class="keyword">import</span> pymongo</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: p = &#123;<span class="string">&#x27;first&#x27;</span>:<span class="string">&quot;Dave&quot;</span>, <span class="string">&#x27;lastname&#x27;</span>: <span class="string">&quot;He&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">In [<span class="number">3</span>]: client = pymongo.MongoClient()</span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: db = client.test_database</span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: db.person.insert_one(&#123;<span class="string">&#x27;first&#x27;</span>:<span class="string">&#x27;NN&#x27;</span>, <span class="string">&#x27;lastname&#x27;</span>:<span class="string">&#x27;HE&#x27;</span>&#125;)</span><br><span class="line">Out[<span class="number">6</span>]: &lt;pymongo.results.InsertOneResult at <span class="number">0x21f9710</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">7</span>]: db.person.find_one()</span><br><span class="line">Out[<span class="number">7</span>]: </span><br><span class="line">&#123;<span class="string">u&#x27;_id&#x27;</span>: ObjectId(<span class="string">&#x27;5ba858bc91046605e83667dd&#x27;</span>),</span><br><span class="line"> <span class="string">u&#x27;first&#x27;</span>: <span class="string">u&#x27;Dave&#x27;</span>,</span><br><span class="line"> <span class="string">u&#x27;lastname&#x27;</span>: <span class="string">u&#x27;He&#x27;</span>&#125;</span><br></pre></td></tr></table></figure></div>
-<p>可以创建索引加速查询, MongoDB的索引以<code>Btree</code>的数据结构存储, 所以支持范围查询. 由于<code>document</code>本身就是一棵树, 索引可以嵌套到<code>document</code>下层里的某个值. 也可以创建符合索引, 如<code>db.person.ensureIndex(&#123;lastname:1, firstname:1&#125;)</code>. 索引也可以是单键多值array.</p>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">5</span>]: db.person.index_information()</span><br><span class="line">Out[<span class="number">5</span>]: &#123;<span class="string">u&#x27;_id_&#x27;</span>: &#123;<span class="string">u&#x27;key&#x27;</span>: [(<span class="string">u&#x27;_id&#x27;</span>, <span class="number">1</span>)], <span class="string">u&#x27;ns&#x27;</span>: <span class="string">u&#x27;test_database.person&#x27;</span>, <span class="string">u&#x27;v&#x27;</span>: <span class="number">2</span>&#125;&#125;</span><br></pre></td></tr></table></figure></div>
-<p>mongo默认给<code>_id</code>创建索引, 也可以给一个字段建新的索引, 创建索引可以是前台线下模式或者后台在线模式, 如果是线下模式, 如果是多副本集,需要考虑这些副本索引做到滚动更新.</p>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">6</span>]: r = db.person.create_index([(<span class="string">&#x27;lastname&#x27;</span>, pymongo.ASCENDING)], unique=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: db.person.index_information()</span><br><span class="line">Out[<span class="number">8</span>]: </span><br><span class="line">&#123;<span class="string">u&#x27;_id_&#x27;</span>: &#123;<span class="string">u&#x27;key&#x27;</span>: [(<span class="string">u&#x27;_id&#x27;</span>, <span class="number">1</span>)], <span class="string">u&#x27;ns&#x27;</span>: <span class="string">u&#x27;test_database.person&#x27;</span>, <span class="string">u&#x27;v&#x27;</span>: <span class="number">2</span>&#125;,</span><br><span class="line"> <span class="string">u&#x27;lastname_1&#x27;</span>: &#123;<span class="string">u&#x27;key&#x27;</span>: [(<span class="string">u&#x27;lastname&#x27;</span>, <span class="number">1</span>)],</span><br><span class="line">  <span class="string">u&#x27;ns&#x27;</span>: <span class="string">u&#x27;test_database.person&#x27;</span>,</span><br><span class="line">  <span class="string">u&#x27;unique&#x27;</span>: <span class="literal">True</span>,</span><br><span class="line">  <span class="string">u&#x27;v&#x27;</span>: <span class="number">2</span>&#125;&#125;</span><br></pre></td></tr></table></figure></div>
-<p>但开始查询时如果有多个查询条件, <code>mongo</code>总是先尝试使用单个最佳索引找到符合的数据集, 然后根据后续的其它条件迭代查询.<br>那么如果一个<code>collection</code>的多索引是如何配合来加速查询的呢?<br>当一个查询执行时, mongo会给每个索引创建一个执行计划, 每个索引轮流执行查询, 直到所有索引执行完查询, mongo记录下最快执行查询的索引,后续就会使用这个索引查询, 直到后续一定量的数据更新, 才会重新执行上述流程.<br>针对执行计划每次查询只用一个索引的特点, 查询时注意查询条件, 并且创建主键以外的复合索引来加速查询至关重要! 同时也要注意索引的开小, 删除不必要的索引.</p>
-<h3 id="存储模型"><a href="#存储模型" class="headerlink" title="存储模型"></a>存储模型</h3><p>MongoDB通过内存mapping文件把存储在磁盘上数据文件直接映射到内存<code>byte array</code>, 数据的访问逻辑是通过<code>指针算法</code>实现的. 每个<code>collection</code>存在单独的一个<code>namespace</code>文件(记录元信息)和多个可扩展(<code>extent</code>)数据文件.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%883.58.50.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%883.58.50.png"><br>每个<code>collection</code>的数据被组织在<code>extent</code>文件中, 每个<code>extent</code>是一段连续的磁盘空间,使用双向链表连接<code>extent</code>. <code>extent</code>包含了多个<code>document</code>, 每一个<code>document</code>也会和其相邻的<code>document</code>相连, 实际数据就以Bson的格式存储在上图中的<code>DocRecord</code>. 一个<code>extent</code>会指向所包含的<code>document</code>链表的头和尾(当然extent和extent之间也是连起来的). </p>
-<p>任何修改数据会直接在原地进行. 为了预防数据修改后大小超过了原来记录的分配的空间, 整条记录会被移动到一个更大的区域(附带一些填充占位的字节, 这些填充的字节当作缓存空间用于将来可以用于放置更大的空间, 那么具体填充多少字节, 这就需要每个collection有一个统计值, 专门记录修改的统计数据), 原来空出来的空间将会被释放, 有一张表会记录<code>free list</code>的大小.<br>基于上述移动空间的设计, 我们可以预见数据会变得片段化, 所以mongo需要周期性地运行<code>compact</code>命令, 会把数据移动到连续的空间内, 以提高IO性能.这个操作通常需要在线下进行, 副本集则需要滚动更新.</p>
-<p>索引是通过Btree实现的, 每个Btree的节点含有一个key数字和指向左边子节点的指针.</p>
-<h3 id="数据的更新和事务"><a href="#数据的更新和事务" class="headerlink" title="数据的更新和事务"></a>数据的更新和事务</h3><p>更新一条记录是在原数据上直接做修改:</p>
-<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="code"><pre><span class="line">In [<span class="number">6</span>]: db.person.update_one(&#123;<span class="string">&#x27;first&#x27;</span>:<span class="string">&#x27;Dave&#x27;</span>&#125;, &#123;<span class="string">&quot;$set&quot;</span>:&#123;<span class="string">&quot;first&quot;</span>:<span class="string">&#x27;David&#x27;</span>&#125;&#125;)</span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: db.person.find_one()</span><br><span class="line">Out[<span class="number">8</span>]: </span><br><span class="line">&#123;<span class="string">u&#x27;_id&#x27;</span>: ObjectId(<span class="string">&#x27;5ba858bc91046605e83667dd&#x27;</span>),</span><br><span class="line"> <span class="string">u&#x27;first&#x27;</span>: <span class="string">u&#x27;David&#x27;</span>,</span><br><span class="line"> <span class="string">u&#x27;lastname&#x27;</span>: <span class="string">u&#x27;He&#x27;</span>&#125;</span><br></pre></td></tr></table></figure></div>
-<p>mongo写的时候可以指定多种方式(policy), 以表示写是否成功了, 如数据已经在磁盘持久化了; 或者数据已经在多个副本集传递(可以通过<code>getLastError</code>拿到执行返回值). 另外, mongo是可以给副本集打<code>tag</code>, 所以可以基于<code>tag</code>制定写策略.</p>
-<p>由于所有从mongo读到的数据都是过去的快照, 读到的数据可能已经被其它客户修改, 所以如果有一致性要求, 每次修改数据前可以先读一次验证数据, 然后再做修改.<br>mongo可以在修改前验证条件, 使用<code>findAndModify</code>api更新数据. 如果是<code>pymongo</code>那么<code>update</code>会帮做验证条件, 不需要额外做这一步.</p>
-<p>mongo没有事务的概念(4.0以前), 对每个<code>document</code>的操作都是原子性的, 但是如果多个<code>document</code>被修改, 原子性是不能保证的.所以客户端需要自行实现多文件更新原子性.一个常见的技术是: 首先创建一个独立的文档(叫做transaction), 把所有需要更新的文档连接起来; 然后把所有需要更新的文档反链到transaction; 接着如下图做二段式提交完成事务.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%885.31.48.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%885.31.48.png"></p>
-<h3 id="复制模型"><a href="#复制模型" class="headerlink" title="复制模型"></a>复制模型</h3><p>Mongdb通过副本集(replica set)做到高可用和读查询的负载均衡(没有做到写负载均衡), 通过把数据复制到多个服务器做到冗余. 具体包括一个主要DB和多个二级DB. 为了数据一致性, 所有修改都会在主DB操作然后异步复制到副本. 副本集之间的节点通过心跳同步状态, 如果有一个节点失去心跳(挂了), 那么就会失去<code>membership</code>. 如果后面恢复了那么这个节点会重新加入集群, 通过和主DB通信,获取<code>changelog</code>恢复到最新的数据. 如果主DB的<code>changelog</code>没有覆盖这个节点挂掉到恢复的全部日志, 那么需要重新导入主DB的所有数据.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%885.39.34.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%885.39.34.png"><br>如果主DB挂掉了, 那么集群将进行选举, 通过节点优先级,运行时间等条件从二级DB中选出新的主DB, 由于二级DB采用异步复制的形式, 这个新选出来的主DB可能不是最新的数据版本.</p>
-<p>客户端驱动库需要实现找到主DB的功能, 在开始连接数据库后, 客户端需要发出<code>isMaster</code>的指令从当前集群中找到主DB和所有副本, 然后客户端会把大部分请求发给主DB, 部分读请求发给二级DB; 这个<code>isMaster</code>的指令会周期性的发送, 以便同步当前集群信息. 所有挂掉的节点, 客户端会强制中断连接.</p>
-<p>MongoDB有一个特殊的二级DB叫<code>Delayed Slave</code>, 它是延迟一段时间同步主数据库. 主要用来恢复短期误删的的数据.<br>在读取查询时, 可以指定从二级DB读取数据, 这样读到的数据可能不是最新的, 但是可以使用这个特性做到查询的负载均衡. 客户端可以ping二级DB, 挑选最快的节点查询数据.</p>
-<h3 id="分片模型"><a href="#分片模型" class="headerlink" title="分片模型"></a>分片模型</h3><p>想要做到写负载均衡, 需要使用MongoDB的<code>sharding</code>. 在<code>sharding</code>配置中, 一个<code>collection</code>可以通过<code>partition key</code>被分割到多个<code>chunks</code>内(一组key的范围), 多个<code>chunks</code>被分配到不同的<code>shards</code>, 每个<code>shards</code>都是副本集(<code>replica set</code>). 通过<code>sharding</code>, mongo可以存储无限量的数据, 这点在大数据应用场景十分重要.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%888.03.33.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-09-24%20%E4%B8%8B%E5%8D%888.03.33.png"><br>在<code>sharding</code>模式下, 客户端需要连接到<code>MongoS</code>, 它是一个路由服务器把客户端的请求发送到合适的分片. 对于<code>insert/delete/update</code>修改操作请求, 如果包含<code>partition key</code>, 那么基于<code>chunk/shard</code>映射表信息(从<code>config server</code>得到,并且本地缓存), 路由服务器可以找到对应chunk的节点服务器. 如果是读查询, 路由服务器会检测<code>partition key</code>是否包含在查询的部分条件中, 如果是那么就可以找到对应的主或二级<code>shard</code>; 但是也有可能查询条件不含有<code>partition key</code>, 那么路由会把请求发给每个<code>shard</code>.如果查询需要排序, 同时<code>partition key</code>在排序的条件中, 那么路由会一次按<code>partition key</code>排序<code>shards</code>; 如果不包含<code>partition key</code>, 路由服务器会把请发给每个<code>shard</code>, 然后做<code>merge-sort</code>.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-01-10%20at%2014.32.27.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-01-10%20at%2014.32.27.png"><br>另一方面, 路由服务器需要保障每个<code>shards</code>中的数据<code>chunks</code>大致一样多. 当不平衡的条件被检测到, 路由器会通知chunk较多的<code>shard</code>触发迁移工作. 这个迁移工作是线上进行的, 数据迁移时进行多次delta检查, 直到最后数据迁移完毕, 目标服务器会通知<code>config server</code>新的<code>shard</code>信息, 通知源服务发送<code>StaleConfigException</code>给路由服务器, 让路由器重新读取配置信息. 后面的某个时间点, 源服务器旧的<code>shard</code>数据将会被删除. 如果在迁移的过程中发生高频率的更新操作, 那么迁移会停止,路由服务器会选择新的<code>chunk</code>去迁移数据.</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/innodbHigh-level+Overview.png"
+                      alt="key-feature"
+                ></p>
+<h3 id="InnoDB表-最佳实践"><a href="#InnoDB表-最佳实践" class="headerlink" title="InnoDB表 最佳实践"></a>InnoDB表 最佳实践</h3><ul>
+<li>主键的设定：把查询用的最多的column， 并且不怎么改动的设成主键；如果没有可以设置自增列为主键。</li>
+<li>如果是基于一个列进行多表联查，使用join. 并且把join的列设置成外键，数据类型也要一致。这么做是因为外键会给列加索引，外键也会把删除和更新传到相关表。</li>
+<li>关闭autocommit(可能是log flush的影响，待查)</li>
+<li>把一系列的DML语句放在一个事务中。</li>
+<li>不要使用<code>lock tables</code>语句。可以使用<code>select .. for update</code> 只针对某些row锁定更新。</li>
+<li>开启<strong>innodb_file_per_table</strong>， 这样表的数据和索引是单独文件存在。</li>
+<li>根据需求，可以使用<code>ROW_FORMAT=COMPRESSED</code>来压缩数据。</li>
+</ul>
+<h3 id="InnoDB-和-ACID-模型"><a href="#InnoDB-和-ACID-模型" class="headerlink" title="InnoDB 和 ACID 模型"></a>InnoDB 和 ACID 模型</h3><ul>
+<li>使用innodb, mysql将十分接近ACID模型，避免软硬件的失效带来的灾难。</li>
+<li>ACID就不说了</li>
+</ul>
+<h3 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h3><ul>
+<li>innodb使用rollback segment的数据结构来管理版本信息。主要服务回退和一致性读。</li>
+<li>innodb 会在每行后面加三个隐藏字段<ul>
+<li>6B DB_TRX_ID 最新事务ID. 这个字段里面有个位标记行是否被删除</li>
+<li>7B DB_ROLL_PTR roll pointer 指向rollback segment的undo log记录。 更新一条记录时，undo log 会记录如何回滚这个更新的记录。</li>
+<li>6B DB_ROW_ID 行ID, 递增。如果聚簇索引是innodb自动生成的，那么索引里包含row id. 否则DB_ROW_ID不会再任何索引里出现。</li>
+</ul>
+</li>
+<li>在rollback segment中的undo log 分为insert和update undo logs. insert undo log 在事务回滚时就不需要了，但是update undo log需要在MVVC保持consistent read后，才能丢弃。    </li>
+<li>在innodb, delete sql不会立即删除物理数据；仅在update undo log被purge的时候才会删除行数据和对应的索引</li>
+<li>purge是一个定时垃圾处理undo log的后台任务，可以有一个或多个线程。purge是滞后操作的，所以批量删除数据太多，可能引起rollback segment过大，这时可以增加线程<code>innodb_max_purge_lag</code></li>
+<li><strong>多版本和二级索引</strong></li>
+</ul>
 ]]></content>
       <categories>
         <category>database</category>
       </categories>
       <tags>
-        <tag>mongo</tag>
+        <tag>mysql</tag>
       </tags>
   </entry>
   <entry>
@@ -6625,55 +6674,6 @@
 </li>
 <li><p>primary key is the unique identification of the row, usually application insert rows based on auto-increased primary key.<br>  if we insert primary key that is random, we may not get sequence data in disk</p>
 </li>
-</ul>
-]]></content>
-      <categories>
-        <category>database</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>A look at InnoDB for Mysql 5.7</title>
-    <url>/2017/12/11/database-mysql-2017-12-12-InnoDB5-7/</url>
-    <content><![CDATA[<h3 id="InnoDB的优势"><a href="#InnoDB的优势" class="headerlink" title="InnoDB的优势"></a>InnoDB的优势</h3><ul>
-<li>DML 遵循ACID</li>
-<li>行级锁，使用MVCC保证读一致</li>
-<li>使用主键索引管理磁盘上的数据，加快查找速度</li>
-<li>使用外键维持数据的完整性</li>
-</ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/innodbHigh-level+Overview.png"
-                      alt="key-feature"
-                ></p>
-<h3 id="InnoDB表-最佳实践"><a href="#InnoDB表-最佳实践" class="headerlink" title="InnoDB表 最佳实践"></a>InnoDB表 最佳实践</h3><ul>
-<li>主键的设定：把查询用的最多的column， 并且不怎么改动的设成主键；如果没有可以设置自增列为主键。</li>
-<li>如果是基于一个列进行多表联查，使用join. 并且把join的列设置成外键，数据类型也要一致。这么做是因为外键会给列加索引，外键也会把删除和更新传到相关表。</li>
-<li>关闭autocommit(可能是log flush的影响，待查)</li>
-<li>把一系列的DML语句放在一个事务中。</li>
-<li>不要使用<code>lock tables</code>语句。可以使用<code>select .. for update</code> 只针对某些row锁定更新。</li>
-<li>开启<strong>innodb_file_per_table</strong>， 这样表的数据和索引是单独文件存在。</li>
-<li>根据需求，可以使用<code>ROW_FORMAT=COMPRESSED</code>来压缩数据。</li>
-</ul>
-<h3 id="InnoDB-和-ACID-模型"><a href="#InnoDB-和-ACID-模型" class="headerlink" title="InnoDB 和 ACID 模型"></a>InnoDB 和 ACID 模型</h3><ul>
-<li>使用innodb, mysql将十分接近ACID模型，避免软硬件的失效带来的灾难。</li>
-<li>ACID就不说了</li>
-</ul>
-<h3 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h3><ul>
-<li>innodb使用rollback segment的数据结构来管理版本信息。主要服务回退和一致性读。</li>
-<li>innodb 会在每行后面加三个隐藏字段<ul>
-<li>6B DB_TRX_ID 最新事务ID. 这个字段里面有个位标记行是否被删除</li>
-<li>7B DB_ROLL_PTR roll pointer 指向rollback segment的undo log记录。 更新一条记录时，undo log 会记录如何回滚这个更新的记录。</li>
-<li>6B DB_ROW_ID 行ID, 递增。如果聚簇索引是innodb自动生成的，那么索引里包含row id. 否则DB_ROW_ID不会再任何索引里出现。</li>
-</ul>
-</li>
-<li>在rollback segment中的undo log 分为insert和update undo logs. insert undo log 在事务回滚时就不需要了，但是update undo log需要在MVVC保持consistent read后，才能丢弃。    </li>
-<li>在innodb, delete sql不会立即删除物理数据；仅在update undo log被purge的时候才会删除行数据和对应的索引</li>
-<li>purge是一个定时垃圾处理undo log的后台任务，可以有一个或多个线程。purge是滞后操作的，所以批量删除数据太多，可能引起rollback segment过大，这时可以增加线程<code>innodb_max_purge_lag</code></li>
-<li><strong>多版本和二级索引</strong></li>
 </ul>
 ]]></content>
       <categories>
