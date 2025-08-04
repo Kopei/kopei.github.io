@@ -742,10 +742,10 @@ hexo-server@^3.0.0:
     picocolors "^1.0.0"
     serve-static "^1.14.1"
 
-hexo-theme-redefine@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/hexo-theme-redefine/-/hexo-theme-redefine-2.2.1.tgz#5688240e5ce67ea55f73b5cdeddce7cf1817f7d5"
-  integrity sha512-vfPIDjt0yPWiMhiE8ZRdgu8N8KcfqXQu+U7c2N0HslonMAkHBvbwyUcnHSJLLVxpkCrXd+bZolYMLROoIDU3yw==
+hexo-theme-redefine@^2.8.5:
+  version "2.8.5"
+  resolved "https://registry.yarnpkg.com/hexo-theme-redefine/-/hexo-theme-redefine-2.8.5.tgz#f01817ed9d226b82f1bdfe3abdcc3c71a40a9d20"
+  integrity sha512-HhAmhGdJSWe+ZjpttM9MLNvJBhmOQFSnIty0oQv2OUoj1613V54V2c+eTjAEZGTMh5eYNP3P4OaJtw8W19N1MQ==
 
 hexo-util@^2.0.0, hexo-util@^2.2.0, hexo-util@^2.7.0:
   version "2.7.0"
