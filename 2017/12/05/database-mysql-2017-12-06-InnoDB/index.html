@@ -146,7 +146,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://kopei.github.io/images/k-favicon.jpeg">
 <meta property="article:published_time" content="2017-12-05T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-08-04T13:20:14.443Z">
+<meta property="article:modified_time" content="2025-08-04T13:51:29.757Z">
 <meta property="article:author" content="Kopei Nan">
 <meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
@@ -413,8 +413,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-04 21:20:14</span>
-            <span class="mobile">2025-08-04 21:20:14</span>
+            <span class="desktop">2025-08-04 21:51:29</span>
+            <span class="mobile">2025-08-04 21:51:29</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -481,8 +481,7 @@
                       alt="high-level-overview"
                 ></p>
 <ul>
-<li><p><strong>what is in the buffer pool</strong></p>
-<ul>
+<li><strong>what is in the buffer pool</strong><ul>
 <li>index page </li>
 <li>data page</li>
 <li>redo page</li>
@@ -497,37 +496,39 @@
                 ></li>
 </ul>
 </li>
-<li><p>the default page size is 16KB</p>
-</li>
-<li><p>innodb_buffer_pool_size and innodb_buffer_pool_instances</p>
-<ul>
+<li>the default page size is 16KB</li>
+<li>innodb_buffer_pool_size and innodb_buffer_pool_instances<ul>
 <li><code>select pool_id, pool_size, free_buffers, database_pages from information_schema.innodb_buffer_pool_stats;</code> #show buffer pool stats.</li>
 <li><strong>innodb_buffer_pool_instances</strong> divides the buffer pool into specified number of separate regions. each with its own LRU list and data structures. <strong>The advantage</strong> is to reduce contention during concurrent memeory.</li>
 <li>buffer instance param will only take effect when <strong>innodb_buffer_pool_size</strong> is larger than 1GB, and recommend use multiple Gigebytes</li>
 </ul>
 </li>
-<li><p>from memory point of view, innodb has three types of page: clean page, dirty page and free page.</p>
-<ul>
+<li>from memory point of view, innodb has three types of page: clean page, dirty page and free page.<ul>
 <li>clean page, data in memory and in disk is identical</li>
 <li>dirty page, not identical</li>
 <li>free page, not used page</li>
 </ul>
 </li>
-<li><p>innodb logically has data page type: </p>
-<div class="code-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> page_type <span class="keyword">from</span> information_schema.innodb_buffer_page_lru <span class="keyword">where</span>;</span><br><span class="line"><span class="comment">-------page_type-------------</span></span><br><span class="line"><span class="keyword">SYSTEM</span></span><br><span class="line">INODE</span><br><span class="line">IBUF_INDEX</span><br><span class="line">INDEX</span><br><span class="line">IBUF_BITMAP</span><br><span class="line">TRX_SYSTEM</span><br><span class="line">UNDO_LOG</span><br><span class="line">FILE_SPACE_HEADER</span><br><span class="line"><span class="type">BLOB</span></span><br></pre></td></tr></table></figure></div></li>
+<li>innodb logically has data page type:</li>
+</ul>
+<div class="code-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> page_type <span class="keyword">from</span> information_schema.innodb_buffer_page_lru <span class="keyword">where</span>;</span><br><span class="line"><span class="comment">-------page_type-------------</span></span><br><span class="line"><span class="keyword">SYSTEM</span></span><br><span class="line">INODE</span><br><span class="line">IBUF_INDEX</span><br><span class="line">INDEX</span><br><span class="line">IBUF_BITMAP</span><br><span class="line">TRX_SYSTEM</span><br><span class="line">UNDO_LOG</span><br><span class="line">FILE_SPACE_HEADER</span><br><span class="line"><span class="type">BLOB</span></span><br></pre></td></tr></table></figure></div>
+<ul>
 <li><p>LRU list, Free list and Flush list**</p>
 <ul>
 <li>innodb use list to manage different pages.</li>
 <li>LRU list saves already read page. Use midpoint tech to save lastest read page into LRU list. </li>
 <li>free list has all not used free page, when server starts, all the page are in free list, and move to LRU.</li>
 <li>flush list contains all the dirty page. Use checkpoint to flush dirty data into disk. Dirty page may exist both in flush list and LRU list.</li>
-<li>innodb_old_blocks_pct and innodb_old_blocks_time <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><figcaption><span>variables like '%innodb_old_block%'``` # innodb_old_blocks_pct sets percertage of old list, innodb_old_blocks_time sets the midpoint page will be in the hot part of LRU list after certain time.</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- ```show engine innodb status;``` #show the page info </span><br><span class="line">``` bash</span><br><span class="line">----------------------BUFFER POOL AND MEMORY----------------------</span><br><span class="line">Total large memory allocated 2198863872</span><br><span class="line">Dictionary memory allocated 776332</span><br><span class="line">Buffer pool size   131072</span><br><span class="line">Free buffers       124908</span><br><span class="line">Database pages     5720</span><br><span class="line">Old database pages 2071</span><br><span class="line">Modified db pages  910</span><br><span class="line">Pending reads 0</span><br><span class="line">Pending writes: LRU 0, flush list 0, single page 0</span><br><span class="line">Pages made young 4, not young 0</span><br><span class="line">0.10 youngs/s, 0.00 non-youngs/s</span><br><span class="line">Pages read 197, created 5523, written 5060</span><br><span class="line">0.00 reads/s, 190.89 creates/s, 244.94 writes/s</span><br><span class="line">Buffer pool hit rate 1000 / 1000, young-making rate 0 / 1000 not 0 / 1000</span><br><span class="line">Pages read ahead 0.00/s, evicted without access 0.00/s, Random read ahead 0.00/s</span><br><span class="line">LRU len: 5720, unzip_LRU len: 0 I/O sum[0]:cur[0], unzip sum[0]:cur[0]</span><br></pre></td></tr></table></figure></div>
-<img  
+<li>innodb_old_blocks_pct and innodb_old_blocks_time</li>
+</ul>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><figcaption><span>variables like '%innodb_old_block%'``` # innodb_old_blocks_pct sets percertage of old list, innodb_old_blocks_time sets the midpoint page will be in the hot part of LRU list after certain time.</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- ```show engine innodb status;``` #show the page info </span><br><span class="line">``` bash</span><br><span class="line">----------------------BUFFER POOL AND MEMORY----------------------</span><br><span class="line">Total large memory allocated 2198863872</span><br><span class="line">Dictionary memory allocated 776332</span><br><span class="line">Buffer pool size   131072</span><br><span class="line">Free buffers       124908</span><br><span class="line">Database pages     5720</span><br><span class="line">Old database pages 2071</span><br><span class="line">Modified db pages  910</span><br><span class="line">Pending reads 0</span><br><span class="line">Pending writes: LRU 0, flush list 0, single page 0</span><br><span class="line">Pages made young 4, not young 0</span><br><span class="line">0.10 youngs/s, 0.00 non-youngs/s</span><br><span class="line">Pages read 197, created 5523, written 5060</span><br><span class="line">0.00 reads/s, 190.89 creates/s, 244.94 writes/s</span><br><span class="line">Buffer pool hit rate 1000 / 1000, young-making rate 0 / 1000 not 0 / 1000</span><br><span class="line">Pages read ahead 0.00/s, evicted without access 0.00/s, Random read ahead 0.00/s</span><br><span class="line">LRU len: 5720, unzip_LRU len: 0 I/O sum[0]:cur[0], unzip sum[0]:cur[0]</span><br></pre></td></tr></table></figure></div>
+<p><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/mysql%20innodb%20buffer%20pool%20metrics.png"
                       alt="buffer pool"
-                ></li>
+                ></p>
+<ul>
 <li><code>select * from information_schema.innodb_buffer_pool_stats</code> # can also show the buffer pool stats.</li>
 <li><strong>buffer poll hit rate</strong> is the rate hit in memory not in disk, the higher the better</li>
 <li><code>select * from information_schema.innodb_buffer_page_lru where compressed_size &lt;&gt; 0</code> # compressed lru page</li>
@@ -572,7 +573,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-04 21:20:14
+                    :</strong> 2025-08-04 21:51:29
             </li>
         
         <li>

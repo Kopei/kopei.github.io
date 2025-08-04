@@ -471,12 +471,42 @@
 			<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文简单介绍用aliyun的Kubernetes容器服务搭建mysql集群。首先确保k8s集群已经创建，并且已经开通了相关服务如NAS、容器镜像仓库等服务。</p>
 <h3 id="第一步-创建数据卷"><a href="#第一步-创建数据卷" class="headerlink" title="第一步 创建数据卷"></a>第一步 创建数据卷</h3><ul>
 <li>k8s有个nodeSelector的功能，如果mysql由于单点故障漂移了node，原来的存储会自动重新挂载到新的node(这一步骤是在转移node之前做的). 这样避免了漂移node导致有状态服务不可用的情况。</li>
-<li>aliyun支持k8s三种存储：网盘, NAS, OSS. 基于性能考虑，我们选择NAS。首先需要在NAS控制台右上角选择<code>创建文件系统</code>, 注意所创建的文件系统所在区域必须和k8s集群所在的区域在同一地域:<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.36.40.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.36.40.png"><br>然后在新生成的文件系统选择<code>添加挂载点</code>，如图已经有两个挂载点，还不是很清楚为什么不能再添加新的挂载点了。添加的挂载点必须和k8s集群在同一个VPC! 记住<code>挂载地址</code>后续创建k8s数据卷时用到。<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.38.33.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.38.33.png"><br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.40.44.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.40.44.png"></li>
-<li>然后在k8s控制台右上角选中<code>创建</code>, 填上新创建的挂载点域名，点击确定数据卷就创建了：<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.44.29.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.44.29.png"></li>
+<li>aliyun支持k8s三种存储：网盘, NAS, OSS. 基于性能考虑，我们选择NAS。首先需要在NAS控制台右上角选择<code>创建文件系统</code>, 注意所创建的文件系统所在区域必须和k8s集群所在的区域在同一地域:<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.36.40.png"
+                      alt="https:&#x2F;&#x2F;s3.ap-southeast-1.amazonaws.com&#x2F;kopei-public&#x2F;%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.36.40.png"
+                ><br>然后在新生成的文件系统选择<code>添加挂载点</code>，如图已经有两个挂载点，还不是很清楚为什么不能再添加新的挂载点了。添加的挂载点必须和k8s集群在同一个VPC! 记住<code>挂载地址</code>后续创建k8s数据卷时用到。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.38.33.png"
+                      alt="https:&#x2F;&#x2F;s3.ap-southeast-1.amazonaws.com&#x2F;kopei-public&#x2F;%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.38.33.png"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.40.44.png"
+                      alt="https:&#x2F;&#x2F;s3.ap-southeast-1.amazonaws.com&#x2F;kopei-public&#x2F;%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.40.44.png"
+                ></li>
+<li>然后在k8s控制台右上角选中<code>创建</code>, 填上新创建的挂载点域名，点击确定数据卷就创建了：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.44.29.png"
+                      alt="https:&#x2F;&#x2F;s3.ap-southeast-1.amazonaws.com&#x2F;kopei-public&#x2F;%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.44.29.png"
+                ></li>
 </ul>
 <h3 id="第二步-使用aliyun的镜像创建mysql"><a href="#第二步-使用aliyun的镜像创建mysql" class="headerlink" title="第二步 使用aliyun的镜像创建mysql"></a>第二步 使用aliyun的镜像创建mysql</h3><ul>
-<li>在容器服务控制台点击<code>使用镜像</code>，选择mysql部署应用, 第一步填应用名称和选择命名空间：<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.51.42.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.51.42.png"></li>
-<li>然后设置应用配置，注意在这里的环境变量必须设置MYSQL_ROOT_PASSWORD或MYSQL_ALLOW_EMPTY_PASSWORD或MYSQL_RANDOM_ROOT_PASSWORD之一，否则会创建失败。这个页面暂时没有找到设置k8s secret的地方，所以可能如编排模块那样使用secret。其它的资源和网络按需设置, 注意填上上一步创建的pv<code>mysql-pv</code>, 点击创建，然后在控制台应该能看到绿色的部署成功，若有错误，请点进容器组查看相关log。(插一句，如果使用k8s secret创建私密信息，也不能把Secret模板commit到git, 因为base64不是真的加密啊！)<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%885.04.38.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%885.04.38.png"></li>
+<li>在容器服务控制台点击<code>使用镜像</code>，选择mysql部署应用, 第一步填应用名称和选择命名空间：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.51.42.png"
+                      alt="https:&#x2F;&#x2F;s3.ap-southeast-1.amazonaws.com&#x2F;kopei-public&#x2F;%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%884.51.42.png"
+                ></li>
+<li>然后设置应用配置，注意在这里的环境变量必须设置MYSQL_ROOT_PASSWORD或MYSQL_ALLOW_EMPTY_PASSWORD或MYSQL_RANDOM_ROOT_PASSWORD之一，否则会创建失败。这个页面暂时没有找到设置k8s secret的地方，所以可能如编排模块那样使用secret。其它的资源和网络按需设置, 注意填上上一步创建的pv<code>mysql-pv</code>, 点击创建，然后在控制台应该能看到绿色的部署成功，若有错误，请点进容器组查看相关log。(插一句，如果使用k8s secret创建私密信息，也不能把Secret模板commit到git, 因为base64不是真的加密啊！)<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%885.04.38.png"
+                      alt="https:&#x2F;&#x2F;s3.ap-southeast-1.amazonaws.com&#x2F;kopei-public&#x2F;%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-03-10%20%E4%B8%8B%E5%8D%885.04.38.png"
+                ></li>
 </ul>
 <h3 id="第三部，创建service"><a href="#第三部，创建service" class="headerlink" title="第三部，创建service"></a>第三部，创建service</h3><ul>
 <li>现在创建的mysql还只能通过172docker的网段访问， 想要所有pods通过域名访问，则需要给mysql加一个k8s service.可以通过k8s控制台的<code>服务</code>创建，编排示例如下：</li>
@@ -541,12 +571,12 @@
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
 			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="../../11/kubernetes-2018-03-12-k8s-dynamic-volume-provision/">
+				<a class="prev" rel="prev" href="../../11/kubernetes-2018-03-12-k8s-pull-private-image/">
 					<span class="left arrow-icon flex justify-center items-center">
 						<i class="fa-solid fa-chevron-left"></i>
 					</span>
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">在云上使用k8s动态PV</span>
+						<span class="post-nav-title-item truncate max-w-48">K8S使用私有镜像</span>
 						<span class="post-nav-item">Prev posts</span>
 					</span>
 				</a>

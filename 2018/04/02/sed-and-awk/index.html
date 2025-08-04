@@ -146,7 +146,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://kopei.github.io/images/k-favicon.jpeg">
 <meta property="article:published_time" content="2018-04-02T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-08-04T13:20:14.439Z">
+<meta property="article:modified_time" content="2025-08-04T13:51:29.753Z">
 <meta property="article:author" content="Kopei Nan">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -413,8 +413,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-04 21:20:14</span>
-            <span class="mobile">2025-08-04 21:20:14</span>
+            <span class="desktop">2025-08-04 21:51:29</span>
+            <span class="mobile">2025-08-04 21:51:29</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -483,19 +483,25 @@
 <li>1,10d #删除1-10行（含）</li>
 <li>1，&#x2F;^$&#x2F;d  #删除第一行以下的所有空行</li>
 <li>&#x2F;^$&#x2F;,$d  #删除第一个空行到结尾</li>
-<li>&#x2F;^ya*y&#x2F;,&#x2F;[0-9]$&#x2F;d # 把yay, yaay,yaaay等，并且以数字结尾的行删除。<br>但使用多个指令时，有一些语法要求，如下。第左括号必须是行结尾，右括号必须是单行结尾。<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[/pattern/[,/pattern]]&#123;</span><br><span class="line">  action1</span><br><span class="line">  action2</span><br><span class="line">  action3</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
+<li>&#x2F;^ya*y&#x2F;,&#x2F;[0-9]$&#x2F;d # 把yay, yaay,yaaay等，并且以数字结尾的行删除。<br>但使用多个指令时，有一些语法要求，如下。第左括号必须是行结尾，右括号必须是单行结尾。</li>
+</ul>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[/pattern/[,/pattern]]&#123;</span><br><span class="line">  action1</span><br><span class="line">  action2</span><br><span class="line">  action3</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<ul>
 <li><strong>打印</strong> <code>[address[,address]]p</code>用来打印pattern space的内容，可以配合<code>-n</code>使用，如果不指定<code>-n</code>, 但是指定p,结果会打印两次！</li>
 <li><strong>替换</strong><code>[address(es)]s/pattern/replacement/[flags]</code>, <code>flags</code>可以是[n,g,p],n代表替换几次，g代表pattern space中的全局替换,p代表打印.<br>sed的replacement可以使用几个特殊字符：<ul>
-<li><code>&amp;</code>代表所有在pattern中匹配的文本部分，用这个<code>&amp;</code>就可以在replacement中引用pattern中匹配的部分。比如：<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># user=&amp;uidX</span><br><span class="line">sed -e &#x27;s/user=&amp;uid/user=&amp;sysuserid./g&#x27;</span><br><span class="line">user=user=&amp;uidsystemid.X</span><br></pre></td></tr></table></figure></div></li>
-<li><code>\n</code>代表了在pattern中<code>\(</code>,<code>\)</code>中匹配的部分，用<code>\n</code>可以在replacement中使用。</li>
-<li>替换例子：<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&quot;the UNIX operating system ...&quot;</span><br><span class="line">s/.NI./wonderful &amp;/</span><br><span class="line">&quot;the wonderful UNIX operating system ...&quot;</span><br><span class="line">---</span><br><span class="line">cat test1</span><br><span class="line">first:seconde</span><br><span class="line">one:two</span><br><span class="line">sed &#x27;s/\(.*\):\(.*\)/\2:\1/&#x27; test1</span><br><span class="line">seconde:fisrt</span><br><span class="line">two:one</span><br><span class="line">---</span><br></pre></td></tr></table></figure></div></li>
+<li><code>&amp;</code>代表所有在pattern中匹配的文本部分，用这个<code>&amp;</code>就可以在replacement中引用pattern中匹配的部分。比如：</li>
 </ul>
-</li>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># user=&amp;uidX</span><br><span class="line">sed -e &#x27;s/user=&amp;uid/user=&amp;sysuserid./g&#x27;</span><br><span class="line">user=user=&amp;uidsystemid.X</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li><code>\n</code>代表了在pattern中<code>\(</code>,<code>\)</code>中匹配的部分，用<code>\n</code>可以在replacement中使用。</li>
+<li>替换例子：</li>
+</ul>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&quot;the UNIX operating system ...&quot;</span><br><span class="line">s/.NI./wonderful &amp;/</span><br><span class="line">&quot;the wonderful UNIX operating system ...&quot;</span><br><span class="line">---</span><br><span class="line">cat test1</span><br><span class="line">first:seconde</span><br><span class="line">one:two</span><br><span class="line">sed &#x27;s/\(.*\):\(.*\)/\2:\1/&#x27; test1</span><br><span class="line">seconde:fisrt</span><br><span class="line">two:one</span><br><span class="line">---</span><br></pre></td></tr></table></figure></div></li>
 <li><strong>叠加</strong> <strong>插入</strong> <strong>修改</strong> 这三者的语法类似，需要更新的文本写在语句第二行. insert是在pattern space前面插入文本，<br>append是在pattern space后面增加文本<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[address]a\   #append</span><br><span class="line">test  </span><br><span class="line">[address]i\   #insert</span><br><span class="line">test</span><br><span class="line">[address(es)]c\   #change</span><br><span class="line">test</span><br></pre></td></tr></table></figure></div>
 <ul>
-<li>insert例子<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/&lt;Insert Text Here&gt;/i\</span><br><span class="line">Line 1 of inserted text\</span><br><span class="line">\        Line 2 of inserted text</span><br><span class="line"></span><br><span class="line">Line 1 of inserted text</span><br><span class="line">             Line 2 of inserted text</span><br><span class="line">&lt;Insert Text Here&gt;</span><br></pre></td></tr></table></figure></div></li>
+<li>insert例子</li>
 </ul>
-</li>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/&lt;Insert Text Here&gt;/i\</span><br><span class="line">Line 1 of inserted text\</span><br><span class="line">\        Line 2 of inserted text</span><br><span class="line"></span><br><span class="line">Line 1 of inserted text</span><br><span class="line">             Line 2 of inserted text</span><br><span class="line">&lt;Insert Text Here&gt;</span><br></pre></td></tr></table></figure></div></li>
 <li><code>y</code>是sed的逐字替换，<code>[address[,address]]y/abc/xyz</code></li>
 <li><code>q</code>是退出读取新的行，<code>sed &#39;110q&#39; filename</code>读取110行</li>
 </ul>
@@ -520,8 +526,10 @@
 <li>Actions行动。action可以是一组类C表达式，也可以是数字或字符串表达式、赋值或格式化输出字符串流。action会在匹配的每一行执行，如果pattern没有提供，action会在每一行执行，如果action没有提供，所有pattern匹配的行会被打印到标准输出。action和pattern需要用有无{}来区分(有{}就是action)。</li>
 </ul>
 </li>
-<li>可选的END部分，用于文本处理完后进一步执行逻辑<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> |awk <span class="string">&#x27;</span></span><br><span class="line"><span class="string">BEGIN &#123;print &quot;all html file&quot;&#125;</span></span><br><span class="line"><span class="string">/\.html$/ &#123;print&#125;</span></span><br><span class="line"><span class="string">END &#123;print &quot;There we go!&quot;&#125;</span></span><br><span class="line"><span class="string">&#x27;</span></span><br></pre></td></tr></table></figure></div></li>
+<li>可选的END部分，用于文本处理完后进一步执行逻辑</li>
 </ul>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> |awk <span class="string">&#x27;</span></span><br><span class="line"><span class="string">BEGIN &#123;print &quot;all html file&quot;&#125;</span></span><br><span class="line"><span class="string">/\.html$/ &#123;print&#125;</span></span><br><span class="line"><span class="string">END &#123;print &quot;There we go!&quot;&#125;</span></span><br><span class="line"><span class="string">&#x27;</span></span><br></pre></td></tr></table></figure></div>
+
 <h3 id="运行awk的方式"><a href="#运行awk的方式" class="headerlink" title="运行awk的方式"></a>运行awk的方式</h3><p>可以有三种方式执行awk命令：</p>
 <ul>
 <li>awk ‘program’ input_file(s)<ul>
@@ -610,7 +618,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-04 21:20:14
+                    :</strong> 2025-08-04 21:51:29
             </li>
         
         <li>

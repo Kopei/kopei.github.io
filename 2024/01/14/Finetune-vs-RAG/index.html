@@ -146,7 +146,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://kopei.github.io/images/k-favicon.jpeg">
 <meta property="article:published_time" content="2024-01-14T07:27:22.000Z">
-<meta property="article:modified_time" content="2025-08-04T13:20:14.440Z">
+<meta property="article:modified_time" content="2025-08-04T13:51:29.754Z">
 <meta property="article:author" content="Kopei Nan">
 <meta property="article:tag" content="AI, RAG, Finetune">
 <meta name="twitter:card" content="summary">
@@ -413,8 +413,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-04 21:20:14</span>
-            <span class="mobile">2025-08-04 21:20:14</span>
+            <span class="desktop">2025-08-04 21:51:29</span>
+            <span class="mobile">2025-08-04 21:51:29</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -488,7 +488,12 @@
 <p>其次，RAG显著减少了幻觉。即使使用RAG的大模型出现错误，RAG也允许大模型引用其信息来源，从而让我们能够识别、纠正或删除大模型检索到的不可靠信息。此外，由于RAG允许LM将其“知识”的大部分存储在外部来源中，您可以减少一些伴随着将敏感数据存储在大模型权重内的安全泄漏问题。此外，能够访问大型数据集的能力在一定程度上解决了大模型的上下文窗口限制问题，而且总体而言，RAG比持续微调更经济，当然这还要取决于需要为RAG嵌入多少文档以及某些微调语料库有多大。</p>
 <h4 id="RAG的劣势"><a href="#RAG的劣势" class="headerlink" title="RAG的劣势"></a>RAG的劣势</h4><p>RAG的劣势主要来自具体检索的实现上。这在实际工程实践上很有挑战。正如我们之前提到的，研究人员仍在努力找出如何让大模型可靠地知道何时查阅外部的非参数化知识以及何时依赖于其内部的参数化知识。查找字面所有信息的速度太慢且降低了大模型的效用，因此我们不希望RAG在检索部分过于宽泛。我们也不希望大模型总是凭直觉行事。找到一个平衡点可能是RAG最大的挑战。<br>还有更多的考虑。如果一个大模型决定查阅外部来源，它应该如何做呢？大模型应该考虑每个文档吗？还是应该将每个文档分成页面、段落或句子，以便大模型可以查询更精细的信息？同样，我们需要一个平衡点。这个决定影响如何对大模型的外部知识库进行矢量化。<br>同样，模型应该查阅哪些来源？整个互联网，还是其中的一些子集？手工制作的一组本地存储的文档？而RAG应该检索多少文档呢？所有相关文档吗？<br>通常，RAG检索前n个文档（其中n是某个自然数），这似乎是合理的，但如果回答查询所需的知识要点位于第n+1个文档中呢？当前的RAG方法通常使用近似最近邻方法（因为纯最近邻可能导致查阅太多文档），但近似最近邻不能保证为某个查询返回一个有用的文档，因此即使使用了ANN减轻了工作量，幻觉问题仍然存在。<br>最后，与仅查询大模型的内部知识相比，RAG可能更昂贵，因为RAG需要嵌入和存储大模型可以查阅的外部数据，通常会产生矢量数据库存储成本（但RAG仍然比例常规微调更便宜），并且RAG可能增加推理成本，因为它会将检索到的文档附加到查询中。当然，所有这些决策和考虑都依赖于具体的应用场景，但你可以看到实施RAG可能会变得多么复杂。</p>
 <h4 id="FT和RAG结合"><a href="#FT和RAG结合" class="headerlink" title="FT和RAG结合"></a>FT和RAG结合</h4><p>RAG和微调为使大模型具有实时性并减少幻觉等问题行为提供了互补的优势和劣势。微调有助于使大模型专注于特定领域、词汇或新颖数据，但需要时间和计算资源，存在灾难性遗忘的风险，并且无法解决互联网快速演变的特性。RAG利用外部知识以增加事实和时效性，但仍然面临有关最佳检索的挑战。<br>两种方法都不能完全解决LM的所有缺陷，但都有助于解决一些即时的问题。随着LLMs不断渗透到我们的数字体验中，我们可以预期进一步尝试将微调、RAG和其他信息检索技术结合起来，为LLMs提供更及时、真实的知识。目前meta的技术人员就开发了一个模型RA-DIT, 知识密集型的零和少量次学习基准范围内实现了最先进的性能。</p>
-<p><img src="images/2024-01/RAG_FT_eng.png" alt="images/2024-01/RAG_FT_eng.png"><br>RAG和其它优化方式比较</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="images/2024-01/RAG_FT_eng.png"
+                      alt="images&#x2F;2024-01&#x2F;RAG_FT_eng.png"
+                ><br>RAG和其它优化方式比较</p>
 <h4 id="可能的企业级设计"><a href="#可能的企业级设计" class="headerlink" title="可能的企业级设计"></a>可能的企业级设计</h4><p>如下图所示, 一个企业级的应用可以结合微调模型和RAG技术，整合内部其它业务系统和数据将内部知识安全地与外部知识融为一体，从而减轻企业的成本，提高运营的效率。比如使用下面的架构重新整合企业内部HR相关服务，提高HR Share Serivce Center的能力和效率。<br><img  
                      lazyload
                      src="/images/loading.svg"
@@ -521,7 +526,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-04 21:20:14
+                    :</strong> 2025-08-04 21:51:29
             </li>
         
         <li>

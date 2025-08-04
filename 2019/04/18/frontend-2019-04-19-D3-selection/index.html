@@ -146,7 +146,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://kopei.github.io/images/k-favicon.jpeg">
 <meta property="article:published_time" content="2019-04-18T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-08-04T13:20:14.444Z">
+<meta property="article:modified_time" content="2025-08-04T13:51:29.758Z">
 <meta property="article:author" content="Kopei Nan">
 <meta property="article:tag" content="D3, data-driven">
 <meta name="twitter:card" content="summary">
@@ -413,8 +413,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-04 21:20:14</span>
-            <span class="mobile">2025-08-04 21:20:14</span>
+            <span class="desktop">2025-08-04 21:51:29</span>
+            <span class="mobile">2025-08-04 21:51:29</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -480,7 +480,12 @@
 <p>在绑定数据后返回的新selection上使用<code>data join</code>的<code>enter</code>,<code>exit</code>, <code>append</code>,<code>remove</code>, 我们可以<strong>增删改</strong>数据对应的元素.<br>selection的方法返回一般是当前selection的副本, 或者一个新的selection, 这样能使用链式方法的形式给选中的selection做相应的处理.<br>selection是不可变的<code>immutable</code>, 但是元素是可变的.</p>
 <h3 id="D3-join-方法"><a href="#D3-join-方法" class="headerlink" title="D3-join 方法"></a>D3-join 方法</h3><ul>
 <li><p><code>selection.data([data[,key]])</code>: 将指定的数据和选中的元素进行绑定, 返回一个新的selection. <code>data</code>可以是任意值(数字或对象)的数组, 或者是一个返回一组矩阵的函数. 当一个数据绑定到元素时, 数据将会绑定在元素的<code>__data__</code>property, 这样再次select的时候,数据仍旧保持绑定.</p>
-<p><code>data</code>数据是会被分配给selection的每个组, 如果selection有多个组(如d3.selectAll…selectAll), 那么data参数应该以函数的形式指定. 如下图所示一个selection对象<code>_groups</code>数组中有多个对象.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-04-22%20at%2010.16.51.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-04-22%20at%2010.16.51.png"></p>
+<p><code>data</code>数据是会被分配给selection的每个组, 如果selection有多个组(如d3.selectAll…selectAll), 那么data参数应该以函数的形式指定. 如下图所示一个selection对象<code>_groups</code>数组中有多个对象.<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-04-22%20at%2010.16.51.png"
+                      alt="https:&#x2F;&#x2F;s3.ap-southeast-1.amazonaws.com&#x2F;kopei-public&#x2F;screen_shot%202019-04-22%20at%2010.16.51.png"
+                ></p>
 <p><code>data</code>方法中含有一个<code>key</code>参数可以用来指定data中的数据按什么方式绑定到元素, 默认不加参数采用按索引位置顺序一一绑定.一个例子:</p>
 <div class="code-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">&quot;Ford&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;Jarrah&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;Kwon&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;Locke&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;Reyes&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;Shephard&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> data = [</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">&#x27;Locke&#x27;</span>, <span class="attr">number</span>:<span class="number">14</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">&#x27;Ford&#x27;</span>, <span class="attr">number</span>: <span class="number">53</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">&#x27;Kwon&#x27;</span>, <span class="attr">number</span>: <span class="number">3</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">&#x27;Shephard&#x27;</span>, <span class="attr">number</span>: <span class="number">38</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">&#x27;Reyes&#x27;</span>, <span class="attr">number</span>: <span class="number">18</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">&#x27;Jarrah&#x27;</span>, <span class="attr">number</span>: <span class="number">88</span> &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">d3.<span class="title function_">selectAll</span>(<span class="string">&quot;div&quot;</span>)</span><br><span class="line">    .<span class="title function_">data</span>(data, <span class="keyword">function</span> (<span class="params">d</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> d ? d.<span class="property">name</span> : <span class="variable language_">this</span>.<span class="property">id</span></span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">text</span>(<span class="keyword">function</span> (<span class="params">d</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> d.<span class="property">number</span>;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure></div>
 <p>上面这个例子达到的效果是让每个元素的text按<code>div</code>的<code>#id</code>和<code>data</code>映射的关系来展示展示数字.结果如下:</p>
@@ -490,7 +495,17 @@
 <li><p><code>selection.join(enter[,update][,exit])</code>: 给绑定的数据做对应的增加&#x2F;移除&#x2F;排序元素操作, 返回<strong>合并</strong>的<code>enter</code>&#x2F;<code>update</code>selection. 想要更加颗粒度地控制join中的是三个操作, 可以显式地传入<code>enter, update, exit</code>方法来控制元素:</p>
 <div class="code-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">svg.<span class="title function_">selectAll</span>(<span class="string">&quot;circle&quot;</span>)</span><br><span class="line">.<span class="title function_">data</span>(data)</span><br><span class="line">.<span class="title function_">join</span>(</span><br><span class="line">  <span class="function"><span class="params">enter</span> =&gt;</span> enter.<span class="title function_">append</span>(<span class="string">&quot;circle&quot;</span>).<span class="title function_">attr</span>(<span class="string">&quot;fill&quot;</span>, <span class="string">&quot;green&quot;</span>),</span><br><span class="line">  <span class="function"><span class="params">update</span> =&gt;</span> update.<span class="title function_">attr</span>(<span class="string">&quot;fill&quot;</span>, <span class="string">&quot;blue&quot;</span>)</span><br><span class="line">)</span><br><span class="line">  .<span class="title function_">attr</span>(<span class="string">&quot;stroke&quot;</span>, <span class="string">&quot;black&quot;</span>);</span><br></pre></td></tr></table></figure></div>
 </li>
-<li><p><code>selection.enter()</code>: 返回<code>enter selection</code>. 什么是<code>enter selection</code>呢? 其实就是数据多于元素的情况下, 需要预留位置新给元素.而这个预留的<code>palceholder</code>就是返回值. 在使用<code>data()</code>函数后, 当前selection对象会增加<code>_enter</code>和<code>_exit</code>属性,<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-04-22%20at%2013.54.46.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-04-22%20at%2013.54.46.png"><br>如上图所示, 绑定数据后,<code>_enter</code>的值是<code>EnterNode</code>数组, 这时候使用<code>enter()</code>就会进入<code>_enter</code>属性(就是返回<code>enter selection</code>了), 把还没有找到DOM的数据找出来调用<code>append()</code>生成最终需要生成的DOM.如下图所示, 调用<code>append</code>后,最终要多余生成的<code>rect</code>就生成了.<br><img src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-04-22%20at%2014.00.17.png" alt="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-04-22%20at%2014.00.17.png"></p>
+<li><p><code>selection.enter()</code>: 返回<code>enter selection</code>. 什么是<code>enter selection</code>呢? 其实就是数据多于元素的情况下, 需要预留位置新给元素.而这个预留的<code>palceholder</code>就是返回值. 在使用<code>data()</code>函数后, 当前selection对象会增加<code>_enter</code>和<code>_exit</code>属性,<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-04-22%20at%2013.54.46.png"
+                      alt="https:&#x2F;&#x2F;s3.ap-southeast-1.amazonaws.com&#x2F;kopei-public&#x2F;screen_shot%202019-04-22%20at%2013.54.46.png"
+                ><br>如上图所示, 绑定数据后,<code>_enter</code>的值是<code>EnterNode</code>数组, 这时候使用<code>enter()</code>就会进入<code>_enter</code>属性(就是返回<code>enter selection</code>了), 把还没有找到DOM的数据找出来调用<code>append()</code>生成最终需要生成的DOM.如下图所示, 调用<code>append</code>后,最终要多余生成的<code>rect</code>就生成了.<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://s3.ap-southeast-1.amazonaws.com/kopei-public/screen_shot%202019-04-22%20at%2014.00.17.png"
+                      alt="https:&#x2F;&#x2F;s3.ap-southeast-1.amazonaws.com&#x2F;kopei-public&#x2F;screen_shot%202019-04-22%20at%2014.00.17.png"
+                ></p>
 </li>
 <li><p><code>selection.exit()</code>: 返回<code>exit</code>selection, 就是返回那些没有数据可以再绑定的元素.</p>
 </li>
@@ -511,7 +526,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-04 21:20:14
+                    :</strong> 2025-08-04 21:51:29
             </li>
         
         <li>

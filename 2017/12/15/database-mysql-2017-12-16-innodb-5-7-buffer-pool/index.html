@@ -146,7 +146,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://kopei.github.io/images/k-favicon.jpeg">
 <meta property="article:published_time" content="2017-12-15T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-08-04T13:20:14.443Z">
+<meta property="article:modified_time" content="2025-08-04T13:51:29.757Z">
 <meta property="article:author" content="Kopei Nan">
 <meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
@@ -413,8 +413,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-04 21:20:14</span>
-            <span class="mobile">2025-08-04 21:20:14</span>
+            <span class="desktop">2025-08-04 21:51:29</span>
+            <span class="mobile">2025-08-04 21:51:29</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -479,12 +479,12 @@
 <li>change buffer 包含insert buffer, delete buffer, purge buffer</li>
 <li>change buffer 既是缓存，又是tablespace的一部分。</li>
 <li><code>show variables like innodb_change_buffering</code> 这个变量可以设置inserts, deletes, purges,all,none.<ul>
-<li><pre><code class="bash">none	Do not buffer any operations.
-inserts	Buffer insert operations.
-deletes	Buffer delete marking operations; strictly speaking, the writes that mark           index records for later deletion during a purge operation.
-changes	Buffer inserts and delete-marking operations.
-purges	Buffer the physical deletion operations that happen in the background.
-all	The default. Buffer inserts, delete-marking operations, and purges.
+<li><pre><code class="language-bash">none    Do not buffer any operations.
+inserts    Buffer insert operations.
+deletes    Buffer delete marking operations; strictly speaking, the writes that mark           index records for later deletion during a purge operation.
+changes    Buffer inserts and delete-marking operations.
+purges    Buffer the physical deletion operations that happen in the background.
+all    The default. Buffer inserts, delete-marking operations, and purges.
 <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- 下面这个状态可以看到具体change buffer操作次数，insert表示insert buffer, delete mark表示delete buffer, delete表示purge buffer;</span><br><span class="line">    ```sql</span><br><span class="line">  show engine innodb status;</span><br><span class="line">  -------------------------------------</span><br><span class="line">  INSERT BUFFER AND ADAPTIVE HASH INDEX</span><br><span class="line">  -------------------------------------</span><br><span class="line">  Ibuf: size 1, free list len 0, seg size 2, 0 merges</span><br><span class="line">  merged operations:</span><br><span class="line">   insert 0, delete mark 0, delete 0</span><br><span class="line">  discarded operations:</span><br><span class="line">   insert 0, delete mark 0, delete 0</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 1 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  Hash table size 34673, node heap has 0 buffer(s)</span><br><span class="line">  0.00 hash searches/s, 0.00 non-hash searches/s</span><br></pre></td></tr></table></figure></div>
 </code></pre>
 </li>
@@ -507,7 +507,7 @@ all	The default. Buffer inserts, delete-marking operations, and purges.
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-04 21:20:14
+                    :</strong> 2025-08-04 21:51:29
             </li>
         
         <li>

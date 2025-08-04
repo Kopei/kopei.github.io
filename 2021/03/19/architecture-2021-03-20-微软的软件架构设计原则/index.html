@@ -146,7 +146,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://kopei.github.io/images/k-favicon.jpeg">
 <meta property="article:published_time" content="2021-03-19T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-08-04T13:20:14.441Z">
+<meta property="article:modified_time" content="2025-08-04T13:51:29.755Z">
 <meta property="article:author" content="Kopei Nan">
 <meta property="article:tag" content="architecture">
 <meta name="twitter:card" content="summary">
@@ -413,8 +413,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-08-04 21:20:14</span>
-            <span class="mobile">2025-08-04 21:20:14</span>
+            <span class="desktop">2025-08-04 21:51:29</span>
+            <span class="mobile">2025-08-04 21:51:29</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -478,11 +478,13 @@
                      src="/images/loading.svg"
                      data-src="/images/screenshots/screen_shot_2021_03_19.png"
                      
-                ><br>
+                ></li>
+</ul>
+<br>
 但是为了系统松耦合, 可测试, 模块化和可维护, 使用依赖反转原则将类的依赖反转, 使原本依赖类B的类A依赖自己控制的接口A, 而类B也依赖接口A. 这样就实现了依赖反转. 下图比微软官网更加清晰:
 ![](/images/screenshots/screen_shot_2021-03-19.png)
-这样的实现, 虽然在代码实现时需要多余的实现, 但是在运行时它的依赖关系并没有改变. 依赖反转原则也为依赖注入提供了可能.</li>
-</ul>
+这样的实现, 虽然在代码实现时需要多余的实现, 但是在运行时它的依赖关系并没有改变. 依赖反转原则也为依赖注入提供了可能.
+
 <h3 id="Explicit-dependencies-显式依赖"><a href="#Explicit-dependencies-显式依赖" class="headerlink" title="Explicit dependencies 显式依赖"></a>Explicit dependencies 显式依赖</h3><p>这条原则也很明显</p>
 <h3 id="Single-responsibility-单一责任"><a href="#Single-responsibility-单一责任" class="headerlink" title="Single responsibility 单一责任"></a>Single responsibility 单一责任</h3><p>单一责任是针对面向对象设计, 对象只有一个责任, 也只有一个理由做改变. 也就是说只有当对象的责任发生改变时, 对象的才能被改变. 有了这个原则, 当一些行为需要新的实现时, 就应是写新的类, 而不是在原有的类上增加代码. 采用这个原则, 我们的应用也可以往微服务的方向发展.</p>
 <h3 id="Don’t-repeat-youself-DRY"><a href="#Don’t-repeat-youself-DRY" class="headerlink" title="Don’t repeat youself (DRY)"></a>Don’t repeat youself (DRY)</h3><p>“干”的原则时很常见. 保持只有一个<code>true source</code>很重要.</p>
@@ -502,7 +504,7 @@
         
             <li>
                 <strong>Updated at
-                    :</strong> 2025-08-04 21:20:14
+                    :</strong> 2025-08-04 21:51:29
             </li>
         
         <li>
