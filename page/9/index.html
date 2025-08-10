@@ -979,85 +979,6 @@ https://github.com/openshift/openshift-ansible
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2018/01/08/openshift-2018-01-09-openshift-annotation/">
-                            OpenShift Annotation
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            OpenShift的AnnotationOpenshift的Annotation是一个键值对，用于机器识别等其它用途。它不像label适用于人类识别，所以可以存较大的值。
-1oc annotate route/ab haproxy.router.openshift.io/balance=roundrobin
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Tue Jan 09 2018 00:00:00 GMT+0800">
-                
-                    2018-01-09
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/openshift/">openshift</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/openshift/kubernetes/">kubernetes</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/kubernetes-openshift/">kubernetes, openshift</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2018/01/08/openshift-2018-01-09-openshift-annotation/">Read more<span class="seo-reader-text">OpenShift Annotation</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
                         <a href="/2018/01/08/openshift-2018-01-09-openshift-bg-deployment/">
                             OpenShift Blue-Green Deployment
                         </a>
@@ -1137,18 +1058,100 @@ https://github.com/openshift/openshift-ansible
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2018/01/07/openshift-2018-01-08-openshift-resource/">
-                            What is OpenShift Resource
+                        <a href="/2018/01/08/openshift-2018-01-09-openshift-annotation/">
+                            OpenShift Annotation
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            
-Openshift的资源定义类似Rest的资源
+                            OpenShift的AnnotationOpenshift的Annotation是一个键值对，用于机器识别等其它用途。它不像label适用于人类识别，所以可以存较大的值。
+1oc annotate route/ab haproxy.router.openshift.io/balance=roundrobin
+                        
+                    </div>
 
-OpenShift中的资源oc get -h 有一行说明Possible resources include builds, buildConfigs, services, pods, etc. To see a list of common resources, use &#39;oc get&#39;.. 所以任何构建，构建配置，服务，...
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Tue Jan 09 2018 00:00:00 GMT+0800">
+                
+                    2018-01-09
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/openshift/">openshift</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/openshift/kubernetes/">kubernetes</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/kubernetes-openshift/">kubernetes, openshift</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2018/01/08/openshift-2018-01-09-openshift-annotation/">Read more<span class="seo-reader-text">OpenShift Annotation</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2018/01/07/openshift-2018-01-08-openstack-imagestream/">
+                            OpenStack ImageStream
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            OpenShift的Image Stream按照官方的解释mage stream一个镜像流是一组tag的镜像. 这些镜像可以是来自：
+
+openshift的私有镜像
+其它镜像流
+外部镜像仓库OpenShift的build,deployment组件可以监控image stream. 用于触发新的build或者deploy
+
+
                         
                     </div>
 
@@ -1203,7 +1206,7 @@ OpenShift中的资源oc get -h 有一行说明Possible resources include builds,
         
     </div>
 
-    <a href="/2018/01/07/openshift-2018-01-08-openshift-resource/">Read more<span class="seo-reader-text">What is OpenShift Resource</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2018/01/07/openshift-2018-01-08-openstack-imagestream/">Read more<span class="seo-reader-text">OpenStack ImageStream</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
